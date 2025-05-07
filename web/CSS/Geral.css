@@ -152,7 +152,7 @@ z-index: 10
     color: #2F2259;
     padding: 1%;
     font-family: Nunito Sans;
-    text-align: left;
+    text-align: center;
 }
 #descricaoweb div a{
     font-size: 2vw;
@@ -365,7 +365,7 @@ a:hover #home{
       }
     #meuNav nav{
         display: none;
-        flex-direction: column;''
+        flex-direction: column;
         background-color: rgba(255, 255, 255, 0.596);
         position: absolute; 
         top: 2vw;
@@ -395,8 +395,7 @@ a:hover #home{
         font-size: 4.7vw;
     }
     #descricaoW{
-z-index: 1;
-width: ;
+    z-index: 1;
     }
     #descricaoweb div a{
         padding: 1.4vw;
@@ -406,6 +405,9 @@ width: ;
     }
     #tituloMobile, #tituloDesktop, #tituloWeb{
         font-size: 10vw;
+    }
+    #tituloWeb{
+        padding-top: 10vw;
     }
 #descricaoweb{
     width: 100%;
