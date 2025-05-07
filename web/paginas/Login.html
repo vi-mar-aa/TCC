@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/Login.css">
+    <title>Login</title>
+</head>
+<body>
+<div id="boasVindas">
+<div id="mensagem">
+    <div id="tituloMensagem">
+        <h1>Bem-Vindo de Volta!</h1>
+    <div id="textoMensagem">
+        <p>Acesse sua conta e continue sua jornada pelo conhecimento</p>
+    </div>
+</div>
+</div>
+
+<div id="informacoes">
+    <div id="dados">
+        <div id="logo">
+            <img src="../paginas/imagens/logoLittera.png" alt="">
+        </div>
+
+<form id="loginForm">
+<div class="formulario">
+    <label for="email">Email</label>
+    <input id="email" type="email" required>
+</div>
+
+<div class="formulario">
+    <div id="esqueceu">
+    <label for="password">Senha</label>
+    <a href="#" id="esqueceuSenha">Esqueceu a senha?</a>
+</div>
+
+<div id="colocarSenha">
+    <input id="senha" type="password" required>
+    <button type="button" class="senhaa"> 
+        <!--para fazer a bolinha do olho!-->
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"> </circle>
+        </svg>
+    </button>
+</div>
+</div>
+
+<div id="acaoForm">
+    <button type="submit" id="botaoLog">
+        <div class="icone">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3"></path>
+        </svg>
+    </div>
+    <div class="textoLog">
+       Log in
+        </div>
+    </button>
+</div>
+
+
+<div id="cadastrar">
+    <p>Ainda não possui um cadastro?</p>
+    <a href="Cadastro.html">Cadastre-se</a>
+</div>
+</form>
+</div>
+</div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        const toggleBtn = document.querySelector('.senhaa');
+        const colocarSenha = document.getElementById('senha');
+
+        if(toggleBtn && colocarSenha){
+            toggleBtn.addEventListener('click', function(){
+                const type = colocarSenha.getAttribute('type') === 'password' ? 'text' : 'password';
+                colocarSenha.setAttribute('type', type);
+            });
+        }
+    });
+</script>
+
+
+
+
+
+
+    <!--
+    <main>
+        <div id="boasVindas">
+            <h1>Bem-Vindo de Volta!</h1>
+            
+            <p>Acesse sua conta e continue sua
+                <br> jornada pelo conhecimento</p>
+        </div>
+        <div id="informacoes">
+            <div>
+            <img src="../paginas/imagens/logoLittera.png" alt="">
+            <p>Email</p>
+            </div>
+        </div>
+    </main>
+    -->
+</body>
+</html>

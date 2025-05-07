@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/Geral.css">
+    <title>Home</title>
+</head>
+<body>
+    <header>
+        <div id="header">
+            
+            <div id="hamburguer" onclick="toggleMenu()">☰</div>
+
+            <div id="logo">
+                <img src="../paginas/imagens/logoLittera.png" alt="logo Littera" id="minhaLogo">
+            </div>
+            
+            <div id="meuNav">
+                <nav>
+                <a href="Home.html"><img src="../paginas/imagens/casaHome.png" alt="home Home" class="icones" id="home"/>Home</a>
+                <a href="#"><img src="../paginas/imagens/livroHome.png" alt="acervo Home" class="icones" id="acervo"/>Acervo</a>
+                <a href="#"><img src="../paginas/imagens/forumHome.png" alt="forum Home" class="icones" id="forum"/>Fórum</a>
+                <a href="#"><img src="../paginas/imagens/eventosHome.png" alt="eventos Home"class="icones" id="eventos" />Eventos</a>
+                <a href="Login.html"><img src="../paginas/imagens/loginHome.png" alt="login Home" class="icones" id="login"/>Login</a>
+                </nav>
+            </div>
+            
+        </div>
+        <div id="texto">
+            <div>
+                <p>A Littera é mais do que uma biblioteca, é um espaço de descoberta, 
+                aprendizado e inspiração. Aqui, você encontrará um vasto acervo de livros, 
+                periódicos e materiais digitais para todas as idades e interesses. Nossa 
+                missão é conectar pessoas ao conhecimento por meio da leitura, da pesquisa 
+                e da troca de ideias. Explore nosso catálogo, converse com outros leitores 
+                e aproveite um ambiente acolhedor para estudar e expandir seus horizontes. 
+                Venha fazer parte da nossa comunidade e descubra o poder das palavras na Littera.</p>
+            </div>
+        </div>
+
+    </header>
+
+    <main>
+        <div id="main">
+            <div id="web">
+                <div id="hexagonoRoxo">
+                    <img src="../paginas/imagens/hexagonoRoxo.png" alt="decoração web">
+                </div>
+                <div id="descricaoweb">
+                    <div id="caixaWeb">
+                        <p id="tituloWeb">Explore a Littera!</p>
+                        <div>
+                        <p id="descricaoW">Acesse um mundo de conhecimento e inspiração. Com um cadastro simples e 
+                            gratuito, você pode explorar nosso acervo, reservar livros, participar 
+                            de eventos e muito mais.</p>
+                        <a href="Login.html">Cadastre-se</a>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div id="desktop">
+                <div id="logodesktop">
+                    <img src="../paginas/imagens/logoLazul.png" alt="decoração desktop">
+                </div>
+                <div id="descricaoDesktop">
+                    <div>
+                    <p id="tituloDesktop">Littera Desktop</p>
+                        <p id="descricaoD">Catalogue livros, gerencie empréstimos e devoluções, e gere relatórios 
+                            com facilidade. Tudo o que os administradores precisam para manter a biblioteca 
+                            organizada e eficiente!</p>
+                            <div class="dowloads">
+                                <div class="iconeDowload"><img src="../paginas/imagens/dowloadDesk.png" alt=""></div> <div class="divisaoDowload"> </div> <div class="textDowload"><a href="">Dowload</a></div>
+                                </div>
+                    </div>
+                </div>
+                <div id="hexagonoAzul">
+                    <img src="../paginas/imagens/hexagonoAzul.png" alt="decoração desktop">
+                </div>
+            </div>
+            <div id="mobile">
+                    <div id="hexagonoVermelho">
+                        <img src="../paginas/imagens/hexagonoVermelho.png" alt="decoração desktop">
+                    </div>
+                    <div id="descricaoMobile">
+                        <div>
+                        <p id="tituloMobile">Littera Mobile</p>
+                            <p id="descricaoM">Com o aplicativo, você pode reservar livros, acompanhar seus empréstimos,
+                                 renovar prazos e explorar nosso acervo com facilidade. Tudo isso de forma rápida e 
+                                 acessível, onde quer que esteja!</p>
+                                 <div class="dowloads">
+                                <div class="iconeDowload"><img src="../paginas/imagens/dowloadMob.png" alt=""></div>  <div class="divisaoDowload"></div> <div class="textDowload"><a href="">Dowload</a></div>
+                                </div>
+                        </div>
+                    </div>
+                    <div id="logomobile">
+                        <img src="../paginas/imagens/logoLvermelho.png" alt="decoração mobile">
+                    </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+            <div id="footerLogo">
+                <img src="../paginas/imagens/logoLittera.png" alt="">
+            </div>
+            <div id="footerTexto">
+                <p>Desenvolvido por Lumen</p>
+            </div>
+            <div id="footerLumen">
+                <img src="../paginas/imagens/logoLumen.png" alt="">
+            </div>
+    </footer>
+
+
+    <script>
+        function toggleMenu() {
+          document.querySelector('#meuNav nav').classList.toggle('ativo');
+        }
+      </script>
+</body>
+</html>

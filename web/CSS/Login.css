@@ -1,0 +1,281 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Roboto;
+}
+body{
+    min-height: 100vh;
+}
+#boasVindas{
+display: flex;
+min-height: 100vh;
+width: 100%;
+}
+
+#mensagem{
+background: linear-gradient(to bottom, #e9d5ff, #c4b5fd);
+display: flex;
+width: 50%;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 2.5vw;
+}
+#tituloMensagem{
+    max-width: 400px;
+}
+#mensagem h1{
+    font-size: 5vw;
+    font-weight: bold;
+    text-align: center;
+    color: #4c1d95;
+    margin-bottom: 0.75vw;
+}
+
+#textoMensagem{
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 0.75vw 1.5vw;
+    margin-top: 1vw;
+    text-align: center;
+}
+#textoMensagem p{
+    color: #000000 ;
+    font-weight: 500;
+}
+#informacoes{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5vw 4vw;
+}
+#dados{
+    width: 100%;
+    max-width: 400px;
+}
+#logo{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3vw;
+}
+#logo img{
+    width: 12vw;
+}
+#loginForm, #cadastroForm{
+width: 100%;
+}
+.formulario{
+margin-bottom: 1.5vw;
+}
+.formulario label{
+    display: block;
+    margin-bottom: 0.5vw;
+    color: #6b7280;
+}
+#esqueceu, #confirmarSenha{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5vw;
+}
+#esqueceuSenha{
+    color: #9ca3af;
+}
+#esqueceuSenha:hover{
+    color: #8b5cf6;
+}
+input{
+    width:100%;
+    padding: 0.5vw 1vw;
+    border: 1px solid #d1d5db;
+    border-radius: 0.3vw;
+}
+input:focus{
+    outline: none;
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 1px #8b5cf6;
+}
+#colocarSenha{
+    position: relative;
+}
+.senhaa{
+    position: absolute;
+    top: 0.6vw;
+    right: 0.75vw;
+    transform: translate(-30%);
+    background:none ;
+    border: none;
+    cursor: pointer;
+    color: #6b7280;
+}
+.senhaa:hover{
+    color: #8b5cf6;
+}
+#acaoForm{
+    padding-top: 1vw;
+    display: flex;
+    justify-content: center;
+}
+#botaoLog, #botaoCad{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    background: linear-gradient(to top, #ffffff, #ebe7ff);
+    color: #7e22ce;
+    border: 1px solid #c4b5fd;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+#botaoCad{
+    padding: 0.8vw;
+}
+.icone{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75vw;
+}
+.textoLog{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    padding: 0.75vw 1.5vw;
+}
+#botaoLog:hover{
+    background-color: #f3e8ff;
+}
+#botaoLog svg{
+    margin-right: 0.5vw;
+}
+
+#cadastrar{
+    margin-top: 6vw;
+    text-align: center;
+
+}
+#cadastrar p{
+    color: #6b7280;
+    margin-bottom: 0.25vw;
+}
+#cadastrar a{
+    color: #a78bfa;
+    text-decoration: none;
+}
+#cadastrar a:hover{
+    color: #7c3aed;
+}
+/*RESPONSIVO LOGIN*/
+@media (max-width: 600px){
+#boasVindas{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+#mensagem{
+    width: 100%;
+}
+#informacoes{
+    width: 100%;
+    padding: 1.5vw 15vw;
+}
+#mensagem h1{
+    font-size: 12vw;
+    text-align: center;
+    padding: 5vw;
+}
+#textoMensagem{
+    display: none;
+}
+.formulario label{
+    font-size: 4.5vw;
+}
+#esqueceuSenha{
+    font-size: 5vw;
+}
+#cadastrar p, #cadastrar a, #botaoLog{
+    font-size: 5vw;
+}
+#cadastrar{
+    position: absolute;
+    bottom: 0;
+    left: 20vw;
+    margin-bottom: 10vw;
+}
+#logo img{
+    width: 30vw;
+}
+input{
+    width: 100%;
+    font-size: 5.5vw;
+    margin-bottom: 6vw;
+}
+.senhaa{
+    top: 1.5vw;
+}
+
+
+/*RESPONSIVO CADASTRO*/
+#botaoCad{
+font-size: 5vw;
+padding: 2vw;
+}
+}
+
+
+
+
+
+
+
+
+/*main{
+    width: 100%;
+    display: flex;
+ 
+}
+#boasVindas{
+    width: 45%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #A293CD;
+    text-align: center;
+}
+#boasVindas h1{
+    font-family: Nunito Sans;
+    font-size: 5vw;
+    
+}
+#boasVindas p{
+    background-color: rgba(255, 255, 255, 0.40);
+    font-size: 1.5vw;
+    padding: 0.9vw;
+    border-radius: 20px;
+    margin-top: -1vw;
+}
+#informacoes{
+    width: 55%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #cccaca;
+    
+}
+#informacoes div{
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+   background-color: aqua;
+    justify-content: center;
+
+}
+img{
+    width: 18vw;
+}*/

@@ -1,0 +1,479 @@
+/*HOME*/
+
+*{
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+}
+header{
+    width: 100%;
+    background-image: url(../paginas/imagens/backgroundHome.png);
+    background-size: cover;
+}
+#header{
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    
+} 
+#main{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+}
+#logo{
+    width: 22%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+#logo img {
+    width: 30vw;
+    height: auto;
+    object-fit: contain;
+}
+#meuNav{
+    width: 72%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.28);
+    border-radius: 40px;  
+    margin-right: 1.5vw;
+}
+#meuNav nav{
+    display: flex;
+    align-items: center;
+}
+#meuNav a{
+    display: flex;
+    align-items: center;
+    font-size: 2vw;
+    font-family: Lora;
+    margin-right: 1.8em;
+    padding: 0.4em;
+    text-decoration: none;
+    color: #000000; 
+ 
+}
+#meuNav img{  
+    margin-right: 0.5em;
+    width: 2.5vw;
+}
+#meuNav a, #home, #acervo, #forum, #eventos, #login{
+    transition: color ;
+}
+
+#hamburguer {
+    display: none;  /* Esconde o hambúrguer no desktop */
+    font-size: 2rem;
+    cursor: pointer;
+    color: white;
+    
+  }
+ 
+#texto{
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+}
+#texto div{
+    width: 90%;
+    border-radius: 20px;
+    margin: 5%;
+    margin-bottom: 10%;
+    background-color: rgba(255, 255, 255, 0.40);
+}
+#texto div p{
+    font-size: 2vw;
+    padding: 3%;
+    font-family: Roboto;
+    text-align: justify;
+}
+#web, #desktop, #mobile{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+#desktop, #mobile{
+    margin-top: 6%;
+    background: linear-gradient(to left, white, #577DAE);  
+    width: 95%;
+    border-radius: 20px;
+    padding: 2%;
+}
+#mobile{
+    background: linear-gradient(to right, white, #800000b6);  
+    position: relative;
+}
+#desktop{
+    position: relative;
+}
+
+#hexagonoRoxo{
+width: 42%;
+height:auto;
+background: transparent;
+margin-top: 3%;
+z-index: 10
+
+}
+#hexagonoRoxo img{
+    width: 48vw;
+}
+#descricaoweb{
+    width: 58%;
+    height: auto;
+    margin-top: 3%;
+}
+#caixaWeb{
+    width: 89%;
+    height: 85%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background: linear-gradient(to bottom, white, #A293CD);
+    border-radius: 20px;
+
+}
+#tituloWeb{
+    font-size: 5vw;
+    color: #2F2259;
+    padding: 1%;
+    font-family: Nunito Sans;
+    text-align: left;
+}
+#descricaoweb div a{
+    font-size: 2vw;
+    text-decoration: none;
+    color: #573280;
+    border: 1px solid #573280;
+    padding: 0.5%;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    margin-bottom: 3vw;
+    border-radius:20px;
+    background-color: rgba(255, 255, 255, 0.40);
+}
+.dowload{
+    width: 2vw;
+}
+#logodesktop, #logomobile{
+    width: 25%;  
+    height: auto; 
+}
+#logodesktop img, #logomobile img {
+    width: 25vw;
+    
+}
+#hexagonoVermelho{
+    width: 25%;
+    height:auto;
+    position: relative;
+    z-index: 1;
+}
+#hexagonoVermelho img {
+    width: 46vw;
+    height: auto;
+    display: block;
+    position: absolute;
+    top: -30vw; /* faz a imagem subir e sair da div */
+    left: -4vw;
+    z-index: 2; 
+   
+}
+.dowloads{
+    width: 10vw;
+    height: 3vw;
+    display: flex !important;
+    flex-direction: row !important;
+    background-color: rgba(255, 255, 255, 0.40);
+    border-radius: 20px;
+    border: 1px solid #013B84;
+    text-decoration: none;
+    
+}
+.dowloads img{
+    width: 2.2vw;
+}
+#descricaoMobile .dowloads{
+    border: 1px solid #800000;
+}
+#descricaoMobile .divisaoDowload{
+    background-color: #800000  !important;
+}
+#descricaoMobile a{
+    color:#800000;
+}
+.iconeDowload{
+    width: 15%; 
+}
+.divisaoDowload{
+    width: 0.1%;
+    height: 100%;
+    display: flex !important;
+    flex-direction: column !important;
+    background-color: #013B84;   
+}
+.textDowload a{
+    width: 84.9%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5vw;
+    text-decoration: none;
+    color: #013B84;
+}
+#descricaoDesktop{
+    width: 45%;
+    height: auto;
+}
+#descricaoMobile{
+    width: 50%;
+    height: auto;
+}
+#descricaoweb div, #descricaoMobile div, #descricaoDesktop div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+#hexagonoAzul{
+    width: 25%;
+    height:auto;
+    position: relative; /* importante para controlar o conteúdo dentro */
+    z-index: 1;
+}
+#hexagonoAzul img {
+    width: 53vw;
+    height: auto;
+    position: absolute;
+    top: -25vw; 
+    left: -12vw;
+    z-index: 2;  
+}
+
+#logomobile img{
+    width: 25vw;
+    height:auto;
+}
+
+#tituloDesktop, #tituloMobile{
+    font-size: 5vw;
+    color: #013B84;
+    padding: 3%;
+    font-family: Nunito Sans;
+    text-align: left;
+}
+#tituloMobile{
+    color: #800000;
+}
+#descricaoD, #descricaoM, #descricaoW{
+    font-size: 2vw;
+    padding: 9%;
+    font-family: Roboto;
+    text-align: center;
+}
+
+/*#descricaoDesktop div a, #descricaoMobile div a{
+    font-size: 2vw;
+    text-decoration: none;
+    color: #013B84;
+    border: 1px solid #013B84;
+    padding: 2%;
+    margin-bottom: 2%;
+    border-radius:20px;
+    background-color: rgba(255, 255, 255, 0.40);
+}
+#descricaoMobile div a{
+    color: #800000;
+   
+}
+*/
+
+footer{
+width: 100%;
+height: auto;
+display: flex;
+margin-top: 10vw;
+align-items: center;
+justify-content: center;
+flex-direction: row;
+background: linear-gradient(to left, #d7c9fdd0, #6f59ac);
+}
+#footerLogo img, #footerLumen img {
+    width: 70%;
+    height: 100%;
+    object-fit: contain;
+  
+}
+#footerTexto{
+    font-size: 2vw;
+    font-family: Roboto;
+    color: #573280;
+    width: 60%;
+    display: flex;
+    align-items: center;
+}
+#footerLumen, #footerLogo{
+    width: 20%;
+    display: flex;
+    align-items: center;
+    padding: 1%;
+}
+
+#meuNav a:hover{
+    color: #573280;
+}
+a:hover #home{
+    content: url("../paginas/imagens/casaHomeRoxa.png");
+  }
+ a:hover #acervo{
+    content: url("../paginas/imagens/livroHomeRoxo.png");
+}
+ a:hover #forum{
+    content: url("../paginas/imagens/forumHomeRoxo.png");
+}
+ a:hover #eventos{
+    content: url("../paginas/imagens/eventosHomeRoxo.png");
+}
+ a:hover #login{
+    content: url("../paginas/imagens/loginHomeRoxo.png");
+}
+/*RESPONSIVO HOME*/
+@media (max-width: 600px) {
+      #logo {
+        display: flex;
+        position: relative;
+        left: 34vw;
+        top: 2vw;
+      }
+      #logo img{
+        width:42vw
+      }
+    #meuNav nav{
+        display: none;
+        flex-direction: column;''
+        background-color: rgba(255, 255, 255, 0.596);
+        position: absolute; 
+        top: 2vw;
+        right: 62vw;
+        border-radius: 8px; 
+    }
+    #meuNav img{  
+        width: 3.7vw;
+    }
+    #meuNav nav.ativo {
+        display: flex;  /* Mostra o menu quando estiver ativo */
+      }
+    #hamburguer {
+        display: block;
+        position: relative;
+        left: 3vw;
+        transform: translateY(-6vw);
+      }
+    #hexagonoRoxo{
+        margin-top: 0%;
+        position: relative;
+    }
+    #web{
+        background: linear-gradient(to bottom, white, #A293CD);
+    }
+    #meuNav a, #texto div p, #descricaoW, #descricaoD, #descricaoM, #descricaoweb div a, #descricaoDesktop div a, #descricaoMobile div a, #footerTexto{
+        font-size: 4.7vw;
+    }
+    #descricaoW{
+z-index: 1;
+width: ;
+    }
+    #descricaoweb div a{
+        padding: 1.4vw;
+        padding-left: 5vw;
+        padding-right: 5vw;
+
+    }
+    #tituloMobile, #tituloDesktop, #tituloWeb{
+        font-size: 10vw;
+    }
+#descricaoweb{
+    width: 100%;
+}
+#descricaoweb  div div{
+display: flex;
+flex-direction: column-reverse;
+}
+#descricaoweb div, #mobile, #desktop{
+    border-radius: 0px;
+    margin-top: 0%;
+    width:100%
+}
+#descricaoDesktop, #descricaoMobile{
+    width: 80%;
+}
+#hexahonoAzul, #hexagonoVermelho{
+width: 20%;
+}
+#descricaoW, #descricaoD, #descricaoM {
+    border-radius: 0%;
+    text-align: justify;
+}
+#logodesktop, #logomobile{
+    display: none;
+}
+#hexagonoRoxo, #descricaoWeb div {
+    height: auto;
+  }
+  footer{
+    margin-top: 0%;
+    background: linear-gradient(to bottom, white, #A293CD);
+  }
+  #footerLogo img{
+    width: 90%;
+  }
+  #hexagonoVermelho img {
+    width: 70vw;
+    top: -48vw; /* faz a imagem subir e sair da div */
+    left: -20vw;
+}
+#hexagonoAzul img {
+    width: 95vw;
+    top: -45vw; 
+    left: -23vw;
+}
+#hexagonoRoxo img{
+    width: 70vw;
+    position: absolute;
+    top: -50vw;
+    left: -20vw;
+}
+
+.dowloads{
+    width: 34vw;
+    height: 8vw;
+    margin-bottom: 3vw;
+    
+}
+.dowloads img{
+    width: 6vw;
+
+}
+} 
+  
+   
+  
+
+/*LOGIN*/
+
+
