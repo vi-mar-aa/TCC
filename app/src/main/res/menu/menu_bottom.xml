@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:title="@string/item_home"
+        android:icon="@drawable/icon_home"/>
+    <item
+        android:id="@+id/acervo"
+        android:title="@string/item_acervo"
+        android:icon="@drawable/icon_acervo"/>
+<item
+        android:id="@+id/qr_code"
+        android:title=""
+        android:enabled="false"
+        android:icon="@android:color/transparent" />
+    <item
+        android:id="@+id/submenu"
+        android:title="@string/item_list_desejo"
+        android:icon="@drawable/icon_submenu">
+    </item>
+
+
+    <item
+        android:id="@+id/perfil"
+        android:title="@string/item_perfil"
+        android:icon="@drawable/icon_perfil"/>
+
+</menu>

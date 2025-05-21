@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+android:id="@+id/submenu_container"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:background="@color/zxing_transparent">
+
+<!-- Fundo em forma de balão -->
+<ImageView
+    android:id="@+id/balao_fundo"
+    android:layout_width="125dp"
+    android:layout_height="100dp"
+    android:src="@drawable/caixa_submenu_vs2"
+    android:scaleType="fitXY" />
+
+<!-- Conteúdo centralizado -->
+    <LinearLayout
+        android:id="@+id/cxSubmenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:orientation="vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp">
+
+        <LinearLayout
+            android:id="@+id/item_emprestimo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/icon_emprestimo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Empréstimo"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/item_reserva"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/icon_reserva" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Reservas"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/item_desejo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/icon_desejo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Lista de Desejos"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</FrameLayout>
