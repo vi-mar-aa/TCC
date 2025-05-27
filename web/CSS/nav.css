@@ -22,7 +22,6 @@ a.navItem {
     height: 100%;
     text-decoration: none;
 }
-
 div.navItem {
     display: none;
 }
@@ -95,10 +94,9 @@ div.navItem {
     }
     a.navItem {
         display: flex;
-
        height: auto;
-
     }
+    
     .navItem svg {
         width: 4.3vw;
         height: auto;
@@ -115,9 +113,6 @@ div.navItem {
             width: 23vw;
             height: auto;
         }
-        /* trabalhar com icone e uma merda*/
-        /*pessoa que fez os design por favor não coloque isso, nao estou te xingando pq pode ser*/
-        /*alguem que eu conheça,nada contra vc e pq icone e muito ruim*/
         a.navItem {
             height: auto;
 
@@ -151,9 +146,6 @@ div.navItem {
             width: 23vw;
             height: auto;
         }
-        /* trabalhar com icone e uma merda*/
-        /*pessoa que fez os design por favor não coloque isso, nao estou te xingando pq pode ser*/
-        /*alguem que eu conheça,nada contra vc e pq icone e muito ruim*/
         a.navItem {
             height: auto;
             height:5vh;
