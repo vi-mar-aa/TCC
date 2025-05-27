@@ -226,9 +226,7 @@ div.mainContent {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* <- isso centraliza horizontalmente */
     justify-content: flex-end;
-    /* opcional, se quiser no fim do container */
     text-align: center;
     margin-top: auto;
     padding-top: 2vh;
@@ -330,69 +328,8 @@ div.mainContent {
     .senhaa senhaa1 {
         top: 1.5vw;
     }
-
-    /*.senhaa1 {
-       top: 103.5vw;
-    }
-       */
-
-
-    /*RESPONSIVO CADASTRO*/
     #botaoCad {
         padding: 2vw;
         margin-top: 5vw;
     }
 }
-
-
-
-
-
-
-
-
-/*main{
-    width: 100%;
-    display: flex;
- 
-}
-#boasVindas{
-    width: 45%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    background-color: #A293CD;
-    text-align: center;
-}
-#boasVindas h1{
-    font-family: Nunito Sans;
-    font-size: 5vw;
-    
-}
-#boasVindas p{
-    background-color: rgba(255, 255, 255, 0.40);
-    font-size: 1.5vw;
-    padding: 0.9vw;
-    border-radius: 20px;
-    margin-top: -1vw;
-}
-#informacoes{
-    width: 55%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    background-color: #cccaca;
-    
-}
-#informacoes div{
-    width: 45%;
-    display: flex;
-    flex-direction: column;
-   background-color: aqua;
-    justify-content: center;
-
-}
-img{
-    width: 18vw;
-}*/
