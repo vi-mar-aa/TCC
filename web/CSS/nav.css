@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+nav.navBar {
+    display: grid;
+    width: 70%;
+    background-color: #ffffff44;
+    grid-template-columns: repeat(5, 1fr);
+    height: 7vh;
+    border-radius: 40px;
+    z-index: 9999;
+    font-size: 16px;
+    margin-right: 1vw;
+}
+
+div.navItem,
+a.navItem {
+    color: #000;
+    font-family: "Lora", serif;
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    text-decoration: none;
+}
+
+div.navItem {
+    display: none;
+}
+
+.navItem svg {
+    width: 2.2vw;
+    margin-right: 10px;
+}
+
+.navItem p {
+    margin-right: 15px;
+    font-family:"Lora", serif;
+}
+#pMenu{
+    display: none;
+}
+@media only screen and (max-width: 950px) {
+    .navItem svg {
+        width: 2.5vw;
+    }
+
+    .navItem p {
+        font-size: 1em;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .navItem svg {
+        margin-right: 5px;
+    }
+
+    .navItem p {
+        font-size: 0.8em;
+    }
+
+}
+
+@media only screen and (max-width: 700px) {
+    .navItem svg {
+        width: 2vw;
+    }
+
+    .navItem p {
+        font-size: 0.6em;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+
+    nav.navBar {
+        visibility: hidden;
+        background-color: rgba(255, 255, 255, 0.726);
+        position: fixed;
+        left: 5vw;
+        top: 2vh;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(6, 1fr);
+        height: 250px;
+        width: 25vw;
+        border-radius: 10px;
+    }
+
+    div.navItem,
+    a.navItem {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        font-size: 16px;
+    }
+    a.navItem {
+        display: flex;
+
+       height: auto;
+
+    }
+    .navItem svg {
+        width: 4.3vw;
+        height: auto;
+        margin: 10px 10px;
+    }
+
+    a.navItem p,#pMenu {
+        margin-right: 7px;
+        font-size: 2vw;
+
+    }
+
+    nav.navBar {
+            width: 23vw;
+            height: auto;
+        }
+        /* trabalhar com icone e uma merda*/
+        /*pessoa que fez os design por favor não coloque isso, nao estou te xingando pq pode ser*/
+        /*alguem que eu conheça,nada contra vc e pq icone e muito ruim*/
+        a.navItem {
+            height: auto;
+
+            height:5vh;
+        }
+
+
+        a.navItem p,#pMenu  {
+            font-size: 2.5vw;
+            margin: 0 auto 0 5px;
+        }
+        a.navItem svg {
+            width: 20%;
+            margin: 0 10px;
+
+            height: auto;
+        }
+    
+
+    nav.ativo {
+        visibility: visible;
+    }
+
+    div.navItem {
+        visibility: visible;
+        display: flex;
+    }
+}
+@media screen and (max-width: 500px) {
+        nav.navBar {
+            width: 23vw;
+            height: auto;
+        }
+        /* trabalhar com icone e uma merda*/
+        /*pessoa que fez os design por favor não coloque isso, nao estou te xingando pq pode ser*/
+        /*alguem que eu conheça,nada contra vc e pq icone e muito ruim*/
+        a.navItem {
+            height: auto;
+            height:5vh;
+        }
+
+
+        a.navItem p,#pMenu  {
+            font-size: 2.5vw;
+        }
+
+    }
+
+    @media screen and (max-width: 400px) {
+        nav.navBar {
+            width: 25vw;
+
+        }
+
+        a.navItem p,#pMenu  {
+            font-size: 3vw;
+        }
+    
+}
+

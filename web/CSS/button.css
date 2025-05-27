@@ -1,0 +1,62 @@
+ .button {
+     height: min(5vh, 80px);
+     width: min(37vw, 170px);
+     background-color: rgba(255, 255, 255, 0.40);
+     border-radius: 20px;
+     display: grid;
+     grid-template-columns: 0.5fr 1px 1fr;
+     border: 1px solid #000;
+     cursor: pointer;
+     font-size: 1.2em ;
+ }
+
+ .button div.separator {
+     height: 100%;
+     background-color: #000;
+     width: 100%;
+ }
+
+ .button div.icon {
+     height: 100%;
+     width: 100%;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+
+ .button div.textBox {
+     height: 100%;
+     width: 100%;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+
+ .button div.icon svg {
+     width: 40%;
+ }
+
+ div#descricaoMobile .button {
+     background: linear-gradient(to top, rgba(255, 255, 255, 0.89), #94010100);
+     color: #800000;
+     border: 1px solid #800000;
+ }
+
+ div#descricaoMobile div.separator {
+     background-color: #800000;
+ }
+
+ div#descricaoDesktop div.button {
+     background: linear-gradient(to top, rgba(255, 255, 255, 0.89), #013c8400);
+     color: #013B84;
+     border: 1px solid;
+ }
+
+ div#descricaoDesktop div.separator {
+     background-color: #013B84;
+ }
+ #buttonLogin{
+    width: min(37vw, 145px);
+ }
+
+ 
