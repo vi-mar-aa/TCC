@@ -24,14 +24,14 @@
         </div>
 
 <form id="cadastroForm">
-<div class="formulario">
+<div class="formulario" >
     <label for="email">Email</label>
-    <input id="email" type="email" required>
+    <input id="email" type="email" required class="inputText">
 </div>
 
-<div class="formulario">
+<div class="formulario" >
     <label for="user">Usuário</label>
-    <input id="user" type="user" required>
+    <input id="user" type="user" required class="inputText">
 </div>
 
 <div class="formulario">
@@ -40,7 +40,7 @@
 </div>
 
 <div id="colocarSenha">
-    <input id="senha" type="password" required>
+    <input id="senha" type="password" required class="inputText">
     <button type="button" class="senhaa"> 
         <!--para fazer a bolinha do olho!-->
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -56,9 +56,9 @@
     <label for="password">Confirmar Senha</label>
 </div>
 
-<div id="colocarSenha">
-    <input id="senha" type="password" required>
-    <button type="button" class="senhaa"> 
+<div id="colocarSenha1">
+    <input id="senha1" type="password" required class="inputText" style="margin-bottom: 2vw;">
+    <button type="button" class="senhaa senhaa1"> 
         <!--para fazer a bolinha do olho!-->
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -83,11 +83,18 @@
     document.addEventListener('DOMContentLoaded', function(){
         const toggleBtn = document.querySelector('.senhaa');
         const colocarSenha = document.getElementById('senha');
-
+        const toggleBtn1 = document.querySelector('.senhaa1');
+        const colocarSenha1 = document.getElementById('senha1');
         if(toggleBtn && colocarSenha){
             toggleBtn.addEventListener('click', function(){
                 const type = colocarSenha.getAttribute('type') === 'password' ? 'text' : 'password';
                 colocarSenha.setAttribute('type', type);
+            });
+        }
+        if(toggleBtn1 && colocarSenha1){
+            toggleBtn1.addEventListener('click', function(){
+                const type = colocarSenha1.getAttribute('type') === 'password' ? 'text' : 'password';
+                colocarSenha1.setAttribute('type', type);
             });
         }
     });
