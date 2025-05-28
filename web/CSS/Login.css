@@ -87,7 +87,7 @@ body {
 }
 
 #loginForm {
-    height: 40vh;
+    height: 31vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -269,7 +269,7 @@ div.mainContent {
     }
 
     #loginForm {
-        height: 40%;
+        height: 47%;
         justify-content: space-evenly;
     }
 
@@ -301,7 +301,7 @@ div.mainContent {
 
     #cadastrar p,
     #cadastrar a {
-        font-size: 5vw;
+        font-size: 4vw;
         margin: 0;
     }
 

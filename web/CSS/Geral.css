@@ -1,143 +1,195 @@
 /*HOME*/
 
-*{
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+* {
     margin: 0 auto;
     padding: 0;
     box-sizing: border-box;
 }
-header{
+
+
+section#fundoGradiente {
     width: 100%;
     background-image: url(../paginas/imagens/backgroundHome.png);
     background-size: cover;
 }
-#header{
+
+header {
     height: auto;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-    position: relative;
-    
-} 
-#main{
+    justify-content: space-evenly;
+
+
+}
+
+#main {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     overflow: hidden;
+    z-index: 2;
 }
-#logo{
-    width: 22%;
+
+#logo {
     height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex: 1;
 }
+
 #logo img {
     width: 30vw;
     height: auto;
     object-fit: contain;
 }
-#meuNav{
-    width: 72%;
-    height: auto;
-    display: flex;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.28);
-    border-radius: 40px;  
-    margin-right: 1.5vw;
-}
-#meuNav nav{
-    display: flex;
-    align-items: center;
-}
-#meuNav a{
-    display: flex;
-    align-items: center;
-    font-size: 2vw;
-    font-family: Lora;
-    margin-right: 1.8em;
-    padding: 0.4em;
-    text-decoration: none;
-    color: #000000; 
- 
-}
-#meuNav img{  
-    margin-right: 0.5em;
-    width: 2.5vw;
-}
-#meuNav a, #home, #acervo, #forum, #eventos, #login{
-    transition: color ;
-}
 
 #hamburguer {
-    display: none;  /* Esconde o hambúrguer no desktop */
+    display: none;
+    /* Esconde o hambúrguer no desktop */
     font-size: 2rem;
     cursor: pointer;
     color: white;
-    
-  }
- 
-#texto{
+}
+
+#homeBody {
+    background-image: url(../paginas/imagens/HomeBackground.png);
+    background-size: cover;
+}
+
+.caixaHome {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5vw;
+    background-color: rgba(255, 255, 255, 0.40);
+    border-radius: 40px;
+    position:relative;
+
+
+}
+
+.imagemHome {
+
+    width: 40%;
+    border-radius: 20px;
+    margin: 5%;
+}
+
+.imagemHome img {
+    width: 28vw;
+}
+
+.infoHome {
+    width: 60%;
+    margin: 5%;
+    font-family: "Roboto", sans-serif;
+}
+
+.caixaHome div p {
+    font-size: 1.3em;
+    padding: 3%;
+    font-family: "Roboto", sans-serif;
+    text-align: center;
+}
+
+.infoHome .textBox p {
+    font-size: 0.9em;
+}
+
+.infoHome .button {
+    color: #573280;
+    border-color: #573280;
+    background: #FEFEFF;
+    background: linear-gradient(0deg, rgba(254, 254, 255, 0.5) 17%, rgba(155, 140, 219, 0.2) 100%);
+}
+
+.infoHome .button .separator {
+    background-color: #573280;
+
+}
+
+.textNavHome {
+    font-size: 1.5vw;
+}
+
+#descLittera {
     width: 100%;
     height: auto;
     display: flex;
     align-items: center;
 }
-#texto div{
+
+#descLittera div {
     width: 90%;
     border-radius: 20px;
     margin: 5%;
     margin-bottom: 10%;
     background-color: rgba(255, 255, 255, 0.40);
+    z-index: 1;
 }
-#texto div p{
+
+#descLittera div p {
     font-size: 2vw;
     padding: 3%;
-    font-family: Roboto;
-    text-align: justify;
+    font-family: "Roboto", sans-serif;
+    text-align: left;
 }
-#web, #desktop, #mobile{
+
+#web,
+#desktop,
+#mobile {
     width: 100%;
     height: auto;
     display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
 }
-#desktop, #mobile{
+
+#desktop,
+#mobile {
     margin-top: 6%;
-    background: linear-gradient(to left, white, #577DAE);  
+    background: linear-gradient(to left, white, #577DAE);
     width: 95%;
     border-radius: 20px;
     padding: 2%;
 }
-#mobile{
-    background: linear-gradient(to right, white, #800000b6);  
-    position: relative;
-}
-#desktop{
+
+#mobile {
+    background: linear-gradient(to right, white, #800000b6);
     position: relative;
 }
 
-#hexagonoRoxo{
-width: 42%;
-height:auto;
-background: transparent;
-margin-top: 3%;
-z-index: 10
+#desktop {
+    position: relative;
+}
+
+#hexagonoRoxo {
+    width: 42%;
+    height: auto;
+    background: transparent;
+    margin-top: 3%;
+    z-index: 10;
 
 }
-#hexagonoRoxo img{
+
+#hexagonoRoxo img {
     width: 48vw;
 }
-#descricaoweb{
+
+#descricaoweb {
     width: 58%;
     height: auto;
     margin-top: 3%;
 }
-#caixaWeb{
+
+#caixaWeb {
     width: 89%;
     height: 85%;
     display: flex;
@@ -147,14 +199,16 @@ z-index: 10
     border-radius: 20px;
 
 }
-#tituloWeb{
+
+#tituloWeb {
     font-size: 5vw;
     color: #2F2259;
     padding: 1%;
-    font-family: Nunito Sans;
+    font-family: "Nunito Sans", sans-serif;
     text-align: center;
 }
-#descricaoweb div a{
+
+#descricaoweb div a {
     font-size: 2vw;
     text-decoration: none;
     color: #573280;
@@ -163,319 +217,405 @@ z-index: 10
     padding-left: 2vw;
     padding-right: 2vw;
     margin-bottom: 3vw;
-    border-radius:20px;
+    border-radius: 20px;
     background-color: rgba(255, 255, 255, 0.40);
 }
-.dowload{
-    width: 2vw;
-}
-#logodesktop, #logomobile{
-    width: 25%;  
-    height: auto; 
-}
-#logodesktop img, #logomobile img {
-    width: 25vw;
-    
-}
-#hexagonoVermelho{
+
+#logodesktop,
+#logomobile {
     width: 25%;
-    height:auto;
+    height: auto;
+}
+
+#logodesktop img,
+#logomobile img {
+    width: 25vw;
+
+}
+
+#hexagonoVermelho {
+    width: 25%;
+    height: auto;
     position: relative;
     z-index: 1;
 }
+
 #hexagonoVermelho img {
     width: 46vw;
     height: auto;
     display: block;
     position: absolute;
-    top: -30vw; /* faz a imagem subir e sair da div */
-    left: -4vw;
-    z-index: 2; 
-   
+    top: -30vw;
+    /* faz a imagem subir e sair da div */
+    left: -8vw;
+    z-index: 2;
+
 }
-.dowloads{
-    width: 10vw;
-    height: 3vw;
-    display: flex !important;
-    flex-direction: row !important;
-    background-color: rgba(255, 255, 255, 0.40);
-    border-radius: 20px;
-    border: 1px solid #013B84;
-    text-decoration: none;
-    
+
+#descricaoMobile a {
+    color: #800000;
 }
-.dowloads img{
-    width: 2.2vw;
-}
-#descricaoMobile .dowloads{
-    border: 1px solid #800000;
-}
-#descricaoMobile .divisaoDowload{
-    background-color: #800000  !important;
-}
-#descricaoMobile a{
-    color:#800000;
-}
-.iconeDowload{
-    width: 15%; 
-}
-.divisaoDowload{
-    width: 0.1%;
-    height: 100%;
-    display: flex !important;
-    flex-direction: column !important;
-    background-color: #013B84;   
-}
-.textDowload a{
-    width: 84.9%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5vw;
-    text-decoration: none;
-    color: #013B84;
-}
-#descricaoDesktop{
+
+#descricaoDesktop {
     width: 45%;
     height: auto;
 }
-#descricaoMobile{
+
+#descricaoMobile {
     width: 50%;
     height: auto;
 }
-#descricaoweb div, #descricaoMobile div, #descricaoDesktop div{
+
+#descricaoweb div,
+#descricaoMobile div.mainContent,
+#descricaoDesktop div.mainContent {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 
 }
-#hexagonoAzul{
+
+#hexagonoAzul {
     width: 25%;
-    height:auto;
-    position: relative; /* importante para controlar o conteúdo dentro */
+    height: auto;
+    position: relative;
+    /* importante para controlar o conteúdo dentro */
     z-index: 1;
 }
+
 #hexagonoAzul img {
     width: 53vw;
     height: auto;
     position: absolute;
-    top: -25vw; 
+    top: -25vw;
     left: -12vw;
-    z-index: 2;  
+    z-index: 2;
 }
 
-#logomobile img{
+#logomobile img {
     width: 25vw;
-    height:auto;
+    height: auto;
 }
 
-#tituloDesktop, #tituloMobile{
+#tituloDesktop,
+#tituloMobile {
     font-size: 5vw;
     color: #013B84;
     padding: 3%;
-    font-family: Nunito Sans;
+    font-family: "Nunito Sans", sans-serif;
     text-align: left;
 }
-#tituloMobile{
+
+#tituloMobile {
     color: #800000;
 }
-#descricaoD, #descricaoM, #descricaoW{
+
+#descricaoD,
+#descricaoM,
+#descricaoW {
     font-size: 2vw;
-    padding: 9%;
-    font-family: Roboto;
+    padding: 5%;
+    font-family: "Roboto", sans-serif;
     text-align: center;
 }
+footer {
+    width: 100%;
+    height: auto;
+    display: flex;
+    margin-top: 10vw;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    background: linear-gradient(to left, #d7c9fdd0, #6f59ac);
+}
 
-/*#descricaoDesktop div a, #descricaoMobile div a{
-    font-size: 2vw;
-    text-decoration: none;
-    color: #013B84;
-    border: 1px solid #013B84;
-    padding: 2%;
-    margin-bottom: 2%;
-    border-radius:20px;
-    background-color: rgba(255, 255, 255, 0.40);
-}
-#descricaoMobile div a{
-    color: #800000;
-   
-}
-*/
-
-footer{
-width: 100%;
-height: auto;
-display: flex;
-margin-top: 10vw;
-align-items: center;
-justify-content: center;
-flex-direction: row;
-background: linear-gradient(to left, #d7c9fdd0, #6f59ac);
-}
-#footerLogo img, #footerLumen img {
+#footerLogo img,
+#footerLumen img {
     width: 70%;
     height: 100%;
     object-fit: contain;
-  
+
 }
-#footerTexto{
+
+#footerTexto {
     font-size: 2vw;
-    font-family: Roboto;
+    font-family: "Roboto", sans-serif;
     color: #573280;
     width: 60%;
     display: flex;
     align-items: center;
 }
-#footerLumen, #footerLogo{
+
+#footerLumen,
+#footerLogo {
     width: 20%;
     display: flex;
     align-items: center;
     padding: 1%;
 }
 
-#meuNav a:hover{
+#meuNav a:hover {
     color: #573280;
 }
-a:hover #home{
+
+a:hover #home {
     content: url("../paginas/imagens/casaHomeRoxa.png");
-  }
- a:hover #acervo{
+}
+
+a:hover #acervo {
     content: url("../paginas/imagens/livroHomeRoxo.png");
 }
- a:hover #forum{
+
+a:hover #forum {
     content: url("../paginas/imagens/forumHomeRoxo.png");
 }
- a:hover #eventos{
+
+a:hover #eventos {
     content: url("../paginas/imagens/eventosHomeRoxo.png");
 }
- a:hover #login{
+
+a:hover #login {
     content: url("../paginas/imagens/loginHomeRoxo.png");
 }
-/*RESPONSIVO HOME*/
+
+
 @media (max-width: 600px) {
-      #logo {
+    #logo {
         display: flex;
         position: relative;
-        left: 34vw;
-        top: 2vw;
-      }
-      #logo img{
-        width:42vw
-      }
-    #meuNav nav{
-        display: none;
-        flex-direction: column;
-        background-color: rgba(255, 255, 255, 0.596);
-        position: absolute; 
-        top: 2vw;
-        right: 62vw;
-        border-radius: 8px; 
     }
-    #meuNav img{  
-        width: 3.7vw;
+
+    #logo img {
+        width: 54vw
     }
-    #meuNav nav.ativo {
-        display: flex;  /* Mostra o menu quando estiver ativo */
-      }
+
     #hamburguer {
-        display: block;
-        position: relative;
-        left: 3vw;
-        transform: translateY(-6vw);
-      }
-    #hexagonoRoxo{
-        margin-top: 0%;
-        position: relative;
+        display: inline;
+        position: fixed;
+        top: 10px;
+        left: 10vw;
+        font-size: 3em;
     }
-    #web{
+
+    #hexagonoRoxo {
+        display: flex;
+        margin-top: 0%;
+        position: absolute;
+        top: 1;
+        left: -15vw;
+    }
+
+    #hexagonoRoxo img {
+        width: 70vw;
+        margin-bottom: 90%;
+    }
+
+    #web {
         background: linear-gradient(to bottom, white, #A293CD);
     }
-    #meuNav a, #texto div p, #descricaoW, #descricaoD, #descricaoM, #descricaoweb div a, #descricaoDesktop div a, #descricaoMobile div a, #footerTexto{
+
+    #meuNav a,
+    #descLittera div p,
+    #descricaoW,
+    #descricaoD,
+    #descricaoM,
+    #descricaoweb div a,
+    #descricaoDesktop div a,
+    #descricaoMobile div a,
+    #footerTexto {
         font-size: 4.7vw;
     }
-    #descricaoW{
-    z-index: 1;
+
+    #descricaoW {
+        z-index: 1;
     }
-    #descricaoweb div a{
+
+    #descricaoweb div a {
         padding: 1.4vw;
         padding-left: 5vw;
         padding-right: 5vw;
-
+        margin-right: 13vw;
     }
-    #tituloMobile, #tituloDesktop, #tituloWeb{
+
+    #tituloMobile,
+    #tituloDesktop,
+    #tituloWeb {
         font-size: 10vw;
     }
-    #tituloWeb{
-        padding-top: 10vw;
-    }
-#descricaoweb{
-    width: 100%;
-}
-#descricaoweb  div div{
-display: flex;
-flex-direction: column-reverse;
-}
-#descricaoweb div, #mobile, #desktop{
-    border-radius: 0px;
-    margin-top: 0%;
-    width:100%
-}
-#descricaoDesktop, #descricaoMobile{
-    width: 80%;
-}
-#hexahonoAzul, #hexagonoVermelho{
-width: 20%;
-}
-#descricaoW, #descricaoD, #descricaoM {
-    border-radius: 0%;
-    text-align: justify;
-}
-#logodesktop, #logomobile{
-    display: none;
-}
-#hexagonoRoxo, #descricaoWeb div {
-    height: auto;
-  }
-  footer{
-    margin-top: 0%;
-    background: linear-gradient(to bottom, white, #A293CD);
-  }
-  #footerLogo img{
-    width: 90%;
-  }
-  #hexagonoVermelho img {
-    width: 70vw;
-    top: -48vw; /* faz a imagem subir e sair da div */
-    left: -20vw;
-}
-#hexagonoAzul img {
-    width: 95vw;
-    top: -45vw; 
-    left: -23vw;
-}
-#hexagonoRoxo img{
-    width: 70vw;
-    position: absolute;
-    top: -50vw;
-    left: -20vw;
-}
 
-.dowloads{
-    width: 34vw;
-    height: 8vw;
-    margin-bottom: 3vw;
+    #tituloWeb {
+        padding-top: 8vw;
+        padding-left: 45vw;
+
+    }
+
+    #descricaoweb {
+        width: 100%;
+    }
+
+    #descricaoweb div div {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    #descricaoweb div,
+    #mobile,
+    #desktop {
+        border-radius: 0px;
+        margin-top: 0%;
+        width: 100%
+    }
+#mobile,
+    #desktop {
+        padding-bottom: 8vw;
+    }
+    #descricaoDesktop,
+    #descricaoMobile {
+        width: 80%;
+    }
+
+    #hexahonoAzul,
+    #hexagonoVermelho {
+        width: 20%;
+    }
+
+    #descricaoW,
+    #descricaoD,
+    #descricaoM {
+        border-radius: 0%;
+        text-align: left;
+    }
+
+    #logodesktop,
+    #logomobile {
+        display: none;
+    }
+
+    #hexagonoRoxo,
+    #descricaoWeb div {
+        height: auto;
+    }
+
+    footer {
+        margin-top: 0%;
+        background: linear-gradient(to bottom, white, #A293CD);
+    }
+
+    #footerLogo img {
+        width: 90%;
+    }
+
+    #hexagonoVermelho img {
+        width: 70vw;
+        top: -48vw;
+        /* faz a imagem subir e sair da div */
+        left: -24vw;
+    }
+
+    #hexagonoAzul img {
+        width: 95vw;
+        top: -45vw;
+        left: -23vw;
+    }
+
+    #hexagonoRoxo img {
+        width: 70vw;
+        z-index: 2;
+    }
+
+    .caixaHome {
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+    }
+
+    .infoHome {
+        order:1;
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 3% 0;
+    }
+
+    
+
+    .infoHome p {
+        order: 1;
+    }
+
+    .imagemHome {
+        order: 2;
+        width: 80%;
+        margin: 3% 0 15% 0;
+    }
+
+    .imagemHome img {
+        width: 57vw;
+    }
+
+    
+    .buttonContainer {
+        order: 3;
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        
+    }
+    #button1 {
+        position: absolute;
+        top: 65%;
+    }
+    #button2{
+        position: absolute;
+        top: 85%;
+    }
+    .caixaHome{
+        width: 110%;
+    }
+
     
 }
-.dowloads img{
-    width: 6vw;
+@media screen and (max-width:550px) {
+    
+    #button1 {
+        position: absolute;
+        top: 68%;
+    }
+    #button2{
+        position: absolute;
+        top: 89%;
+    }
+}
+@media screen  and (max-width:470px) {
+    #button1 {
+        position: absolute;
+        top: 79%;
+    }
+    #button2{
+        position: absolute;
+        top: 94%;
+    }
+}
+@media screen and (max-width:430px) {
+     .caixaHome{
+        width: 90%;
+        padding-bottom:6vw
+    }
+    #button2{
+        position: absolute;
+        top: 84%;
+    }
+}
+@media screen and (max-width:360px) {
+    #button1 {
+        position: absolute;
+        top: 67%;
+    }
 
 }
-} 
-  
-   
-  
-
-/*LOGIN*/
-
-
