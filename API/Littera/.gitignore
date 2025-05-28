@@ -1,0 +1,36 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Build e publicação
+bin/
+obj/
+out/
+Generated\ Files/
+
+# Arquivos temporários e de log
+*.log
+*.tmp
+*.temp
+
+# Configurações locais
+*.local.json
+
+# Configurações do Rider
+.idea/
+
+# Arquivos do sistema
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Backup do Visual Studio Code
+.vscode/
+
+# Ignorar pacotes baixados
+packages/
+*.nupkg
+
+# Arquivos de cache
+*.vsidx
