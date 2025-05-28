@@ -1,0 +1,6 @@
+@littera_HostAddress = http://localhost:5222
+
+GET {{littera_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
