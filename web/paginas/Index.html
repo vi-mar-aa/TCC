@@ -18,8 +18,8 @@
             </div>
 
             <nav class="navBar">
-                
-                <div class="navItem" onclick="toggleMenu()" >
+
+                <div class="navItem" onclick="toggleMenu()">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
                             d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
@@ -88,7 +88,7 @@
 
         </header>
         <div id="descLittera">
-            <div>
+            <div id="textLittera">
                 <p>A Littera é mais do que uma biblioteca, é um espaço de descoberta,
                     aprendizado e inspiração. Aqui, você encontrará um vasto acervo de livros,
                     periódicos e materiais digitais para todas as idades e interesses. Nossa
@@ -96,6 +96,9 @@
                     e da troca de ideias. Explore nosso catálogo, converse com outros leitores
                     e aproveite um ambiente acolhedor para estudar e expandir seus horizontes.
                     Venha fazer parte da nossa comunidade e descubra o poder das palavras na Littera.</p>
+            </div>
+            <div id="imgLitteraText">
+                <img src="../paginas/imagens/hexagonoRoxo.png" alt="">
             </div>
         </div>
 
@@ -111,7 +114,8 @@
                     <div id="caixaWeb">
                         <p id="tituloWeb">Explore a Littera!</p>
                         <div>
-                            <p id="descricaoW" style="text-align:left">Acesse um mundo de conhecimento e inspiração. Com um cadastro simples e
+                            <p id="descricaoW" style="text-align:left">Acesse um mundo de conhecimento e inspiração. Com
+                                um cadastro simples e
                                 gratuito, você pode explorar nosso acervo, reservar livros, participar
                                 de eventos e muito mais.</p>
                             <a href="Login.html">Cadastre-se</a>
@@ -200,8 +204,8 @@
         function toggleMenu() {
             document.querySelector('.navBar').classList.toggle('ativo');
             const pMenu = document.getElementById('pMenu');
-            
-            if(document.querySelector('.navBar').classList.contains('ativo')&& window.innerWidth <= 600) {
+
+            if (document.querySelector('.navBar').classList.contains('ativo') && window.innerWidth <= 600) {
                 pMenu.style.display = 'block';
             } else {
                 pMenu.style.display = 'none';
