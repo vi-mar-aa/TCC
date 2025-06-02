@@ -5,7 +5,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Roboto;
 }
 
 body {
@@ -28,12 +27,17 @@ body {
     padding: 2.5vw;
 }
 
-#tituloMensagem {
-    max-width: 400px;
+#tituloMensagem #WelcomeCadastro1 {
+    max-width: 510px;
 }
 
+#tituloMensagem #WelcomeCadastro2 {
+    max-width: 800px;
+}
+
+
 #mensagem h1 {
-    font-size: 5vw;
+    font-size: 4.5vw;
     font-family: "Nunito Sans", sans-serif;
     text-align: center;
     color: #4c1d95;
@@ -202,7 +206,7 @@ div.mainContent {
 
 #botaoCad {
     padding: 0.8vw;
-    font-size: 0.9em;
+    font-size: 0.8em;
 }
 
 .icone {
@@ -328,6 +332,7 @@ div.mainContent {
     .senhaa senhaa1 {
         top: 1.5vw;
     }
+
     #botaoCad {
         padding: 2vw;
         margin-top: 5vw;

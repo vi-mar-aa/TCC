@@ -32,7 +32,6 @@ header {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    overflow: hidden;
     z-index: 2;
 }
 
@@ -44,7 +43,7 @@ header {
 }
 
 #logo img {
-    width: 30vw;
+    width: 17vw;
     height: auto;
     object-fit: contain;
 }
@@ -70,7 +69,7 @@ header {
     margin-bottom: 5vw;
     background-color: rgba(255, 255, 255, 0.40);
     border-radius: 40px;
-    position:relative;
+    position: relative;
 
 
 }
@@ -120,23 +119,37 @@ header {
 }
 
 #descLittera {
-    width: 100%;
+    width: 85%;
     height: auto;
     display: flex;
     align-items: center;
 }
 
-#descLittera div {
-    width: 90%;
+#descLittera #textLittera {
+    width: 75%;
     border-radius: 20px;
-    margin: 5%;
-    margin-bottom: 10%;
+    margin-top: 1%;
+    margin-bottom: 5%;
     background-color: rgba(255, 255, 255, 0.40);
     z-index: 1;
 }
 
+#descLittera #imgLitteraText {
+    width: 35%;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    padding-left: 2vw;
+
+}
+
+#descLittera img {
+    width: 29vw;
+    transform: rotate(30deg);
+}
+
 #descLittera div p {
-    font-size: 2vw;
+    font-size: 1.7em;
     padding: 3%;
     font-family: "Roboto", sans-serif;
     text-align: left;
@@ -176,17 +189,21 @@ header {
     background: transparent;
     margin-top: 3%;
     z-index: 10;
+    position: relative;
 
 }
 
 #hexagonoRoxo img {
-    width: 48vw;
+    width: 37vw;
+    margin-left: 9vw;
+
 }
 
 #descricaoweb {
     width: 58%;
     height: auto;
     margin-top: 3%;
+    margin-right: 8vw;
 }
 
 #caixaWeb {
@@ -201,7 +218,7 @@ header {
 }
 
 #tituloWeb {
-    font-size: 5vw;
+    font-size: 4vw;
     color: #2F2259;
     padding: 1%;
     font-family: "Nunito Sans", sans-serif;
@@ -241,13 +258,13 @@ header {
 }
 
 #hexagonoVermelho img {
-    width: 46vw;
+    width: 35vw;
     height: auto;
     display: block;
     position: absolute;
-    top: -30vw;
+    top: -23vw;
     /* faz a imagem subir e sair da div */
-    left: -8vw;
+    left: -3vw;
     z-index: 2;
 
 }
@@ -285,11 +302,11 @@ header {
 }
 
 #hexagonoAzul img {
-    width: 53vw;
+    width: 45vw;
     height: auto;
     position: absolute;
-    top: -25vw;
-    left: -12vw;
+    top: -22vw;
+    left: -10vw;
     z-index: 2;
 }
 
@@ -300,7 +317,7 @@ header {
 
 #tituloDesktop,
 #tituloMobile {
-    font-size: 5vw;
+    font-size: 4vw;
     color: #013B84;
     padding: 3%;
     font-family: "Nunito Sans", sans-serif;
@@ -314,11 +331,12 @@ header {
 #descricaoD,
 #descricaoM,
 #descricaoW {
-    font-size: 2vw;
+    font-size: 1.8vw;
     padding: 5%;
     font-family: "Roboto", sans-serif;
     text-align: center;
 }
+
 footer {
     width: 100%;
     height: auto;
@@ -381,6 +399,10 @@ a:hover #login {
 
 
 @media (max-width: 600px) {
+    #main {
+        overflow: hidden;
+    }
+
     #logo {
         display: flex;
         position: relative;
@@ -408,11 +430,24 @@ a:hover #login {
 
     #hexagonoRoxo img {
         width: 70vw;
+        z-index: 2;
         margin-bottom: 90%;
+        margin-left: 0;
     }
 
     #web {
         background: linear-gradient(to bottom, white, #A293CD);
+    }
+
+    #descLittera #imgLitteraText {
+        display: none;
+        visibility: hidden;
+
+    }
+
+    #descLittera #textLittera {
+        width: 90%;
+        margin-bottom: 13%;
     }
 
     #meuNav a,
@@ -466,10 +501,12 @@ a:hover #login {
         margin-top: 0%;
         width: 100%
     }
-#mobile,
+
+    #mobile,
     #desktop {
         padding-bottom: 8vw;
     }
+
     #descricaoDesktop,
     #descricaoMobile {
         width: 80%;
@@ -507,7 +544,7 @@ a:hover #login {
     }
 
     #hexagonoVermelho img {
-        width: 70vw;
+        width: 73vw;
         top: -48vw;
         /* faz a imagem subir e sair da div */
         left: -24vw;
@@ -519,10 +556,7 @@ a:hover #login {
         left: -23vw;
     }
 
-    #hexagonoRoxo img {
-        width: 70vw;
-        z-index: 2;
-    }
+
 
     .caixaHome {
         width: 90%;
@@ -534,7 +568,7 @@ a:hover #login {
     }
 
     .infoHome {
-        order:1;
+        order: 1;
         width: 90%;
         display: flex;
         flex-direction: column;
@@ -542,7 +576,7 @@ a:hover #login {
         margin: 3% 0;
     }
 
-    
+
 
     .infoHome p {
         order: 1;
@@ -558,60 +592,70 @@ a:hover #login {
         width: 57vw;
     }
 
-    
+
     .buttonContainer {
         order: 3;
         margin-top: 10px;
         display: flex;
         justify-content: center;
         width: 100%;
-        
+
     }
+
     #button1 {
         position: absolute;
         top: 65%;
     }
-    #button2{
+
+    #button2 {
         position: absolute;
         top: 85%;
     }
-    .caixaHome{
+
+    .caixaHome {
         width: 110%;
     }
 
-    
+
 }
+
 @media screen and (max-width:550px) {
-    
+
     #button1 {
         position: absolute;
         top: 68%;
     }
-    #button2{
+
+    #button2 {
         position: absolute;
         top: 89%;
     }
 }
-@media screen  and (max-width:470px) {
+
+@media screen and (max-width:470px) {
     #button1 {
         position: absolute;
         top: 79%;
     }
-    #button2{
+
+    #button2 {
         position: absolute;
         top: 94%;
     }
 }
+
 @media screen and (max-width:430px) {
-     .caixaHome{
+    .caixaHome {
         width: 90%;
-        padding-bottom:6vw
+        padding-bottom: 6vw
     }
-    #button2{
+
+    #button2 {
         position: absolute;
         top: 84%;
     }
 }
+
 @media screen and (max-width:360px) {
     #button1 {
         position: absolute;

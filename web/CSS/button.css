@@ -1,13 +1,13 @@
  .button {
-     height: min(5vh, 80px);
-     width: min(37vw, 170px);
+     height: min(5vh, 60px);
+     width: min(37vw, 160px);
      background-color: rgba(255, 255, 255, 0.40);
      border-radius: 20px;
      display: grid;
      grid-template-columns: 0.5fr 1px 1fr;
      border: 1px solid #000;
      cursor: pointer;
-     font-size: 1.2em ;
+     font-size: 1.2em;
  }
 
  .button div.separator {
@@ -55,8 +55,7 @@
  div#descricaoDesktop div.separator {
      background-color: #013B84;
  }
- #buttonLogin{
-    width: min(37vw, 145px);
- }
 
- 
+ #buttonLogin {
+     width: min(37vw, 145px);
+ }

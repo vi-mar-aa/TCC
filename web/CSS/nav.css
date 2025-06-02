@@ -2,14 +2,14 @@
 
 nav.navBar {
     display: grid;
-    width: 70%;
+    width: 69%;
     background-color: #ffffff44;
     grid-template-columns: repeat(5, 1fr);
-    height: 7vh;
+    height: 6.5vh;
     border-radius: 40px;
     z-index: 9999;
-    font-size: 16px;
-    margin-right: 1vw;
+    font-size: 19px;
+    margin-right: 6vw;
 }
 
 div.navItem,
@@ -22,6 +22,7 @@ a.navItem {
     height: 100%;
     text-decoration: none;
 }
+
 div.navItem {
     display: none;
 }
@@ -33,11 +34,13 @@ div.navItem {
 
 .navItem p {
     margin-right: 15px;
-    font-family:"Lora", serif;
+    font-family: "Lora", serif;
 }
-#pMenu{
+
+#pMenu {
     display: none;
 }
+
 @media only screen and (max-width: 950px) {
     .navItem svg {
         width: 2.5vw;
@@ -90,47 +93,52 @@ div.navItem {
         width: 100%;
         display: grid;
         grid-template-columns: 1fr;
-        font-size: 16px;
+        font-size: 19px;
     }
+
     a.navItem {
         display: flex;
-       height: auto;
+        height: auto;
     }
-    
+
     .navItem svg {
         width: 4.3vw;
         height: auto;
         margin: 10px 10px;
     }
 
-    a.navItem p,#pMenu {
+    a.navItem p,
+    #pMenu {
         margin-right: 7px;
         font-size: 2vw;
 
     }
 
     nav.navBar {
-            width: 23vw;
-            height: auto;
-        }
-        a.navItem {
-            height: auto;
+        width: 23vw;
+        height: auto;
+    }
 
-            height:5vh;
-        }
+    a.navItem {
+        height: auto;
+
+        height: 5vh;
+    }
 
 
-        a.navItem p,#pMenu  {
-            font-size: 2.5vw;
-            margin: 0 auto 0 5px;
-        }
-        a.navItem svg {
-            width: 20%;
-            margin: 0 10px;
+    a.navItem p,
+    #pMenu {
+        font-size: 2.5vw;
+        margin: 0 auto 0 5px;
+    }
 
-            height: auto;
-        }
-    
+    a.navItem svg {
+        width: 20%;
+        margin: 0 10px;
+
+        height: auto;
+    }
+
 
     nav.ativo {
         visibility: visible;
@@ -141,32 +149,35 @@ div.navItem {
         display: flex;
     }
 }
+
 @media screen and (max-width: 500px) {
-        nav.navBar {
-            width: 23vw;
-            height: auto;
-        }
-        a.navItem {
-            height: auto;
-            height:5vh;
-        }
+    nav.navBar {
+        width: 23vw;
+        height: auto;
+    }
+
+    a.navItem {
+        height: auto;
+        height: 5vh;
+    }
 
 
-        a.navItem p,#pMenu  {
-            font-size: 2.5vw;
-        }
+    a.navItem p,
+    #pMenu {
+        font-size: 2.5vw;
+    }
+
+}
+
+@media screen and (max-width: 400px) {
+    nav.navBar {
+        width: 25vw;
 
     }
 
-    @media screen and (max-width: 400px) {
-        nav.navBar {
-            width: 25vw;
+    a.navItem p,
+    #pMenu {
+        font-size: 3vw;
+    }
 
-        }
-
-        a.navItem p,#pMenu  {
-            font-size: 3vw;
-        }
-    
 }
-
