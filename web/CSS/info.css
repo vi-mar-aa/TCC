@@ -1,0 +1,300 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: radial-gradient(circle at 50% 20%, #ede9f7 60%, #d6cbe7 100%);
+    color: #333;
+}
+
+.cabecalho {
+    text-align: center;
+    margin-top: 24px;
+    margin-bottom: 16px;
+}
+
+.logo {
+    width: 13vw;
+    margin-bottom: 0;
+}
+
+.titulo-logo {
+    font-family: 'Georgia', serif;
+    font-size: 2.2rem;
+    color: #7d5bbf;
+    letter-spacing: 0.2em;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px 32px 16px;
+}
+
+.painel-superior {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    justify-content: space-between;
+}
+
+.capa-livro {
+    background: #fff;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 220px;
+    min-height: 320px;
+    max-height: 320px;
+}
+
+.capa-livro img {
+    width: 18vw;
+    object-fit: cover;
+    border-radius: 4px;
+
+}
+
+.informacoes,
+.disponibilidade {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #0001;
+    padding: 30px 45px;
+    flex: 1;
+    min-width: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid #d6cbe7;
+}
+
+.informacoes-titulo,
+.disponibilidade-titulo,
+.sinopse-titulo,
+.similares-titulo {
+    font-size: 1.7rem;
+    color: #2F2259;
+    font-family: 'Georgia', serif;
+    margin-bottom: 12px;
+    text-align: center;
+
+    padding-bottom: 2px;
+    letter-spacing: 0.02em;
+}
+
+.informacoes-lista {
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.disponibilidade-numero {
+    font-size: 4rem;
+    color: #573280;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.disponibilidade-texto {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+}
+
+.disponibilidade-info {
+    text-align: center;
+    font-size: 0.95rem;
+    color: #888;
+}
+
+.disponibilidade-info .download {
+    color: #800000;
+    text-decoration: underline;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.painel-sinopse {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #0001;
+    padding: 30px 45px;
+    margin-bottom: 32px;
+}
+
+.sinopse-titulo {
+    margin-bottom: 8px;
+    text-align: left;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.sinopse-texto {
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: justify;
+}
+
+.similares-titulo {
+    margin-bottom: 24px;
+    margin-top: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.similares-carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+}
+
+.similares-seta {
+    font-size: 2rem;
+    color: #a59bc4;
+    background: none;
+    border: none;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s;
+}
+
+.similares-seta:hover {
+    color: #7d5bbf;
+}
+
+.similares-cartao {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #0001;
+    width: 180px;
+    height: 240px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    border: 1px solid #d6cbe7;
+    padding-bottom: 12px;
+    position: relative;
+}
+
+.similares-info {
+    width: 100%;
+    background: #ede9f7;
+    border-radius: 0 0 8px 8px;
+    text-align: center;
+    padding: 8px 0 4px 0;
+    font-size: 0.95rem;
+    color: #444;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.similares-info strong {
+    display: block;
+    font-weight: 500;
+    color: #7d5bbf;
+}
+
+.similares-info span {
+    display: block;
+    font-size: 0.92rem;
+    color: #888;
+}
+
+.similares-info a {
+    color: #7d5bbf;
+    font-size: 0.92rem;
+    text-decoration: underline;
+    display: block;
+    margin-top: 2px;
+}
+
+@media (max-width: 768px) {
+    .cabecalho {
+        margin-bottom: 0px;
+    }
+
+    .logo {
+        width: 40vw;
+    }
+
+    .container {
+        max-width: 100vw;
+        padding: 0 4vw 24px 4vw;
+    }
+
+    .painel-superior {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 0px;
+        gap: 25px;
+        background: #fff;
+    }
+
+    .capa-livro {
+        min-width: 0;
+        min-height: 0;
+        max-width: 500px;
+        max-height: 500px;
+        padding: 8px;
+    }
+
+    .capa-livro img {
+        width: 70vw;
+
+    }
+
+    .informacoes,
+    .disponibilidade {
+        min-width: 0;
+        padding: 14px 8px;
+        font-size: 0.98rem;
+        box-shadow: none;
+        border: none;
+    }
+
+    .disponibilidade-info {
+        padding: 0px 30px 0px 30px;
+    }
+
+    .painel-sinopse {
+        padding: 25px 13px;
+    }
+
+    .sinopse-titulo {
+        font-size: 1.7rem;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .similares-titulo {
+        font-size: 1.3rem;
+        margin-bottom: 12px;
+    }
+
+    .similares-carousel {
+        gap: 8px;
+    }
+
+    .similares-cartao {
+        width: 120px;
+        height: 180px;
+        padding-bottom: 8px;
+    }
+
+    .similares-info {
+        font-size: 0.85rem;
+        padding: 6px 0 2px 0;
+    }
+
+    #tira-carrossel,
+    #tira-carrossel2 {
+        display: none;
+    }
+
+}
