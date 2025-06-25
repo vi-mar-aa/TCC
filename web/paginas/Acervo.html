@@ -44,7 +44,7 @@
         </aside>
         <main class="conteudo-principal">
             <img src="../paginas/imagens/logoLittera.png" alt="" class="logomobile">
-            <div class="barra-pesquisa-container">
+            <div class="barra-pesquisa-container" style="display: flex;">
                 <input class="barra-pesquisa" type="text" placeholder="Pesquisar...">
                 <span class="icon-pesquisa"><svg xmlns="http://www.w3.org/2000/svg" width="33" height="32"
                         viewBox="0 0 33 32" fill="none">
@@ -60,36 +60,54 @@
                 <div class="tab active">Livros</div>
                 <div class="tab" onclick="clicar()">Audiovisual</div>
             </div>
-            <div id="sumario" style="height: auto;">
-                <h1 onclick="sum()">
+            <div id="sumario"
+                style="height: auto; background: radial-gradient(rgba(228, 219, 255, 1) 1%,rgba(183, 163, 250,0.5) 49%,rgba(94, 84, 142,0.95) 93%,rgba(72, 57, 125,0.91) 100%); background-size: 250% 250%; background-position: 220% 230%;">
+                <h1 onclick="sum()"
+                    style="background: radial-gradient(rgba(228, 219, 255, 1) 1%,rgba(183, 163, 250,0.5) 49%,rgba(94, 84, 142,0.95) 93%,rgba(72, 57, 125,0.91) 100%); background-size: 250% 250%; background-position: 220% 230%;">
                     Gênero Textual
                 </h1>
-
-                <label id="top" style="visibility: visible;"><input id="chk0" type="checkbox">Artigos</label>
-                <label id="top2" style="visibility: visible;"><input id="chk1" type="checkbox">Revistas</label>
-                <label id="top3" style="visibility: visible;"><input id="chk2" type="checkbox">Didáticos</label>
-                <label id="top4" style="visibility: visible;"><input id="chk3" type="checkbox">Poesia</label>
-                <label id="top5" style="visibility: visible;"><input id="chk4" type="checkbox">Romance</label>
-                <label id="top6" style="visibility: visible;"><input id="chk5" type="checkbox">Biografia</label>
-                <label id="top7" style="visibility: visible;"><input id="chk6" type="checkbox">Manuais</label>
-                <label id="top8" style="visibility: visible;"><input id="chk7" type="checkbox">Crônicas</label>
-                <label id="top9" style="visibility: visible;"><input id="chk8" type="checkbox">Outros</label>
-
+                <div class="div_Checkboxs"
+                    style="background: radial-gradient(rgba(228, 219, 255, 1) 1%,rgba(183, 163, 250,0.5) 49%,rgba(94, 84, 142,0.95) 93%,rgba(72, 57, 125,0.91) 100%); background-size: 250% 250%; background-position: 220% 230%; display: flex;">
+                    <div id="div_chk1">
+                        <label id="top" style="visibility: visible;"><input id="chk0" type="checkbox">Artigos</label>
+                        <label id="top2" style="visibility: visible;"><input id="chk1" type="checkbox">Revistas</label>
+                        <label id="top3" style="visibility: visible;"><input id="chk2" type="checkbox">Didáticos</label>
+                        <label id="top4" style="visibility: visible;"><input id="chk3" type="checkbox">Poesia</label>
+                        <label id="top5" style="visibility: visible;"><input id="chk4" type="checkbox">Romance</label>
+                    </div>
+                    <div id="div_chk2">
+                        <label id="top6" style="visibility: visible;"><input id="chk5" type="checkbox">Biografia</label>
+                        <label id="top7" style="visibility: visible;"><input id="chk6" type="checkbox">Manuais</label>
+                        <label id="top8" style="visibility: visible;"><input id="chk7" type="checkbox">Crônicas</label>
+                        <label id="top9" style="visibility: visible;"><input id="chk8" type="checkbox">Outros</label>
+                    </div>
+                </div>
             </div>
-            <div id="sumario2" style="height: auto;">
+            <div id="sumario2"
+                style="height: auto; background: radial-gradient(rgba(228, 219, 255, 1) 1%,rgba(183, 163, 250,0.5) 49%,rgba(94, 84, 142,0.95) 93%,rgba(72, 57, 125,0.91) 100%); background-size: 250% 250%; background-position: 220% 230%;">
                 <h1 onclick="sum2()">
                     Ano
                 </h1>
-                <label id="topp" style="visibility: visible;"><input type="checkbox">Artigos</label>
-                <label id="topp2" style="visibility: visible;"><input type="checkbox">Revistas</label>
-                <label id="topp3" style="visibility: visible;"><input type="checkbox">Didáticos</label>
-                <label id="topp4" style="visibility: visible;"><input type="checkbox">Poesia</label>
-                <label id="topp5" style="visibility: visible;"><input type="checkbox">Romance</label>
-                <label id="topp6" style="visibility: visible;"><input type="checkbox">Biografia</label>
-                <label id="topp7" style="visibility: visible;"><input type="checkbox">Manuais</label>
-                <label id="topp8" style="visibility: visible;"><input type="checkbox">Crônicas</label>
-                <label id="topp9" style="visibility: visible;"><input type="checkbox">Outros</label>
-
+                <div class="div_Checkboxs1"
+                    style="background: radial-gradient(rgba(228, 219, 255, 1) 1%,rgba(183, 163, 250,0.5) 49%,rgba(94, 84, 142,0.95) 93%,rgba(72, 57, 125,0.91) 100%); background-size: 250% 250%; background-position: 220% 230%; display: flex;">
+                    <div id="div1_chk1">
+                        <label id="topp" style="visibility: visible;"><input id="1chk1" type="checkbox">Artigos</label>
+                        <label id="topp2" style="visibility: visible;"><input id="1chk2"
+                                type="checkbox">Revistas</label>
+                        <label id="topp3" style="visibility: visible;"><input id="1chk3"
+                                type="checkbox">Didáticos</label>
+                        <label id="topp4" style="visibility: visible;"><input id="1chk4" type="checkbox">Poesia</label>
+                        <label id="topp5" style="visibility: visible;"><input id="1chk5" type="checkbox">Romance</label>
+                    </div>
+                    <div id="div1_chk2">
+                        <label id="topp6" style="visibility: visible;"><input id="1chk6"
+                                type="checkbox">Biografia</label>
+                        <label id="topp7" style="visibility: visible;"><input id="1chk7" type="checkbox">Manuais</label>
+                        <label id="topp8" style="visibility: visible;"><input id="1chk8"
+                                type="checkbox">Crônicas</label>
+                        <label id="topp9" style="visibility: visible;"><input id="1chk9" type="checkbox">Outros</label>
+                    </div>
+                </div>
             </div>
 
             <div class="acervo-content">
@@ -98,7 +116,7 @@
                         <img src="../paginas/imagens/capaLivro.png" alt="">
                         <div class="titulo">Mar Morto, 2015</div>
                         <div class="autor">Jorge Amado</div>
-                        <a href="../paginas/info.html">
+                        <a href="../paginas/Info.html">
                             <div class="info-link">+ Informações</div>
                         </a>
                     </div>
@@ -106,16 +124,15 @@
                         <img src="../paginas/imagens/capaLivro.png" alt="The Dragon Republic">
                         <div class="titulo">Mar Morto, 2015</div>
                         <div class="autor">Jorge Amado</div>
-                        <a href="../paginas/info.html">
+                        <a href="../paginas/Info.html">
                             <div class="info-link">+ Informações</div>
                         </a>
                     </div>
-
                     <div class="acervo-card">
                         <img src="../paginas/imagens/capaLivro.png" alt="O Pequeno Príncipe">
                         <div class="titulo">Mar Morto, 2015</div>
                         <div class="autor">Jorge Amado</div>
-                        <a href="../paginas/info.html">
+                        <a href="../paginas/Info.html">
                             <div class="info-link">+ Informações</div>
                         </a>
                     </div>
@@ -123,7 +140,7 @@
                         <img src="../paginas/imagens/capaLivro.png" alt="Mar Morto">
                         <div class="titulo">Mar Morto, 2015</div>
                         <div class="autor">Jorge Amado</div>
-                        <a href="../paginas/info.html">
+                        <a href="../paginas/Info.html">
                             <div class="info-link">+ Informações</div>
                         </a>
                     </div>
@@ -131,7 +148,7 @@
                         <img src="../paginas/imagens/capaLivro.png" alt="The Dragon Republic">
                         <div class="titulo">Mar Morto, 2015</div>
                         <div class="autor">Jorge Amado</div>
-                        <a href="../paginas/info.html">
+                        <a href="../paginas/Info.html">
                             <div class="info-link">+ Informações</div>
                         </a>
                     </div>
@@ -139,7 +156,7 @@
                         <img src="../paginas/imagens/capaLivro.png" alt="O Pequeno Príncipe">
                         <div class="titulo">Mar Morto, 2015</div>
                         <div class="autor">Jorge Amado</div>
-                        <a href="../paginas/info.html">
+                        <a href="../paginas/Info.html">
                             <div class="info-link">+ Informações</div>
                         </a>
                     </div>
@@ -147,7 +164,7 @@
                         <img src="../paginas/imagens/capaLivro.png" alt="Mar Morto">
                         <div class="titulo">Mar Morto, 2015</div>
                         <div class="autor">Jorge Amado</div>
-                        <a href="../paginas/info.html">
+                        <a href="../paginas/Info.html">
                             <div class="info-link">+ Informações</div>
                         </a>
                     </div>
@@ -155,16 +172,7 @@
                         <img src="../paginas/imagens/capaLivro.png" alt="O Pequeno Príncipe">
                         <div class="titulo">Mar Morto, 2015</div>
                         <div class="autor">Jorge Amado</div>
-                        <a href="../paginas/info.html">
-                            <div class="info-link">+ Informações</div>
-                        </a>
-                    </div>
-
-                    <div class="acervo-card">
-                        <img src="../paginas/imagens/capaLivro.png" alt="O Pequeno Príncipe">
-                        <div class="titulo">Mar Morto, 2015</div>
-                        <div class="autor">Jorge Amado</div>
-                        <a href="../paginas/info.html">
+                        <a href="../paginas/Info.html">
                             <div class="info-link">+ Informações</div>
                         </a>
                     </div>
@@ -173,7 +181,7 @@
                         <img src="../paginas/imagens/capaLivro.png" alt="O Pequeno Príncipe">
                         <div class="titulo">Mar Morto, 2015</div>
                         <div class="autor">Jorge Amado</div>
-                        <a href="../paginas/info.html">
+                        <a href="../paginas/Info.html">
                             <div class="info-link">+ Informações</div>
                         </a>
                     </div>
@@ -182,7 +190,7 @@
                         <img src="../paginas/imagens/capaLivro.png" alt="O Pequeno Príncipe">
                         <div class="titulo">Mar Morto, 2015</div>
                         <div class="autor">Jorge Amado</div>
-                        <a href="../paginas/info.html">
+                        <a href="../paginas/Info.html">
                             <div class="info-link">+ Informações</div>
                         </a>
                     </div>
@@ -191,7 +199,16 @@
                         <img src="../paginas/imagens/capaLivro.png" alt="O Pequeno Príncipe">
                         <div class="titulo">Mar Morto, 2015</div>
                         <div class="autor">Jorge Amado</div>
-                        <a href="../paginas/info.html">
+                        <a href="../paginas/Info.html">
+                            <div class="info-link">+ Informações</div>
+                        </a>
+                    </div>
+
+                    <div class="acervo-card">
+                        <img src="../paginas/imagens/capaLivro.png" alt="O Pequeno Príncipe">
+                        <div class="titulo">Mar Morto, 2015</div>
+                        <div class="autor">Jorge Amado</div>
+                        <a href="../paginas/Info.html">
                             <div class="info-link">+ Informações</div>
                         </a>
                     </div>
@@ -261,111 +278,126 @@
         </main>
     </div>
     <script>
+
+        var sumarioVisivel = false;
+
         function sum() {
-            const sum = document.getElementById('top')
-            const sum2 = document.getElementById('top2')
-            const sum3 = document.getElementById('top3')
-            const sum4 = document.getElementById('top4')
-            const sum5 = document.getElementById('top5')
-            const sum6 = document.getElementById('top6')
-            const sum7 = document.getElementById('top7')
-            const sum8 = document.getElementById('top8')
-            const sum9 = document.getElementById('top9')
-            const suma = document.getElementById('sumario')
-            if (sum.style.visibility == "visible" && sum2.style.visibility == "visible" && sum3.style.visibility == "visible" && sum4.style.visibility == "visible" && sum5.style.visibility == "visible" && sum6.style.visibility == "visible" && sum7.style.visibility == "visible" && sum8.style.visibility == "visible" && sum9.style.visibility == "visible") {
-                sum.style.visibility = "hidden"
-                sum2.style.visibility = "hidden"
-                sum3.style.visibility = "hidden"
-                sum4.style.visibility = "hidden"
-                sum5.style.visibility = "hidden"
-                sum6.style.visibility = "hidden"
-                sum7.style.visibility = "hidden"
-                sum8.style.visibility = "hidden"
-                sum9.style.visibility = "hidden"
-                suma.style.height = "6vw"
+            if (sumarioVisivel === false) {
+                // Mostrar elementos
+                for (var i = 1; i <= 9; i++) {
+                    var label;
+                    if (i === 1) {
+                        label = document.getElementById('top');
+                    } else {
+                        label = document.getElementById('top' + i);
+                    }
+                    var input = document.getElementById('chk' + (i - 1));
+                    if (label) {
+                        label.style.display = "flex";
+                    }
+                    if (input) {
+                        input.style.display = "block";
+                        input.style.width = "30px";
+                        input.style.height = "30px";
+                        input.style.outline = "1px solid #000";
+                        input.style.borderRadius = "3px";
+                        input.style.background = "#fff";
+                        input.style.margin = "auto 10px";
+                    }
+                }
+                var divChk1 = document.getElementById('div_chk1');
+                var divChk2 = document.getElementById('div_chk2');
+                if (divChk1 && divChk2) {
+                    divChk1.style.margin = "15px 0px";
+                    divChk2.style.margin = "15px 0px";
+                }
+                sumarioVisivel = true;
             } else {
-                sum.style.visibility = "visible"
-                sum2.style.visibility = "visible"
-                sum3.style.visibility = "visible"
-                sum4.style.visibility = "visible"
-                sum5.style.visibility = "visible"
-                sum6.style.visibility = "visible"
-                sum7.style.visibility = "visible"
-                sum8.style.visibility = "visible"
-                sum9.style.visibility = "visible"
-                suma.style.height = "auto"
+                // Esconder elementos
+                for (var i = 1; i <= 9; i++) {
+                    var label;
+                    if (i === 1) {
+                        label = document.getElementById('top');
+                    } else {
+                        label = document.getElementById('top' + i);
+                    }
+                    var input = document.getElementById('chk' + (i - 1));
+                    if (label) {
+                        label.style.display = "none";
+                    }
+                    if (input) {
+                        input.style.display = "none";
+                    }
+                }
+                var divChk1 = document.getElementById('div_chk1');
+                var divChk2 = document.getElementById('div_chk2');
+                if (divChk1 && divChk2) {
+                    divChk1.style.margin = "";
+                    divChk2.style.margin = "";
+                }
+                sumarioVisivel = false;
             }
         }
-        document.getElementById('sumario').addEventListener('click', function () {
 
-            for (var i = 1; i <= 9; i++) {
-                var label;
-                if (i == 1) {
-                    label = document.getElementById('top');
-                } else {
-                    label = document.getElementById('top' + i);
-                }
-                if (label) {
-                    label.style.display = "flex";
-                }
-
-                var input = document.getElementById('chk' + (i - 1));
-                if (input) {
-                    input.style.display = "block";
-                    input.style.width = "30px";
-                    input.style.height = "30px";
-                    input.style.webkitAppearance = "none";
-                    input.style.outline = "1px solid #000";
-                    input.style.borderRadius = "3px";
-                    input.style.background = "#fff";
-                    input.style.margin = "auto 10px";
-                }
-            }
-
-
-            for (var i = 6; i <= 9; i++) {
-                var label = document.getElementById('top' + i);
-                if (label) {
-                    label.style.transform = "translateX(42%) translateY(-490%)";
-                }
-            }
-        });
+        var sumario2Visivel = false;
 
         function sum2() {
-            const sum = document.getElementById('topp')
-            const sum2 = document.getElementById('topp2')
-            const sum3 = document.getElementById('topp3')
-            const sum4 = document.getElementById('topp4')
-            const sum5 = document.getElementById('topp5')
-            const sum6 = document.getElementById('topp6')
-            const sum7 = document.getElementById('topp7')
-            const sum8 = document.getElementById('topp8')
-            const sum9 = document.getElementById('topp9')
-            const suma = document.getElementById('sumario2')
-            if (sum.style.visibility == "visible" && sum2.style.visibility == "visible" && sum3.style.visibility == "visible" && sum4.style.visibility == "visible" && sum5.style.visibility == "visible" && sum6.style.visibility == "visible" && sum7.style.visibility == "visible" && sum8.style.visibility == "visible" && sum9.style.visibility == "visible") {
-                sum.style.visibility = "hidden"
-                sum2.style.visibility = "hidden"
-                sum3.style.visibility = "hidden"
-                sum4.style.visibility = "hidden"
-                sum5.style.visibility = "hidden"
-                sum6.style.visibility = "hidden"
-                sum7.style.visibility = "hidden"
-                sum8.style.visibility = "hidden"
-                sum9.style.visibility = "hidden"
-                suma.style.height = "6vw"
+            if (sumario2Visivel === false) {
+                for (var i = 1; i <= 9; i++) {
+                    var label;
+                    if (i === 1) {
+                        label = document.getElementById('topp');
+                    } else {
+                        label = document.getElementById('topp' + i);
+                    }
+                    if (label) {
+                        label.style.display = "flex";
+                        var input = label.querySelector('input[type="checkbox"]');
+                        if (input) {
+                            input.style.display = "block";
+                            input.style.width = "30px";
+                            input.style.height = "30px";
+                            input.style.outline = "1px solid #000";
+                            input.style.borderRadius = "3px";
+                            input.style.background = "#fff";
+                            input.style.margin = "auto 10px";
+                        }
+                    }
+                }
+                var divChk1 = document.getElementById('div1_chk1');
+                var divChk2 = document.getElementById('div1_chk2');
+                if (divChk1 && divChk2) {
+                    divChk1.style.margin = "10px 0";
+                    divChk2.style.margin = "10px 0";
+                }
+                sumario2Visivel = true;
             } else {
-                sum.style.visibility = "visible"
-                sum2.style.visibility = "visible"
-                sum3.style.visibility = "visible"
-                sum4.style.visibility = "visible"
-                sum5.style.visibility = "visible"
-                sum6.style.visibility = "visible"
-                sum7.style.visibility = "visible"
-                sum8.style.visibility = "visible"
-                sum9.style.visibility = "visible"
-                suma.style.height = "auto"
+                for (var i = 1; i <= 9; i++) {
+                    var label;
+                    if (i === 1) {
+                        label = document.getElementById('topp');
+                    } else {
+                        label = document.getElementById('topp' + i);
+                    }
+                    if (label) {
+                        label.style.display = "none";
+                        var input = label.querySelector('input[type="checkbox"]');
+                        if (input) {
+                            input.style.display = "none";
+                        }
+                    }
+                }
+                var divChk1 = document.getElementById('div1_chk1');
+                var divChk2 = document.getElementById('div1_chk2');
+                if (divChk1 && divChk2) {
+                    divChk1.style.margin = "";
+                    divChk2.style.margin = "";
+                }
+                sumario2Visivel = false;
             }
         }
+
+
     </script>
 </body>
 
