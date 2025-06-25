@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Acervo - Littera</title>
+    <link rel="stylesheet" href="../CSS/acervo.css">
+</head>
+
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="../paginas/imagens/logoLittera.png" alt="">
+            </div>
+            <div class="fltro-grupo">
+                <div class="fltro-titulo">Gênero Textual</div>
+                <div class="fltro-opcoes">
+                    <label><input type="checkbox">Artigos</label>
+                    <label><input type="checkbox">Revistas</label>
+                    <label><input type="checkbox">Didáticos</label>
+                    <label><input type="checkbox">Poesia</label>
+                    <label><input type="checkbox">Romance</label>
+                    <label><input type="checkbox">Biografia</label>
+                    <label><input type="checkbox">Manuais</label>
+                    <label><input type="checkbox">Crônicas</label>
+                    <label><input type="checkbox">Outros</label>
+                </div>
+            </div>
+            <div class="fltro-grupo">
+                <div class="fltro-titulo">Ano</div>
+                <div class="fltro-opcoes">
+                    <label><input type="checkbox">2025</label>
+                    <label><input type="checkbox">2024</label>
+                    <label><input type="checkbox">2023</label>
+                    <label><input type="checkbox">2022</label>
+                    <label><input type="checkbox">2021</label>
+                    <label><input type="checkbox">2020</label>
+                    <label><input type="checkbox">2019</label>
+                    <label><input type="checkbox">2018</label>
+                    <label><input type="checkbox">Anterior</label>
+                </div>
+            </div>
+        </aside>
+        <main class="conteudo-principal">
+            <img src="../paginas/imagens/logoLittera.png" alt="" class="logomobile">
+            <div class="barra-pesquisa-container">
+                <input class="barra-pesquisa" type="text" placeholder="Pesquisar...">
+                <span class="icon-pesquisa"><svg xmlns="http://www.w3.org/2000/svg" width="33" height="32"
+                        viewBox="0 0 33 32" fill="none">
+                        <path
+                            d="M14.8446 24.408C12.9072 24.408 11.0133 23.8335 9.40238 22.7571C7.79147 21.6808 6.53592 20.1509 5.79449 18.3609C5.05307 16.571 4.85908 14.6014 5.23706 12.7012C5.61503 10.801 6.54799 9.0555 7.91796 7.68554C9.28793 6.31557 11.0334 5.38261 12.9336 5.00463C14.8338 4.62666 16.8034 4.82065 18.5933 5.56207C20.3833 6.30349 21.9132 7.55905 22.9896 9.16996C24.0659 10.7809 24.6404 12.6748 24.6404 14.6122C24.6404 15.8986 24.3871 17.1724 23.8948 18.3609C23.4025 19.5494 22.6809 20.6293 21.7713 21.5389C20.8617 22.4485 19.7818 23.1701 18.5933 23.6624C17.4049 24.1546 16.131 24.408 14.8446 24.408ZM14.8446 6.78078C13.3009 6.78078 11.7918 7.23856 10.5082 8.09623C9.22458 8.9539 8.22414 10.1729 7.63337 11.5992C7.04259 13.0254 6.88802 14.5949 7.18919 16.109C7.49037 17.6231 8.23376 19.0139 9.32537 20.1055C10.417 21.1971 11.8078 21.9405 13.3219 22.2416C14.836 22.5428 16.4054 22.3882 17.8316 21.7975C19.2579 21.2067 20.4769 20.2063 21.3346 18.9227C22.1923 17.6391 22.6501 16.13 22.6501 14.5862C22.6501 12.5161 21.8277 10.5307 20.3639 9.06693C18.9001 7.60313 16.9148 6.78078 14.8446 6.78078Z"
+                            fill="#573280" />
+                        <path
+                            d="M26.8524 27.5957C26.7242 27.5963 26.5972 27.5713 26.4788 27.5221C26.3604 27.473 26.253 27.4007 26.1629 27.3095L20.7902 21.9367C20.6178 21.7518 20.524 21.5071 20.5285 21.2544C20.5329 21.0016 20.6353 20.7604 20.8141 20.5817C20.9929 20.4029 21.234 20.3005 21.4868 20.2961C21.7396 20.2916 21.9842 20.3854 22.1691 20.5578L27.5419 25.9305C27.7246 26.1134 27.8272 26.3614 27.8272 26.62C27.8272 26.8785 27.7246 27.1265 27.5419 27.3095C27.4518 27.4007 27.3444 27.473 27.226 27.5221C27.1076 27.5713 26.9806 27.5963 26.8524 27.5957Z"
+                            fill="#573280" />
+                    </svg></span>
+            </div>
+            <div class="tabs">
+                <div class="tab active">Livros</div>
+                <div class="tab" onclick="clicar()">Audiovisual</div>
+            </div>
+            <div id="sumario" style="height: auto;">
+                <h1 onclick="sum()">
+                    Gênero Textual
+                </h1>
+
+                <label id="top" style="visibility: visible;"><input id="chk0" type="checkbox">Artigos</label>
+                <label id="top2" style="visibility: visible;"><input id="chk1" type="checkbox">Revistas</label>
+                <label id="top3" style="visibility: visible;"><input id="chk2" type="checkbox">Didáticos</label>
+                <label id="top4" style="visibility: visible;"><input id="chk3" type="checkbox">Poesia</label>
+                <label id="top5" style="visibility: visible;"><input id="chk4" type="checkbox">Romance</label>
+                <label id="top6" style="visibility: visible;"><input id="chk5" type="checkbox">Biografia</label>
+                <label id="top7" style="visibility: visible;"><input id="chk6" type="checkbox">Manuais</label>
+                <label id="top8" style="visibility: visible;"><input id="chk7" type="checkbox">Crônicas</label>
+                <label id="top9" style="visibility: visible;"><input id="chk8" type="checkbox">Outros</label>
+
+            </div>
+            <div id="sumario2" style="height: auto;">
+                <h1 onclick="sum2()">
+                    Ano
+                </h1>
+                <label id="topp" style="visibility: visible;"><input type="checkbox">Artigos</label>
+                <label id="topp2" style="visibility: visible;"><input type="checkbox">Revistas</label>
+                <label id="topp3" style="visibility: visible;"><input type="checkbox">Didáticos</label>
+                <label id="topp4" style="visibility: visible;"><input type="checkbox">Poesia</label>
+                <label id="topp5" style="visibility: visible;"><input type="checkbox">Romance</label>
+                <label id="topp6" style="visibility: visible;"><input type="checkbox">Biografia</label>
+                <label id="topp7" style="visibility: visible;"><input type="checkbox">Manuais</label>
+                <label id="topp8" style="visibility: visible;"><input type="checkbox">Crônicas</label>
+                <label id="topp9" style="visibility: visible;"><input type="checkbox">Outros</label>
+
+            </div>
+
+            <div class="acervo-content">
+                <div class="coluna-cards">
+                    <div class="acervo-card">
+                        <img src="../paginas/imagens/capaLivro.png" alt="">
+                        <div class="titulo">Mar Morto, 2015</div>
+                        <div class="autor">Jorge Amado</div>
+                        <a href="../paginas/info.html">
+                            <div class="info-link">+ Informações</div>
+                        </a>
+                    </div>
+                    <div class="acervo-card">
+                        <img src="../paginas/imagens/capaLivro.png" alt="The Dragon Republic">
+                        <div class="titulo">Mar Morto, 2015</div>
+                        <div class="autor">Jorge Amado</div>
+                        <a href="../paginas/info.html">
+                            <div class="info-link">+ Informações</div>
+                        </a>
+                    </div>
+
+                    <div class="acervo-card">
+                        <img src="../paginas/imagens/capaLivro.png" alt="O Pequeno Príncipe">
+                        <div class="titulo">Mar Morto, 2015</div>
+                        <div class="autor">Jorge Amado</div>
+                        <a href="../paginas/info.html">
+                            <div class="info-link">+ Informações</div>
+                        </a>
+                    </div>
+                    <div class="acervo-card">
+                        <img src="../paginas/imagens/capaLivro.png" alt="Mar Morto">
+                        <div class="titulo">Mar Morto, 2015</div>
+                        <div class="autor">Jorge Amado</div>
+                        <a href="../paginas/info.html">
+                            <div class="info-link">+ Informações</div>
+                        </a>
+                    </div>
+                    <div class="acervo-card">
+                        <img src="../paginas/imagens/capaLivro.png" alt="The Dragon Republic">
+                        <div class="titulo">Mar Morto, 2015</div>
+                        <div class="autor">Jorge Amado</div>
+                        <a href="../paginas/info.html">
+                            <div class="info-link">+ Informações</div>
+                        </a>
+                    </div>
+                    <div class="acervo-card">
+                        <img src="../paginas/imagens/capaLivro.png" alt="O Pequeno Príncipe">
+                        <div class="titulo">Mar Morto, 2015</div>
+                        <div class="autor">Jorge Amado</div>
+                        <a href="../paginas/info.html">
+                            <div class="info-link">+ Informações</div>
+                        </a>
+                    </div>
+                    <div class="acervo-card">
+                        <img src="../paginas/imagens/capaLivro.png" alt="Mar Morto">
+                        <div class="titulo">Mar Morto, 2015</div>
+                        <div class="autor">Jorge Amado</div>
+                        <a href="../paginas/info.html">
+                            <div class="info-link">+ Informações</div>
+                        </a>
+                    </div>
+                    <div class="acervo-card">
+                        <img src="../paginas/imagens/capaLivro.png" alt="O Pequeno Príncipe">
+                        <div class="titulo">Mar Morto, 2015</div>
+                        <div class="autor">Jorge Amado</div>
+                        <a href="../paginas/info.html">
+                            <div class="info-link">+ Informações</div>
+                        </a>
+                    </div>
+
+                    <div class="acervo-card">
+                        <img src="../paginas/imagens/capaLivro.png" alt="O Pequeno Príncipe">
+                        <div class="titulo">Mar Morto, 2015</div>
+                        <div class="autor">Jorge Amado</div>
+                        <a href="../paginas/info.html">
+                            <div class="info-link">+ Informações</div>
+                        </a>
+                    </div>
+
+                    <div class="acervo-card">
+                        <img src="../paginas/imagens/capaLivro.png" alt="O Pequeno Príncipe">
+                        <div class="titulo">Mar Morto, 2015</div>
+                        <div class="autor">Jorge Amado</div>
+                        <a href="../paginas/info.html">
+                            <div class="info-link">+ Informações</div>
+                        </a>
+                    </div>
+
+                    <div class="acervo-card">
+                        <img src="../paginas/imagens/capaLivro.png" alt="O Pequeno Príncipe">
+                        <div class="titulo">Mar Morto, 2015</div>
+                        <div class="autor">Jorge Amado</div>
+                        <a href="../paginas/info.html">
+                            <div class="info-link">+ Informações</div>
+                        </a>
+                    </div>
+
+                    <div class="acervo-card">
+                        <img src="../paginas/imagens/capaLivro.png" alt="O Pequeno Príncipe">
+                        <div class="titulo">Mar Morto, 2015</div>
+                        <div class="autor">Jorge Amado</div>
+                        <a href="../paginas/info.html">
+                            <div class="info-link">+ Informações</div>
+                        </a>
+                    </div>
+                </div>
+
+                <!--
+            <div class="cards-grid-2">
+                Card 1
+                <div class="acervo-card">
+                    <img src="../paginas/imagens/capaLivro.png" alt="Mar Morto">
+                    <div class="titulo">Filme, 2015</div>
+                    <div class="autor">Jorge Amado</div>
+                    <a href=""><div class="info-link">+ Informações</div></a>
+                </div>
+                 Card 2 
+                <div class="acervo-card">
+                    <img src="../paginas/imagens/capaLivro.png" alt="The Dragon Republic">
+                    <div class="titulo">Mar Morto, 2015</div>
+                    <div class="autor">Jorge Amado</div>
+                    <a href=""><div class="info-link">+ Informações</div></a>
+                </div>
+                 Card 3 
+                <div class="acervo-card">
+                    <img src="../paginas/imagens/capaLivro.png" alt="O Pequeno Príncipe">
+                    <div class="titulo">Mar Morto, 2015</div>
+                    <div class="autor">Jorge Amado</div>
+                    <a href=""><div class="info-link">+ Informações</div></a>
+                </div>
+                Card 4 
+                <div class="acervo-card">
+                    <img src="../paginas/imagens/capaLivro.png" alt="Mar Morto">
+                    <div class="titulo">Mar Morto, 2015</div>
+                    <div class="autor">Jorge Amado</div>
+                   <a href=""><div class="info-link">+ Informações</div></a>
+                </div>
+                 Card 5 
+                <div class="acervo-card">
+                    <img src="../paginas/imagens/capaLivro.png" alt="The Dragon Republic">
+                    <div class="titulo">Mar Morto, 2015</div>
+                    <div class="autor">Jorge Amado</div>
+                    <a href=""><div class="info-link">+ Informações</div></a>
+                </div>
+                 Card 6 
+                <div class="acervo-card">
+                    <img src="../paginas/imagens/capaLivro.png" alt="O Pequeno Príncipe">
+                    <div class="titulo">Mar Morto, 2015</div>
+                    <div class="autor">Jorge Amado</div>
+                    <a href=""><div class="info-link">+ Informações</div></a>
+                </div>
+                Card 7 
+                <div class="acervo-card">
+                    <img src="../paginas/imagens/capaLivro.png" alt="Mar Morto">
+                    <div class="titulo">Mar Morto, 2015</div>
+                    <div class="autor">Jorge Amado</div>
+                   <a href=""><div class="info-link">+ Informações</div></a>
+                </div>
+                Card 8 
+                <div class="acervo-card">
+                    <img src="../paginas/imagens/capaLivro.png" alt="O Pequeno Príncipe">
+                    <div class="titulo">Mar Morto, 2015</div>
+                    <div class="autor">Jorge Amado</div>
+                   <a href=""><div class="info-link">+ Informações</div></a>
+                </div>
+            </div>
+            -->
+            </div>
+        </main>
+    </div>
+    <script>
+        function sum() {
+            const sum = document.getElementById('top')
+            const sum2 = document.getElementById('top2')
+            const sum3 = document.getElementById('top3')
+            const sum4 = document.getElementById('top4')
+            const sum5 = document.getElementById('top5')
+            const sum6 = document.getElementById('top6')
+            const sum7 = document.getElementById('top7')
+            const sum8 = document.getElementById('top8')
+            const sum9 = document.getElementById('top9')
+            const suma = document.getElementById('sumario')
+            if (sum.style.visibility == "visible" && sum2.style.visibility == "visible" && sum3.style.visibility == "visible" && sum4.style.visibility == "visible" && sum5.style.visibility == "visible" && sum6.style.visibility == "visible" && sum7.style.visibility == "visible" && sum8.style.visibility == "visible" && sum9.style.visibility == "visible") {
+                sum.style.visibility = "hidden"
+                sum2.style.visibility = "hidden"
+                sum3.style.visibility = "hidden"
+                sum4.style.visibility = "hidden"
+                sum5.style.visibility = "hidden"
+                sum6.style.visibility = "hidden"
+                sum7.style.visibility = "hidden"
+                sum8.style.visibility = "hidden"
+                sum9.style.visibility = "hidden"
+                suma.style.height = "6vw"
+            } else {
+                sum.style.visibility = "visible"
+                sum2.style.visibility = "visible"
+                sum3.style.visibility = "visible"
+                sum4.style.visibility = "visible"
+                sum5.style.visibility = "visible"
+                sum6.style.visibility = "visible"
+                sum7.style.visibility = "visible"
+                sum8.style.visibility = "visible"
+                sum9.style.visibility = "visible"
+                suma.style.height = "auto"
+            }
+        }
+        document.getElementById('sumario').addEventListener('click', function () {
+
+            for (var i = 1; i <= 9; i++) {
+                var label;
+                if (i == 1) {
+                    label = document.getElementById('top');
+                } else {
+                    label = document.getElementById('top' + i);
+                }
+                if (label) {
+                    label.style.display = "flex";
+                }
+
+                var input = document.getElementById('chk' + (i - 1));
+                if (input) {
+                    input.style.display = "block";
+                    input.style.width = "30px";
+                    input.style.height = "30px";
+                    input.style.webkitAppearance = "none";
+                    input.style.outline = "1px solid #000";
+                    input.style.borderRadius = "3px";
+                    input.style.background = "#fff";
+                    input.style.margin = "auto 10px";
+                }
+            }
+
+
+            for (var i = 6; i <= 9; i++) {
+                var label = document.getElementById('top' + i);
+                if (label) {
+                    label.style.transform = "translateX(42%) translateY(-490%)";
+                }
+            }
+        });
+
+        function sum2() {
+            const sum = document.getElementById('topp')
+            const sum2 = document.getElementById('topp2')
+            const sum3 = document.getElementById('topp3')
+            const sum4 = document.getElementById('topp4')
+            const sum5 = document.getElementById('topp5')
+            const sum6 = document.getElementById('topp6')
+            const sum7 = document.getElementById('topp7')
+            const sum8 = document.getElementById('topp8')
+            const sum9 = document.getElementById('topp9')
+            const suma = document.getElementById('sumario2')
+            if (sum.style.visibility == "visible" && sum2.style.visibility == "visible" && sum3.style.visibility == "visible" && sum4.style.visibility == "visible" && sum5.style.visibility == "visible" && sum6.style.visibility == "visible" && sum7.style.visibility == "visible" && sum8.style.visibility == "visible" && sum9.style.visibility == "visible") {
+                sum.style.visibility = "hidden"
+                sum2.style.visibility = "hidden"
+                sum3.style.visibility = "hidden"
+                sum4.style.visibility = "hidden"
+                sum5.style.visibility = "hidden"
+                sum6.style.visibility = "hidden"
+                sum7.style.visibility = "hidden"
+                sum8.style.visibility = "hidden"
+                sum9.style.visibility = "hidden"
+                suma.style.height = "6vw"
+            } else {
+                sum.style.visibility = "visible"
+                sum2.style.visibility = "visible"
+                sum3.style.visibility = "visible"
+                sum4.style.visibility = "visible"
+                sum5.style.visibility = "visible"
+                sum6.style.visibility = "visible"
+                sum7.style.visibility = "visible"
+                sum8.style.visibility = "visible"
+                sum9.style.visibility = "visible"
+                suma.style.height = "auto"
+            }
+        }
+    </script>
+</body>
+
+</html>

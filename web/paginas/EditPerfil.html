@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/button.css">
+    <link rel="stylesheet" href="../CSS/Geral.css">
+    <link rel="stylesheet" href="../CSS/nav.css">
+
+    <link rel="stylesheet" href="../CSS/perfil.css">
+    <title>Editar Perfil</title>
+
+
+</head>
+
+<body id="homeBody">
+
+
+    <header>
+        <div id="logo">
+            <img src="../paginas/imagens/logoLittera.png" alt="logo Littera" id="minhaLogo">
+        </div>
+
+        <nav class="navBar" style="background-color: transparent;">
+        </nav>
+    </header>
+
+    <main>
+        <div class="form-container">
+            <div class="perfil-section">
+                <div class="perfil-foto">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                </div>
+                <button class="upload-button">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+                    <p>
+                        foto de perfil
+                    </p>
+                </button>
+            </div>
+
+            <div class="alteracoes-section">
+                <form class="form-coluna">
+
+                    <div class="form-lacuna">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" class="form-input" />
+                    </div>
+
+                    <div class="form-lacuna">
+                        <label for="senhaAnterior" class="form-label">Senha anterior</label>
+                        <input type="password" id="senhaAnterior" class="form-input" />
+                    </div>
+
+
+                    <div class="form-lacuna">
+                        <label for="usuario" class="form-label">Usuário</label>
+                        <input type="text" id="usuario" class="form-input" />
+                    </div>
+
+
+                    <div class="form-lacuna">
+                        <label for="novaSenha" class="form-label">Nova senha</label>
+                        <input type="password" id="novaSenha" class="form-input" />
+                    </div>
+                </form>
+            </div>
+
+
+            <div class="button-container" style="flex-direction: row;">
+                <a href="Home.html" style="text-decoration: none;">
+                    <button type="submit" class="button button-outline" onclick="cancelar()"
+                        style="border: solid 1px #573280; color: #573280;background: linear-gradient(0deg, rgba(254, 254, 255, 0.5) 17%, rgba(155, 140, 219, 0.2) 100%);border-radius: 30px;">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" syle="margin:auto 0">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                        <div
+                            style="border-left:solid 1px #573280; height: 100%; display: flex; text-align: right; align-items: center;  padding-left: 10px;">
+                            <p>Cancelar</p>
+                        </div>
+                    </button>
+                </a>
+
+
+                <button type="submit" class="button button-primary" id="button-save" onclick="salvar()"
+                    style="border: solid 1px #573280;color: #573280;background: linear-gradient(0deg, rgba(254, 254, 255, 0.5) 17%, rgba(155, 140, 219, 0.2) 100%);border-radius: 30px;">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4">
+                        </path>
+                    </svg>
+                    <div
+                        style="border-left:solid 1px #573280; height: 100%; justify-content:center; display: flex; align-items: center; padding-left: 10px; width: 67px;">
+                        Salvar</div>
+                </button> <!--<div id="acaoForm">paginas/Home.html
+                <button type="submit" id="botaoCad">
+                    Cadastre-se
+                </button>
+            </div>
+        -->
+            </div>
+
+        </div>
+
+
+        <script>
+            function cancelar() {
+                // Limpar todos os campos
+                document.getElementById('email').value = '';
+                document.getElementById('usuario').value = '';
+                document.getElementById('senhaAnterior').value = '';
+                document.getElementById('novaSenha').value = '';
+                console.log('Formulário cancelado e limpo');
+            }
+
+            function salvar() {
+                // Coletar dados do formulário
+                const dados = {
+                    email: document.getElementById('email').value,
+                    usuario: document.getElementById('usuario').value,
+                    senhaAnterior: document.getElementById('senhaAnterior').value,
+                    novaSenha: document.getElementById('novaSenha').value
+                };
+
+                console.log('Dados salvos:', dados);
+                alert('Dados salvos com sucesso!');
+            }
+
+            // Upload de foto de perfil
+            document.querySelector('.upload-button').addEventListener('click', function () {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                input.onchange = function (e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        console.log('Foto selecionada:', file.name);
+
+                    }
+                };
+                input.click();
+            });
+        </script>
+
+    </main>
+</body>
+
+</html>
