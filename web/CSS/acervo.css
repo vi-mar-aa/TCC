@@ -123,6 +123,7 @@ body {
     justify-content: flex-end;
     align-items: center;
     margin-bottom: 24px;
+
 }
 
 .barra-pesquisa {
@@ -135,6 +136,7 @@ body {
     outline: none;
     background: #fff;
     color: #4b2e83;
+    display: flex;
 }
 
 .icon-pesquisa {
@@ -240,10 +242,14 @@ body {
     .coluna-cards {
         grid-template-columns: repeat(3, 1fr);
     }
-
+    .div_chekBoxs,.div_chekBoxs1{
+        display: flex;
+    }
+ 
     .sidebar {
         display: none;
     }
+    
 
     .logomobile {
         display: flex;
@@ -253,12 +259,33 @@ body {
         margin-left: 31%;
         margin-bottom: 8px;
     }
+    #sumario{
+        border-top-left-radius:15px ;
+        border-top-right-radius:15px ;
+        border-bottom-left-radius:0px ;
+        border-bottom-right-radius:0px ;
+    } 
+
+    #sumario h1 {
+     border-bottom: solid 2px #7d4bb1;
+     margin-bottom: 0;
+    }
+    #sumario2 h1{
+        border-bottom: solid 2px #7d4bb1;
+        margin-bottom: 0;
+    }
 
     #sumario,
     #sumario2 {
         display: block;
         height: 250px;
+        margin: 0 auto;
+        border: solid 2px #7d4bb1;
     }
+    #sumario2{
+        border-top: none;
+    }
+
 
     #sumario label,
     input {
