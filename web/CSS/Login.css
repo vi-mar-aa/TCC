@@ -250,7 +250,6 @@ div.mainContent {
     color: #7c3aed;
 }
 
-/*RESPONSIVO LOGIN*/
 @media (max-width: 600px) {
     #boasVindas {
         display: flex;

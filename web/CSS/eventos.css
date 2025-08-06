@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#eventos-titulos {
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 92px;
+    font-family: Nunito Sans, sans-serif;
+    margin-right: 13vw;
+}
+
+.evento-container {
+    width: 91%;
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    margin-top: 5vw;
+}
+
+.evento-caixa {
+    background: rgba(255, 255, 255, 0.40);
+    border-radius: 0.45rem;
+    padding: 1.5rem;
+}
+
+.evento-titulo {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #374151;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.evento-detalhes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: left;
+}
+
+.evento-detalhe {
+    color: #4b5563;
+    font-size: 1.5rem;
+
+}
+
+.evento-detalhe-label {
+    font-weight: 600;
+
+}
+
+.evento-detalhe {
+    margin-left: 0;
+}
+
+.titulo {
+    width: 100%;
+    text-align: center;
+    font-size: 4em;
+    margin-right: 21%;
+
+}
+
+@media (max-width: 600px) {
+    .evento-container {
+        flex-direction: column;
+        margin-top: 13vw;
+        margin-bottom: 30vw;
+    }
+
+    #homeBody {
+        position: relative;
+    }
+    header{
+        flex-direction: column;
+    }
+
+    #eventos-titulos {
+        font-size: 65px;
+        visibility: visible;
+        position: absolute;
+        left: 160px;
+        top: 215px;
+    }
+
+}
