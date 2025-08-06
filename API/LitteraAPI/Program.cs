@@ -1,4 +1,5 @@
 using LitteraAPI.Repositories;
+using LitteraAPI.Routes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,8 +20,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Voce estava fazendo o login
-//app.Rcliente();
+app.Routescliente();
 app.UseHttpsRedirection();
 app.Run();
 
