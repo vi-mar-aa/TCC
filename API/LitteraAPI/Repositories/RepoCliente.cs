@@ -17,14 +17,14 @@ public class RepoCliente
     }
     
     
-    public async Task<bool> LoginCliente(string email, string senha)
+    public async Task<bool> LoginCliente(Mcliente login)
     {
         using var con = new SqlConnection(_connectionString);
         using (var cmd = new SqlCommand("sp_LoginCliente", con))
         { 
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@email", email); 
-            cmd.Parameters.AddWithValue("@senha", senha);
+            cmd.Parameters.AddWithValue("@email", login.Email); 
+            cmd.Parameters.AddWithValue("@senha", login.Senha);
 
             await con.OpenAsync();
                 // Use ExecuteReaderAsync para ler o resultado da procedure

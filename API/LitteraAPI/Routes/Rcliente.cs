@@ -15,7 +15,7 @@ public static class Rcliente
         {
             try
             {
-                var loginSucedido = await repoCliente.LoginCliente(login.Email, login.Senha);
+                var loginSucedido = await repoCliente.LoginCliente(login);
 
                 return loginSucedido
                     ? Results.Ok("Login realizado com sucesso")
