@@ -1,4 +1,5 @@
 using LitteraAPI.Repositories;
+using LitteraAPI.Routes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<RepoCliente>();
+builder.Services.AddScoped<RepoFuncionario>();
 
 var connectionString = builder.Configuration.GetConnectionString("SqlServer");
 var app = builder.Build();
@@ -19,8 +21,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Voce estava fazendo o login
-//app.Rcliente();
+app.Routescliente();
+app.Routesfuncionario();
 app.UseHttpsRedirection();
 app.Run();
 

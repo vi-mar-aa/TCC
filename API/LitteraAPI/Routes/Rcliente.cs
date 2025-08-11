@@ -6,7 +6,52 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace LitteraAPI.Routes;
 
-public class Rcliente
+public static class Rcliente
 {
+    public static void Routescliente(this WebApplication app)
+    {
     
+        app.MapPost("/LoginCliente", async ([FromBody] Mcliente login, [FromServices] RepoCliente repoCliente) =>
+        {
+            try
+            {
+                var loginSucedido = await repoCliente.LoginCliente(login);
+
+                return loginSucedido
+                    ? Results.Ok("Login realizado com sucesso")
+                    : Results.NotFound("Usuário ou senha incorretos");
+            }
+            catch (SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message);
+            }
+            
+        });
+
+        app.MapPost("/CadastrarCliente", async ([FromBody] Mcliente cadastro, [FromServices] RepoCliente repoCliente) =>
+        {
+            try
+            {
+
+                await repoCliente.CadastrarCliente(cadastro);
+                return Results.Ok("Cliente cadastrado com sucesso");
+            }
+            catch (SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message);
+            }
+            
+            /* map post cria o end point http post
+             * o cadastrar cliente é o caminho da url, como o cliente vai chamar a rota
+             * o segundo parametro é uma função que vai ser executada quando alguem fazer a requisição post
+             * o [from body] Mcliente cadastro le o body da requisição e tenta converter para o modelo cliente
+             * o [from services] RepoCliente repoCliente é uma forma do frame work criar automaticamente uma nova instancia do repocliente
+             * 
+             */
+            
+        });
+        
+    }
 }
+
+    
