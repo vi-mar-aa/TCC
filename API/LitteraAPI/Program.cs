@@ -22,10 +22,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-//Voce estava fazendo a midia e o cadastro das midias e o get delas, depois fazer o restante das procs de a cervo
+//Falta procedures nas midias
+//Fazer as coisas do acervo
+// android
+app.UseHttpsRedirection();
 app.Routescliente();
 app.Routesfuncionario();
 app.Routesmidia();
-app.UseHttpsRedirection();
 app.Run();
 

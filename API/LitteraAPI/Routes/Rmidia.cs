@@ -47,7 +47,7 @@ public static class Rmidia
             try
             {
                 await repoMidia.InserirMidia(rmidia);
-                return Results.Ok("Adm cadastrado com sucesso");
+                return Results.Ok("Midia cadastrado com sucesso");
             }
             catch (SqlException ex)
             {

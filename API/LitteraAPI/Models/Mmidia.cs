@@ -17,7 +17,9 @@ public class Mmidia
      public string Duracao { get; set; }
      public string Estudio { get; set; }
      public string Roterista { get; set; }
-     public string Dispo { get; set; } //bool
+     public string Dispo { get; set; } //bool?
      public string Genero { get; set; }
+     
+     public string Imagem { get; set; } //base64
      
 }

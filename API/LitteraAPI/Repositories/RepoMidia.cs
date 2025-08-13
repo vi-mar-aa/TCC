@@ -19,9 +19,10 @@ public class RepoMidia
         var midia = new List<Mmidia>();
         
         using var con = new SqlConnection(_connectionString);
-        using (var cmd = new SqlCommand("sp_Acervo", con)) //faltando proc do acervo
+        //using (var cmd = new SqlCommand("sp_Acervo", con)) //faltando proc do acervo
+        using (var cmd = new SqlCommand("SELECT * FROM Midia", con))
         {
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            //cmd.CommandType = System.Data.CommandType.StoredProcedure;
             await con.OpenAsync();
             using var reader = await cmd.ExecuteReaderAsync();
 
@@ -29,21 +30,20 @@ public class RepoMidia
             {
                 midia.Add(new Mmidia()
                 {
-                    IdMidia = (int)reader["IdMidia"],
-                    Idfuncionario = (int)reader["Idfuncionario"],
-                    Idtpmidia = (int)reader["Idtpmidia"],
-                    Titulo = (string)reader["Titulo"],
-                    Autor = (string)reader["Autor"],
-                    Anopublicacao = (int)reader["Anopublicacao"],
-                    Edicao = (string)reader["Edicao"],
-                    Localpublicacao = (string)reader["Localpublicacao"],
-                    Npaginas = (int)reader["Npaginas"],
-                    Isbn = (string)reader["Isbn"],
-                    //Duracao = (string)reader["Duracao"],
-                    //Estudio = (string)reader["Estudio"],
-                    //Roterista = (string)reader["Roterista"],
-                    Dispo = (string)reader["Dispo"],
-                    Genero = (string)reader["Genero"]
+                    IdMidia = (int)reader["id_midia"],
+                    Idfuncionario = (int)reader["id_funcionario"],
+                    Idtpmidia = (int)reader["id_tpmidia"],
+                    Titulo = (string)reader["titulo"],
+                    Autor = (string)reader["autor"],
+                    Editora = (string)reader["editora"],
+                    Anopublicacao = (int)reader["ano_publicacao"],
+                    Edicao = (string)reader["edicao"],
+                    Localpublicacao = (string)reader["local_publicacao"],
+                    Npaginas = (int)reader["numero_paginas"],
+                    Isbn = (string)reader["isbn"],
+                    Dispo = (string)reader["disponibilidade"],
+                    Genero = (string)reader["genero"],
+                    Imagem = Convert.ToBase64String((byte[])reader["imagem"])
                     
                 });
 
@@ -83,7 +83,8 @@ public class RepoMidia
                     Estudio = (string)reader["Estudio"],
                     Roterista = (string)reader["Roterista"],
                     Dispo = (string)reader["Dispo"],
-                    Genero = (string)reader["Genero"]
+                    Genero = (string)reader["Genero"],
+                    Imagem = Convert.ToBase64String((byte[])reader["Imagem"])
                     
                 });
 
