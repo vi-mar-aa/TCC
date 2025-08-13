@@ -1,0 +1,61 @@
+using LitteraAPI.DTOS;
+using Microsoft.AspNetCore.Mvc;
+using LitteraAPI.Repositories;
+using LitteraAPI.Models;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace LitteraAPI.Routes;
+
+public static class Rmidia
+{
+    public static void Routesmidia(this WebApplication app)
+    {
+        app.MapGet("/livros", async (RepoMidia repo) =>
+        {
+            try
+            {
+                var livros = await repo.ListarTodosLivros();
+                return Results.Ok(livros);
+            }
+            catch (SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message);
+            }
+            
+            
+
+        });
+
+        app.MapGet("/filmes", async (RepoMidia repo) =>
+        {
+            try
+            {
+                var filmes = await repo.ListarTodosFilmes();
+                return Results.Ok(filmes);
+            }
+            catch (SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message);
+            }
+            
+
+        });
+
+        app.MapPost("/CadastrarMidia", async ([FromBody] RequestMidia rmidia, [FromServices] RepoMidia repoMidia) =>
+        {
+            try
+            {
+                await repoMidia.InserirMidia(rmidia);
+                return Results.Ok("Midia cadastrado com sucesso");
+            }
+            catch (SqlException ex)
+            {
+                return Results.Problem("Erro no banco ou tipo de midia inválido: " + ex.Message);
+            }
+            
+        } );
+        
+    
+    }
+}
