@@ -54,4 +54,21 @@ public class RepoCliente
         
     }
 
+    public async Task ResetarSenha(Mcliente cliente)
+    {
+        
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand("sp_ResetarSenha", con))
+        {
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@email", cliente.Email);
+            cmd.Parameters.AddWithValue("@cpf", cliente.Cpf); //alterar cpf na model para string
+            cmd.Parameters.AddWithValue("@nova_senha", cliente.Senha);
+            
+            await con.OpenAsync();
+            await cmd.ExecuteNonQueryAsync();
+        }
+        
+    }
+
 }

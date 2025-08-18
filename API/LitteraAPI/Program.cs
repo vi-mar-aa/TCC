@@ -13,6 +13,7 @@ builder.Services.AddScoped<RepoCliente>();
 builder.Services.AddScoped<RepoFuncionario>();
 builder.Services.AddScoped<RepoMidia>();
 builder.Services.AddScoped<RequestMidia>();
+builder.Services.AddScoped<RepoReserva>();
 var connectionString = builder.Configuration.GetConnectionString("SqlServer");
 var app = builder.Build();
 
@@ -22,12 +23,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-//Falta procedures nas midias
+//Falta procedures nas midias separar as procs
 //Fazer as coisas do acervo
-// android
+// Main android
 app.UseHttpsRedirection();
 app.Routescliente();
 app.Routesfuncionario();
 app.Routesmidia();
+app.Routesreserva();
 app.Run();
 

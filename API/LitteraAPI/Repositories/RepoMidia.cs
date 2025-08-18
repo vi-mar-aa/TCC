@@ -43,7 +43,7 @@ public class RepoMidia
                     Isbn = (string)reader["isbn"],
                     Dispo = (string)reader["disponibilidade"],
                     Genero = (string)reader["genero"],
-                    Imagem = Convert.ToBase64String((byte[])reader["imagem"])
+                    //Imagem = Convert.ToBase64String((byte[])reader["imagem"])
                     
                 });
 
@@ -191,8 +191,84 @@ public class RepoMidia
             }
         }
         
-        
-        
+    }
+
+    public async Task<List<Mmidia>> ListarMainAndroidGenerosSimilares(string genero)
+    {
+        var midia = new List<Mmidia>();
+
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand("sp_MainListar", con))
+        {
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@genero_ref", genero);
+            await con.OpenAsync();
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                midia.Add(new Mmidia()
+                {
+                    IdMidia = (int)reader["id_midia"],
+                    Idtpmidia = (int)reader["id_tpmidia"],
+                    Titulo = (string)reader["titulo"],
+                    Autor = (string)reader["autor"],
+                    Editora = (string)reader["editora"],
+                    Anopublicacao = (int)reader["ano_publicacao"],
+                    Edicao = (string)reader["edicao"],
+                    Localpublicacao = (string)reader["local_publicacao"],
+                    Npaginas = (int)reader["numero_paginas"],
+                    Isbn = (string)reader["isbn"],
+                    Dispo = (string)reader["disponibilidade"],
+                    Genero = (string)reader["genero"],
+                    Imagem = Convert.ToBase64String((byte[])reader["imagem"])
+
+                });
+            }
+
+            return midia;
+        }
     }
     
+    
+    public async Task<List<Mmidia>> ListarMainAndroidPopulares()
+    {
+        var midia = new List<Mmidia>();
+
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand("sp_MainListar", con))
+        {
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            await con.OpenAsync();
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                midia.Add(new Mmidia()
+                {
+                    IdMidia = (int)reader["id_midia"],
+                    Idtpmidia = (int)reader["id_tpmidia"],
+                    Titulo = (string)reader["titulo"],
+                    Autor = (string)reader["autor"],
+                    Editora = (string)reader["editora"],
+                    Anopublicacao = (int)reader["ano_publicacao"],
+                    Edicao = (string)reader["edicao"],
+                    Localpublicacao = (string)reader["local_publicacao"],
+                    Npaginas = (int)reader["numero_paginas"],
+                    Isbn = (string)reader["isbn"],
+                    Dispo = (string)reader["disponibilidade"],
+                    Genero = (string)reader["genero"],
+                    Imagem = Convert.ToBase64String((byte[])reader["imagem"])
+
+                });
+            }
+
+            return midia;
+        }
+    }
+    
+    
+    
+    
 }
+

@@ -50,7 +50,21 @@ public static class Rcliente
              */
             
         });
-        
+
+        app.MapPost("/ResetarSenhaCliente", async ([FromBody] Mcliente resetSenha, [FromServices] RepoCliente repoCliente) =>
+            {
+                try
+                {
+                    await repoCliente.ResetarSenha(resetSenha);
+                    return Results.Ok("Senha resetada com sucesso");
+                }
+                catch
+                {
+                    return Results.Problem("Erro ao resetar senha");
+                }  
+                
+            });
+
     }
 }
 
