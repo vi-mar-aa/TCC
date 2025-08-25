@@ -617,141 +617,16 @@ END
 GO
 
 -- notificações de empréstimos (vence em 3 dias ou já vencido)
-CREATE PROCEDURE sp_NotificacoesEmprestimos
-AS
-BEGIN
-  SELECT id_emprestimo,
-         id_cliente,
-         data_devolucao
-  FROM Emprestimo
-  WHERE data_devolucao = DATEADD(DAY, 3, CAST(GETDATE() AS DATE))
-     OR data_devolucao < CAST(GETDATE() AS DATE)
-  ORDER BY data_devolucao;
-END
-GO
-
-CREATE PROCEDURE sp_NotificacaoMarcarLida
-  @id_notificacao INT
-AS
-BEGIN
-  UPDATE Notificacao
-  SET lida = 1
-  WHERE id_notificacao = @id_notificacao;
-
-  SELECT 'OK' AS msg;
-END
-GO
 
 
 -----------
 -- ANDROID
 -----------
 
-CREATE PROCEDURE sp_MainListar
-  @genero_ref VARCHAR(100) = NULL,
-  @top_genero INT = 10
-AS
-BEGIN
-  EXEC sp_MidiasPopulares @tipo='livros', @genero=NULL;
-
-  IF @genero_ref IS NOT NULL
-    SELECT TOP (@top_genero)
-           m.id_midia, m.titulo, m.autor, m.ano_publicacao, m.genero
-    FROM Midia m
-    JOIN TipoMidia tm ON tm.id_tpmidia=m.id_tpmidia
-    WHERE tm.nome_tipo='livros' AND m.genero=@genero_ref
-    ORDER BY m.ano_publicacao DESC, m.titulo;
-END
-GO
 
 
-CREATE PROCEDURE sp_AcervoPrincipal
-AS
-BEGIN
-  SELECT 
-    m.id_midia,
-    m.imagem,
-    m.titulo,
-    m.autor,
-    m.roteirista,
-    m.ano_publicacao
-  FROM Midia m
-  ORDER BY m.titulo;
-END
-GO
 
-CREATE PROCEDURE sp_MidiaComExemplares
-  @isbn   VARCHAR(20) = NULL,
-  @titulo VARCHAR(255) = NULL
-AS
-BEGIN
-  IF (@isbn IS NOT NULL)
-  BEGIN
-    SELECT * FROM Midia WHERE isbn = @isbn;
 
-    SELECT @isbn AS chave, COUNT(*) AS total_exemplares
-    FROM Midia
-    WHERE isbn = @isbn;
-  END
-  ELSE
-  BEGIN
-    SELECT * FROM Midia WHERE titulo = @titulo;
-
-    SELECT @titulo AS chave, COUNT(*) AS total_exemplares
-    FROM Midia
-    WHERE titulo = @titulo;
-  END
-END
-GO
-
-CREATE PROCEDURE sp_HistoricoEmprestimosCliente
-  @id_cliente INT
-AS
-BEGIN
-  SELECT 
-    e.id_emprestimo,
-    e.data_emprestimo,
-    e.data_devolucao,
-    m.id_midia,
-    m.titulo,
-    m.autor,
-    m.ano_publicacao
-  FROM Emprestimo e
-  JOIN Midia m ON m.id_midia = e.id_midia
-  WHERE e.id_cliente = @id_cliente
-    AND e.data_devolucao < GETDATE()
-  ORDER BY e.data_devolucao DESC;
-END
-GO
-
-CREATE PROCEDURE sp_ListaDesejosCliente
-  @id_cliente INT
-AS
-BEGIN
-  SELECT 
-    ld.id_midia,
-    ld.data_adicionada,
-    m.titulo,
-    m.autor,
-    m.ano_publicacao
-  FROM ListaDeDesejos ld
-  JOIN Midia m ON m.id_midia = ld.id_midia
-  WHERE ld.id_cliente = @id_cliente
-  ORDER BY ld.data_adicionada DESC;
-END
-GO
-
-CREATE PROCEDURE sp_ListaDesejosExcluir
-  @id_cliente INT,
-  @id_midia   INT
-AS
-BEGIN
-  DELETE FROM ListaDeDesejos
-  WHERE id_cliente=@id_cliente AND id_midia=@id_midia;
-
-  SELECT 'OK' AS msg;
-END
-GO
 
 CREATE PROCEDURE sp_MidiaAlterarImagem
   @id_midia INT,
@@ -903,14 +778,7 @@ GO
 ---------------------------------------------------
 
 -- Selecionar todos funcionários
-CREATE PROCEDURE sp_TodosFuncionarios
-AS
-BEGIN
-  SELECT id_funcionario, id_cargo, nome, cpf, email, telefone, status_conta
-  FROM Funcionario
-  ORDER BY nome;
-END
-GO
+
 
 -- Exemplares
 CREATE PROCEDURE sp_Exemplares
@@ -969,75 +837,6 @@ GO
 -- MÍDIAS (add / alterar / excluir / sinopse)
 ----------------------------------------------
 
-CREATE PROCEDURE sp_MidiaAdicionar
-  @id_funcionario INT,
-  @id_tpmidia INT,
-  @titulo VARCHAR(255),
-  @sinopse VARCHAR(255),
-  @autor VARCHAR(100),
-  @editora VARCHAR(100),
-  @ano_publicacao INT,
-  @isbn VARCHAR(20),
-  @disponibilidade VARCHAR(20),
-  @genero VARCHAR(100)
-AS
-BEGIN
-  INSERT INTO Midia (
-    id_funcionario, id_tpmidia, titulo, sinopse, autor, editora,
-    ano_publicacao, isbn, disponibilidade, genero
-  )
-  VALUES (
-    @id_funcionario, @id_tpmidia, @titulo, @sinopse, @autor, @editora,
-    @ano_publicacao, @isbn, @disponibilidade, @genero
-  );
-  SELECT 'OK' AS msg;
-END
-GO
-
-
-CREATE PROCEDURE sp_MidiaAlterar
-  @id_midia INT,
-  @titulo VARCHAR(255),
-  @autor VARCHAR(100),
-  @editora VARCHAR(100),
-  @ano_publicacao INT,
-  @isbn VARCHAR(20),
-  @disponibilidade VARCHAR(20),
-  @genero VARCHAR(100)
-AS
-BEGIN
-  UPDATE Midia
-  SET titulo = @titulo,
-      autor = @autor,
-      editora = @editora,
-      ano_publicacao = @ano_publicacao,
-      isbn = @isbn,
-      disponibilidade = @disponibilidade,
-      genero = @genero
-  WHERE id_midia = @id_midia;
-
-  SELECT 'OK' AS msg;
-END
-GO
-
-CREATE PROCEDURE sp_MidiaExcluir
-  @id_midia INT
-AS
-BEGIN
-  DELETE FROM Midia WHERE id_midia=@id_midia;
-  SELECT 'OK' AS msg;
-END
-GO
-
-CREATE PROCEDURE sp_MidiaAddSinopse
-  @id_midia INT,
-  @sinopse VARCHAR(255)
-AS
-BEGIN
-  UPDATE Midia SET sinopse=@sinopse WHERE id_midia=@id_midia;
-  SELECT 'OK' AS msg;
-END
-GO
 
 --------------------------------
 -- DENÚNCIAS / LEITORES / POSTS
@@ -1246,9 +1045,24 @@ END
 GO
 
 
+	CREATE PROCEDURE sp_MainListar
+  @genero_ref VARCHAR(100) = NULL,
+  @top_genero INT = 10
+AS
+BEGIN
+  EXEC sp_MidiasPopulares @tipo='livros', @genero=NULL;
+
+  IF @genero_ref IS NOT NULL
+    SELECT TOP (@top_genero)
+           m.id_midia, m.titulo, m.autor, m.ano_publicacao, m.genero
+    FROM Midia m
+    JOIN TipoMidia tm ON tm.id_tpmidia=m.id_tpmidia
+    WHERE tm.nome_tipo='livros' AND m.genero=@genero_ref
+    ORDER BY m.ano_publicacao DESC, m.titulo;
+END
+GO
 
 	
-
 	
 
 -- !!! RESERVAS/EMPRESTIMO!!!
@@ -1294,11 +1108,138 @@ BEGIN
 END
 GO
 
+
+CREATE PROCEDURE sp_HistoricoEmprestimosCliente
+  @id_cliente INT
+AS
+BEGIN
+  SELECT 
+    e.id_emprestimo,
+    e.data_emprestimo,
+    e.data_devolucao,
+    m.id_midia,
+    m.titulo,
+    m.autor,
+    m.ano_publicacao
+  FROM Emprestimo e
+  JOIN Midia m ON m.id_midia = e.id_midia
+  WHERE e.id_cliente = @id_cliente
+    AND e.data_devolucao < GETDATE()
+  ORDER BY e.data_devolucao DESC;
+END
+GO
+
+
+-- !!!NOTIFICAÇÕES/ALERTAS !!!
+
+	CREATE PROCEDURE sp_NotificacoesEmprestimos
+AS
+BEGIN
+  SELECT id_emprestimo,
+         id_cliente,
+         data_devolucao
+  FROM Emprestimo
+  WHERE data_devolucao = DATEADD(DAY, 3, CAST(GETDATE() AS DATE))
+     OR data_devolucao < CAST(GETDATE() AS DATE)
+  ORDER BY data_devolucao;
+END
+GO
+
+CREATE PROCEDURE sp_NotificacaoMarcarLida
+  @id_notificacao INT
+AS
+BEGIN
+  UPDATE Notificacao
+  SET lida = 1
+  WHERE id_notificacao = @id_notificacao;
+
+  SELECT 'OK' AS msg;
+END
+GO
+
 	
 
 -- !!! LISTA DE DESEJOS !!!
 
+
+
+	CREATE PROCEDURE sp_ListaDesejosCliente
+  @id_cliente INT
+AS
+BEGIN
+  SELECT 
+    ld.id_midia,
+    ld.data_adicionada,
+    m.titulo,
+    m.autor,
+    m.ano_publicacao
+  FROM ListaDeDesejos ld
+  JOIN Midia m ON m.id_midia = ld.id_midia
+  WHERE ld.id_cliente = @id_cliente
+  ORDER BY ld.data_adicionada DESC;
+END
+GO
+
+CREATE PROCEDURE sp_ListaDesejosExcluir
+  @id_cliente INT,
+  @id_midia   INT
+AS
+BEGIN
+  DELETE FROM ListaDeDesejos
+  WHERE id_cliente=@id_cliente AND id_midia=@id_midia;
+
+  SELECT 'OK' AS msg;
+END
+GO
+	
+	
+
 -- !!! ACERVO/MIDIA !!!
+
+
+
+CREATE PROCEDURE sp_AcervoPrincipal
+AS
+BEGIN
+  SELECT 
+    m.id_midia,
+    m.imagem,
+    m.titulo,
+    m.autor,
+    m.roteirista,
+    m.ano_publicacao
+  FROM Midia m
+  ORDER BY m.titulo;
+END
+GO
+
+CREATE PROCEDURE sp_MidiaComExemplares
+  @isbn   VARCHAR(20) = NULL,
+  @titulo VARCHAR(255) = NULL
+AS
+BEGIN
+  IF (@isbn IS NOT NULL)
+  BEGIN
+    SELECT * FROM Midia WHERE isbn = @isbn;
+
+    SELECT @isbn AS chave, COUNT(*) AS total_exemplares
+    FROM Midia
+    WHERE isbn = @isbn;
+  END
+  ELSE
+  BEGIN
+    SELECT * FROM Midia WHERE titulo = @titulo;
+
+    SELECT @titulo AS chave, COUNT(*) AS total_exemplares
+    FROM Midia
+    WHERE titulo = @titulo;
+  END
+END
+GO
+
+
+
+	
 
 -- !!! LOGIN/CADASTRO CLIENTE !!!
 
@@ -1398,16 +1339,124 @@ GO
 
 
 
--- !!! ALERTAS DE EMPRESTIMO !!!
 
--- !!! NOTIFICACOES !!!
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 -- !!!!!!!!!!!!!!! DESKTOP !!!!!!!!!!!!!!!!!!!!!!!
 
+-- !!!INFO SOBRE O CLIENTE!!!
 
+
+
+
+	
+
+-- !!!EVENTOS!!!
+
+
+
+	
+
+-- !!!FÓRUM/DENUNCIAS!!!
+
+
+
+	
+
+-- !!!EMPRESTIMOS/RESERVA!!!
+
+
+
+
+
+
+--!!!MIDIA/MANUTENCAO ACERVO!!!
+
+
+	CREATE PROCEDURE sp_MidiaAdicionar
+  @id_funcionario INT,
+  @id_tpmidia INT,
+  @titulo VARCHAR(255),
+  @sinopse VARCHAR(255),
+  @autor VARCHAR(100),
+  @editora VARCHAR(100),
+  @ano_publicacao INT,
+  @isbn VARCHAR(20),
+  @disponibilidade VARCHAR(20),
+  @genero VARCHAR(100)
+AS
+BEGIN
+  INSERT INTO Midia (
+    id_funcionario, id_tpmidia, titulo, sinopse, autor, editora,
+    ano_publicacao, isbn, disponibilidade, genero
+  )
+  VALUES (
+    @id_funcionario, @id_tpmidia, @titulo, @sinopse, @autor, @editora,
+    @ano_publicacao, @isbn, @disponibilidade, @genero
+  );
+  SELECT 'OK' AS msg;
+END
+GO
+
+
+CREATE PROCEDURE sp_MidiaAlterar
+  @id_midia INT,
+  @titulo VARCHAR(255),
+  @autor VARCHAR(100),
+  @editora VARCHAR(100),
+  @ano_publicacao INT,
+  @isbn VARCHAR(20),
+  @disponibilidade VARCHAR(20),
+  @genero VARCHAR(100)
+AS
+BEGIN
+  UPDATE Midia
+  SET titulo = @titulo,
+      autor = @autor,
+      editora = @editora,
+      ano_publicacao = @ano_publicacao,
+      isbn = @isbn,
+      disponibilidade = @disponibilidade,
+      genero = @genero
+  WHERE id_midia = @id_midia;
+
+  SELECT 'OK' AS msg;
+END
+GO
+
+CREATE PROCEDURE sp_MidiaExcluir
+  @id_midia INT
+AS
+BEGIN
+  DELETE FROM Midia WHERE id_midia=@id_midia;
+  SELECT 'OK' AS msg;
+END
+GO
+
+CREATE PROCEDURE sp_MidiaAddSinopse
+  @id_midia INT,
+  @sinopse VARCHAR(255)
+AS
+BEGIN
+  UPDATE Midia SET sinopse=@sinopse WHERE id_midia=@id_midia;
+  SELECT 'OK' AS msg;
+END
+GO
 
 
 
@@ -1447,5 +1496,17 @@ BEGIN
     WHERE (@tipo IS NULL OR tm.nome_tipo=@tipo)
       AND m.titulo LIKE '%' + @q + '%'
     ORDER BY m.titulo;
+END
+GO
+
+
+--!!!FUNCIONARIO!!!
+
+CREATE PROCEDURE sp_TodosFuncionarios --lista todos os funcionarios
+AS
+BEGIN
+  SELECT id_funcionario, id_cargo, nome, cpf, email, telefone, status_conta
+  FROM Funcionario
+  ORDER BY nome;
 END
 GO
