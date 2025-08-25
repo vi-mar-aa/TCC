@@ -351,96 +351,10 @@ SELECT imagem FROM Midia WHERE id_midia = 1
 --  AUTENTICAÇÃO / PERFIL (CLIENTE)
 -----------------------------------
 
-CREATE PROCEDURE sp_LoginCliente
-    @email VARCHAR(100),
-    @senha VARCHAR(255)
-AS
-BEGIN
-    SELECT id_cliente, nome, email, telefone, status_conta
-    FROM Cliente
-    WHERE email = @email AND senha = @senha AND status_conta = 'ativo';
-END
-GO
 
-CREATE PROCEDURE sp_CadastrarCliente
-  @nome VARCHAR(100),
-  @cpf VARCHAR(14),
-  @email VARCHAR(100),
-  @telefone VARCHAR(20),
-  @senha VARCHAR(255),
-  @status_conta VARCHAR(20)
-AS
-BEGIN
-  IF @status_conta NOT IN ('ativo','banido')
-  BEGIN
-    SELECT 'Status inválido' AS msg;
-    RETURN;
-  END
-
-  IF EXISTS (SELECT 1 FROM Cliente WHERE cpf=@cpf)
-  BEGIN
-    SELECT 'CPF já cadastrado' AS msg;
-    RETURN;
-  END
-
-  IF EXISTS (SELECT 1 FROM Cliente WHERE email=@email)
-  BEGIN
-    SELECT 'E-mail já cadastrado' AS msg;
-    RETURN;
-  END
-
-  INSERT INTO Cliente (nome, cpf, email, telefone, senha, status_conta)
-  VALUES (@nome, @cpf, @email, @telefone, @senha, @status_conta);
-
-  SELECT 'OK' AS msg;
-END
 GO
 
 
-CREATE PROCEDURE sp_ClienteResetarSenhaViaCpfEmail
-    @email VARCHAR(100),
-    @cpf   VARCHAR(14),
-    @nova_senha VARCHAR(255)
-AS
-BEGIN
-    IF NOT EXISTS (SELECT 1 FROM Cliente WHERE email=@email AND cpf=@cpf)
-    BEGIN
-        SELECT 'Email/CPF não conferem' AS msg; RETURN;
-    END
-
-    UPDATE Cliente SET senha=@nova_senha WHERE email=@email AND cpf=@cpf;
-    SELECT 'OK' AS msg;
-END
-GO
-
-CREATE PROCEDURE sp_AtualizarPerfilCliente
-  @id_cliente INT,
-  @email VARCHAR(100),
-  @senha VARCHAR(255),
-  @telefone VARCHAR(20)
-AS
-BEGIN
-  IF NOT EXISTS (SELECT 1 FROM Cliente WHERE id_cliente=@id_cliente)
-  BEGIN
-    SELECT 'Cliente não encontrado' AS msg;
-    RETURN;
-  END
-
-  IF EXISTS (SELECT 1 FROM Cliente WHERE email=@email AND id_cliente<>@id_cliente)
-  BEGIN
-    SELECT 'E-mail já em uso' AS msg;
-    RETURN;
-  END
-
-  UPDATE Cliente
-  SET email=@email,
-      senha=@senha,
-      telefone=@telefone
-  WHERE id_cliente=@id_cliente;
-
-  SELECT 'OK' AS msg;
-END
-GO
 
 
 ----------------
@@ -618,140 +532,13 @@ GO
 -- ACERVO / DETALHE / POPULARES
 --------------------------------
 
-CREATE PROCEDURE sp_AcervoBuscar
-    @tipo         VARCHAR(50) = NULL,
-    @genero       VARCHAR(100) = NULL,
-    @ano_min      INT = NULL,
-    @ano_max      INT = NULL,
-    @titulo_like  VARCHAR(255) = NULL
-AS
-BEGIN
-    SELECT m.id_midia, m.titulo, m.autor, m.editora, m.ano_publicacao, m.genero,
-           tm.nome_tipo, m.disponibilidade, m.isbn, m.estudio, m.roteirista
-    FROM Midia m
-    JOIN TipoMidia tm ON tm.id_tpmidia = m.id_tpmidia
-    WHERE (@tipo IS NULL OR tm.nome_tipo = @tipo)
-      AND (@genero IS NULL OR m.genero = @genero)
-      AND (@ano_min IS NULL OR m.ano_publicacao >= @ano_min)
-      AND (@ano_max IS NULL OR m.ano_publicacao <= @ano_max)
-      AND (@titulo_like IS NULL OR m.titulo LIKE '%' + @titulo_like + '%')
-    ORDER BY m.titulo;
-END
-GO
 
-CREATE PROCEDURE sp_AcervoSearchTitulos
-    @tipo   VARCHAR(50) = NULL,
-    @q      VARCHAR(255)
-AS
-BEGIN
-    SELECT m.id_midia, m.titulo, tm.nome_tipo, m.ano_publicacao, m.genero, m.autor, m.roteirista
-    FROM Midia m
-    JOIN TipoMidia tm ON tm.id_tpmidia=m.id_tpmidia
-    WHERE (@tipo IS NULL OR tm.nome_tipo=@tipo)
-      AND m.titulo LIKE '%' + @q + '%'
-    ORDER BY m.titulo;
-END
-GO
 
-CREATE PROCEDURE sp_MidiaDetalheComSimilares
-    @id_midia INT
-AS
-BEGIN
-    -- detalhe + contagem de exemplares disponíveis
-    SELECT a.id_midia, a.titulo, a.autor, a.editora, a.ano_publicacao,
-           a.edicao, a.local_publicacao, a.numero_paginas, a.isbn, a.duracao,
-           a.estudio, a.roteirista, a.genero, tm.nome_tipo, a.disponibilidade,
-           (SELECT COUNT(*) FROM Midia x
-             WHERE (CASE WHEN a.isbn IS NOT NULL AND a.isbn<>'' THEN x.isbn ELSE x.titulo END) =
-                   (CASE WHEN a.isbn IS NOT NULL AND a.isbn<>'' THEN a.isbn ELSE a.titulo END)
-               AND x.disponibilidade='disponível') AS exemplares_disponiveis
-    FROM Midia a
-    JOIN TipoMidia tm ON tm.id_tpmidia=a.id_tpmidia
-    WHERE a.id_midia=@id_midia;
-
-    -- similares por gênero
-    SELECT TOP 10 m.id_midia, m.titulo, m.autor, m.ano_publicacao, m.genero
-    FROM Midia m
-    WHERE m.genero = (SELECT genero FROM Midia WHERE id_midia=@id_midia)
-      AND m.id_midia <> @id_midia
-    ORDER BY m.ano_publicacao DESC, m.titulo;
-
-    -- similares por “assunto” (mesmo autor ou mesmo roteirista)
-    SELECT TOP 10 m.id_midia, m.titulo, m.autor, m.roteirista, m.ano_publicacao
-    FROM Midia m
-    WHERE m.id_midia <> @id_midia
-      AND (
-           (m.autor = (SELECT autor FROM Midia WHERE id_midia=@id_midia) AND (SELECT autor FROM Midia WHERE id_midia=@id_midia) IS NOT NULL)
-        OR (m.roteirista = (SELECT roteirista FROM Midia WHERE id_midia=@id_midia) AND (SELECT roteirista FROM Midia WHERE id_midia=@id_midia) IS NOT NULL)
-      )
-    ORDER BY m.ano_publicacao DESC, m.titulo;
-END
-GO
-
-CREATE PROCEDURE sp_MidiasPopulares
-    @tipo   VARCHAR(50) = NULL,
-    @genero VARCHAR(100) = NULL
-AS
-BEGIN
-    SELECT TOP 50
-           MIN(m.id_midia) AS id_midia_exemplo,
-           CASE WHEN m.isbn IS NOT NULL AND m.isbn<>'' THEN m.isbn ELSE m.titulo END AS chave,
-           MIN(m.titulo) AS titulo,
-           MIN(tm.nome_tipo) AS nome_tipo,
-           COUNT(e.id_emprestimo) AS qtde_emprestimos
-    FROM Emprestimo e
-    JOIN Midia m ON m.id_midia=e.id_midia
-    JOIN TipoMidia tm ON tm.id_tpmidia=m.id_tpmidia
-    WHERE (@tipo IS NULL OR tm.nome_tipo=@tipo)
-      AND (@genero IS NULL OR m.genero=@genero)
-    GROUP BY CASE WHEN m.isbn IS NOT NULL AND m.isbn<>'' THEN m.isbn ELSE m.titulo END
-    ORDER BY qtde_emprestimos DESC, MIN(m.titulo);
-END
-GO
 
 --------------------------------------------------
 -- EMPRÉSTIMOS / RESERVAS (CONSULTAS E DEVOLUÇÃO)
 --------------------------------------------------
 
-CREATE PROCEDURE sp_EmprestimosClienteListar
-    @id_cliente INT,
-    @multa_dia DECIMAL(10,2) = 2.00
-AS
-BEGIN
-    DECLARE @hoje DATE = CAST(GETDATE() AS DATE);
-
-    SELECT e.id_emprestimo,
-           e.data_emprestimo,
-           e.data_devolucao,
-           e.limite_renovacoes,
-           m.id_midia, m.titulo, m.autor, m.ano_publicacao,
-           CASE WHEN @hoje > e.data_devolucao THEN DATEDIFF(DAY, e.data_devolucao, @hoje) ELSE 0 END AS dias_atraso,
-           CASE WHEN @hoje > e.data_devolucao THEN DATEDIFF(DAY, e.data_devolucao, @hoje) * @multa_dia ELSE 0 END AS multa,
-           CASE WHEN @hoje <= e.data_devolucao AND e.limite_renovacoes > 0 THEN 1 ELSE 0 END AS pode_renovar
-    FROM Emprestimo e
-    JOIN Midia m ON m.id_midia=e.id_midia
-    WHERE e.id_cliente=@id_cliente
-    ORDER BY e.data_devolucao ASC;
-END
-GO
-
-CREATE PROCEDURE sp_ReservasClienteListar
-    @id_cliente INT
-AS
-BEGIN
-    DECLARE @hoje DATE = CAST(GETDATE() AS DATE);
-
-    SELECT r.id_reserva, r.data_reserva, r.data_limite, r.status_reserva,
-           m.id_midia, m.titulo, m.autor, m.ano_publicacao,
-           DATEDIFF(DAY, @hoje, r.data_limite) AS dias_restantes
-    FROM Reserva r
-    JOIN Midia m ON m.id_midia=r.id_midia
-    WHERE r.id_cliente=@id_cliente
-      AND r.status_reserva='ativa'
-      AND r.data_limite >= @hoje
-    ORDER BY r.data_limite ASC;
-END
-GO
 
 CREATE PROCEDURE sp_DevolverMidia
     @id_emprestimo INT
@@ -1390,5 +1177,275 @@ BEGIN
   WHERE e.id_cliente=@id_cliente
     AND e.data_devolucao < GETDATE()
   ORDER BY e.data_devolucao;
+END
+GO
+
+
+
+-- !!!!!!!!!!!!!!!! ANDROID !!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+-- !!!MAIN!!!
+
+
+CREATE PROCEDURE sp_MidiaDetalheComSimilares
+    @id_midia INT
+AS
+BEGIN
+    -- detalhe + contagem de exemplares disponíveis
+    SELECT a.id_midia, a.titulo, a.autor, a.editora, a.ano_publicacao,
+           a.edicao, a.local_publicacao, a.numero_paginas, a.isbn, a.duracao,
+           a.estudio, a.roteirista, a.genero, tm.nome_tipo, a.disponibilidade,
+           (SELECT COUNT(*) FROM Midia x
+             WHERE (CASE WHEN a.isbn IS NOT NULL AND a.isbn<>'' THEN x.isbn ELSE x.titulo END) =
+                   (CASE WHEN a.isbn IS NOT NULL AND a.isbn<>'' THEN a.isbn ELSE a.titulo END)
+               AND x.disponibilidade='disponível') AS exemplares_disponiveis
+    FROM Midia a
+    JOIN TipoMidia tm ON tm.id_tpmidia=a.id_tpmidia
+    WHERE a.id_midia=@id_midia;
+
+    -- similares por gênero
+    SELECT TOP 10 m.id_midia, m.titulo, m.autor, m.ano_publicacao, m.genero
+    FROM Midia m
+    WHERE m.genero = (SELECT genero FROM Midia WHERE id_midia=@id_midia)
+      AND m.id_midia <> @id_midia
+    ORDER BY m.ano_publicacao DESC, m.titulo;
+
+    -- similares por “assunto” (mesmo autor ou mesmo roteirista)
+    SELECT TOP 10 m.id_midia, m.titulo, m.autor, m.roteirista, m.ano_publicacao
+    FROM Midia m
+    WHERE m.id_midia <> @id_midia
+      AND (
+           (m.autor = (SELECT autor FROM Midia WHERE id_midia=@id_midia) AND (SELECT autor FROM Midia WHERE id_midia=@id_midia) IS NOT NULL)
+        OR (m.roteirista = (SELECT roteirista FROM Midia WHERE id_midia=@id_midia) AND (SELECT roteirista FROM Midia WHERE id_midia=@id_midia) IS NOT NULL)
+      )
+    ORDER BY m.ano_publicacao DESC, m.titulo;
+END
+GO
+
+CREATE PROCEDURE sp_MidiasPopulares
+    @tipo   VARCHAR(50) = NULL,
+    @genero VARCHAR(100) = NULL
+AS
+BEGIN
+    SELECT TOP 50
+           MIN(m.id_midia) AS id_midia_exemplo,
+           CASE WHEN m.isbn IS NOT NULL AND m.isbn<>'' THEN m.isbn ELSE m.titulo END AS chave,
+           MIN(m.titulo) AS titulo,
+           MIN(tm.nome_tipo) AS nome_tipo,
+           COUNT(e.id_emprestimo) AS qtde_emprestimos
+    FROM Emprestimo e
+    JOIN Midia m ON m.id_midia=e.id_midia
+    JOIN TipoMidia tm ON tm.id_tpmidia=m.id_tpmidia
+    WHERE (@tipo IS NULL OR tm.nome_tipo=@tipo)
+      AND (@genero IS NULL OR m.genero=@genero)
+    GROUP BY CASE WHEN m.isbn IS NOT NULL AND m.isbn<>'' THEN m.isbn ELSE m.titulo END
+    ORDER BY qtde_emprestimos DESC, MIN(m.titulo);
+END
+GO
+
+
+
+	
+
+	
+
+-- !!! RESERVAS/EMPRESTIMO!!!
+
+
+	CREATE PROCEDURE sp_EmprestimosClienteListar
+    @id_cliente INT,
+    @multa_dia DECIMAL(10,2) = 2.00
+AS
+BEGIN
+    DECLARE @hoje DATE = CAST(GETDATE() AS DATE);
+
+    SELECT e.id_emprestimo,
+           e.data_emprestimo,
+           e.data_devolucao,
+           e.limite_renovacoes,
+           m.id_midia, m.titulo, m.autor, m.ano_publicacao,
+           CASE WHEN @hoje > e.data_devolucao THEN DATEDIFF(DAY, e.data_devolucao, @hoje) ELSE 0 END AS dias_atraso,
+           CASE WHEN @hoje > e.data_devolucao THEN DATEDIFF(DAY, e.data_devolucao, @hoje) * @multa_dia ELSE 0 END AS multa,
+           CASE WHEN @hoje <= e.data_devolucao AND e.limite_renovacoes > 0 THEN 1 ELSE 0 END AS pode_renovar
+    FROM Emprestimo e
+    JOIN Midia m ON m.id_midia=e.id_midia
+    WHERE e.id_cliente=@id_cliente
+    ORDER BY e.data_devolucao ASC;
+END
+GO
+
+CREATE PROCEDURE sp_ReservasClienteListar
+    @id_cliente INT
+AS
+BEGIN
+    DECLARE @hoje DATE = CAST(GETDATE() AS DATE);
+
+    SELECT r.id_reserva, r.data_reserva, r.data_limite, r.status_reserva,
+           m.id_midia, m.titulo, m.autor, m.ano_publicacao,
+           DATEDIFF(DAY, @hoje, r.data_limite) AS dias_restantes
+    FROM Reserva r
+    JOIN Midia m ON m.id_midia=r.id_midia
+    WHERE r.id_cliente=@id_cliente
+      AND r.status_reserva='ativa'
+      AND r.data_limite >= @hoje
+    ORDER BY r.data_limite ASC;
+END
+GO
+
+	
+
+-- !!! LISTA DE DESEJOS !!!
+
+-- !!! ACERVO/MIDIA !!!
+
+-- !!! LOGIN/CADASTRO CLIENTE !!!
+
+
+CREATE PROCEDURE sp_LoginCliente
+    @email VARCHAR(100),
+    @senha VARCHAR(255)
+AS
+BEGIN
+    SELECT id_cliente, nome, email, telefone, status_conta
+    FROM Cliente
+    WHERE email = @email AND senha = @senha AND status_conta = 'ativo';
+END
+GO
+
+CREATE PROCEDURE sp_CadastrarCliente
+  @nome VARCHAR(100),
+  @cpf VARCHAR(14),
+  @email VARCHAR(100),
+  @telefone VARCHAR(20),
+  @senha VARCHAR(255),
+  @status_conta VARCHAR(20)
+AS
+BEGIN
+  IF @status_conta NOT IN ('ativo','banido')
+  BEGIN
+    SELECT 'Status inválido' AS msg;
+    RETURN;
+  END
+
+  IF EXISTS (SELECT 1 FROM Cliente WHERE cpf=@cpf)
+  BEGIN
+    SELECT 'CPF já cadastrado' AS msg;
+    RETURN;
+  END
+
+  IF EXISTS (SELECT 1 FROM Cliente WHERE email=@email)
+  BEGIN
+    SELECT 'E-mail já cadastrado' AS msg;
+    RETURN;
+  END
+
+  INSERT INTO Cliente (nome, cpf, email, telefone, senha, status_conta)
+  VALUES (@nome, @cpf, @email, @telefone, @senha, @status_conta);
+
+  SELECT 'OK' AS msg;
+END
+
+GO
+
+CREATE PROCEDURE sp_ClienteResetarSenhaViaCpfEmail
+    @email VARCHAR(100),
+    @cpf   VARCHAR(14),
+    @nova_senha VARCHAR(255)
+AS
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM Cliente WHERE email=@email AND cpf=@cpf)
+    BEGIN
+        SELECT 'Email/CPF não conferem' AS msg; RETURN;
+    END
+
+    UPDATE Cliente SET senha=@nova_senha WHERE email=@email AND cpf=@cpf;
+    SELECT 'OK' AS msg;
+END
+GO
+
+CREATE PROCEDURE sp_AtualizarPerfilCliente
+  @id_cliente INT,
+  @email VARCHAR(100),
+  @senha VARCHAR(255),
+  @telefone VARCHAR(20)
+AS
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM Cliente WHERE id_cliente=@id_cliente)
+  BEGIN
+    SELECT 'Cliente não encontrado' AS msg;
+    RETURN;
+  END
+
+  IF EXISTS (SELECT 1 FROM Cliente WHERE email=@email AND id_cliente<>@id_cliente)
+  BEGIN
+    SELECT 'E-mail já em uso' AS msg;
+    RETURN;
+  END
+
+  UPDATE Cliente
+  SET email=@email,
+      senha=@senha,
+      telefone=@telefone
+  WHERE id_cliente=@id_cliente;
+
+  SELECT 'OK' AS msg;
+END
+GO
+
+
+
+
+
+-- !!! ALERTAS DE EMPRESTIMO !!!
+
+-- !!! NOTIFICACOES !!!
+
+
+
+
+-- !!!!!!!!!!!!!!! DESKTOP !!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
+
+
+-- !!!!!!!!!!!!!!!!!COMUM!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+CREATE PROCEDURE sp_AcervoBuscar
+    @tipo         VARCHAR(50) = NULL,
+    @genero       VARCHAR(100) = NULL,
+    @ano_min      INT = NULL,
+    @ano_max      INT = NULL,
+    @titulo_like  VARCHAR(255) = NULL
+AS
+BEGIN
+    SELECT m.id_midia, m.titulo, m.autor, m.editora, m.ano_publicacao, m.genero,
+           tm.nome_tipo, m.disponibilidade, m.isbn, m.estudio, m.roteirista
+    FROM Midia m
+    JOIN TipoMidia tm ON tm.id_tpmidia = m.id_tpmidia
+    WHERE (@tipo IS NULL OR tm.nome_tipo = @tipo)
+      AND (@genero IS NULL OR m.genero = @genero)
+      AND (@ano_min IS NULL OR m.ano_publicacao >= @ano_min)
+      AND (@ano_max IS NULL OR m.ano_publicacao <= @ano_max)
+      AND (@titulo_like IS NULL OR m.titulo LIKE '%' + @titulo_like + '%')
+    ORDER BY m.titulo;
+END
+GO
+
+CREATE PROCEDURE sp_AcervoSearchTitulos
+    @tipo   VARCHAR(50) = NULL,
+    @q      VARCHAR(255)
+AS
+BEGIN
+    SELECT m.id_midia, m.titulo, tm.nome_tipo, m.ano_publicacao, m.genero, m.autor, m.roteirista
+    FROM Midia m
+    JOIN TipoMidia tm ON tm.id_tpmidia=m.id_tpmidia
+    WHERE (@tipo IS NULL OR tm.nome_tipo=@tipo)
+      AND m.titulo LIKE '%' + @q + '%'
+    ORDER BY m.titulo;
 END
 GO
