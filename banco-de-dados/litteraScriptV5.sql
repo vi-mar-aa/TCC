@@ -347,638 +347,6 @@ WHERE id_midia = 2;
 SELECT imagem FROM Midia WHERE id_midia = 1
 */
 
------------------------------------
---  AUTENTICAÇÃO / PERFIL (CLIENTE)
------------------------------------
-
-
-GO
-
-
-
-
-----------------
--- FUNCIONÁRIO
-----------------
-
-CREATE PROCEDURE sp_InfoFuncionario
-    @id_funcionario INT
-AS
-BEGIN
-    SELECT id_funcionario, id_cargo, nome, cpf, email, telefone, status_conta
-    FROM Funcionario
-    WHERE id_funcionario = @id_funcionario;
-END
-GO
-
-CREATE PROCEDURE sp_GetFuncionarioID
-    @email VARCHAR(100)
-AS
-BEGIN
-    SELECT id_funcionario
-    FROM Funcionario
-    WHERE email = @email AND status_conta = 'ativo';
-END
-GO
-
-CREATE PROCEDURE sp_CadastrarFuncionario
-  @id_cargo INT,
-  @nome VARCHAR(100),
-  @cpf VARCHAR(14),
-  @email VARCHAR(100),
-  @telefone VARCHAR(20),
-  @senha VARCHAR(255),
-  @status_conta VARCHAR(20)
-AS
-BEGIN
-  IF @status_conta NOT IN ('ativo','banido')
-  BEGIN
-    SELECT 'Status inválido' AS msg;
-    RETURN;
-  END
-
-  IF NOT EXISTS (SELECT 1 FROM CargoFuncionario WHERE id_cargo=@id_cargo)
-  BEGIN
-    SELECT 'Cargo inexistente' AS msg;
-    RETURN;
-  END
-
-  IF EXISTS (SELECT 1 FROM Funcionario WHERE cpf=@cpf)
-  BEGIN
-    SELECT 'CPF já cadastrado' AS msg;
-    RETURN;
-  END
-
-  IF EXISTS (SELECT 1 FROM Funcionario WHERE email=@email)
-  BEGIN
-    SELECT 'E-mail já cadastrado' AS msg;
-    RETURN;
-  END
-
-  INSERT INTO Funcionario (id_cargo, nome, cpf, email, telefone, senha, status_conta)
-  VALUES (@id_cargo, @nome, @cpf, @email, @telefone, @senha, @status_conta);
-
-  SELECT 'OK' AS msg;
-END
-GO
-
-
-CREATE PROCEDURE sp_LoginFuncionario
-    @email VARCHAR(100),
-    @senha VARCHAR(255)
-AS
-BEGIN
-    SELECT id_funcionario, id_cargo, nome, email, telefone, status_conta
-    FROM Funcionario
-    WHERE email=@email AND senha=@senha AND status_conta='ativo';
-END
-GO
-
---------------------------------------
--- EVENTOS (FÓRUM) / POSTS / DENÚNCIA
---------------------------------------
-
-CREATE PROCEDURE sp_EventosListar
-AS
-BEGIN
-    SELECT f.id_forum, f.titulo,
-           COUNT(m.id_mensagem) AS qtde_posts,
-           MAX(m.data_postagem) AS ultima_atividade
-    FROM Forum f
-    LEFT JOIN Mensagem m ON m.id_forum=f.id_forum
-    GROUP BY f.id_forum, f.titulo
-    ORDER BY MAX(m.data_postagem) DESC;
-END
-GO
-
-CREATE PROCEDURE sp_PostCriar
-  @id_cliente INT,
-  @id_forum   INT,
-  @conteudo   VARCHAR(255)
-AS
-BEGIN
-  IF NOT EXISTS (SELECT 1 FROM Cliente WHERE id_cliente=@id_cliente AND status_conta='ativo')
-  BEGIN SELECT 'Cliente inativo/ausente' AS msg; RETURN; END
-
-  IF NOT EXISTS (SELECT 1 FROM Forum WHERE id_forum=@id_forum)
-  BEGIN SELECT 'Fórum não encontrado' AS msg; RETURN; END
-
-  INSERT INTO Mensagem (id_cliente, id_forum, conteudo, data_postagem, visibilidade)
-  VALUES (@id_cliente, @id_forum, @conteudo, GETDATE(), 'publica');
-
-  SELECT 'OK' AS msg;
-END
-GO
-
-
-CREATE PROCEDURE sp_FiltrarPostsForum
-    @id_forum INT,
-    @modo VARCHAR(20) -- 'recentes' | 'antigos'
-AS
-BEGIN
-    IF @modo = 'antigos'
-    BEGIN
-        SELECT m.conteudo, m.data_postagem, c.nome AS autor
-        FROM Mensagem m
-        JOIN Cliente c ON c.id_cliente=m.id_cliente
-        WHERE m.id_forum=@id_forum AND m.visibilidade='publica'
-        ORDER BY m.data_postagem ASC;
-        RETURN;
-    END
-
-    -- padrão: recentes
-    SELECT m.conteudo, m.data_postagem, c.nome AS autor
-    FROM Mensagem m
-    JOIN Cliente c ON c.id_cliente=m.id_cliente
-    WHERE m.id_forum=@id_forum AND m.visibilidade='publica'
-    ORDER BY m.data_postagem DESC;
-END
-GO
-
-CREATE PROCEDURE sp_CriarDenuncia
-  @id_funcionario INT,
-  @id_mensagem INT,
-  @id_cliente INT,
-  @motivo VARCHAR(255)
-AS
-BEGIN
-  IF NOT EXISTS (SELECT 1 FROM Funcionario WHERE id_funcionario=@id_funcionario AND status_conta='ativo')
-  BEGIN
-    SELECT 'Funcionario inválido' AS msg;
-    RETURN;
-  END
-
-  IF NOT EXISTS (SELECT 1 FROM Mensagem WHERE id_mensagem=@id_mensagem)
-  BEGIN
-    SELECT 'Mensagem não encontrada' AS msg;
-    RETURN;
-  END
-
-  IF NOT EXISTS (SELECT 1 FROM Cliente WHERE id_cliente=@id_cliente)
-  BEGIN
-    SELECT 'Cliente não encontrado' AS msg;
-    RETURN;
-  END
-
-  INSERT INTO Denuncia (id_funcionario, id_mensagem, id_cliente, data_denuncia, motivo, status_denuncia, acao_tomada)
-  VALUES (@id_funcionario, @id_mensagem, @id_cliente, GETDATE(), @motivo, 'pendente', NULL);
-
-  SELECT 'OK' AS msg;
-END
-GO
-
-
---------------------------------
--- ACERVO / DETALHE / POPULARES
---------------------------------
-
-
-
-
---------------------------------------------------
--- EMPRÉSTIMOS / RESERVAS (CONSULTAS E DEVOLUÇÃO)
---------------------------------------------------
-
-
-CREATE PROCEDURE sp_DevolverMidia
-    @id_emprestimo INT
-AS
-BEGIN
-    DECLARE @id_midia INT;
-
-    SELECT @id_midia = id_midia
-    FROM Emprestimo
-    WHERE id_emprestimo=@id_emprestimo;
-
-    IF @id_midia IS NULL
-    BEGIN
-        SELECT 'Empréstimo não encontrado' AS msg; RETURN;
-    END
-
-    UPDATE Midia
-       SET disponibilidade = 'disponível'
-     WHERE id_midia=@id_midia;
-
-    UPDATE Emprestimo
-       SET limite_renovacoes = 0
-     WHERE id_emprestimo=@id_emprestimo;
-
-    SELECT 'OK' AS msg;
-END
-GO
-
---------------------------
--- ESTATÍSTICAS / ALERTAS
---------------------------
-
--- quantidade de empréstimos por mês/ano
-CREATE PROCEDURE sp_QtdEmprestimosPorMes
-  @mes INT,
-  @ano INT
-AS
-BEGIN
-  SELECT COUNT(*) AS qtd_emprestimos
-  FROM Emprestimo
-  WHERE MONTH(data_emprestimo) = @mes
-    AND YEAR(data_emprestimo) = @ano;
-END
-GO
-
--- quantidade de reservas por mês/ano
-CREATE PROCEDURE sp_QtdReservasPorMes
-  @mes INT,
-  @ano INT
-AS
-BEGIN
-  SELECT COUNT(*) AS qtd_reservas
-  FROM Reserva
-  WHERE MONTH(data_reserva) = @mes
-    AND YEAR(data_reserva) = @ano;
-END
-GO
-
--- quantidade total de empréstimos
-CREATE PROCEDURE sp_QtdTotalEmprestimos
-AS
-BEGIN
-  SELECT COUNT(*) AS total_emprestimos
-  FROM Emprestimo;
-END
-GO
-
--- quantidade de empréstimos atrasados
-CREATE PROCEDURE sp_QtdEmprestimosAtrasados
-AS
-BEGIN
-  SELECT COUNT(*) AS emprestimos_atrasados
-  FROM Emprestimo
-  WHERE data_devolucao < CAST(GETDATE() AS DATE);
-END
-GO
-
--- notificações de empréstimos (vence em 3 dias ou já vencido)
-
-
------------
--- ANDROID
------------
-
-
-
-
-
-
-CREATE PROCEDURE sp_MidiaAlterarImagem
-  @id_midia INT,
-  @imagem VARBINARY(MAX)
-AS
-BEGIN
-  UPDATE Midia SET imagem = @imagem WHERE id_midia = @id_midia;
-  SELECT 'OK' AS msg;
-END
-GO
-
------------
--- DESKTOP
------------
-
-CREATE PROCEDURE sp_ConfigurarParametros
-  @multa_dia DECIMAL(10,2),
-  @prazo_devolucao_dias INT,
-  @limite_emprestimos INT
-AS
-BEGIN
-  UPDATE Parametros
-    SET multa_dia=@multa_dia,
-        prazo_devolucao_dias=@prazo_devolucao_dias,
-        limite_emprestimos=@limite_emprestimos,
-        data_atualizada=GETDATE();
-  SELECT 'OK' AS msg;
-END
-GO
-
-CREATE PROCEDURE sp_TodosEmprestimosComAtraso
-AS
-BEGIN
-  SELECT 
-    e.id_emprestimo,
-    e.id_cliente,
-    c.nome AS cliente,
-    e.id_midia,
-    m.titulo,
-    e.data_emprestimo,
-    e.data_devolucao,
-    DATEDIFF(DAY, e.data_devolucao, GETDATE()) AS dias_atraso
-  FROM Emprestimo e
-  JOIN Cliente c ON c.id_cliente = e.id_cliente
-  JOIN Midia m   ON m.id_midia   = e.id_midia
-  ORDER BY e.data_devolucao ASC;
-END
-GO
-
-CREATE PROCEDURE sp_TodasReservas
-AS
-BEGIN
-  SELECT 
-    r.id_reserva,
-    r.id_cliente,
-    c.nome AS cliente,
-    r.id_midia,
-    m.titulo,
-    r.data_reserva,
-    r.data_limite,
-    r.status_reserva
-  FROM Reserva r
-  JOIN Cliente c ON c.id_cliente = r.id_cliente
-  JOIN Midia m   ON m.id_midia   = r.id_midia
-  ORDER BY r.data_limite ASC;
-END
-GO
-
------------
--- EVENTOS
------------
-
--- Criar
-CREATE PROCEDURE sp_EventoCriar
-  @titulo NVARCHAR(200),
-  @horario VARCHAR(50),
-  @local_evento NVARCHAR(200),
-  @data_evento DATE,
-  @id_funcionario INT
-AS
-BEGIN
-  INSERT INTO Evento (titulo, horario, local_evento, data_evento, id_funcionario, status_evento)
-  VALUES (@titulo, @horario, @local_evento, @data_evento, @id_funcionario, 'ativo');
-  SELECT 'OK' AS msg;
-END
-GO
-
--- Editar
-CREATE PROCEDURE sp_EventoEditar
-  @id_evento INT,
-  @titulo NVARCHAR(200),
-  @horario VARCHAR(50),
-  @local_evento NVARCHAR(200),
-  @data_evento DATE
-AS
-BEGIN
-  UPDATE Evento
-  SET titulo=@titulo,
-      horario=@horario,
-      local_evento=@local_evento,
-      data_evento=@data_evento
-  WHERE id_evento=@id_evento;
-  SELECT 'OK' AS msg;
-END
-GO
-
--- Histórico (já aconteceram)
-CREATE PROCEDURE sp_EventosHistorico
-AS
-BEGIN
-  SELECT *
-  FROM Evento
-  WHERE data_evento < CAST(GETDATE() AS DATE)
-  ORDER BY data_evento DESC;
-END
-GO
-
--- Em andamento ou futuros (ativos)
-CREATE PROCEDURE sp_EventosAtivos
-AS
-BEGIN
-  SELECT *
-  FROM Evento
-  WHERE data_evento >= CAST(GETDATE() AS DATE)
-    AND status_evento = 'ativo'
-  ORDER BY data_evento ASC;
-END
-GO
-
----------------
--- INDICAÇÕES
----------------
-
-CREATE PROCEDURE sp_IndicacoesResumo
-AS
-BEGIN
-  SELECT 
-    titulo_ind AS titulo,
-    autor_ind  AS autor,
-    COUNT(*)   AS qtd_indicacoes
-  FROM Indicacao
-  GROUP BY titulo_ind, autor_ind
-  ORDER BY titulo_ind;
-END
-GO
-
----------------------------------------------------
--- FUNCIONÁRIOS / EXEMPLARES / ALTERAR FUNCIONÁRIO
----------------------------------------------------
-
--- Selecionar todos funcionários
-
-
--- Exemplares
-CREATE PROCEDURE sp_Exemplares
-AS
-BEGIN
-  SELECT id_midia, titulo, autor, isbn, disponibilidade, genero, ano_publicacao
-  FROM Midia
-  ORDER BY titulo;
-END
-GO
-
--- Informações do exemplar + leitor que está com ele (se tiver)
-CREATE PROCEDURE sp_ExemplarInfoComLeitor
-  @id_midia INT
-AS
-BEGIN
-  SELECT 
-    m.id_midia,
-    m.titulo,
-    e.id_emprestimo,
-    c.id_cliente,
-    c.nome AS cliente,
-    e.data_devolucao
-  FROM Midia m
-  JOIN Emprestimo e ON e.id_midia = m.id_midia
-  JOIN Cliente c    ON c.id_cliente = e.id_cliente
-  WHERE m.id_midia = @id_midia
-    AND e.data_devolucao >= GETDATE();
-
-  -- Se não voltar nada, significa que está livre (sem empréstimo atual).
-END
-GO
-
--- Alterar funcionário
-CREATE PROCEDURE sp_FuncionarioAlterar
-  @id_funcionario INT,
-  @nome VARCHAR(100),
-  @email VARCHAR(100),
-  @telefone VARCHAR(20),
-  @status_conta VARCHAR(20)
-AS
-BEGIN
-  UPDATE Funcionario
-  SET nome = @nome,
-      email = @email,
-      telefone = @telefone,
-      status_conta = @status_conta
-  WHERE id_funcionario = @id_funcionario;
-
-  SELECT 'OK' AS msg;
-END
-GO
-
-
-----------------------------------------------
--- MÍDIAS (add / alterar / excluir / sinopse)
-----------------------------------------------
-
-
---------------------------------
--- DENÚNCIAS / LEITORES / POSTS
---------------------------------
-
--- Listar denúncias
-CREATE PROCEDURE sp_DenunciasListar
-AS
-BEGIN
-  SELECT id_denuncia, id_mensagem, id_cliente, id_funcionario, data_denuncia, motivo, status_denuncia, acao_tomada
-  FROM Denuncia
-  ORDER BY data_denuncia DESC;
-END
-GO
-
--- Ver denúncia por id
-CREATE PROCEDURE sp_DenunciaVer
-  @id_denuncia INT
-AS
-BEGIN
-  SELECT * FROM Denuncia WHERE id_denuncia=@id_denuncia;
-END
-GO
-
--- Suspender leitor
-CREATE PROCEDURE sp_LeitorSuspender
-  @id_cliente INT
-AS
-BEGIN
-  UPDATE Cliente SET status_conta='banido' WHERE id_cliente=@id_cliente;
-  SELECT 'OK' AS msg;
-END
-GO
-
--- Histórico de posts do leitor
-CREATE PROCEDURE sp_LeitorPostsHistorico
-  @id_cliente INT
-AS
-BEGIN
-  SELECT id_mensagem, id_forum, conteudo, data_postagem, visibilidade
-  FROM Mensagem
-  WHERE id_cliente=@id_cliente
-  ORDER BY data_postagem DESC;
-END
-GO
-
--- Buscar leitores pelo nome
-CREATE PROCEDURE sp_LeitorBuscarPorNome
-  @nome VARCHAR(100)
-AS
-BEGIN
-  SELECT id_cliente, nome, email, telefone, status_conta
-  FROM Cliente
-  WHERE nome LIKE '%' + @nome + '%'
-  ORDER BY nome;
-END
-GO
-
---------------------------
--- EMPRÉSTIMOS / RESERVAS
---------------------------
-
--- Adicionar empréstimo e marcar mídia como emprestada
-CREATE PROCEDURE sp_EmprestimoAdicionar
-  @id_cliente INT,
-  @id_funcionario INT,
-  @id_midia INT,
-  @data_emprestimo DATETIME,
-  @data_devolucao DATETIME
-AS
-BEGIN
-  INSERT INTO Emprestimo (id_cliente, id_funcionario, id_midia, id_reserva, data_emprestimo, data_devolucao, limite_renovacoes)
-  VALUES (@id_cliente, @id_funcionario, @id_midia, NULL, @data_emprestimo, @data_devolucao, 0);
-
-  UPDATE Midia SET disponibilidade='emprestado' WHERE id_midia=@id_midia;
-
-  SELECT 'OK' AS msg;
-END
-GO
-
--- Select reservas (código exemplar, título, tempo restante, usuário)
-CREATE PROCEDURE sp_ReservasSelect
-AS
-BEGIN
-  SELECT 
-    r.id_reserva,
-    r.id_midia AS codigo_exemplar,
-    m.titulo,
-    DATEDIFF(DAY, GETDATE(), r.data_limite) AS dias_restantes,
-    c.id_cliente,
-    c.nome AS usuario
-  FROM Reserva r
-  JOIN Midia m ON m.id_midia=r.id_midia
-  JOIN Cliente c ON c.id_cliente=r.id_cliente
-  WHERE r.status_reserva='ativa'
-  ORDER BY r.data_limite ASC;
-END
-GO
-
--- Transformar reserva em empréstimo
-CREATE PROCEDURE sp_ReservaTransformarEmEmprestimo
-  @id_reserva INT,
-  @id_funcionario INT,
-  @data_emprestimo DATETIME,
-  @data_devolucao DATETIME
-AS
-BEGIN
-  DECLARE @id_cliente INT, @id_midia INT;
-
-  SELECT @id_cliente = id_cliente, @id_midia = id_midia
-  FROM Reserva
-  WHERE id_reserva=@id_reserva;
-
-  INSERT INTO Emprestimo (id_cliente, id_funcionario, id_midia, id_reserva, data_emprestimo, data_devolucao, limite_renovacoes)
-  VALUES (@id_cliente, @id_funcionario, @id_midia, @id_reserva, @data_emprestimo, @data_devolucao, 0);
-
-  UPDATE Reserva SET status_reserva='cancelada' WHERE id_reserva=@id_reserva;
-  UPDATE Midia   SET disponibilidade='emprestado' WHERE id_midia=@id_midia;
-
-  SELECT 'OK' AS msg;
-END
-GO
-
--- Mídias não devolvidas pelo cliente (em atraso)
-CREATE PROCEDURE sp_NaoDevolveuMidia
-  @id_cliente INT
-AS
-BEGIN
-  SELECT 
-    e.id_emprestimo,
-    m.id_midia,
-    m.titulo,
-    e.data_devolucao,
-    DATEDIFF(DAY, e.data_devolucao, GETDATE()) AS dias_atraso
-  FROM Emprestimo e
-  JOIN Midia m ON m.id_midia=e.id_midia
-  WHERE e.id_cliente=@id_cliente
-    AND e.data_devolucao < GETDATE()
-  ORDER BY e.data_devolucao;
-END
-GO
-
 
 
 -- !!!!!!!!!!!!!!!! ANDROID !!!!!!!!!!!!!!!!!!!!!!!
@@ -1196,8 +564,6 @@ GO
 
 -- !!! ACERVO/MIDIA !!!
 
-
-
 CREATE PROCEDURE sp_AcervoPrincipal
 AS
 BEGIN
@@ -1236,8 +602,6 @@ BEGIN
   END
 END
 GO
-
-
 
 	
 
@@ -1336,50 +700,439 @@ END
 GO
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 -- !!!!!!!!!!!!!!! DESKTOP !!!!!!!!!!!!!!!!!!!!!!!
+
+
+CREATE PROCEDURE sp_ConfigurarParametros
+  @multa_dia DECIMAL(10,2),
+  @prazo_devolucao_dias INT,
+  @limite_emprestimos INT
+AS
+BEGIN
+  UPDATE Parametros
+    SET multa_dia=@multa_dia,
+        prazo_devolucao_dias=@prazo_devolucao_dias,
+        limite_emprestimos=@limite_emprestimos,
+        data_atualizada=GETDATE();
+  SELECT 'OK' AS msg;
+END
+GO
+
+
+--!!!FUNCIONARIO!!!
+
+CREATE PROCEDURE sp_TodosFuncionarios --lista todos os funcionarios
+AS
+BEGIN
+  SELECT id_funcionario, id_cargo, nome, cpf, email, telefone, status_conta
+  FROM Funcionario
+  ORDER BY nome;
+END
+GO
+
+
+CREATE PROCEDURE sp_InfoFuncionario
+    @id_funcionario INT
+AS
+BEGIN
+    SELECT id_funcionario, id_cargo, nome, cpf, email, telefone, status_conta
+    FROM Funcionario
+    WHERE id_funcionario = @id_funcionario;
+END
+GO
+
+CREATE PROCEDURE sp_GetFuncionarioID
+    @email VARCHAR(100)
+AS
+BEGIN
+    SELECT id_funcionario
+    FROM Funcionario
+    WHERE email = @email AND status_conta = 'ativo';
+END
+GO
+
+CREATE PROCEDURE sp_CadastrarFuncionario
+  @id_cargo INT,
+  @nome VARCHAR(100),
+  @cpf VARCHAR(14),
+  @email VARCHAR(100),
+  @telefone VARCHAR(20),
+  @senha VARCHAR(255),
+  @status_conta VARCHAR(20)
+AS
+BEGIN
+  IF @status_conta NOT IN ('ativo','banido')
+  BEGIN
+    SELECT 'Status inválido' AS msg;
+    RETURN;
+  END
+
+  IF NOT EXISTS (SELECT 1 FROM CargoFuncionario WHERE id_cargo=@id_cargo)
+  BEGIN
+    SELECT 'Cargo inexistente' AS msg;
+    RETURN;
+  END
+
+  IF EXISTS (SELECT 1 FROM Funcionario WHERE cpf=@cpf)
+  BEGIN
+    SELECT 'CPF já cadastrado' AS msg;
+    RETURN;
+  END
+
+  IF EXISTS (SELECT 1 FROM Funcionario WHERE email=@email)
+  BEGIN
+    SELECT 'E-mail já cadastrado' AS msg;
+    RETURN;
+  END
+
+  INSERT INTO Funcionario (id_cargo, nome, cpf, email, telefone, senha, status_conta)
+  VALUES (@id_cargo, @nome, @cpf, @email, @telefone, @senha, @status_conta);
+
+  SELECT 'OK' AS msg;
+END
+GO
+
+
+CREATE PROCEDURE sp_LoginFuncionario
+    @email VARCHAR(100),
+    @senha VARCHAR(255)
+AS
+BEGIN
+    SELECT id_funcionario, id_cargo, nome, email, telefone, status_conta
+    FROM Funcionario
+    WHERE email=@email AND senha=@senha AND status_conta='ativo';
+END
+GO
+
+-- Alterar funcionário
+CREATE PROCEDURE sp_FuncionarioAlterar
+  @id_funcionario INT,
+  @nome VARCHAR(100),
+  @email VARCHAR(100),
+  @telefone VARCHAR(20),
+  @status_conta VARCHAR(20)
+AS
+BEGIN
+  UPDATE Funcionario
+  SET nome = @nome,
+      email = @email,
+      telefone = @telefone,
+      status_conta = @status_conta
+  WHERE id_funcionario = @id_funcionario;
+
+  SELECT 'OK' AS msg;
+END
+GO
+
 
 -- !!!INFO SOBRE O CLIENTE!!!
 
-
-
+CREATE PROCEDURE sp_LeitorBuscarPorNome
+  @nome VARCHAR(100)
+AS
+BEGIN
+  SELECT id_cliente, nome, email, telefone, status_conta
+  FROM Cliente
+  WHERE nome LIKE '%' + @nome + '%'
+  ORDER BY nome;
+END
+GO
+	
+-- Mídias não devolvidas pelo cliente (em atraso)
+CREATE PROCEDURE sp_NaoDevolveuMidia
+  @id_cliente INT
+AS
+BEGIN
+  SELECT 
+    e.id_emprestimo,
+    m.id_midia,
+    m.titulo,
+    e.data_devolucao,
+    DATEDIFF(DAY, e.data_devolucao, GETDATE()) AS dias_atraso
+  FROM Emprestimo e
+  JOIN Midia m ON m.id_midia=e.id_midia
+  WHERE e.id_cliente=@id_cliente
+    AND e.data_devolucao < GETDATE()
+  ORDER BY e.data_devolucao;
+END
+GO
 
 	
 
 -- !!!EVENTOS!!!
 
+CREATE PROCEDURE sp_EventosListar
+AS
+BEGIN
+    SELECT f.id_forum, f.titulo,
+           COUNT(m.id_mensagem) AS qtde_posts,
+           MAX(m.data_postagem) AS ultima_atividade
+    FROM Forum f
+    LEFT JOIN Mensagem m ON m.id_forum=f.id_forum
+    GROUP BY f.id_forum, f.titulo
+    ORDER BY MAX(m.data_postagem) DESC;
+END
+GO
 
+-- Criar
+CREATE PROCEDURE sp_EventoCriar
+  @titulo NVARCHAR(200),
+  @horario VARCHAR(50),
+  @local_evento NVARCHAR(200),
+  @data_evento DATE,
+  @id_funcionario INT
+AS
+BEGIN
+  INSERT INTO Evento (titulo, horario, local_evento, data_evento, id_funcionario, status_evento)
+  VALUES (@titulo, @horario, @local_evento, @data_evento, @id_funcionario, 'ativo');
+  SELECT 'OK' AS msg;
+END
+GO
+
+-- Editar
+CREATE PROCEDURE sp_EventoEditar
+  @id_evento INT,
+  @titulo NVARCHAR(200),
+  @horario VARCHAR(50),
+  @local_evento NVARCHAR(200),
+  @data_evento DATE
+AS
+BEGIN
+  UPDATE Evento
+  SET titulo=@titulo,
+      horario=@horario,
+      local_evento=@local_evento,
+      data_evento=@data_evento
+  WHERE id_evento=@id_evento;
+  SELECT 'OK' AS msg;
+END
+GO
+
+-- Histórico (já aconteceram)
+CREATE PROCEDURE sp_EventosHistorico
+AS
+BEGIN
+  SELECT *
+  FROM Evento
+  WHERE data_evento < CAST(GETDATE() AS DATE)
+  ORDER BY data_evento DESC;
+END
+GO
+
+-- Em andamento ou futuros (ativos)
+CREATE PROCEDURE sp_EventosAtivos
+AS
+BEGIN
+  SELECT *
+  FROM Evento
+  WHERE data_evento >= CAST(GETDATE() AS DATE)
+    AND status_evento = 'ativo'
+  ORDER BY data_evento ASC;
+END
+GO
 
 	
 
 -- !!!FÓRUM/DENUNCIAS!!!
 
 
+-- Listar denúncias
+CREATE PROCEDURE sp_DenunciasListar
+AS
+BEGIN
+  SELECT id_denuncia, id_mensagem, id_cliente, id_funcionario, data_denuncia, motivo, status_denuncia, acao_tomada
+  FROM Denuncia
+  ORDER BY data_denuncia DESC;
+END
+GO
+
+-- Ver denúncia por id
+CREATE PROCEDURE sp_DenunciaVer
+  @id_denuncia INT
+AS
+BEGIN
+  SELECT * FROM Denuncia WHERE id_denuncia=@id_denuncia;
+END
+GO
+
+-- Suspender leitor
+CREATE PROCEDURE sp_LeitorSuspender
+  @id_cliente INT
+AS
+BEGIN
+  UPDATE Cliente SET status_conta='banido' WHERE id_cliente=@id_cliente;
+  SELECT 'OK' AS msg;
+END
+GO
+
+-- Histórico de posts do leitor
+CREATE PROCEDURE sp_LeitorPostsHistorico
+  @id_cliente INT
+AS
+BEGIN
+  SELECT id_mensagem, id_forum, conteudo, data_postagem, visibilidade
+  FROM Mensagem
+  WHERE id_cliente=@id_cliente
+  ORDER BY data_postagem DESC;
+END
+GO
 
 	
 
--- !!!EMPRESTIMOS/RESERVA!!!
+-- !!!EMPRESTIMOS/RESERVA/DEVOLUÇÃO!!!
+	
 
+-- Adicionar empréstimo e marcar mídia como emprestada
+CREATE PROCEDURE sp_EmprestimoAdicionar
+  @id_cliente INT,
+  @id_funcionario INT,
+  @id_midia INT,
+  @data_emprestimo DATETIME,
+  @data_devolucao DATETIME
+AS
+BEGIN
+  INSERT INTO Emprestimo (id_cliente, id_funcionario, id_midia, id_reserva, data_emprestimo, data_devolucao, limite_renovacoes)
+  VALUES (@id_cliente, @id_funcionario, @id_midia, NULL, @data_emprestimo, @data_devolucao, 0);
+
+  UPDATE Midia SET disponibilidade='emprestado' WHERE id_midia=@id_midia;
+
+  SELECT 'OK' AS msg;
+END
+GO
+
+-- Select reservas (código exemplar, título, tempo restante, usuário)
+CREATE PROCEDURE sp_ReservasSelect -- Qual a diferença
+AS
+BEGIN
+  SELECT 
+    r.id_reserva,
+    r.id_midia AS codigo_exemplar,
+    m.titulo,
+    DATEDIFF(DAY, GETDATE(), r.data_limite) AS dias_restantes,
+    c.id_cliente,
+    c.nome AS usuario
+  FROM Reserva r
+  JOIN Midia m ON m.id_midia=r.id_midia
+  JOIN Cliente c ON c.id_cliente=r.id_cliente
+  WHERE r.status_reserva='ativa'
+  ORDER BY r.data_limite ASC;
+END
+GO
+
+-- Transformar reserva em empréstimo
+CREATE PROCEDURE sp_ReservaTransformarEmEmprestimo
+  @id_reserva INT,
+  @id_funcionario INT,
+  @data_emprestimo DATETIME,
+  @data_devolucao DATETIME
+AS
+BEGIN
+  DECLARE @id_cliente INT, @id_midia INT;
+
+  SELECT @id_cliente = id_cliente, @id_midia = id_midia
+  FROM Reserva
+  WHERE id_reserva=@id_reserva;
+
+  INSERT INTO Emprestimo (id_cliente, id_funcionario, id_midia, id_reserva, data_emprestimo, data_devolucao, limite_renovacoes)
+  VALUES (@id_cliente, @id_funcionario, @id_midia, @id_reserva, @data_emprestimo, @data_devolucao, 0);
+
+  UPDATE Reserva SET status_reserva='cancelada' WHERE id_reserva=@id_reserva;
+  UPDATE Midia   SET disponibilidade='emprestado' WHERE id_midia=@id_midia;
+
+  SELECT 'OK' AS msg;
+END
+GO
+
+
+CREATE PROCEDURE sp_TodosEmprestimosComAtraso
+AS
+BEGIN
+  SELECT 
+    e.id_emprestimo,
+    e.id_cliente,
+    c.nome AS cliente,
+    e.id_midia,
+    m.titulo,
+    e.data_emprestimo,
+    e.data_devolucao,
+    DATEDIFF(DAY, e.data_devolucao, GETDATE()) AS dias_atraso
+  FROM Emprestimo e
+  JOIN Cliente c ON c.id_cliente = e.id_cliente
+  JOIN Midia m   ON m.id_midia   = e.id_midia
+  ORDER BY e.data_devolucao ASC;
+END
+GO
+
+CREATE PROCEDURE sp_TodasReservas -- qual a diferença?
+AS
+BEGIN
+  SELECT 
+    r.id_reserva,
+    r.id_cliente,
+    c.nome AS cliente,
+    r.id_midia,
+    m.titulo,
+    r.data_reserva,
+    r.data_limite,
+    r.status_reserva
+  FROM Reserva r
+  JOIN Cliente c ON c.id_cliente = r.id_cliente
+  JOIN Midia m   ON m.id_midia   = r.id_midia
+  ORDER BY r.data_limite ASC;
+END
+GO	
+
+
+
+CREATE PROCEDURE sp_DevolverMidia
+    @id_emprestimo INT
+AS
+BEGIN
+    DECLARE @id_midia INT;
+
+    SELECT @id_midia = id_midia
+    FROM Emprestimo
+    WHERE id_emprestimo=@id_emprestimo;
+
+    IF @id_midia IS NULL
+    BEGIN
+        SELECT 'Empréstimo não encontrado' AS msg; RETURN;
+    END
+
+    UPDATE Midia
+       SET disponibilidade = 'disponível'
+     WHERE id_midia=@id_midia;
+
+    UPDATE Emprestimo
+       SET limite_renovacoes = 0
+     WHERE id_emprestimo=@id_emprestimo;
+
+    SELECT 'OK' AS msg;
+END
+GO
+
+
+-- Informações do exemplar + leitor que está com ele (se tiver)
+CREATE PROCEDURE sp_ExemplarInfoComLeitor
+  @id_midia INT
+AS
+BEGIN
+  SELECT 
+    m.id_midia,
+    m.titulo,
+    e.id_emprestimo,
+    c.id_cliente,
+    c.nome AS cliente,
+    e.data_devolucao
+  FROM Midia m
+  JOIN Emprestimo e ON e.id_midia = m.id_midia
+  JOIN Cliente c    ON c.id_cliente = e.id_cliente
+  WHERE m.id_midia = @id_midia
+    AND e.data_devolucao >= GETDATE();
+
+  -- Se não voltar nada, significa que está livre (sem empréstimo atual).
+END
+GO
 
 
 
@@ -1458,6 +1211,21 @@ BEGIN
 END
 GO
 
+-- !!!INDICACOES!!
+
+CREATE PROCEDURE sp_IndicacoesResumo
+AS
+BEGIN
+  SELECT 
+    titulo_ind AS titulo,
+    autor_ind  AS autor,
+    COUNT(*)   AS qtd_indicacoes
+  FROM Indicacao
+  GROUP BY titulo_ind, autor_ind
+  ORDER BY titulo_ind;
+END
+GO	
+
 
 
 
@@ -1500,13 +1268,157 @@ END
 GO
 
 
---!!!FUNCIONARIO!!!
 
-CREATE PROCEDURE sp_TodosFuncionarios --lista todos os funcionarios
+--!!!!!!!!!!!!NÃO ENTENDI/REVER!!!!!!!!!!!!!
+	
+
+-- quantidade de empréstimos por mês/ano
+CREATE PROCEDURE sp_QtdEmprestimosPorMes
+  @mes INT,
+  @ano INT
 AS
 BEGIN
-  SELECT id_funcionario, id_cargo, nome, cpf, email, telefone, status_conta
-  FROM Funcionario
-  ORDER BY nome;
+  SELECT COUNT(*) AS qtd_emprestimos
+  FROM Emprestimo
+  WHERE MONTH(data_emprestimo) = @mes
+    AND YEAR(data_emprestimo) = @ano;
+END
+GO
+
+-- quantidade de reservas por mês/ano
+CREATE PROCEDURE sp_QtdReservasPorMes
+  @mes INT,
+  @ano INT
+AS
+BEGIN
+  SELECT COUNT(*) AS qtd_reservas
+  FROM Reserva
+  WHERE MONTH(data_reserva) = @mes
+    AND YEAR(data_reserva) = @ano;
+END
+GO
+
+-- quantidade total de empréstimos
+CREATE PROCEDURE sp_QtdTotalEmprestimos
+AS
+BEGIN
+  SELECT COUNT(*) AS total_emprestimos
+  FROM Emprestimo;
+END
+GO
+
+-- quantidade de empréstimos atrasados
+CREATE PROCEDURE sp_QtdEmprestimosAtrasados
+AS
+BEGIN
+  SELECT COUNT(*) AS emprestimos_atrasados
+  FROM Emprestimo
+  WHERE data_devolucao < CAST(GETDATE() AS DATE);
+END
+GO
+
+CREATE PROCEDURE sp_MidiaAlterarImagem -- fazer junto com o alter, precisa de um separado pro perfil do cliente no android
+  @id_midia INT,
+  @imagem VARBINARY(MAX)
+AS
+BEGIN
+  UPDATE Midia SET imagem = @imagem WHERE id_midia = @id_midia;
+  SELECT 'OK' AS msg;
+END
+
+
+
+-- Exemplares ??????????????
+CREATE PROCEDURE sp_Exemplares
+AS
+BEGIN
+  SELECT id_midia, titulo, autor, isbn, disponibilidade, genero, ano_publicacao
+  FROM Midia
+  ORDER BY titulo;
+END
+GO
+
+
+
+
+--------------------------------------
+-- EVENTOS (FÓRUM) / POSTS / DENÚNCIA
+--------------------------------------
+
+
+
+CREATE PROCEDURE sp_PostCriar
+  @id_cliente INT,
+  @id_forum   INT,
+  @conteudo   VARCHAR(255)
+AS
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM Cliente WHERE id_cliente=@id_cliente AND status_conta='ativo')
+  BEGIN SELECT 'Cliente inativo/ausente' AS msg; RETURN; END
+
+  IF NOT EXISTS (SELECT 1 FROM Forum WHERE id_forum=@id_forum)
+  BEGIN SELECT 'Fórum não encontrado' AS msg; RETURN; END
+
+  INSERT INTO Mensagem (id_cliente, id_forum, conteudo, data_postagem, visibilidade)
+  VALUES (@id_cliente, @id_forum, @conteudo, GETDATE(), 'publica');
+
+  SELECT 'OK' AS msg;
+END
+GO
+
+
+CREATE PROCEDURE sp_FiltrarPostsForum
+    @id_forum INT,
+    @modo VARCHAR(20) -- 'recentes' | 'antigos'
+AS
+BEGIN
+    IF @modo = 'antigos'
+    BEGIN
+        SELECT m.conteudo, m.data_postagem, c.nome AS autor
+        FROM Mensagem m
+        JOIN Cliente c ON c.id_cliente=m.id_cliente
+        WHERE m.id_forum=@id_forum AND m.visibilidade='publica'
+        ORDER BY m.data_postagem ASC;
+        RETURN;
+    END
+
+    -- padrão: recentes
+    SELECT m.conteudo, m.data_postagem, c.nome AS autor
+    FROM Mensagem m
+    JOIN Cliente c ON c.id_cliente=m.id_cliente
+    WHERE m.id_forum=@id_forum AND m.visibilidade='publica'
+    ORDER BY m.data_postagem DESC;
+END
+GO
+
+CREATE PROCEDURE sp_CriarDenuncia
+  @id_funcionario INT,
+  @id_mensagem INT,
+  @id_cliente INT,
+  @motivo VARCHAR(255)
+AS
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM Funcionario WHERE id_funcionario=@id_funcionario AND status_conta='ativo')
+  BEGIN
+    SELECT 'Funcionario inválido' AS msg;
+    RETURN;
+  END
+
+  IF NOT EXISTS (SELECT 1 FROM Mensagem WHERE id_mensagem=@id_mensagem)
+  BEGIN
+    SELECT 'Mensagem não encontrada' AS msg;
+    RETURN;
+  END
+
+  IF NOT EXISTS (SELECT 1 FROM Cliente WHERE id_cliente=@id_cliente)
+  BEGIN
+    SELECT 'Cliente não encontrado' AS msg;
+    RETURN;
+  END
+
+  INSERT INTO Denuncia (id_funcionario, id_mensagem, id_cliente, data_denuncia, motivo, status_denuncia, acao_tomada)
+  VALUES (@id_funcionario, @id_mensagem, @id_cliente, GETDATE(), @motivo, 'pendente', NULL);
+
+  SELECT 'OK' AS msg;
 END
 GO
