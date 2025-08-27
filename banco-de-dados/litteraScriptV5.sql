@@ -1325,7 +1325,7 @@ BEGIN
   UPDATE Midia SET imagem = @imagem WHERE id_midia = @id_midia;
   SELECT 'OK' AS msg;
 END
-
+GO
 
 
 -- Exemplares ??????????????
