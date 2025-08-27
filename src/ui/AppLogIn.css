@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+body, #root {
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
+* {
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+body {
+  -ms-overflow-style: none;  /* IE e Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.conteiner {
+  min-height: 100vh;
+  margin: 0;
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: url('src/ui/assets/gradiente.png') no-repeat center center fixed;
+  background-size: cover;
+}
+
+#cx1 {
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: auto;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#logo {
+  width: 18%;
+  height: auto;
+  margin-bottom: 2rem;
+}
+
+#textao {
+  font-size: 3.5vw;
+  color: #013B84;
+  margin-bottom: 1rem;
+  font-family: 'Nunito Sans';
+  font-weight: 400;
+}
+
+#cx2{
+  width: 55%;
+  height: auto;
+  background-color: #E7ECEF;
+  border-radius: 20px;
+  padding-left: 3%;
+  padding-right: 3%;
+}
+
+#p1 {
+  font-size: 1vw;
+  color: #000000;
+}
+
+#cx3 {
+  width: 100%;
+  height: auto;
+  align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 3%;
+}
+
+.btnA{
+  width:20%;
+  height: auto;
+  padding: 1%;
+  background-color: #0A4489;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  font-size: 1.1vw;
+  cursor: pointer;
+  margin: 0.5vw;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* sombra suave */
+}
+
+
+
+.btnA-selected {
+  background-color: #0A4489 !important;
+  color: #fff !important;
+  border: 2px solid #0A4489;
+}
+
+#btn1 {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+#btn1:not(.btnA-selected),
+#btn2:not(.btnA-selected) {
+  background-color: #fff;
+  color: #0A4489;
+  border: 2px solid #ffffff;
+}
+
+
+
+.txt1{
+  padding: 0.5rem;
+  font-size: 1.0vw;
+  border: 1px solid #948c8c; 
+  width: 100%; 
+  background-color: #ffffff;
+  color: black;
+}
+.textinho{
+  font-size: 1vw;
+  color: #7c7c7c;;
+}
+
+#cx4 {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  align-items: center;
+}
+
+.cx4-1{
+  width: 35%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1%;
+}
+
+.btn-cadastrar {
+  width: 19%;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(to right, #ffffff, #e4e4e4);
+  color: rgb(60, 68, 170);
+  border: rgb(60, 68, 170) solid 0.1px;
+  border-radius: 35px;
+  font-size: 1vw;
+  cursor: pointer;
+  margin-top: 1.5rem;
+}
+
+.btn-cadastrar:hover {
+  background: rgb(60, 68, 170);
+  color: white;
+}
+
+.btn-cadastrar-img {
+  width: 2vw;
+  height: auto;
+  object-fit: contain;
+  margin-right: 0.4rem;
+}
+
+.btn-cadastrar-divider {
+  width: 0.1%;
+  height: 2.5vw;
+  background: rgb(25, 33, 141);
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+
+.btn-cadastrar-text {
+  font-size: 100%;
+  letter-spacing: 1px;
+}
+
+#cx5{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: auto;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+#cx5 a{
+  font-size: 1vw;
+  color: #0A4489;
+   border-bottom: 0.1px solid #0A4489;
+}
+#cx5 a:hover {
+  color: #8b929b;
+    border-bottom: 0.1px solid #8b929b;
+  cursor: pointer;
+}

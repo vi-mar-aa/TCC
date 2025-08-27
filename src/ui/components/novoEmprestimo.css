@@ -1,0 +1,180 @@
+.novoEmprestimo-modal-overlay {
+  position: fixed;
+  z-index: 20000;
+  left: 0; top: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.novoEmprestimo-modal {
+  background: #fff;
+  border-radius: 1.5vw;
+  box-shadow: 0 2px 16px rgba(10,68,137,0.13);
+  padding: 0vw 2vw 2vw 2vw;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50vw;
+  min-width: 600px;
+  max-width: 900px;
+}
+
+.novoEmprestimo-titulo {
+  color: #0A4489;
+  font-size: 2vw;
+  font-weight: 600;
+  margin-bottom: 1vw;
+  text-align: center;
+}
+
+.novoEmprestimo-fechar {
+  position: absolute;
+  top: 0.84vw;
+  right: 0.84vw;
+  background: none;
+  border: none;
+  font-size: 1.56vw;
+  color: #0A4489;
+  cursor: pointer;
+}
+
+.novoEmprestimo-form-wrap {
+  display: flex;
+  gap: 4vw;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 2vw;
+}
+
+.novoEmprestimo-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+  min-width: 260px;
+  max-width: 350px;
+  flex: 1 1 50%;
+}
+
+.novoEmprestimo-label-grande {
+  color: #0A4489;
+  font-size: 1.5vw;
+  font-weight: 600;
+  margin-bottom: 0.7vw;
+}
+
+.novoEmprestimo-label {
+  font-size: 1.1vw;
+  font-weight: 600;
+  color: #222;
+  margin-right: 0.5vw;
+  min-width: 90px;
+  display: inline-block;
+}
+
+.novoEmprestimo-col label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.7vw;
+}
+
+.novoEmprestimo-col input {
+  width: 220px;
+  height: 2vw;
+  border: 1.5px solid #bfc9d1;
+  border-radius: 0.3vw;
+  padding: 0 0.6vw;
+  font-size: 1.1vw;
+  background: #f3f6fa;
+  color: #222;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.novoEmprestimo-col input:focus {
+  border: 1.5px solid #0A4489;
+  background: #fff;
+}
+
+.novoEmprestimo-status-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.3vw;
+  border: 1.5px solid #bfc9d1;
+  border-radius: 0.3vw;
+  background: #f3f6fa;
+  padding: 0 0.6vw;
+  height: 2vw;
+  width: 220px;
+}
+
+.novoEmprestimo-status-livre {
+  color: #3cae5a;
+  font-weight: 600;
+  font-size: 1.1vw;
+  flex: 1;
+}
+
+.novoEmprestimo-status-icon {
+  color: #0A4489;
+  cursor: pointer;
+}
+
+.novoEmprestimo-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5vw;
+  font-size: 1.1vw;
+}
+
+.novoEmprestimo-link {
+  color: #0A4489;
+  font-size: 1.1vw;
+  text-decoration: underline;
+  margin-top: 0.5vw;
+  cursor: pointer;
+}
+
+.novoEmprestimo-btns {
+  display: flex;
+  flex-direction: row;
+  gap: 2vw;
+  justify-content: center;
+  margin-top: 1vw;
+}
+
+.novoEmprestimo-cancelar,
+.novoEmprestimo-emprestar {
+  background: #fff;
+  color: #0A4489;
+  border: 1.5px solid #0A4489;
+  border-radius: 35px;
+  font-size: 1.1vw;
+  font-weight: 600;
+  padding: 0.5vw 2vw;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5vw;
+  transition: background 0.2s, color 0.2s;
+}
+
+.novoEmprestimo-cancelar:hover,
+.novoEmprestimo-emprestar:hover {
+  background: #0A4489;
+  color: #fff;
+}
+
+.novoEmprestimo-btn-bar {
+  display: inline-block;
+  width: 1px;
+  height: 18px;
+  background: #bfc9d1;
+  margin: 0 0.6vw 0 0.6vw;
+  vertical-align: middle;
+}

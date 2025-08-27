@@ -1,0 +1,151 @@
+.conteinerDenuncias {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  background: #fafbfc;
+}
+
+.conteudoDenuncias {
+  margin-left: 260px;
+  width: calc(100vw - 260px);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 2vw 0;
+  box-sizing: border-box;
+}
+
+.denuncias-titulo {
+  color: #0A4489;
+  font-weight: 600;
+  margin: 0 0 2vw 0;
+  font-size: 2vw;
+  margin-left: 2vw;
+}
+
+.denuncias-box {
+  width: 100%;
+  max-width: 1100px;
+  background: #fff;
+  border-radius: 1.2vw;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.09);
+  padding: 1.5vw 2vw;
+  margin-left: 2vw;
+}
+
+.denuncias-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1vw;
+}
+
+.denuncias-tabela th {
+  color: #0A4489;
+  font-weight: 600;
+  background: transparent;
+  text-align: left;
+  padding-bottom: 0.7vw;
+  border: none;
+}
+
+.denuncias-tabela td {
+  padding: 0.7vw 0.2vw;
+  vertical-align: middle;
+  border: none;
+}
+
+.denuncias-user {
+  display: flex;
+  align-items: center;
+  font-size: 1vw;
+  color: #0A4489;
+  font-weight: 600;
+}
+
+.denuncias-motivo {
+  font-weight: 600;
+  color: #222;
+  font-size: 1vw;
+}
+
+.denuncias-post {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1vw;
+}
+
+.denuncias-vermais {
+  background: #fff;
+  color: #0A4489;
+  border: 1px solid #bfc9d1;
+  border-radius: 1vw;
+  font-size: 0.95vw;
+  font-weight: 600;
+  padding: 0.3vw 1vw;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  margin-left: 1vw;
+}
+
+.denuncias-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1vw;
+}
+
+.denuncias-tabela th {
+  color: #0A4489;
+  font-weight: 600;
+  background: transparent;
+  text-align: left;
+  padding-bottom: 0.7vw;
+  border: none;
+}
+
+.denuncias-tabela td {
+  padding: 0.7vw 0.2vw;
+  vertical-align: middle;
+  border: none;
+}
+
+.denuncias-user {
+  display: flex;
+  align-items: center;
+  font-size: 1vw;
+  color: #0A4489;
+  font-weight: 600;
+}
+
+.denuncias-motivo {
+  font-weight: 600;
+  color: #222;
+  font-size: 1vw;
+}
+
+.denuncias-post {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1vw;
+}
+
+.denuncias-vermais {
+  background: #fff;
+  color: #0A4489;
+  border: 1px solid #bfc9d1;
+  border-radius: 1vw;
+  font-size: 0.95vw;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  margin-left: 1vw;
+  width: 12vw;
+}
+
+.denuncias-vermais:hover {
+  background: #e6f0ff;
+  color: #0A4489;
+}

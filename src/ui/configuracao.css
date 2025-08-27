@@ -1,0 +1,222 @@
+.conteinerConfiguracao {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  background: #fafbfc;
+}
+
+.conteudoConfiguracao {
+  margin-left: 260px;
+  width: calc(100vw - 260px);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2vw 0;
+  box-sizing: border-box;
+}
+
+.configuracao-tabs {
+  display: flex;
+  gap: 2vw;
+  margin-bottom: 2vw;
+  width: 100%;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: flex-start;
+}
+
+.configuracao-tabs button {
+  background: #fff;
+  color: #0A4489;
+  border: none;
+  border-radius: 2vw;
+  padding: 0.7vw 2vw;
+  font-weight: 600;
+  font-size: 1vw;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.configuracao-tabs button.active {
+  background: #0A4489;
+  color: #fff;
+}
+
+.configuracao-geral {
+  width: 100%;
+  max-width: 900px;
+  background: #fff;
+  border-radius: 1.2vw;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.09);
+  padding: 2vw 2vw 1vw 2vw;
+  display: flex;
+  flex-direction: column;
+  gap: 2vw;
+}
+
+.configuracao-geral-colunas {
+  display: flex;
+  gap: 4vw;
+  margin-bottom: 1vw;
+}
+
+.configuracao-geral-titulo {
+  font-size: 1.1vw;
+  font-weight: 600;
+  color: #0A4489;
+  margin-bottom: 0.7vw;
+  display: block;
+}
+
+.configuracao-geral-colunas input {
+  display: block;
+  margin-bottom: 0.7vw;
+  padding: 0.5vw 1vw;
+  border-radius: 0.7vw;
+  border: 1px solid #bfc9d1;
+  font-size: 1vw;
+  width: 16vw;
+}
+
+.configuracao-botoes {
+  display: flex;
+  gap: 2vw;
+  justify-content: center;
+  margin-top: 2vw;
+}
+
+.configuracao-btn-cancelar,
+.configuracao-btn-salvar {
+  background: #fff;
+  color: #0A4489;
+  border: 2px solid #0A4489;
+  border-radius: 35px;
+  font-size: 1.1vw;
+  font-weight: 600;
+  padding: 0.7vw 2vw;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.7vw;
+  transition: background 0.2s, color 0.2s;
+}
+
+.configuracao-btn-cancelar:hover,
+.configuracao-btn-salvar:hover {
+  background: #0A4489;
+  color: #fff;
+}
+
+.configuracao-funcionarios {
+  width: 100%;
+  max-width: 900px;
+  background: #fff;
+  border-radius: 1.2vw;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.09);
+  padding: 2vw 2vw 1vw 2vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+  position: relative;
+}
+
+.configuracao-funcionario-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e0e6ed;
+  padding: 1vw 0;
+  gap: 2vw;
+}
+
+.configuracao-funcionario-user {
+  display: flex;
+  align-items: center;
+  gap: 1vw;
+  font-size: 1vw;
+  color: #0A4489;
+  font-weight: 600;
+}
+
+.configuracao-funcionario-info {
+  display: flex;
+  gap: 2vw;
+  font-size: 1vw;
+  color: #222;
+}
+
+.configuracao-funcionario-mais {
+  background: none;
+  border: none;
+  color: #0A4489;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 0.3vw;
+  transition: background 0.2s;
+}
+
+.configuracao-funcionario-mais:hover {
+  background: #e6f0ff;
+}
+
+.fab-btn {
+  position: fixed;
+  right: 3vw;
+  bottom: 4vw;
+  width: 4vw;
+  height: 4vw;
+  border-radius: 50%;
+  background: #0A4489;
+  color: #fff;
+  font-size: 2.5vw;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+  transition: background 0.2s;
+}
+
+.fab-btn:hover {
+  background: #1866c1;
+}
+
+.configuracao-preferencias {
+  width: 100%;
+  max-width: 500px;
+  background: #fff;
+  border-radius: 1.2vw;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.09);
+  padding: 2vw 2vw 1vw 2vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vw;
+  align-items: center;
+}
+
+.configuracao-preferencias-campo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5vw;
+}
+
+.configuracao-preferencias-campo label {
+  font-size: 1vw;
+  color: #0A4489;
+  font-weight: 600;
+}
+
+.configuracao-preferencias-campo select {
+  padding: 0.5vw 1vw;
+  border-radius: 0.7vw;
+  border: 1px solid #bfc9d1;
+  font-size: 1vw;
+  width: 100%;
+}

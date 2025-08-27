@@ -1,0 +1,145 @@
+/* Conteúdo central */
+.conteudoEmprestimos {
+    margin-left: 260px;
+    width: calc(100vw - 260px);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    border-radius: 1.5vw;
+    background: transparent;
+}
+
+/* Título */
+.conteudoEmprestimos h2,
+.emprestimos-titulo {
+    color: #0A4489;
+    font-weight: 600;
+    margin: 2vw 0 2vw 4vw;
+    font-size: 2vw;
+    align-self: flex-start;
+}
+
+/* Filtros */
+.filtros-emprestimo {
+    display: flex;
+    gap: 1vw;
+    margin-bottom: 2vw;
+    justify-content: center;
+    width: 100%;
+}
+
+.filtros-emprestimo button {
+    background: #fff;
+    color: #0A4489;
+    border: none;
+    border-radius: 2vw;
+    padding: 0.7vw 2vw;
+    font-weight: 600;
+    font-size: 1vw;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.filtros-emprestimo button.active {
+    background: #0A4489;
+    color: #fff;
+}
+
+/* Tabela */
+.tabela-emprestimo-container {
+    width: 97%;
+    background: #fff;
+    border-radius: 1vw;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    margin: 1vw;
+    overflow-x: auto;
+}
+
+.tabela-emprestimo {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1vw;
+}
+
+.tabela-emprestimo th {
+    color: #0A4489;
+    font-weight: 600;
+    text-align: left;
+    padding: 0.5vw;
+    background: transparent;
+}
+
+.tabela-emprestimo td {
+    padding: 0.5vw;
+    border-bottom: 1px solid #e0e6ed;
+    vertical-align: middle;
+}
+
+.tabela-emprestimo tr:last-child td {
+    border-bottom: none;
+}
+
+.tabela-emprestimo td.status-renovado {
+    color: #F9A825;
+    font-weight: 600;
+}
+
+.tabela-emprestimo td.status-atrasado {
+    color: #E53935;
+    font-weight: 600;
+}
+
+.tabela-emprestimo td.status-emprestado {
+    color: #F9A825;
+    font-weight: 600;
+}
+
+.tabela-emprestimo td:last-child {
+    text-align: center;
+    font-size: 1.5vw;
+    color: #bfc9d1;
+    cursor: pointer;
+}
+
+/* Botão flutuante */
+.fab-btn {
+    position: fixed;
+    right: 3vw;
+    bottom: 3vw;
+    width: 4vw;
+    height: 4vw;
+    border-radius: 50%;
+    background: #0A4489;
+    color: #fff;
+    font-size: 2.5vw;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    transition: background 0.2s;
+}
+
+.fab-btn:hover {
+    background: #063366;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+    .conteudoEmprestimos {
+        padding: 2vw 0.5vw;
+    }
+    .tabela-emprestimo-container {
+        padding: 1vw;
+    }
+    .tabela-emprestimo th, .tabela-emprestimo td {
+        font-size: 1.5vw;
+        padding: 1vw 0.5vw;
+    }
+}

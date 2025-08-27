@@ -1,0 +1,100 @@
+.info-acervo-container {
+  padding: 2vw;
+  font-family: 'Roboto', Arial, sans-serif;
+  background: #f8fafc;
+  min-height: 100vh;
+}
+.info-acervo-top {
+  display: flex;
+  gap: 2vw;
+  align-items: flex-start;
+  margin-bottom: 2vw;
+}
+.info-acervo-cover {
+  width: 220px;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 1vw;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  background: #fff;
+}
+.info-acervo-geral {
+  background: #fff;
+  border-radius: 1vw;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 2vw 2vw 2vw 2vw;
+  min-width: 340px;
+  position: relative;
+  flex: 1;
+}
+.info-acervo-geral h2 {
+  color: #0A4489;
+  font-size: 1.3vw;
+  margin-bottom: 1vw;
+}
+.info-acervo-list > div {
+  margin-bottom: 0.5vw;
+  font-size: 1vw;
+}
+.info-acervo-edit-btn {
+  position: absolute;
+  bottom: 1.5vw;
+  right: 1.5vw;
+  background: #0A4489;
+  border: none;
+  border-radius: 50%;
+  width: 2.5vw;
+  height: 2.5vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+.info-acervo-status {
+  background: #fff;
+  border-radius: 1vw;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  min-width: 180px;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1vw;
+  color: #0A4489;
+  font-weight: 500;
+}
+.info-acervo-status-num {
+  font-size: 2.5vw;
+  font-weight: 700;
+  color: #0A4489;
+  margin-bottom: 0.2vw;
+}
+.info-acervo-bottom {
+  background: #fff;
+  border-radius: 1vw;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 2vw;
+  margin-top: 2vw;
+}
+.info-acervo-bottom h3 {
+  color: #0A4489;
+  font-size: 1.2vw;
+  margin-bottom: 1vw;
+}
+.info-acervo-bottom table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1vw;
+}
+.info-acervo-bottom th, .info-acervo-bottom td {
+  padding: 0.6vw 0.5vw;
+  text-align: left;
+  border-bottom: 1px solid #e0e6ed;
+}
+.status-emprestado { color: #e6b800; font-weight: 500; }
+.status-reservado { color: #0A4489; font-weight: 500; }
+.status-livre { color: #3bb273; font-weight: 500; }
+.status-atrasado { color: #e53935; font-weight: 500; }
+.status-renovado { color: #f57c00; font-weight: 500; }

@@ -1,0 +1,178 @@
+.conteinerEmprestimos {
+  min-height: 100vh;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: row;
+}
+
+.conteudoEmprestimos {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 2vw 0 0 0;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.busca-emprestimo {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 2vw;
+  box-shadow: 0 2px 8px rgba(10, 68, 137, 0.07);
+  padding: 0.0vw 1vw;
+  border: 1.5px solid #b7d3f7;
+  margin-bottom: 2vw;
+}
+
+.busca-emprestimo input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1.1vw;
+  color: #0A4489;
+  padding: 0.7vw 0.5vw;
+}
+
+.busca-emprestimo svg {
+  color: #0A4489;
+  margin-left: 0.5vw;
+}
+
+.egrafico-titulo {
+  color: #0A4489;
+  font-weight: 600;
+  margin-bottom: 1vw;
+  font-size: 2vw;
+  align-self: flex-start;
+  margin-left: 4vw;
+}
+
+.egrafico-card {
+  background: #fff;
+  border-radius: 1.2vw;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.09);
+  padding: 2vw 2vw 1vw 2vw;
+  margin-bottom: 2vw;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.egrafico-pizza {
+  max-width: 700px;
+}
+
+.egrafico-barra {
+  max-width: 900px;
+}
+
+.egrafico-card-titulo {
+  font-weight: 600;
+  font-size: 1.1vw;
+  color: #0A4489;
+  margin-bottom: 1vw;
+  align-self: flex-start;
+}
+
+.egrafico-pizza-area {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  gap: 3vw;
+}
+
+.egrafico-legenda {
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+  font-size: 1vw;
+}
+
+.egrafico-legenda-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.egrafico-legenda-cor {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.egrafico-legenda-atraso {
+  background: #b7d3f7;
+}
+
+.egrafico-legenda-dia {
+  background: #0A4489;
+}
+
+.egrafico-barra-header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 1vw;
+}
+
+.egrafico-ano-btn {
+  background: #f3f6fa;
+  border: none;
+  border-radius: 1vw;
+  padding: 0.2vw 1vw;
+  font-size: 1vw;
+  color: #0A4489;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5vw;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.egrafico-relatorio-area {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 2vw;
+}
+
+.egrafico-relatorio-btn {
+  background: #fff;
+  color: #0A4489;
+  border: 2px solid #0A4489;
+  border-radius: 35px;
+  font-size: 1.1vw;
+  font-weight: 600;
+  padding: 0.7vw 2vw;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.7vw;
+}
+
+@media (max-width: 900px) {
+  .conteudoEmprestimos h2 {
+    font-size: 5vw !important;
+    margin-left: 2vw !important;
+  }
+  .busca-emprestimo input {
+    font-size: 3vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .conteudoEmprestimos {
+    padding: 3vw 0 0 0;
+  }
+  .busca-emprestimo {
+    padding: 1vw 2vw;
+    font-size: 4vw;
+  }
+}
