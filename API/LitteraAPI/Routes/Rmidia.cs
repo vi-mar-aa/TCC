@@ -23,12 +23,25 @@ public static class Rmidia
                 return Results.Problem("Erro no banco: " + ex.Message);
             }
             
-            
-
         });
-        
 
-        app.MapPost("/CadastrarMidia", async ([FromBody] RequestMidia rmidia, [FromServices] RepoMidia repoMidia) =>
+        app.MapGet("/ListarMainAcervo", async (RepoMidia repo) =>
+        {
+            try
+            {
+                var livros = await repo.ListarMidiasAcervoAndroidMain();
+                return Results.Ok(livros);
+            }
+            catch(SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message);
+            }
+            
+        });
+
+
+
+        /*app.MapPost("/CadastrarMidia", async ([FromBody] RequestMidia rmidia, [FromServices] RepoMidia repoMidia) =>
         {
             try
             {
@@ -39,7 +52,7 @@ public static class Rmidia
             {
                 return Results.Problem("Erro no banco ou tipo de midia inválido: " + ex.Message);
             }
-            
+
         } );
 
         app.MapPost("/MainAndroidSimilares", async ([FromBody]RequestMidia rmidia, [FromServices]RepoMidia repoMidia) =>
@@ -53,7 +66,7 @@ public static class Rmidia
             {
                 return Results.Problem("Erro no banco: " + ex.Message);
             }
-            
+
         });
 
         app.MapPost("/MainAndroidPopulares", async ([FromServices]RepoMidia repoMidia) =>
@@ -67,9 +80,9 @@ public static class Rmidia
             {
                 return Results.Problem("Erro no banco: " + ex.Message);
             }
-            
-           
-        });
+
+
+        });*/
 
     }
 }

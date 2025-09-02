@@ -29,32 +29,9 @@ public class RepoMidia
             {
                 midia.Add(new Mmidia()
                 {
-                   /*
-                    IdMidia = (int)reader["id_midia"],
-                    Idfuncionario = (int)reader["id_funcionario"],
-                    Idtpmidia = (int)reader["id_tpmidia"],
-                    Titulo = (string)reader["titulo"],
-                    Sinopse = (string)reader["sinopse"],
-                    Autor = (string)reader["autor"],
-                    Editora = (string)reader["editora"],
-                    Anopublicacao = (int)reader["ano_publicacao"],
-                    Edicao = (string)reader["edicao"],
-                    Localpublicacao = (string)reader["local_publicacao"],
-                    Npaginas = (int)reader["numero_paginas"],
-                    Isbn = (string)reader["isbn"],
-                    Dispo = (string)reader["disponibilidade"],
-                    Genero = (string)reader["genero"],
-                    Imagem = Convert.ToBase64String((byte[])reader["imagem"]),
-                    NomeTipo = (string)reader["nome_tipo"],
-                    ContExemplares = (int)reader["total_exemplares"],
                     
-                    Duracao = (string)reader["duracao"],
-                    Estudio = (string)reader["estudio"],
-                    Roterista = (string)reader["roterista"],
-                    */
-                   
-                   IdMidia = ReaderHelper.GetIntSafe(reader, "idmidia"), //consertar
-                   Idfuncionario = ReaderHelper.GetIntSafe(reader, "id_funcionario"),
+                   IdMidia = (int)reader["id_midia"],
+                   Idfuncionario = (int)reader["id_funcionario"],
                    Titulo = ReaderHelper.GetStringSafe(reader, "titulo"),
                    Sinopse = ReaderHelper.GetStringSafe(reader, "sinopse"),
                    Autor = ReaderHelper.GetStringSafe(reader, "autor"),
@@ -63,12 +40,12 @@ public class RepoMidia
                    Localpublicacao = ReaderHelper.GetStringSafe(reader, "local_publicacao"),
                    Npaginas = ReaderHelper.GetIntSafe(reader, "numero_paginas"),
                    Isbn = ReaderHelper.GetStringSafe(reader, "isbn"),
-                   Imagem = ReaderHelper.GetBytesSafe(reader, "imagem"),
+                   Imagem = Convert.ToBase64String((byte[])reader["imagem"]),
                    NomeTipo = ReaderHelper.GetStringSafe(reader, "nome_tipo"),
                    ContExemplares = ReaderHelper.GetIntSafe(reader, "total_exemplares"),
                    Duracao = ReaderHelper.GetStringSafe(reader, "duracao"),
                    Estudio = ReaderHelper.GetStringSafe(reader, "estudio"),
-                   Roterista = ReaderHelper.GetStringSafe(reader, "roterista")
+                   Roterista = ReaderHelper.GetStringSafe(reader, "roteirista")
                     
                 });
 
@@ -76,11 +53,42 @@ public class RepoMidia
             
             return midia;
         }
-    } 
-    
-    public async Task InserirMidia(RequestMidia midia)  //tmidia e o email são parametros da requisição!!!
+    }
+
+    public async Task<List<Mmidia>> ListarMidiasAcervoAndroidMain()
     {
-        if (midia.TMidia == 1)//livro                         //como especificar o parametro agora????????
+        var midia = new List<Mmidia>();
+        
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand ("sp_AcervoPrincipal", con))
+        { 
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            await con.OpenAsync();
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                midia.Add(new Mmidia()
+                {
+                    
+                    IdMidia = (int)reader["id_midia"],
+                    Titulo = ReaderHelper.GetStringSafe(reader, "titulo"),
+                    Autor = ReaderHelper.GetStringSafe(reader, "autor"),
+                    Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
+                    Roterista = ReaderHelper.GetStringSafe(reader, "roteirista"),
+                    Imagem = Convert.ToBase64String((byte[])reader["imagem"])
+                    
+                });
+
+            }
+            
+            return midia;
+        }
+    }
+    
+    /*public async Task InserirMidia(RequestMidia midia) 
+    {
+        if (midia.TMidia == 1)//livro                         
         {
             using var con = new SqlConnection(_connectionString);
             using (var cmd = new SqlCommand("sp_CadastrarMidia", con)) //sem proc ainda, ajustar os parametros
@@ -250,7 +258,49 @@ public class RepoMidia
 
             return midia;
         }
-    }
+    }*/
+    
+    
+    
+    
+    
+    /*CREATE PROCEDURE sp_AcervoPrincipal --pag principal
+AS
+BEGIN
+  SELECT 
+    m.id_midia,
+    m.imagem,
+    m.titulo,
+    m.autor,
+    m.roteirista,
+    m.ano_publicacao
+  FROM Midia m
+  ORDER BY m.titulo;
+END*/
+    
+    /*
+                   IdMidia = (int)reader["id_midia"],
+                   Idfuncionario = (int)reader["id_funcionario"],
+                   Idtpmidia = (int)reader["id_tpmidia"],
+                   Titulo = (string)reader["titulo"],
+                   Sinopse = (string)reader["sinopse"],
+                   Autor = (string)reader["autor"],
+                   Editora = (string)reader["editora"],
+                   Anopublicacao = (int)reader["ano_publicacao"],
+                   Edicao = (string)reader["edicao"],
+                   Localpublicacao = (string)reader["local_publicacao"],
+                   Npaginas = (int)reader["numero_paginas"],
+                   Isbn = (string)reader["isbn"],
+                   Dispo = (string)reader["disponibilidade"],
+                   Genero = (string)reader["genero"],
+                   Imagem = Convert.ToBase64String((byte[])reader["imagem"]),
+                   NomeTipo = (string)reader["nome_tipo"],
+                   ContExemplares = (int)reader["total_exemplares"],
+
+                   Duracao = (string)reader["duracao"],
+                   Estudio = (string)reader["estudio"],
+                   Roterista = (string)reader["roterista"],
+                   */
     
     public static class ReaderHelper
     {
