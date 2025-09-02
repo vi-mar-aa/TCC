@@ -14,15 +14,14 @@ public class RepoMidia
         _connectionString = configuration.GetConnectionString("SqlServer") ?? throw new InvalidOperationException("Connection string 'SqlServer' not found.");
     }
 
-    public async Task<List<Mmidia>> ListarTodosLivros()
+    public async Task<List<Mmidia>> ListarMidias()
     {
         var midia = new List<Mmidia>();
         
         using var con = new SqlConnection(_connectionString);
-        //using (var cmd = new SqlCommand("sp_Acervo", con)) //faltando proc do acervo
-        using (var cmd = new SqlCommand("SELECT * FROM Midia", con))
-        {
-            //cmd.CommandType = System.Data.CommandType.StoredProcedure;
+        using (var cmd = new SqlCommand ("sp_AcervoMidiasTodasInfosComExemplares", con))
+        { 
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
             await con.OpenAsync();
             using var reader = await cmd.ExecuteReaderAsync();
 
@@ -30,10 +29,12 @@ public class RepoMidia
             {
                 midia.Add(new Mmidia()
                 {
+                   /*
                     IdMidia = (int)reader["id_midia"],
                     Idfuncionario = (int)reader["id_funcionario"],
                     Idtpmidia = (int)reader["id_tpmidia"],
                     Titulo = (string)reader["titulo"],
+                    Sinopse = (string)reader["sinopse"],
                     Autor = (string)reader["autor"],
                     Editora = (string)reader["editora"],
                     Anopublicacao = (int)reader["ano_publicacao"],
@@ -43,7 +44,31 @@ public class RepoMidia
                     Isbn = (string)reader["isbn"],
                     Dispo = (string)reader["disponibilidade"],
                     Genero = (string)reader["genero"],
-                    //Imagem = Convert.ToBase64String((byte[])reader["imagem"])
+                    Imagem = Convert.ToBase64String((byte[])reader["imagem"]),
+                    NomeTipo = (string)reader["nome_tipo"],
+                    ContExemplares = (int)reader["total_exemplares"],
+                    
+                    Duracao = (string)reader["duracao"],
+                    Estudio = (string)reader["estudio"],
+                    Roterista = (string)reader["roterista"],
+                    */
+                   
+                   IdMidia = ReaderHelper.GetIntSafe(reader, "idmidia"), //consertar
+                   Idfuncionario = ReaderHelper.GetIntSafe(reader, "id_funcionario"),
+                   Titulo = ReaderHelper.GetStringSafe(reader, "titulo"),
+                   Sinopse = ReaderHelper.GetStringSafe(reader, "sinopse"),
+                   Autor = ReaderHelper.GetStringSafe(reader, "autor"),
+                   Editora = ReaderHelper.GetStringSafe(reader, "editora"),
+                   Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
+                   Localpublicacao = ReaderHelper.GetStringSafe(reader, "local_publicacao"),
+                   Npaginas = ReaderHelper.GetIntSafe(reader, "numero_paginas"),
+                   Isbn = ReaderHelper.GetStringSafe(reader, "isbn"),
+                   Imagem = ReaderHelper.GetBytesSafe(reader, "imagem"),
+                   NomeTipo = ReaderHelper.GetStringSafe(reader, "nome_tipo"),
+                   ContExemplares = ReaderHelper.GetIntSafe(reader, "total_exemplares"),
+                   Duracao = ReaderHelper.GetStringSafe(reader, "duracao"),
+                   Estudio = ReaderHelper.GetStringSafe(reader, "estudio"),
+                   Roterista = ReaderHelper.GetStringSafe(reader, "roterista")
                     
                 });
 
@@ -52,47 +77,6 @@ public class RepoMidia
             return midia;
         }
     } 
-    
-    public async Task<List<Mmidia>> ListarTodosFilmes()
-    {
-        var midia = new List<Mmidia>();
-        
-        using var con = new SqlConnection(_connectionString);
-        using (var cmd = new SqlCommand("sp_Acervo", con)) //faltando proc do acervo
-        {
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            await con.OpenAsync();
-            using var reader = await cmd.ExecuteReaderAsync();
-
-            while (await reader.ReadAsync())
-            {
-                midia.Add(new Mmidia()
-                {
-                    IdMidia = (int)reader["IdMidia"], // este retorno é importante para no futuro a aplicação conseguir ter o parametro para retornar os detalhes do livro
-                    Idfuncionario = (int)reader["Idfuncionario"],
-                    Idtpmidia = (int)reader["Idtpmidia"],
-                    Titulo = (string)reader["Titulo"],
-                    Editora = (string)reader["Editora"],
-                    //Autor = (string)reader["Autor"], autor?Diretor?
-                    Anopublicacao = (int)reader["Anopublicacao"],
-                    //Edicao = (string)reader["Edicao"],
-                    Localpublicacao = (string)reader["Localpublicacao"],
-                    //Npaginas = (int)reader["Npaginas"],
-                    //Isbn = (string)reader["Isbn"],
-                    Duracao = (string)reader["Duracao"],
-                    Estudio = (string)reader["Estudio"],
-                    Roterista = (string)reader["Roterista"],
-                    Dispo = (string)reader["Dispo"],
-                    Genero = (string)reader["Genero"],
-                    Imagem = Convert.ToBase64String((byte[])reader["Imagem"])
-                    
-                });
-
-            }
-            
-            return midia;
-        }
-    }                                          
     
     public async Task InserirMidia(RequestMidia midia)  //tmidia e o email são parametros da requisição!!!
     {
@@ -114,6 +98,7 @@ public class RepoMidia
                 cmd.Parameters.AddWithValue("@numero_paginas", midia.Midia.Npaginas);
                 cmd.Parameters.AddWithValue("@isbn", midia.Midia.Isbn);
                 cmd.Parameters.AddWithValue("@dispo", "disponivel");
+                //imagem
                 
                 await con.OpenAsync();
                 await cmd.ExecuteNonQueryAsync();
@@ -267,7 +252,29 @@ public class RepoMidia
         }
     }
     
-    
+    public static class ReaderHelper
+    {
+        public static string? GetStringSafe(SqlDataReader reader, string column)
+        {
+            return reader[column] == DBNull.Value ? null : (string)reader[column];
+        }
+
+        public static int? GetIntSafe(SqlDataReader reader, string column)
+        {
+            return reader[column] == DBNull.Value ? null : (int?)reader[column];
+        }
+
+        public static DateTime? GetDateTimeSafe(SqlDataReader reader, string column)
+        {
+            return reader[column] == DBNull.Value ? null : (DateTime?)reader[column];
+        }
+
+        public static byte[]? GetBytesSafe(SqlDataReader reader, string column)
+        {
+            return reader[column] == DBNull.Value ? null : (byte[])reader[column];
+        }
+    }
+
     
     
 }
