@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.EmprestimoActivity"
+    android:fitsSystemWindows="true"
+    android:background="@drawable/background_gradient_centro">
+
+<TextView
+    android:id="@+id/tvTitMain"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/tit_desejos"
+    android:textAlignment="center"
+    android:textColor="?attr/colorOnSurfaceVariant"
+    android:textSize="30sp"
+    android:paddingVertical="40dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+
+
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/rvDesejo"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:padding="10dp"
+    android:background="@drawable/borda_arredondada_topo"
+    android:backgroundTint="?attr/backgroundColor"
+    app:layout_constraintBottom_toTopOf="@id/menu_layout"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/tvTitMain">
+
+</androidx.recyclerview.widget.RecyclerView>
+
+
+<include
+    android:id="@+id/menu_layout"
+    layout="@layout/bottom_menu"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"/>
+    <View
+        android:id="@+id/background_cinza"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="?attr/fundo_popmenu"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/menu_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

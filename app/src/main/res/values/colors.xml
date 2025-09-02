@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="transparente">#00000000</color>#5E4C4949
+
+    <!--TONS DE PRETO -->
+    <color name="preto_solido">#000000</color>
+    <color name="preto_tom_secundario">#0E0E0E</color><!--cor dos backs do textview--><!--fundo do submenu no modo escuro -->
+    <color name="submenu_background">#0F0F0F</color>
+    <color name="preto_tom_terciario">#5E4C4949</color><!--cor do fundo dos itens no modo escuro -->
+    <color name="cinza_tom_solido">#151515</color> <!-- Cor de fundo do modo escuro -->
+    <color name="cinza_tom_claro">#777777</color><!-- Cor das letras no modo branco -->
+    <color name="cinza_tom_claro_secundario">#9F9F9F</color><!--cor do texto mais claro no modo claro-->
+    <color name="cinza_tom_medio">#575757</color>
+    <color name="cinza">#4C4949</color>
+    <color name="fundo_popmenu_dark">#593A3A3A</color>
+    <color name="fundo_popmenu_white">#59D9D9D9</color>
+    <!--TONS DE BRANCO-->
+    <color name="branco_solido">#FFFFFFFF</color>
+    <color name="branco_tom_terciario">#FBFBFB</color><!--cor do backend no titulo do genero-->
+    <color name="branco_tom_secundario">#F3F3F3</color><!--cor do backend do item no modo claro-->
+    <!--TONS DE VERMELHO-->
+    <color name="vinho_solido">#800000</color><!--cor do texto no modo claro-->
+    <color name="laranja_vivo">#FF6600</color><!--cor do texto no modo escuro-->
+    <color name="laranja_jambo">#FF551C</color>
+
+
+
+
+
+
+
+
+
+</resources>

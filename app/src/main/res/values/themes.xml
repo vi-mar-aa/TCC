@@ -1,0 +1,24 @@
+<resources>
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Cores --><!-- -->
+        <item name="backgroundColor">@color/branco_solido</item>
+        <item name="colorOnBackground">@color/preto_solido</item>
+        <item name="colorSurface">@color/branco_tom_secundario</item>
+        <item name="colorOnSurface">@color/vinho_solido</item>
+        <item name="colorPrimary">@color/branco_solido</item>
+        <item name="colorOnPrimary">@color/vinho_solido</item>
+        <item name="colorOnSurfaceVariant">@color/branco_solido</item>
+        <item name="text_midDestaque">@color/cinza_tom_medio</item>
+        <item name="text_minDestaque">@color/cinza_tom_claro_secundario</item>
+        <item name="item_tit_back">@color/branco_tom_secundario</item>
+        <item name="item_photo_back">@color/branco_tom_terciario</item>
+        <item name="text_color">@color/preto_tom_secundario </item>
+        <item name="fundo_popmenu">@color/fundo_popmenu_white</item>
+        <!-- Barras -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+
+</resources>

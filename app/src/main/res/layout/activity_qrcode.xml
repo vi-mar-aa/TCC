@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/zxing_transparent"
+    tools:context=".activities.QRCodeActivity">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:elevation="5dp"
+        android:gravity="center_horizontal"
+        android:text="Escaneie o \n QR code"
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.journeyapps.barcodescanner.DecoratedBarcodeView
+        android:id="@+id/barcodeView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/btnAcessar"
+        android:layout_width="182dp"
+        android:layout_height="59dp"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/layout_textview"
+        android:backgroundTint="@color/branco_solido"
+        android:elevation="5dp"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTit_Midia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Mar Morto, 2005"
+                android:textColor="@color/preto_solido"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvTil_Autor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Jorge Amado"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/btnEnviarImage"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_seta_direita" />
+    </FrameLayout>
+
+    <!-- Adicione logo após o BarcodeView -->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

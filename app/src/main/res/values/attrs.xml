@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="cor_de_caixas" format="color" />
+    <attr name="text_minDestaque" format="color" />
+    <attr name="text_midDestaque" format="color" />
+    <attr name="item_tit_back" format="color" />//branco_tom_secundario
+    <attr name="item_photo_back" format="color" />//branco_tom_terciario
+    <attr name="text_color" format="color"/>
+    <attr name="fundo_popmenu" format="reference|color"/>
+</resources>

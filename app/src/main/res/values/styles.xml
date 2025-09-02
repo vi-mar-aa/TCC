@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomPopupMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@drawable/submenu_layout</item>
+    </style>
+    <style name="Theme.TCCteste.SplashScreen" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Para Android 12+ (API 31), o sistema usa a splash nativa -->
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
+    <style name="Theme">Theme</style>
+    <style name="CustomScrollViewStyle" parent="@android:style/Widget.ScrollView">
+        <item name="android:scrollbarThumbVertical">@drawable/scrollbar_thumb</item>
+        <item name="android:scrollbarTrackVertical">@drawable/scrollbar_track</item>
+    </style>
+    <!--Tema Claro -->
+    <style name="titulosGenero" parent="Widget.AppCompat.TextView">
+        <item name="android:background">@color/branco_solido</item>
+        <item name="android:textColor">@color/vinho_solido</item>
+    </style>
+
+    <!--Tema Escuro -->
+    <style name="titulosGeneroEscuro" parent="Widget.AppCompat.TextView">
+        <item name="android:background">@color/preto_tom_secundario</item>
+        <item name="android:textColor">@color/laranja_vivo</item>
+    </style>
+</resources>
+

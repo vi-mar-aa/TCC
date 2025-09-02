@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.CadastroActivity"
+    android:padding="0dp"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:background="@drawable/background_gradient_centro">
+
+    <TextView
+        android:id="@+id/tvTituloLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:padding="30dp"
+        android:text="@string/tit_cadastro"
+        android:textAlignment="center"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:backgroundTint="?attr/backgroundColor"
+        android:background="@drawable/borda_arredondada_topo"
+        app:layout_constraintTop_toBottomOf="@id/tvTituloLogin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:scaleType="fitCenter"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/logo_littera"
+            android:src="@drawable/logo_littera" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="0"
+                    android:text="@string/email"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/edtEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:padding="10dp"
+                    android:textColor="?attr/text_color"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/edittext_layout"
+                    android:hint=""
+                    android:importantForAccessibility="yes"
+                    android:inputType="textEmailAddress"
+                    tools:ignore="Autofill,LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+
+                <TextView
+                    android:id="@+id/textView32"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="0"
+                    android:text="CPF"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/edtCPF"
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:padding="10dp"
+                    android:textColor="?attr/text_color"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/edittext_layout"
+                    android:hint=""
+                    android:importantForAccessibility="yes"
+                    android:inputType="textEmailAddress"
+                    tools:ignore="Autofill,LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+
+                <TextView
+                    android:id="@+id/textView23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="0"
+                    android:text="Telefone"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/edtTelefone"
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:padding="10dp"
+                    android:textColor="?attr/text_color"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/edittext_layout"
+                    android:hint=""
+                    android:importantForAccessibility="yes"
+                    android:inputType="textEmailAddress"
+                    tools:ignore="Autofill,LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+
+                <TextView
+                    android:id="@+id/tvv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/user"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/edtUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:padding="10dp"
+                    android:textColor="?attr/text_color"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/edittext_layout"
+                    android:hint=""
+                    android:inputType="textPersonName"
+                    android:importantForAccessibility="yes"
+                    tools:ignore="Autofill,LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+
+                <TextView
+                    android:id="@+id/tvvv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/senha"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textSize="20sp" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/edtSenha"
+                        android:layout_width="match_parent"
+                        android:layout_height="51dp"
+                        android:padding="10dp"
+                        android:textColor="?attr/text_color"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/edittext_layout"
+                        android:hint=""
+                        android:importantForAccessibility="yes"
+                        android:inputType="textPassword"
+                        tools:ignore="Autofill,LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+
+                    <ImageView
+                        android:id="@+id/icon_senha"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:padding="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_gravity="end|center_vertical"
+                        android:src="@drawable/icon_open_eye"
+                        android:contentDescription="@string/icon_visual_senha" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tvConfSenha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/confirma_senha"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textSize="20sp" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/edtConfirmaSenha"
+                        android:layout_width="match_parent"
+                        android:layout_height="51dp"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="10dp"
+                        android:textColor="?attr/text_color"
+                        android:background="@drawable/edittext_layout"
+                        android:hint=""
+                        android:importantForAccessibility="yes"
+                        android:inputType="textEmailAddress"
+                        tools:ignore="Autofill,LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+
+                    <ImageView
+                        android:id="@+id/icon_senhaConf"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:padding="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_gravity="end|center_vertical"
+                        android:src="@drawable/icon_open_eye"
+                        android:contentDescription="@string/icon_visual_senha" />
+                </FrameLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnCadastro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/botao_gradiente_forma"
+                    android:paddingStart="30dp"
+                    android:paddingEnd="30dp"
+                    android:text="@string/btnCadastro"
+                    android:textAllCaps="false"
+                    android:textColor="?attr/colorOnPrimary" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

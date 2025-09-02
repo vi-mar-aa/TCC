@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+        <LinearLayout
+            android:id="@+id/llTitFiltroGenero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/layout_filtro_genero"
+            android:minWidth="350dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:text="@string/tit_genero_livro_filtro"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="19sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+
+            <ImageButton
+                android:id="@+id/btnGeneroFiltro"
+                tools:ignore="TouchTargetSizeCheck"
+                app:tint="?attr/colorOnPrimary"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center"
+                android:background="@color/zxing_transparent"
+                android:contentDescription="@string/icone_dropdown_genero"
+                android:padding="10dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/icon_combobox_down" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llFiltroGenero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingVertical="15dp"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llTitFiltroGenero"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <View
+                android:layout_width="30dp"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/artigo_livro"
+                    android:textAllCaps="false"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textSize="20sp"
+                    android:buttonTint="?attr/colorOnBackground"/>
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/romance_livro"
+                    android:textAllCaps="false"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textSize="20sp"
+                    android:buttonTint="?attr/colorOnBackground"/>
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/biografia_livro"
+                    android:textAllCaps="false"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textSize="20sp"
+                    android:buttonTint="?attr/colorOnBackground"/>
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/manuais_livro"
+                    android:textAllCaps="false"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textSize="20sp"
+                    android:buttonTint="?attr/colorOnBackground"/>
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cronicas_livro"
+                    android:textAllCaps="false"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textSize="20sp"
+                    android:buttonTint="?attr/colorOnBackground"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="60dp"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/revistas_livro"
+                    android:textAllCaps="false"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textSize="20sp"
+                    android:buttonTint="?attr/colorOnBackground"/>
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/didaticos_livro"
+                    android:textAllCaps="false"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textSize="20sp"
+                    android:buttonTint="?attr/colorOnBackground"/>
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/poesias_livro"
+                    android:textAllCaps="false"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textSize="20sp"
+                    android:buttonTint="?attr/colorOnBackground"/>
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/outros_livro"
+                    android:textAllCaps="false"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textSize="20sp"
+                    android:buttonTint="?attr/colorOnBackground"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+
+
+        <LinearLayout
+            android:id="@+id/llTitFiltroAno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/layout_filtro_ano"
+            android:minWidth="350dp"
+            android:minHeight="35dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llFiltroGenero"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:text="@string/tit_ano_filtro"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="19sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+
+            <ImageButton
+                android:id="@+id/btnAnoFiltro"
+                tools:ignore="TouchTargetSizeCheck"
+                android:layout_width="40dp"
+                app:tint="?attr/colorOnPrimary"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@color/zxing_transparent"
+                android:contentDescription="@string/icone_dropdown_ano"
+                android:padding="10dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/icon_combobox_down" />
+
+        </LinearLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

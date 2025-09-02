@@ -1,0 +1,175 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- App -->
+    <string name="app_name">Littera</string>
+    <string name="logo_littera">Logo Littera</string>
+
+    <!-- Autenticação (Login/Cadastro) -->
+
+    <!--Descrição dos ícones-->
+    <string name="icon_login">Ícone de sair</string>
+    <string name="icon_notification">Ícone para acessar as notificações</string>
+    <string name="icon_pesquisa">Ícone de Pesquisa</string>
+    <string name="icon_qr">Ícone para acessar a página de leitura de QR Code</string>
+    <string name="icon_voltar">Ícone para voltar a página Main</string>
+    <string name="icone_acervo">Ícone de Acervo</string>
+    <string name="icone_add">Ícone de Adicionar</string>
+    <string name="icone_home">Ícone de Home</string>
+    <string name="icone_perfil">Ícone de Perfil</string>
+    <string name="icone_submenu">Ícone de Submenu</string>
+    <string name="icone_dropdown_genero">Ícone drop down filtro Gênero</string>
+    <string name="icone_dropdown_ano">Ícone drop down filtro Ano</string>
+    <string name="icone_delete">Ícone de deletar livro da lista de desejo</string>
+    <string name="icone_renovar">Ícone de renovar</string>
+    <string name="imagem_item">Imagem do livro</string>
+    <string name="icone_reservar">Ícone de Reservar</string>
+    <string name="icone_ir">Ícone de Acesso a Página com mais Informações</string>
+    <string name="icone_emprestimo">Ícone de Empréstimo</string>
+    <string name="icone_reserva">Ícone de Reserva</string>
+    <string name="icone_desejo">Ícone Lista de Desejos</string>
+    <string name="icon_visual_senha">Mostrar/Ocultar senha</string>
+
+    <!--TextViews-->
+    <string name="verifica_senha_not">Um link foi enviado para o seu e-mail.\nVerifique a sua caixa de entrada.</string>
+    <string name="esqueceu_senha_sublinhado"><u>Esqueceu a senha?</u></string>
+    <string name="fazer_cadastro">Ainda não possui cadastro?</string>
+    <string name="cadastro_sublinhado"><u>Cadastre-se</u></string>
+    <string name="confirma_senha">Confirmar senha</string>
+    <string name="email">Email</string>
+    <string name="senha">Senha</string>
+    <string name="user">Usuário</string>
+    <string name="desc_foto_perfil">Foto de Perfil do Usuário</string>
+    <string name="hint_cx_pesquisa">Pesquise…</string>
+    <string name="pop_livro">Populares</string>
+    <string name="artigo_livro">Artigos</string>
+    <string name="romance_livro">Romance</string>
+    <string name="biografia_livro">Biografia</string>
+    <string name="manuais_livro">Manuais</string>
+    <string name="cronicas_livro">Crônicas</string>
+    <string name="revistas_livro">Revistas</string>
+    <string name="didaticos_livro">Didáticos</string>
+    <string name="poesias_livro">Poesias</string>
+    <string name="outros_livro">Outros</string>
+    <string name="tit_ano_filtro">Ano</string>
+    <string name="livro">Livros</string>
+    <string name="audiovisual">Audiovisual</string>
+
+
+    <!--Bottom menu-->
+    <string name="item_acervo">Acervo</string>
+    <string name="item_emprestimo">Empréstimo</string>
+    <string name="item_home">Home</string>
+    <string name="item_list_desejo">Lista de Desejos</string>
+    <string name="item_perfil">Perfil</string>
+    <string name="item_qr">QRCode</string>
+    <string name="item_reserva">Reservas</string>
+    <string name="submenu">Submenu</string>
+
+    <!--Títulos das páginas -->
+    <string name="tit_acervo">Acervo</string>
+    <string name="tit_desejos">Lista de Desejos</string>
+    <string name="tit_emprestimo">Meus Empréstimos</string>
+    <string name="tit_genero_livro_filtro">Gênero Textual</string>
+    <string name="tit_genero_midia_filtro">Gênero</string>
+    <string name="tit_main">Encontre sua\npróxima leitura!</string>
+    <string name="tit_notifica">Notificações</string>
+    <string name="tit_reservas">Minhas Reservas</string>
+    <string name="tit_cadastro">Seja Bem-Vindo!</string>
+    <string name="tit_login">Bem-Vindo\nde Volta!</string>
+    <string name="tit_qrcode">escaneie o\nQR code</string>
+    <string name="tit_emprestimo_submenu">Empréstimo</string>
+
+    <!-- Outros textos -->
+
+
+    <!--Botões-->
+    <string name="btnSalvar">Salvar</string>
+    <string name="btnHistorico">Histórico</string>
+    <string name="btnAtuais">Atuais</string>
+    <string name="btnFoto">foto de perfil</string>
+    <string name="btnLogin">Log in</string>
+    <string name="btnCadastro">Cadastre-se</string>
+    <string name="btnFechar">Fechar</string>
+    <string name="btnReservar">Reservar</string>
+    <string name="btnRenovar">Renovar</string>
+
+    <!--Item-->
+    <string name="titulo_item">Mar Morto,2015</string>
+    <string name="autor_item">Jorge Amado</string>
+    <string name="btnInformacao">+ Informações</string>
+
+    <!--Popup Reserva-->
+    <string name="tit_popup_reserva">Reserva realizada com\nsucesso!</string>
+    <string name="aviso_popup_reserva">Após a reserva, você tem até 1 dia para\n retirar o livro na biblioteca.</string>
+    <string name="desc_popup_reserva">Se não for retirado dentro desse prazo, a\n reserva será cancelada automaticamente.</string>
+    <!--Popup Renovação-->
+    <string name="tit_popup_renovacao">Renovação realizada\ncom sucesso!</string>
+    <string name="aviso_popup_renovacao">Nova data de devolução: 12/05/2024</string>
+    <string name="desc_popup_renovacao">Aproveite o tempo extra para continuar a\nleitura com tranquilidade!</string>
+
+    <!--Notificação-->
+    <string name="tit_notificacao">Atenção, livro em atraso!</string>
+    <string name="mensagem_notificacao">O livro Mar Morto esta atrasado em seu prazo de devolução em 9 dias</string>
+    <string name="hora_notificacao">19:36</string>
+
+    <!--Item do Empréstimo-->
+    <string name="dt_devolucao">Data da devolução: 12/05/25</string>
+    <string name="dt_emprestimo">Data do empréstimo: 05/05/25</string>
+    <string name="aviso_item_emprestimo">Atenção! Só é possível\n renovar mais 1 vez.</string>
+
+    <!--Item Livro Selecionado-->
+    <string name="quantidade_exemplares">39</string>
+    <string name="TxtExemplares">exemplares disponíveis</string>
+    <string name="TxtSinopse">Sinopse</string>
+    <string name="TxtTit_Semelhantes">Títulos Similares</string>
+    <string name="sinopse_item">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur ar sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="info_item">Informações</string>
+    <string name="titulo_info_item">Título:</string>
+    <string name="autor_info_item" tools:ignore="Typos">Autor:</string>
+    <string name="ano_info_item">Ano de lançamento:</string>
+    <string name="editora_info_item">Editora:</string>
+    <string name="isbn_info_item">ISBN:</string>
+    <string name="genero_info_item">Gênero:</string>
+    <string name="edicao_info_item">Edição:</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="lorem_ipsum">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
+        volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
+        dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
+        litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse blandit eleifend
+        diam, vel rutrum tellus vulputate quis. Aliquam eget libero aliquet, imperdiet nisl a,
+        ornare ex. Sed rhoncus est ut libero porta lobortis. Fusce in dictum tellus.\n\n
+        Suspendisse interdum ornare ante. Aliquam nec cursus lorem. Morbi id magna felis. Vivamus
+        egestas, est a condimentum egestas, turpis nisl iaculis ipsum, in dictum tellus dolor sed
+        neque. Morbi tellus erat, dapibus ut sem a, iaculis tincidunt dui. Interdum et malesuada
+        fames ac ante ipsum primis in faucibus. Curabitur et eros porttitor, ultricies urna vitae,
+        molestie nibh. Phasellus at commodo eros, non aliquet metus. Sed maximus nisl nec dolor
+        bibendum, vel congue leo egestas.\n\n
+        Sed interdum tortor nibh, in sagittis risus mollis quis. Curabitur mi odio, condimentum sit
+        amet auctor at, mollis non turpis. Nullam pretium libero vestibulum, finibus orci vel,
+        molestie quam. Fusce blandit tincidunt nulla, quis sollicitudin libero facilisis et. Integer
+        interdum nunc ligula, et fermentum metus hendrerit id. Vestibulum lectus felis, dictum at
+        lacinia sit amet, tristique id quam. Cras eu consequat dui. Suspendisse sodales nunc ligula,
+        in lobortis sem porta sed. Integer id ultrices magna, in luctus elit. Sed a pellentesque
+        est.\n\n
+        Aenean nunc velit, lacinia sed dolor sed, ultrices viverra nulla. Etiam a venenatis nibh.
+        Morbi laoreet, tortor sed facilisis varius, nibh orci rhoncus nulla, id elementum leo dui
+        non lorem. Nam mollis ipsum quis auctor varius. Quisque elementum eu libero sed commodo. In
+        eros nisl, imperdiet vel imperdiet et, scelerisque a mauris. Pellentesque varius ex nunc,
+        quis imperdiet eros placerat ac. Duis finibus orci et est auctor tincidunt. Sed non viverra
+        ipsum. Nunc quis augue egestas, cursus lorem at, molestie sem. Morbi a consectetur ipsum, a
+        placerat diam. Etiam vulputate dignissim convallis. Integer faucibus mauris sit amet finibus
+        convallis.\n\n
+        Phasellus in aliquet mi. Pellentesque habitant morbi tristique senectus et netus et
+        malesuada fames ac turpis egestas. In volutpat arcu ut felis sagittis, in finibus massa
+        gravida. Pellentesque id tellus orci. Integer dictum, lorem sed efficitur ullamcorper,
+        libero justo consectetur ipsum, in mollis nisl ex sed nisl. Donec maximus ullamcorper
+        sodales. Praesent bibendum rhoncus tellus nec feugiat. In a ornare nulla. Donec rhoncus
+        libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
+        vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
+    </string>
+</resources>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="120dp"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="5dp"
+    android:background="@drawable/item_design"
+    android:backgroundTint="?attr/colorSurface">
+
+    <FrameLayout
+        android:id="@+id/cxImgItem"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:backgroundTint="#D30F0F"
+        app:layout_constraintBottom_toTopOf="@id/llInfoItem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imgItem"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="@string/imagem_item"
+            android:src="@drawable/imagem_item" />
+        <View
+            android:id="@+id/background_cinza"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/fundo_popmenu"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <ImageButton
+            android:id="@+id/btnFavoritar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="45dp"
+            android:background="@drawable/layout_textview"
+            android:backgroundTint="?attr/colorSurface"
+            android:clickable="true"
+            android:paddingHorizontal="5dp"
+            android:visibility="gone"
+            android:contentDescription="Ícone de renovar mídia"
+            android:focusable="true"
+            android:padding="5dp"
+            android:src="@drawable/icon_desejo"
+            app:tint="?attr/colorOnPrimary"
+            tools:ignore="TouchTargetSizeCheck"
+            android:layout_gravity="bottom|end"/>
+
+        <ImageButton
+            android:id="@+id/btnReservar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="5dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/layout_textview"
+            android:backgroundTint="?attr/colorSurface"
+            android:clickable="true"
+            android:visibility="gone"
+            android:contentDescription="Ícone de renovar mídia"
+            android:focusable="true"
+            android:padding="5dp"
+            android:src="@drawable/icon_reserva"
+            app:tint="?attr/colorOnPrimary"
+            tools:ignore="TouchTargetSizeCheck" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/llInfoItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:backgroundTint="@color/laranja_jambo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cxImgItem">
+
+        <TextView
+            android:id="@+id/tvTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_vertical"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:paddingTop="10dp"
+            android:text="@string/titulo_item"
+            android:textAllCaps="false"
+            android:textColor="?attr/colorOnBackground"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tvAutor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_vertical"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="@string/autor_item"
+            android:textAllCaps="false"
+            android:visibility="visible"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/btnInformacao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="5dp"
+            android:text="@string/btnInformacao"
+            android:textAllCaps="false"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="10sp"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

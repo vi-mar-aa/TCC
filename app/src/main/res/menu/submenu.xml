@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+         <item
+            android:id="@+id/emprestimo"
+            android:title="@string/item_emprestimo"
+            android:icon="@drawable/icon_emprestimo"/>
+        <item
+            android:id="@+id/reserva"
+            android:title="@string/item_reserva"
+            android:icon="@drawable/icon_reserva"/>
+        <item
+            android:id="@+id/desejo"
+            android:title="@string/item_list_desejo"
+            android:icon="@drawable/icon_desejo" />
+</menu>

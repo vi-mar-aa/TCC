@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="?attr/backgroundColor">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:backgroundTint="?attr/item_tit_back"
+        android:elevation="10dp"
+        android:background="@drawable/item_design"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?attr/item_photo_back"
+            android:paddingTop="10dp"
+            android:background="@drawable/img_item_livro"
+            android:paddingHorizontal="15dp">
+            <ImageView
+                android:id="@+id/imgItem"
+                android:layout_width="wrap_content"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/imagem_item"
+                android:src="@drawable/img_livro_teste"/>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:backgroundTint="#F3F3F3"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+            <TextView
+                android:id="@+id/tvTitulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/titulo_item"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:paddingTop="10dp"
+                android:textColor="?attr/colorOnBackground"
+                android:textAllCaps="false"
+                android:layout_gravity="center_horizontal"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/tvAutor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:layout_gravity="center_horizontal"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnPrimary"
+                android:text="@string/autor_item"/>
+
+            <TextView
+                android:id="@+id/tvPrazo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:text="Restam 20 horas!"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="15sp"
+                tools:ignore="TouchTargetSizeCheck" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

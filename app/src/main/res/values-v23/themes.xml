@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Design.NoActionBar" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Define a cor da barra de status como transparente -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <!-- Define a cor da barra de navegação como transparente -->
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <!-- Controla o ícone da barra de status para modo claro (true) ou escuro (false) -->
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>

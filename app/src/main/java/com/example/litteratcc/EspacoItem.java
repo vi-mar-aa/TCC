@@ -1,0 +1,26 @@
+package com.example.litteratcc;
+import androidx.annotation.NonNull;
+import android.graphics.Rect;
+import android.view.View;
+
+import androidx.recyclerview.widget.RecyclerView;
+
+public class EspacoItem  extends RecyclerView.ItemDecoration {
+        private final int horizontalSpaceWidth;
+
+        public EspacoItem(int horizontalSpaceWidth) {
+            this.horizontalSpaceWidth = horizontalSpaceWidth;
+        }
+
+
+
+    @Override
+    public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+        outRect.right = horizontalSpaceWidth;
+        if (parent.getChildAdapterPosition(view) == 0) {
+            outRect.left = horizontalSpaceWidth;
+        }
+    }
+
+
+}
