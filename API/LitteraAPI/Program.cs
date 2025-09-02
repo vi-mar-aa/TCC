@@ -14,6 +14,7 @@ builder.Services.AddScoped<RepoFuncionario>();
 builder.Services.AddScoped<RepoMidia>();
 builder.Services.AddScoped<RequestMidia>();
 builder.Services.AddScoped<RepoReserva>();
+builder.Services.AddScoped<RepoLista>();
 var connectionString = builder.Configuration.GetConnectionString("SqlServer");
 var app = builder.Build();
 
@@ -26,10 +27,12 @@ if (app.Environment.IsDevelopment())
 //Falta procedures nas midias separar as procs
 //Fazer as coisas do acervo
 // Main android
+// Testar Lista de desejos e emprestimos (falta só o histórico)
 app.UseHttpsRedirection();
 app.Routescliente();
 app.Routesfuncionario();
 app.Routesmidia();
 app.Routesreserva();
+app.RoutesLista();
 app.Run();
 

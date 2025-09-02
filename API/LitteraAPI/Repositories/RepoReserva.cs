@@ -15,7 +15,7 @@ public class RepoReserva
     }
     
 
-    public async Task<List<RequestReserva>> ListarReservasCliente(int Id)
+    public async Task<List<RequestReserva>> ListarReservasCliente(string emailFunc) //andorid
     {
         var reservas = new List<RequestReserva>();
         using var con = new SqlConnection(_connectionString);
@@ -23,21 +23,37 @@ public class RepoReserva
         using (var cmd = new SqlCommand("sp_ReservasClienteListar", con))
         {
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@id_cliente", Id);
+            cmd.Parameters.AddWithValue("@email", emailFunc); //parametro
             await con.OpenAsync();
             using var reader = await cmd.ExecuteReaderAsync();
 
             while (await reader.ReadAsync())
             {
                 reservas.Add(new RequestReserva()
-                { //como adicionar os valores aos atributos
-                     = (int)reader["id_reserva"],
-                    IdCliente = (int)reader["id_cliente"],
-                    IdMidia = (int)reader["id_midia"],
+                { 
+                    Reserva = new Mreserva
+                    {
+                        IdReserva = (int)reader["id_reserva"],
+                        IdCliente = (int)reader["id_cliente"],
+                        IdMidia   = (int)reader["id_midia"],
+                        DataLimite =  (DateTime)reader["data_limite"],
+                        DataReserva = (DateTime)reader["data_reserva"],
+                        StatusReserva = (string)reader["status_reserva"]
+                    },
+                    Midia = new Mmidia
+                    {
+                        IdMidia = (int)reader["id_midia"],
+                        Titulo = (string)reader["titulo"],
+                        Autor  = (string)reader["autor"],
+                        Anopublicacao = (int)reader["ano_publicacao"],
+                        Imagem = Convert.ToBase64String((byte[])reader["imagem"])
+                    }
                     
                 });
 
             }
+            
+            return reservas;
         }
         
     }

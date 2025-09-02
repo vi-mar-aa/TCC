@@ -11,11 +11,11 @@ public static class Rmidia
 {
     public static void Routesmidia(this WebApplication app)
     {
-        app.MapGet("/livros", async (RepoMidia repo) =>
+        app.MapGet("/ListarMidias", async (RepoMidia repo) =>
         {
             try
             {
-                var livros = await repo.ListarTodosLivros();
+                var livros = await repo.ListarMidias();
                 return Results.Ok(livros);
             }
             catch (SqlException ex)
@@ -26,21 +26,7 @@ public static class Rmidia
             
 
         });
-
-        app.MapGet("/filmes", async (RepoMidia repo) =>
-        {
-            try
-            {
-                var filmes = await repo.ListarTodosFilmes();
-                return Results.Ok(filmes);
-            }
-            catch (SqlException ex)
-            {
-                return Results.Problem("Erro no banco: " + ex.Message);
-            }
-            
-
-        });
+        
 
         app.MapPost("/CadastrarMidia", async ([FromBody] RequestMidia rmidia, [FromServices] RepoMidia repoMidia) =>
         {
