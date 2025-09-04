@@ -2,6 +2,7 @@ namespace LitteraAPI.Models;
 
 public class Mfuncionario
 {
+    public int IdFuncionario { get; set; }
     public int Idcargo { get; set; }
     public string Nome { get; set; }
     public string Cpf { get; set; }
@@ -12,17 +13,3 @@ public class Mfuncionario
     public string Statusconta { get; set; }
 }
 
-/*Classes
- * cargo funcionario
- *tipo midia
- *midia
- *denuncia
- *emprestimo
- *reserva
- *mensagem
- *lista de desejos
- *cliente
- *forum
- *
-
- */

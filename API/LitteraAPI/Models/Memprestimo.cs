@@ -11,4 +11,5 @@ public class Memprestimo
     public DateTime DataDevolucao { get; set; }
     public int LimiteRenovacoes { get; set; }
     public string StatusEmprestimo { get; set; }
+    
 }

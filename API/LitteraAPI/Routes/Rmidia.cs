@@ -11,7 +11,7 @@ public static class Rmidia
 {
     public static void Routesmidia(this WebApplication app)
     {
-        app.MapGet("/ListarMidias", async (RepoMidia repo) =>
+        app.MapGet("/ListarMidias", async (RepoMidia repo) => //testada
         {
             try
             {
@@ -25,7 +25,7 @@ public static class Rmidia
             
         });
 
-        app.MapGet("/ListarMainAcervo", async (RepoMidia repo) =>
+        app.MapGet("/ListarMainAcervo", async (RepoMidia repo) => //testada
         {
             try
             {

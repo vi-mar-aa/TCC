@@ -53,5 +53,18 @@ public static class Rfuncionario
                 return Results.Problem("Erro no banco: " + ex.Message);
             } 
         });
+
+        app.MapGet("/ListarFuncionarios", async (RepoFuncionario repo) => //testada
+        {
+            try
+            {
+                var func = await repo.ListarFuncionarios();
+                return Results.Ok(func);
+            }
+            catch(SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message);
+            }
+        });
     }
 }

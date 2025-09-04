@@ -15,7 +15,7 @@ public class RepoReserva
     }
     
 
-    public async Task<List<RequestReserva>> ListarReservasCliente(string emailFunc) //andorid
+    public async Task<List<RequestReserva>> ListarReservasCliente(string email) //andorid
     {
         var reservas = new List<RequestReserva>();
         using var con = new SqlConnection(_connectionString);
@@ -23,7 +23,7 @@ public class RepoReserva
         using (var cmd = new SqlCommand("sp_ReservasClienteListar", con))
         {
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@email", emailFunc); //parametro
+            cmd.Parameters.AddWithValue("@email", email); //parametro
             await con.OpenAsync();
             using var reader = await cmd.ExecuteReaderAsync();
 

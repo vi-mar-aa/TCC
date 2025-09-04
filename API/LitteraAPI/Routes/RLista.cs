@@ -10,7 +10,7 @@ public static class RLista
 {
     public static void RoutesLista(this WebApplication app)
     {
-        app.MapPost("/ListarDesejosCliente", async ([FromBody] Mcliente cliente, [FromServices] RepoLista repoLista) =>
+        app.MapPost("/ListarDesejosCliente", async ([FromBody] Mcliente cliente, [FromServices] RepoLista repoLista) => //testada
         {
             try
             {
@@ -41,7 +41,7 @@ public static class RLista
                 
         });
 
-        app.MapPost("/AdicionarDesejosCliente", async ([FromBody] RequestLista requestLista, [FromServices] RepoLista repoLista) =>
+        app.MapPost("/AdicionarDesejosCliente", async ([FromBody] RequestLista requestLista, [FromServices] RepoLista repoLista) =>//testada
         {
             try
             {
