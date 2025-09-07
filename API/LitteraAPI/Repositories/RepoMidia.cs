@@ -86,6 +86,103 @@ public class RepoMidia
         }
     }
     
+    public async Task<List<Mmidia>> ListarMidiasPorGeneroMain(string genero)
+    {
+        var midia = new List<Mmidia>();
+        
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand ("sp_Top15LivrosPorGenero", con)) //testar e verificar parametros
+        { 
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@genero", genero); 
+            await con.OpenAsync();
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                midia.Add(new Mmidia()
+                {
+                    
+                    IdMidia = (int)reader["id_midia"],
+                    Titulo = ReaderHelper.GetStringSafe(reader, "titulo"),
+                    Autor = ReaderHelper.GetStringSafe(reader, "autor"),
+                    Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
+                    //Roterista = ReaderHelper.GetStringSafe(reader, "roteirista"),
+                    Imagem = Convert.ToBase64String((byte[])reader["imagem"])
+                    
+                });
+
+            }
+            
+            return midia;
+        }
+    }
+    
+    public async Task<List<Mmidia>> ListarMidiasPorGeneroSimilares(int id)
+    {
+        var midia = new List<Mmidia>();
+        
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand ("sp_MidiasMesmoGeneroPorId", con)) //testar e verificar parametros
+        { 
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id_midia", id); 
+            await con.OpenAsync();
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                midia.Add(new Mmidia()
+                {
+                    
+                    IdMidia = (int)reader["id_midia"],
+                    Titulo = ReaderHelper.GetStringSafe(reader, "titulo"),
+                    Autor = ReaderHelper.GetStringSafe(reader, "autor"),
+                    Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
+                    Genero = ReaderHelper.GetStringSafe(reader, "genero"),
+                    Imagem = Convert.ToBase64String((byte[])reader["imagem"])
+                    
+                });
+
+            }
+            
+            return midia;
+        }
+    }
+    
+    public async Task<List<Mmidia>> ListarMidiasPopulares()
+    {
+        var midia = new List<Mmidia>();
+        
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand ("sp_TopLivrosPopularesGeral", con)) //testar e verificar parametros
+        { 
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            await con.OpenAsync();
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                midia.Add(new Mmidia()
+                {
+                    
+                    IdMidia = (int)reader["id_midia"],
+                    Titulo = ReaderHelper.GetStringSafe(reader, "titulo"),
+                    Autor = ReaderHelper.GetStringSafe(reader, "autor"),
+                    Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
+                    Genero = ReaderHelper.GetStringSafe(reader, "genero"),
+                    Imagem = Convert.ToBase64String((byte[])reader["imagem"])
+                    
+                });
+
+            }
+            
+            return midia;
+        }
+    }
+    
+    
+    
     /*public async Task InserirMidia(RequestMidia midia) 
     {
         if (midia.TMidia == 1)//livro                         

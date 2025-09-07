@@ -24,7 +24,7 @@ public static class RLista
             
         });
 
-        app.MapDelete("/DeletarDesejosCliente", async ([FromBody] RequestLista requestLista, [FromServices] RepoLista repoLista) =>
+        app.MapDelete("/DeletarDesejosCliente", async ([FromBody] RequestLista requestLista, [FromServices] RepoLista repoLista) => //testada
         {
             try
             {

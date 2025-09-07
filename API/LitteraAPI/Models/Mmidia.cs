@@ -20,7 +20,7 @@ public class Mmidia
      public string? Estudio { get; set; }
      public string? Roterista { get; set; }
      public string Dispo { get; set; } //bool?
-     public string Genero { get; set; }
+     public string? Genero { get; set; }
      
      public string Imagem { get; set; } //base64
      

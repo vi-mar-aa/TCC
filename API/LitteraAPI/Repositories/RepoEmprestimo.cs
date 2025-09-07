@@ -100,11 +100,23 @@ public class RepoEmprestimo
     }
   }
   
-  
+  public async Task<bool> RenovarEmprestimo(DateTime novaData, int IdEmprestimo)
+  {
+    using var con = new SqlConnection(_connectionString);
+    using (var cmd = new SqlCommand("sp_EmprestimoRenovar", con))
+    {
+      cmd.CommandType = System.Data.CommandType.StoredProcedure;
+      cmd.Parameters.AddWithValue("@id_emprestimo", IdEmprestimo);
+      cmd.Parameters.AddWithValue("@novadata", novaData);
+      
+      await con.OpenAsync();
+      using (var reader = await cmd.ExecuteReaderAsync())
+      {
+        return reader.HasRows;
+      }
+    }
+  }
   
   
 }
 
-/*
- *
- */

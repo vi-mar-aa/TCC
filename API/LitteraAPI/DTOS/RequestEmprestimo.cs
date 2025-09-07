@@ -10,4 +10,6 @@ public class RequestEmprestimo
     public int DiasAtraso { get; set; }
     public Decimal ValorMulta { get; set; }
     public int StatusRenovacao { get; set; }
+    
+    public DateTime NovaData { get; set; }
 }

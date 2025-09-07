@@ -26,9 +26,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 //Falta procedures nas midias separar as procs
-//Fazer as coisas do acervo
 // Main android
-// Testar Lista de desejos
+// Parametros
 app.UseHttpsRedirection();
 app.Routescliente();
 app.Routesfuncionario();

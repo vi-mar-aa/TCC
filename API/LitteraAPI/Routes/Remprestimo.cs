@@ -1,3 +1,4 @@
+using LitteraAPI.DTOS;
 using LitteraAPI.Models;
 using LitteraAPI.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -34,6 +35,23 @@ public static class Remprestimo
             {
                 return Results.Problem("Erro no banco: " + ex.Message);
             }
+        });
+        
+        app.MapPost("/RenovarEmprestimo", async ([FromBody] RequestEmprestimo request, [FromServices] RepoEmprestimo repo) => //testada
+        {
+            try
+            {
+                var rows = await repo.RenovarEmprestimo(request.NovaData, request.Emprestimo.IdEmprestimo);
+
+                return rows 
+                    ? Results.Ok("Renovacão realizada com sucesso.")
+                    : Results.NotFound("Data inválida ou emprestimo não existente.");
+            }
+            catch (SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message); 
+            }   
+                
         });
 
     }

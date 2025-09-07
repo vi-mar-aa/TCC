@@ -38,8 +38,47 @@ public static class Rmidia
             }
             
         });
+        
+        app.MapGet("/ListarPopulares", async (RepoMidia repo) => 
+        {
+            try
+            {
+                var livros = await repo.ListarMidiasPopulares();
+                return Results.Ok(livros);
+            }
+            catch(SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message);
+            }
+            
+        });
 
-
+        app.MapPost("/ListarMidiasPorGenero", async ([FromBody] Mmidia midia, [FromServices] RepoMidia repo) =>
+        { //da pra usar para os filtros
+            try
+            {
+                var livros = await repo.ListarMidiasPorGeneroMain(midia.Genero);
+                return Results.Ok(livros);
+            }
+            catch(SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message);
+            }
+        });
+        
+        app.MapPost("/ListarMidiasSimilares", async ([FromBody] Mmidia midia, [FromServices] RepoMidia repo) =>
+        {
+            try
+            {
+                var livros = await repo.ListarMidiasPorGeneroSimilares(midia.IdMidia);
+                return Results.Ok(livros);
+            }
+            catch(SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message);
+            }
+        });
+        
 
         /*app.MapPost("/CadastrarMidia", async ([FromBody] RequestMidia rmidia, [FromServices] RepoMidia repoMidia) =>
         {
