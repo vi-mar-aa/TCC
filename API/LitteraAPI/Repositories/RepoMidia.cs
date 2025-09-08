@@ -103,7 +103,7 @@ public class RepoMidia
                 midia.Add(new Mmidia()
                 {
                     
-                    IdMidia = (int)reader["id_midia"],
+                    IdMidia = (int)reader["id_midia_exemplo"],
                     Titulo = ReaderHelper.GetStringSafe(reader, "titulo"),
                     Autor = ReaderHelper.GetStringSafe(reader, "autor"),
                     Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
@@ -155,7 +155,7 @@ public class RepoMidia
         var midia = new List<Mmidia>();
         
         using var con = new SqlConnection(_connectionString);
-        using (var cmd = new SqlCommand ("sp_TopLivrosPopularesGeral", con)) //testar e verificar parametros
+        using (var cmd = new SqlCommand ("sp_TopLivrosPopularesGeral", con)) 
         { 
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             await con.OpenAsync();
@@ -166,10 +166,10 @@ public class RepoMidia
                 midia.Add(new Mmidia()
                 {
                     
-                    IdMidia = (int)reader["id_midia"],
+                    IdMidia = (int)reader["id_midia_exemplo"],
                     Titulo = ReaderHelper.GetStringSafe(reader, "titulo"),
                     Autor = ReaderHelper.GetStringSafe(reader, "autor"),
-                    Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
+                    //Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
                     Genero = ReaderHelper.GetStringSafe(reader, "genero"),
                     Imagem = Convert.ToBase64String((byte[])reader["imagem"])
                     

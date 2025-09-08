@@ -39,7 +39,7 @@ public static class Rmidia
             
         });
         
-        app.MapGet("/ListarPopulares", async (RepoMidia repo) => 
+        app.MapGet("/ListarPopulares", async (RepoMidia repo) => //testada, mas falta a proc retornar o ano de publicação
         {
             try
             {
@@ -53,7 +53,7 @@ public static class Rmidia
             
         });
 
-        app.MapPost("/ListarMidiasPorGenero", async ([FromBody] Mmidia midia, [FromServices] RepoMidia repo) =>
+        app.MapPost("/ListarMidiasPorGenero", async ([FromBody] Mmidia midia, [FromServices] RepoMidia repo) => //testada
         { //da pra usar para os filtros
             try
             {
@@ -66,7 +66,7 @@ public static class Rmidia
             }
         });
         
-        app.MapPost("/ListarMidiasSimilares", async ([FromBody] Mmidia midia, [FromServices] RepoMidia repo) =>
+        app.MapPost("/ListarMidiasSimilares", async ([FromBody] Mmidia midia, [FromServices] RepoMidia repo) => //testada
         {
             try
             {
