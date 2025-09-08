@@ -78,7 +78,20 @@ public static class Rmidia
                 return Results.Problem("Erro no banco: " + ex.Message);
             }
         });
-        
+
+        app.MapPost("/ListaMidiaEspecifica", async ([FromBody] Mmidia midia, [FromServices] RepoMidia repo) =>
+        {
+            try
+            {
+                var livros = await repo.ListarMidiaEspec(midia.IdMidia);
+                return Results.Ok(livros);
+            }
+            catch(SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message);
+            }
+            
+        });
 
         /*app.MapPost("/CadastrarMidia", async ([FromBody] RequestMidia rmidia, [FromServices] RepoMidia repoMidia) =>
         {

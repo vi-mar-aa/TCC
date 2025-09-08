@@ -3,6 +3,8 @@ namespace LitteraAPI.Models;
 public class Mmidia
 {
      public int IdMidia { get; set; }
+     
+     public int CodigoExemplar { get; set; }
      public int Idfuncionario { get; set; } //Vai precisar de pegar o id do funcionario  no banco atraves do email por email
      public int Idtpmidia { get; set; }
      public string? Titulo { get; set; }
@@ -22,10 +24,10 @@ public class Mmidia
      public string Dispo { get; set; } //bool?
      public string? Genero { get; set; }
      
-     public string Imagem { get; set; } //base64
-     
      public int? ContExemplares { get; set; }
      
      public string? NomeTipo { get; set; }
+     
+     public string Imagem { get; set; } //base64
      
 }

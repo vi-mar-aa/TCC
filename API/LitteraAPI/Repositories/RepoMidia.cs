@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using LitteraAPI.DTOS;
+using LitteraAPI.Helpers;
 using LitteraAPI.Models;
 using Microsoft.Data.SqlClient;
 
@@ -181,6 +182,54 @@ public class RepoMidia
         }
     }
     
+    
+    public async Task<List<Mmidia>> ListarMidiaEspec(int id)
+    {
+        var midia = new List<Mmidia>();
+        
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand ("sp_MidiaDetalhes", con))
+        { 
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id_midia", id); 
+            
+            await con.OpenAsync();
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                midia.Add(new Mmidia()
+                {
+                    
+                    IdMidia = (int)reader["id_midia"],
+                    Idfuncionario = (int)reader["id_funcionario"],
+                    Idtpmidia = (int)reader["id_tpmidia"],
+                    CodigoExemplar = (int)reader["codigo_exemplar"],
+                    Titulo = ReaderHelper.GetStringSafe(reader, "titulo"),
+                    Sinopse = ReaderHelper.GetStringSafe(reader, "sinopse"),
+                    Autor = ReaderHelper.GetStringSafe(reader, "autor"),
+                    Editora = ReaderHelper.GetStringSafe(reader, "editora"),
+                    Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
+                    Edicao = ReaderHelper.GetStringSafe(reader, "edicao"),
+                    Localpublicacao = ReaderHelper.GetStringSafe(reader, "local_publicacao"),
+                    Npaginas = ReaderHelper.GetIntSafe(reader, "numero_paginas"),
+                    Isbn = ReaderHelper.GetStringSafe(reader, "isbn"),
+                    //NomeTipo = ReaderHelper.GetStringSafe(reader, "nome_tipo"),
+                    ContExemplares = ReaderHelper.GetIntSafe(reader, "quantidade_exemplares"),
+                    Duracao = ReaderHelper.GetStringSafe(reader, "duracao"),
+                    Estudio = ReaderHelper.GetStringSafe(reader, "estudio"),
+                    Roterista = ReaderHelper.GetStringSafe(reader, "roteirista"),
+                    Dispo = (string)reader["disponibilidade"],
+                    Genero = ReaderHelper.GetStringSafe(reader, "genero"),
+                    Imagem = Convert.ToBase64String((byte[])reader["imagem"]),
+                    
+                });
+
+            }
+            
+            return midia;
+        }
+    }
     
     
     /*public async Task InserirMidia(RequestMidia midia) 
@@ -399,28 +448,7 @@ END*/
                    Roterista = (string)reader["roterista"],
                    */
     
-    public static class ReaderHelper
-    {
-        public static string? GetStringSafe(SqlDataReader reader, string column)
-        {
-            return reader[column] == DBNull.Value ? null : (string)reader[column];
-        }
-
-        public static int? GetIntSafe(SqlDataReader reader, string column)
-        {
-            return reader[column] == DBNull.Value ? null : (int?)reader[column];
-        }
-
-        public static DateTime? GetDateTimeSafe(SqlDataReader reader, string column)
-        {
-            return reader[column] == DBNull.Value ? null : (DateTime?)reader[column];
-        }
-
-        public static byte[]? GetBytesSafe(SqlDataReader reader, string column)
-        {
-            return reader[column] == DBNull.Value ? null : (byte[])reader[column];
-        }
-    }
+    
 
     
     
