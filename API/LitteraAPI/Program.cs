@@ -16,6 +16,8 @@ builder.Services.AddScoped<RequestMidia>();
 builder.Services.AddScoped<RepoReserva>();
 builder.Services.AddScoped<RepoLista>();
 builder.Services.AddScoped<RepoEmprestimo>();
+builder.Services.AddScoped<RepoEvento>();
+builder.Services.AddScoped<RepoParametros>();
 var connectionString = builder.Configuration.GetConnectionString("SqlServer");
 var app = builder.Build();
 
@@ -25,9 +27,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-//Falta procedures nas midias separar as procs
-// Main android
-// Parametros
+
+// eventos
 app.UseHttpsRedirection();
 app.Routescliente();
 app.Routesfuncionario();
@@ -35,5 +36,7 @@ app.Routesmidia();
 app.Routesreserva();
 app.RoutesLista();
 app.Routesemprestimo();
+app.RoutesEvento();
+app.Routesparametros();
 app.Run();
 
