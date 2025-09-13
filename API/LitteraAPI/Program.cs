@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using LitteraAPI.DTOS;
 using LitteraAPI.Repositories;
 using LitteraAPI.Routes;
@@ -18,8 +19,16 @@ builder.Services.AddScoped<RepoLista>();
 builder.Services.AddScoped<RepoEmprestimo>();
 builder.Services.AddScoped<RepoEvento>();
 builder.Services.AddScoped<RepoParametros>();
+builder.Services.AddScoped<RepoMensagem>();
 var connectionString = builder.Configuration.GetConnectionString("SqlServer");
+builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =>
+{
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
+
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -29,6 +38,9 @@ if (app.Environment.IsDevelopment())
 }
 
 // eventos
+// o inativar midia, não possibilita inativar apenas um exemplar
+// questão da disponiblidade, gen e tipagem
+
 app.UseHttpsRedirection();
 app.Routescliente();
 app.Routesfuncionario();
@@ -38,5 +50,6 @@ app.RoutesLista();
 app.Routesemprestimo();
 app.RoutesEvento();
 app.Routesparametros();
+app.RoutesMensagem();
 app.Run();
 

@@ -219,7 +219,7 @@ public class RepoMidia
                     Duracao = ReaderHelper.GetStringSafe(reader, "duracao"),
                     Estudio = ReaderHelper.GetStringSafe(reader, "estudio"),
                     Roterista = ReaderHelper.GetStringSafe(reader, "roteirista"),
-                    Dispo = (string)reader["disponibilidade"],
+                    //Dispo = Enum.Parse<StatusMidia>(reader["disponibilidade"].ToString()), //tratar string que vem do banco ou mudar como esta escrito no banco
                     Genero = ReaderHelper.GetStringSafe(reader, "genero"),
                     Imagem = Convert.ToBase64String((byte[])reader["imagem"]),
                     
@@ -230,227 +230,173 @@ public class RepoMidia
             return midia;
         }
     }
-    
-    
-    /*public async Task InserirMidia(RequestMidia midia) 
+
+    public async Task<bool> AdicionarLivro(RequestMidia request)
     {
-        if (midia.TMidia == 1)//livro                         
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand("sp_MidiaAdicionar_Livro", con))
         {
-            using var con = new SqlConnection(_connectionString);
-            using (var cmd = new SqlCommand("sp_CadastrarMidia", con)) //sem proc ainda, ajustar os parametros
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@email_funcionario", request.Funcionario.Email);
+            cmd.Parameters.AddWithValue("@titulo", request.Midia.Titulo);
+            cmd.Parameters.AddWithValue("@sinopse", request.Midia.Sinopse);
+            cmd.Parameters.AddWithValue("@autor", request.Midia.Autor);
+            cmd.Parameters.AddWithValue("@editora", request.Midia.Editora);
+            cmd.Parameters.AddWithValue("@ano_publicacao", request.Midia.Anopublicacao);
+            cmd.Parameters.AddWithValue("@edicao", request.Midia.Edicao);
+            cmd.Parameters.AddWithValue("@local_publicacao", request.Midia.Localpublicacao);
+            cmd.Parameters.AddWithValue("@numero_paginas", request.Midia.Npaginas);
+            cmd.Parameters.AddWithValue("@isbn", request.Midia.Isbn);
+            cmd.Parameters.AddWithValue("@genero", request.Midia.Genero);
+            //imagem
+            await con.OpenAsync();
+            using (var reader = await cmd.ExecuteReaderAsync())
             {
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@email", midia.EmailFunc);
-                cmd.Parameters.AddWithValue("@id_tpmidia", midia.TMidia);
-                cmd.Parameters.AddWithValue("@titulo", midia.Midia.Titulo);
-                cmd.Parameters.AddWithValue("@autor", midia.Midia.Autor); 
-                cmd.Parameters.AddWithValue("@editora", midia.Midia.Editora);
-                cmd.Parameters.AddWithValue("@genero", midia.Midia.Genero);
-                cmd.Parameters.AddWithValue("@ano_publicacao", midia.Midia.Anopublicacao);
-                cmd.Parameters.AddWithValue("@edicao", midia.Midia.Edicao);
-                cmd.Parameters.AddWithValue("@local_publicacao", midia.Midia.Localpublicacao);
-                cmd.Parameters.AddWithValue("@numero_paginas", midia.Midia.Npaginas);
-                cmd.Parameters.AddWithValue("@isbn", midia.Midia.Isbn);
-                cmd.Parameters.AddWithValue("@dispo", "disponivel");
-                //imagem
-                
-                await con.OpenAsync();
-                await cmd.ExecuteNonQueryAsync();
-                
-            }
-            
-        }else if (midia.TMidia == 2)//filme
-        {
-            using var con = new SqlConnection(_connectionString);
-            using (var cmd = new SqlCommand("sp_CadastrarMidia", con))
-            {
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@email", midia.EmailFunc);
-                cmd.Parameters.AddWithValue("@id_tpmidia", midia.TMidia);
-                cmd.Parameters.AddWithValue("@titulo", midia.Midia.Titulo);
-                cmd.Parameters.AddWithValue("@autor", midia.Midia.Autor); //diretor?
-                cmd.Parameters.AddWithValue("@genero", midia.Midia.Genero);
-                cmd.Parameters.AddWithValue("@local_publicacao",midia.Midia.Localpublicacao);
-                cmd.Parameters.AddWithValue("@duracao", midia.Midia.Duracao);
-                cmd.Parameters.AddWithValue("@estudio", midia.Midia.Estudio);
-                cmd.Parameters.AddWithValue("@roterista", midia.Midia.Roterista);
-                cmd.Parameters.AddWithValue("@dispo", "disponivel");
-            }
-            
-            
-        }else if (midia.TMidia == 3)//revista
-        {
-            
-            using var con = new SqlConnection(_connectionString);
-            using (var cmd = new SqlCommand("sp_CadastrarMid", con)) //sem proc ainda, ajustar os parametros
-            {
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@email", midia.EmailFunc);
-                cmd.Parameters.AddWithValue("@id_tpmidia", midia.TMidia);
-                cmd.Parameters.AddWithValue("@titulo", midia.Midia.Titulo);
-                cmd.Parameters.AddWithValue("@autor", midia.Midia.Autor);
-                cmd.Parameters.AddWithValue("@editora", midia.Midia.Editora);
-                cmd.Parameters.AddWithValue("@genero", midia.Midia.Genero);
-                cmd.Parameters.AddWithValue("@ano_publicacao", midia.Midia.Anopublicacao);
-                cmd.Parameters.AddWithValue("@edicao",midia.Midia.Edicao);
-                cmd.Parameters.AddWithValue("@local_publicacao", midia.Midia.Localpublicacao);
-                cmd.Parameters.AddWithValue("@numero_paginas", midia.Midia.Npaginas);
-                cmd.Parameters.AddWithValue("@isbn", midia.Midia.Isbn);
-                cmd.Parameters.AddWithValue("@dispo", "disponivel");
-
-                await con.OpenAsync();
-                await cmd.ExecuteNonQueryAsync();
-
-            }
-
-
-        }else if (midia.TMidia == 4)//ebook
-        {
-            
-            using var con = new SqlConnection(_connectionString);
-            using (var cmd = new SqlCommand("sp_CadastrarMidia", con)) //sem proc ainda, ajustar os parametros
-            {
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@email", midia.EmailFunc);
-                cmd.Parameters.AddWithValue("@id_tpmidia", midia.TMidia);
-                cmd.Parameters.AddWithValue("@titulo", midia.Midia.Titulo);
-                cmd.Parameters.AddWithValue("@autor", midia.Midia.Autor);
-                cmd.Parameters.AddWithValue("@editora", midia.Midia.Editora);
-                cmd.Parameters.AddWithValue("@genero", midia.Midia.Genero);
-                cmd.Parameters.AddWithValue("@ano_publicacao", midia.Midia.Anopublicacao);
-                cmd.Parameters.AddWithValue("@edicao", midia.Midia.Edicao);
-                cmd.Parameters.AddWithValue("@local_publicacao", midia.Midia.Localpublicacao);
-                cmd.Parameters.AddWithValue("@numero_paginas", midia.Midia.Npaginas);
-                cmd.Parameters.AddWithValue("@isbn", midia.Midia.Isbn);
-                cmd.Parameters.AddWithValue("@dispo", "disponivel");
-
-                await con.OpenAsync();
-                await cmd.ExecuteNonQueryAsync();
-
+                return reader.HasRows;
             }
         }
         
     }
 
-    public async Task<List<Mmidia>> ListarMainAndroidGenerosSimilares(string genero)
-    {
-        var midia = new List<Mmidia>();
-
+    public async Task<bool> AdicionarFilme(RequestMidia request){
         using var con = new SqlConnection(_connectionString);
-        using (var cmd = new SqlCommand("sp_MainListar", con))
+        using (var cmd = new SqlCommand("sp_MidiaAdicionar_Filme", con))
         {
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@genero_ref", genero);
+            cmd.Parameters.AddWithValue("@email_funcionario", request.Funcionario.Email);
+            cmd.Parameters.AddWithValue("@titulo", request.Midia.Titulo);
+            cmd.Parameters.AddWithValue("@sinopse", request.Midia.Sinopse);
+            cmd.Parameters.AddWithValue("@roteirista", request.Midia.Roterista);
+            cmd.Parameters.AddWithValue("@estudio", request.Midia.Estudio);
+            cmd.Parameters.AddWithValue("@ano_publicacao", request.Midia.Anopublicacao);
+            cmd.Parameters.AddWithValue("@duracao", request.Midia.Duracao);
+            //cmd.Parameters.AddWithValue("@local_publicacao", request.Midia.Localpublicacao); ???
+            cmd.Parameters.AddWithValue("@genero", request.Midia.Genero);
+            //cmd.Parameters.AddWithValue("@imagem", request.Midia.Imagem);
+            //imagem
             await con.OpenAsync();
-            using var reader = await cmd.ExecuteReaderAsync();
-
-            while (await reader.ReadAsync())
+            using (var reader = await cmd.ExecuteReaderAsync())
             {
-                midia.Add(new Mmidia()
-                {
-                    IdMidia = (int)reader["id_midia"],
-                    Idtpmidia = (int)reader["id_tpmidia"],
-                    Titulo = (string)reader["titulo"],
-                    Autor = (string)reader["autor"],
-                    Editora = (string)reader["editora"],
-                    Anopublicacao = (int)reader["ano_publicacao"],
-                    Edicao = (string)reader["edicao"],
-                    Localpublicacao = (string)reader["local_publicacao"],
-                    Npaginas = (int)reader["numero_paginas"],
-                    Isbn = (string)reader["isbn"],
-                    Dispo = (string)reader["disponibilidade"],
-                    Genero = (string)reader["genero"],
-                    Imagem = Convert.ToBase64String((byte[])reader["imagem"])
-
-                });
+                return reader.HasRows;
             }
-
-            return midia;
         }
     }
     
-    
-    public async Task<List<Mmidia>> ListarMainAndroidPopulares()
+    public async Task<bool> AdicionarRevista(RequestMidia request)
     {
-        var midia = new List<Mmidia>();
-
         using var con = new SqlConnection(_connectionString);
-        using (var cmd = new SqlCommand("sp_MainListar", con))
+        using (var cmd = new SqlCommand("sp_MidiaAdicionar_Revista", con))
         {
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@email_funcionario", request.Funcionario.Email);
+            cmd.Parameters.AddWithValue("@titulo", request.Midia.Titulo);
+            cmd.Parameters.AddWithValue("@sinopse", request.Midia.Sinopse);
+            cmd.Parameters.AddWithValue("@editora", request.Midia.Editora);
+            cmd.Parameters.AddWithValue("@ano_publicacao", request.Midia.Anopublicacao);
+            cmd.Parameters.AddWithValue("@local_publicacao", request.Midia.Localpublicacao);
+            cmd.Parameters.AddWithValue("@numero_paginas", request.Midia.Npaginas);
+            cmd.Parameters.AddWithValue("@genero", request.Midia.Genero);
+            //cmd.Parameters.AddWithValue("@imagem", request.Midia.Imagem);
             await con.OpenAsync();
-            using var reader = await cmd.ExecuteReaderAsync();
-
-            while (await reader.ReadAsync())
+            using (var reader = await cmd.ExecuteReaderAsync())
             {
-                midia.Add(new Mmidia()
-                {
-                    IdMidia = (int)reader["id_midia"],
-                    Idtpmidia = (int)reader["id_tpmidia"],
-                    Titulo = (string)reader["titulo"],
-                    Autor = (string)reader["autor"],
-                    Editora = (string)reader["editora"],
-                    Anopublicacao = (int)reader["ano_publicacao"],
-                    Edicao = (string)reader["edicao"],
-                    Localpublicacao = (string)reader["local_publicacao"],
-                    Npaginas = (int)reader["numero_paginas"],
-                    Isbn = (string)reader["isbn"],
-                    Dispo = (string)reader["disponibilidade"],
-                    Genero = (string)reader["genero"],
-                    Imagem = Convert.ToBase64String((byte[])reader["imagem"])
-
-                });
+                return reader.HasRows;
             }
-
-            return midia;
         }
-    }*/
+        
+    }
     
+    public async Task<bool> AlterarLivro(RequestMidia request)
+    {
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand("sp_MidiaAlterar_Livro", con))
+        {
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id_midia", request.Midia.IdMidia);
+            cmd.Parameters.AddWithValue("@titulo", request.Midia.Titulo);
+            cmd.Parameters.AddWithValue("@sinopse", request.Midia.Sinopse);
+            cmd.Parameters.AddWithValue("@autor", request.Midia.Autor);
+            cmd.Parameters.AddWithValue("@editora", request.Midia.Editora);
+            cmd.Parameters.AddWithValue("@ano_publicacao", request.Midia.Anopublicacao);
+            cmd.Parameters.AddWithValue("@edicao", request.Midia.Edicao);
+            cmd.Parameters.AddWithValue("@local_publicacao", request.Midia.Localpublicacao);
+            cmd.Parameters.AddWithValue("@numero_paginas", request.Midia.Npaginas);
+            cmd.Parameters.AddWithValue("@isbn", request.Midia.Isbn);
+            cmd.Parameters.AddWithValue("@genero", request.Midia.Genero);
+            cmd.Parameters.AddWithValue("@disponibilidade", request.Midia.Dispo.ToString());
+            //cmd.Parameters.AddWithValue("@imagem", request.Midia.Imagem);
+            await con.OpenAsync();
+            using (var reader = await cmd.ExecuteReaderAsync())
+            {
+                return reader.HasRows;
+            }
+        }
+        
+    }
     
+    public async Task<bool> AlterarFilme(RequestMidia request){
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand("sp_MidiaAlterar_Filme", con))
+        {
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id_midia", request.Midia.IdMidia);
+            cmd.Parameters.AddWithValue("@titulo", request.Midia.Titulo);
+            cmd.Parameters.AddWithValue("@sinopse", request.Midia.Sinopse);
+            cmd.Parameters.AddWithValue("@roteirista", request.Midia.Roterista);
+            cmd.Parameters.AddWithValue("@estudio", request.Midia.Estudio);
+            cmd.Parameters.AddWithValue("@ano_publicacao", request.Midia.Anopublicacao);
+            cmd.Parameters.AddWithValue("@duracao", request.Midia.Duracao);
+            cmd.Parameters.AddWithValue("@disponibilidade", request.Midia.Dispo.ToString());
+            //cmd.Parameters.AddWithValue("@local_publicacao", request.Midia.Localpublicacao); ???
+            cmd.Parameters.AddWithValue("@genero", request.Midia.Genero);
+            //cmd.Parameters.AddWithValue("@imagem", request.Midia.Imagem);
+            //imagem
+            await con.OpenAsync();
+            using (var reader = await cmd.ExecuteReaderAsync())
+            {
+                return reader.HasRows;
+            }
+        }
+    }
     
-    
-    
-    /*CREATE PROCEDURE sp_AcervoPrincipal --pag principal
-AS
-BEGIN
-  SELECT 
-    m.id_midia,
-    m.imagem,
-    m.titulo,
-    m.autor,
-    m.roteirista,
-    m.ano_publicacao
-  FROM Midia m
-  ORDER BY m.titulo;
-END*/
-    
-    /*
-                   IdMidia = (int)reader["id_midia"],
-                   Idfuncionario = (int)reader["id_funcionario"],
-                   Idtpmidia = (int)reader["id_tpmidia"],
-                   Titulo = (string)reader["titulo"],
-                   Sinopse = (string)reader["sinopse"],
-                   Autor = (string)reader["autor"],
-                   Editora = (string)reader["editora"],
-                   Anopublicacao = (int)reader["ano_publicacao"],
-                   Edicao = (string)reader["edicao"],
-                   Localpublicacao = (string)reader["local_publicacao"],
-                   Npaginas = (int)reader["numero_paginas"],
-                   Isbn = (string)reader["isbn"],
-                   Dispo = (string)reader["disponibilidade"],
-                   Genero = (string)reader["genero"],
-                   Imagem = Convert.ToBase64String((byte[])reader["imagem"]),
-                   NomeTipo = (string)reader["nome_tipo"],
-                   ContExemplares = (int)reader["total_exemplares"],
+    public async Task<bool> AlterarRevista(RequestMidia request)
+    {
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand("sp_MidiaAlterar_Revista", con))
+        {
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id_midia", request.Midia.IdMidia);
+            cmd.Parameters.AddWithValue("@titulo", request.Midia.Titulo);
+            cmd.Parameters.AddWithValue("@sinopse", request.Midia.Sinopse);
+            cmd.Parameters.AddWithValue("@editora", request.Midia.Editora);
+            cmd.Parameters.AddWithValue("@ano_publicacao", request.Midia.Anopublicacao);
+            cmd.Parameters.AddWithValue("@local_publicacao", request.Midia.Localpublicacao);
+            cmd.Parameters.AddWithValue("@numero_paginas", request.Midia.Npaginas);
+            cmd.Parameters.AddWithValue("@genero", request.Midia.Genero);
+            cmd.Parameters.AddWithValue("@disponibilidade", request.Midia.Dispo.ToString());
+            //cmd.Parameters.AddWithValue("@imagem", request.Midia.Imagem);
+            await con.OpenAsync();
+            using (var reader = await cmd.ExecuteReaderAsync())
+            {
+                return reader.HasRows;
+            }
+        }
+        
+    }
 
-                   Duracao = (string)reader["duracao"],
-                   Estudio = (string)reader["estudio"],
-                   Roterista = (string)reader["roterista"],
-                   */
-    
-    
+    public async Task<bool> InativarMidia(RequestMidia request)
+    {
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand("sp_MidiaInativar", con))
+        {
+            cmd.Parameters.AddWithValue("@id_midia", request.Midia.IdMidia);
+            await con.OpenAsync();
+            using (var reader = await cmd.ExecuteReaderAsync())
+            {
+                return reader.HasRows;
+            }
+        }
+    }
 
-    
-    
 }
 

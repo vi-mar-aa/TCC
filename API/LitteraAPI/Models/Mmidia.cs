@@ -21,13 +21,21 @@ public class Mmidia
      public string? Duracao { get; set; }
      public string? Estudio { get; set; }
      public string? Roterista { get; set; }
-     public string Dispo { get; set; } //bool?
+     public StatusMidia Dispo { get; set; } 
      public string? Genero { get; set; }
      
      public int? ContExemplares { get; set; }
      
-     public string? NomeTipo { get; set; }
+     public string? NomeTipo { get; set; } //não é atributo dessa tabela
      
      public string Imagem { get; set; } //base64
+     
+}
+
+public enum StatusMidia
+{
+     Disponivel,
+     Emprestado
+     
      
 }

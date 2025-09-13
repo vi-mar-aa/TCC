@@ -93,6 +93,125 @@ public static class Rmidia
             
         });
 
+        app.MapPost("/AdicionarLivro", async ([FromBody] RequestMidia request, [FromServices] RepoMidia repo) =>
+        {
+            try
+            {
+                var rows = await repo.AdicionarLivro(request);
+
+                return rows 
+                    ? Results.Ok("Midia adicionada com sucesso.")
+                    : Results.NotFound("Dados inválidos.");
+            }
+            catch (SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message); 
+            }
+            
+        });
+        
+        app.MapPost("/AdicionarFilme", async ([FromBody] RequestMidia request, [FromServices] RepoMidia repo) =>
+        {
+            try
+            {
+                var rows = await repo.AdicionarFilme(request);
+
+                return rows 
+                    ? Results.Ok("Midia adicionada com sucesso.")
+                    : Results.NotFound("Dados inválidos.");
+            }
+            catch (SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message); 
+            }
+            
+        });
+        
+        app.MapPost("/AdicionarRevista", async ([FromBody] RequestMidia request, [FromServices] RepoMidia repo) =>
+        {
+            try
+            {
+                var rows = await repo.AdicionarRevista(request);
+
+                return rows 
+                    ? Results.Ok("Midia adicionada com sucesso.")
+                    : Results.NotFound("Dados inválidos.");
+            }
+            catch (SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message); 
+            }
+            
+        });
+        
+        app.MapPost("/AlterarLivro", async ([FromBody] RequestMidia request, [FromServices] RepoMidia repo) =>
+        {
+            try
+            {
+                var rows = await repo.AlterarLivro(request);
+
+                return rows 
+                    ? Results.Ok("Midia alterada com sucesso.")
+                    : Results.NotFound("Dados inválidos.");
+            }
+            catch (SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message); 
+            }
+            
+        });
+        
+        app.MapPost("/AlterarFilme", async ([FromBody] RequestMidia request, [FromServices] RepoMidia repo) =>
+        {
+            try
+            {
+                var rows = await repo.AlterarFilme(request);
+
+                return rows 
+                    ? Results.Ok("Midia alterada com sucesso.")
+                    : Results.NotFound("Dados inválidos.");
+            }
+            catch (SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message); 
+            }
+            
+        });
+        
+        app.MapPost("/AlterarRevista", async ([FromBody] RequestMidia request, [FromServices] RepoMidia repo) =>
+        {
+            try
+            {
+                var rows = await repo.AlterarRevista(request);
+
+                return rows 
+                    ? Results.Ok("Midia alterada com sucesso.")
+                    : Results.NotFound("Dados inválidos.");
+            }
+            catch (SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message); 
+            }
+            
+        });
+        
+        app.MapDelete("/ExcluirMidia", async ([FromBody] RequestMidia request, [FromServices] RepoMidia repo) =>
+        {
+            try
+            {
+                var rows = await repo.InativarMidia(request);
+
+                return rows 
+                    ? Results.Ok("Midia excluida com sucesso.")
+                    : Results.NotFound("Dados inválidos, midia não encontrada.");
+            }
+            catch (SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message); 
+            }
+            
+        });
+        
         /*app.MapPost("/CadastrarMidia", async ([FromBody] RequestMidia rmidia, [FromServices] RepoMidia repoMidia) =>
         {
             try
