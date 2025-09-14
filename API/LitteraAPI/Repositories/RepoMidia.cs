@@ -46,7 +46,8 @@ public class RepoMidia
                    ContExemplares = ReaderHelper.GetIntSafe(reader, "total_exemplares"),
                    Duracao = ReaderHelper.GetStringSafe(reader, "duracao"),
                    Estudio = ReaderHelper.GetStringSafe(reader, "estudio"),
-                   Roterista = ReaderHelper.GetStringSafe(reader, "roteirista")
+                   Roterista = ReaderHelper.GetStringSafe(reader, "roteirista"),
+                   
                     
                 });
 
@@ -140,7 +141,7 @@ public class RepoMidia
                     Titulo = ReaderHelper.GetStringSafe(reader, "titulo"),
                     Autor = ReaderHelper.GetStringSafe(reader, "autor"),
                     Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
-                    Genero = ReaderHelper.GetStringSafe(reader, "genero"),
+                    Genero = EnumHelper.GetEnumSafe<GeneroMidia>(reader["genero"]),
                     Imagem = Convert.ToBase64String((byte[])reader["imagem"])
                     
                 });
@@ -170,8 +171,8 @@ public class RepoMidia
                     IdMidia = (int)reader["id_midia_exemplo"],
                     Titulo = ReaderHelper.GetStringSafe(reader, "titulo"),
                     Autor = ReaderHelper.GetStringSafe(reader, "autor"),
-                    //Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
-                    Genero = ReaderHelper.GetStringSafe(reader, "genero"),
+                    Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
+                    Genero = EnumHelper.GetEnumSafe<GeneroMidia>(reader["genero"]),
                     Imagem = Convert.ToBase64String((byte[])reader["imagem"])
                     
                 });
@@ -219,8 +220,9 @@ public class RepoMidia
                     Duracao = ReaderHelper.GetStringSafe(reader, "duracao"),
                     Estudio = ReaderHelper.GetStringSafe(reader, "estudio"),
                     Roterista = ReaderHelper.GetStringSafe(reader, "roteirista"),
+                    Genero = EnumHelper.GetEnumSafe<GeneroMidia>(reader["genero"]),
                     //Dispo = Enum.Parse<StatusMidia>(reader["disponibilidade"].ToString()), //tratar string que vem do banco ou mudar como esta escrito no banco
-                    Genero = ReaderHelper.GetStringSafe(reader, "genero"),
+                    Dispo = EnumHelper.GetEnumSafe<StatusMidia>(reader["disponibilidade"]),
                     Imagem = Convert.ToBase64String((byte[])reader["imagem"]),
                     
                 });
@@ -247,8 +249,9 @@ public class RepoMidia
             cmd.Parameters.AddWithValue("@local_publicacao", request.Midia.Localpublicacao);
             cmd.Parameters.AddWithValue("@numero_paginas", request.Midia.Npaginas);
             cmd.Parameters.AddWithValue("@isbn", request.Midia.Isbn);
-            cmd.Parameters.AddWithValue("@genero", request.Midia.Genero);
-            //imagem
+            cmd.Parameters.AddWithValue("@genero", EnumHelper.ToStringValue(request.Midia.Genero));
+            cmd.Parameters.AddWithValue("@imagem_base64", request.Midia.Imagem);
+           
             await con.OpenAsync();
             using (var reader = await cmd.ExecuteReaderAsync())
             {
@@ -271,9 +274,9 @@ public class RepoMidia
             cmd.Parameters.AddWithValue("@ano_publicacao", request.Midia.Anopublicacao);
             cmd.Parameters.AddWithValue("@duracao", request.Midia.Duracao);
             //cmd.Parameters.AddWithValue("@local_publicacao", request.Midia.Localpublicacao); ???
-            cmd.Parameters.AddWithValue("@genero", request.Midia.Genero);
-            //cmd.Parameters.AddWithValue("@imagem", request.Midia.Imagem);
-            //imagem
+            cmd.Parameters.AddWithValue("@genero", EnumHelper.ToStringValue(request.Midia.Genero));
+            cmd.Parameters.AddWithValue("@imagem_base64", request.Midia.Imagem);
+           
             await con.OpenAsync();
             using (var reader = await cmd.ExecuteReaderAsync())
             {
@@ -295,8 +298,8 @@ public class RepoMidia
             cmd.Parameters.AddWithValue("@ano_publicacao", request.Midia.Anopublicacao);
             cmd.Parameters.AddWithValue("@local_publicacao", request.Midia.Localpublicacao);
             cmd.Parameters.AddWithValue("@numero_paginas", request.Midia.Npaginas);
-            cmd.Parameters.AddWithValue("@genero", request.Midia.Genero);
-            //cmd.Parameters.AddWithValue("@imagem", request.Midia.Imagem);
+            cmd.Parameters.AddWithValue("@genero", EnumHelper.ToStringValue(request.Midia.Genero));
+            cmd.Parameters.AddWithValue("@imagem_base64", request.Midia.Imagem);
             await con.OpenAsync();
             using (var reader = await cmd.ExecuteReaderAsync())
             {
@@ -322,9 +325,9 @@ public class RepoMidia
             cmd.Parameters.AddWithValue("@local_publicacao", request.Midia.Localpublicacao);
             cmd.Parameters.AddWithValue("@numero_paginas", request.Midia.Npaginas);
             cmd.Parameters.AddWithValue("@isbn", request.Midia.Isbn);
-            cmd.Parameters.AddWithValue("@genero", request.Midia.Genero);
-            cmd.Parameters.AddWithValue("@disponibilidade", request.Midia.Dispo.ToString());
-            //cmd.Parameters.AddWithValue("@imagem", request.Midia.Imagem);
+            cmd.Parameters.AddWithValue("@genero", EnumHelper.ToStringValue(request.Midia.Genero));
+            cmd.Parameters.AddWithValue("@disponibilidade", EnumHelper.ToStringValue(request.Midia.Dispo));
+            cmd.Parameters.AddWithValue("@imagem_base64", request.Midia.Imagem);
             await con.OpenAsync();
             using (var reader = await cmd.ExecuteReaderAsync())
             {
@@ -346,11 +349,11 @@ public class RepoMidia
             cmd.Parameters.AddWithValue("@estudio", request.Midia.Estudio);
             cmd.Parameters.AddWithValue("@ano_publicacao", request.Midia.Anopublicacao);
             cmd.Parameters.AddWithValue("@duracao", request.Midia.Duracao);
-            cmd.Parameters.AddWithValue("@disponibilidade", request.Midia.Dispo.ToString());
             //cmd.Parameters.AddWithValue("@local_publicacao", request.Midia.Localpublicacao); ???
-            cmd.Parameters.AddWithValue("@genero", request.Midia.Genero);
-            //cmd.Parameters.AddWithValue("@imagem", request.Midia.Imagem);
-            //imagem
+            cmd.Parameters.AddWithValue("@genero", EnumHelper.ToStringValue(request.Midia.Genero));
+            cmd.Parameters.AddWithValue("@disponibilidade", EnumHelper.ToStringValue(request.Midia.Dispo));
+            cmd.Parameters.AddWithValue("@imagem_base64", request.Midia.Imagem);
+            
             await con.OpenAsync();
             using (var reader = await cmd.ExecuteReaderAsync())
             {
@@ -372,9 +375,10 @@ public class RepoMidia
             cmd.Parameters.AddWithValue("@ano_publicacao", request.Midia.Anopublicacao);
             cmd.Parameters.AddWithValue("@local_publicacao", request.Midia.Localpublicacao);
             cmd.Parameters.AddWithValue("@numero_paginas", request.Midia.Npaginas);
-            cmd.Parameters.AddWithValue("@genero", request.Midia.Genero);
-            cmd.Parameters.AddWithValue("@disponibilidade", request.Midia.Dispo.ToString());
-            //cmd.Parameters.AddWithValue("@imagem", request.Midia.Imagem);
+            cmd.Parameters.AddWithValue("@genero", request.Midia.Genero.ToString());
+            cmd.Parameters.AddWithValue("@genero", EnumHelper.ToStringValue(request.Midia.Genero));
+            cmd.Parameters.AddWithValue("@disponibilidade", EnumHelper.ToStringValue(request.Midia.Dispo));
+            cmd.Parameters.AddWithValue("@imagem_base64", request.Midia.Imagem);
             await con.OpenAsync();
             using (var reader = await cmd.ExecuteReaderAsync())
             {
@@ -384,12 +388,12 @@ public class RepoMidia
         
     }
 
-    public async Task<bool> InativarMidia(RequestMidia request)
+    public async Task<bool> InativarMidia(int id)
     {
         using var con = new SqlConnection(_connectionString);
         using (var cmd = new SqlCommand("sp_MidiaInativar", con))
         {
-            cmd.Parameters.AddWithValue("@id_midia", request.Midia.IdMidia);
+            cmd.Parameters.AddWithValue("@id_midia", id);
             await con.OpenAsync();
             using (var reader = await cmd.ExecuteReaderAsync())
             {

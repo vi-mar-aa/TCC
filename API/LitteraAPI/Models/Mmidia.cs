@@ -22,7 +22,7 @@ public class Mmidia
      public string? Estudio { get; set; }
      public string? Roterista { get; set; }
      public StatusMidia Dispo { get; set; } 
-     public string? Genero { get; set; }
+     public GeneroMidia Genero { get; set; }
      
      public int? ContExemplares { get; set; }
      
@@ -32,10 +32,38 @@ public class Mmidia
      
 }
 
+public enum GeneroMidia
+{
+     romance,
+     novela,
+     conto,
+     fabula,
+     fantasia,
+     ficcaocientifica,
+     distopia,
+     utopia,
+     terror,
+     suspense,
+     policial,
+     aventura,
+     biografia,
+     diario,
+     ensaio,
+     artigo,
+     cronica,
+     reportagem,
+     revista,
+     periodico,
+     poesia,
+     comedia,
+     ciencia,
+     drama,
+     outros
+     
+}
 public enum StatusMidia
 {
-     Disponivel,
-     Emprestado
-     
+     disponivel,
+     emprestado
      
 }

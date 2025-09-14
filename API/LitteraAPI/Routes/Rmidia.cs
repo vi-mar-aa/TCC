@@ -1,4 +1,5 @@
 using LitteraAPI.DTOS;
+using LitteraAPI.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using LitteraAPI.Repositories;
 using LitteraAPI.Models;
@@ -57,7 +58,7 @@ public static class Rmidia
         { //da pra usar para os filtros
             try
             {
-                var livros = await repo.ListarMidiasPorGeneroMain(midia.Genero);
+                var livros = await repo.ListarMidiasPorGeneroMain(EnumHelper.ToStringValue(midia.Genero));
                 return Results.Ok(livros);
             }
             catch(SqlException ex)
@@ -93,7 +94,7 @@ public static class Rmidia
             
         });
 
-        app.MapPost("/AdicionarLivro", async ([FromBody] RequestMidia request, [FromServices] RepoMidia repo) =>
+        app.MapPost("/AdicionarLivro", async ([FromBody] RequestMidia request, [FromServices] RepoMidia repo) => //testada
         {
             try
             {
@@ -199,7 +200,7 @@ public static class Rmidia
         {
             try
             {
-                var rows = await repo.InativarMidia(request);
+                var rows = await repo.InativarMidia(request.Midia.IdMidia);
 
                 return rows 
                     ? Results.Ok("Midia excluida com sucesso.")
