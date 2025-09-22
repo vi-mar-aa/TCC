@@ -10,6 +10,12 @@ public class Memprestimo
     public DateTime DataEmprestimo { get; set; }
     public DateTime DataDevolucao { get; set; }
     public int LimiteRenovacoes { get; set; }
-    public string StatusEmprestimo { get; set; }
-    
+    public StatusEmprestimo Status { get; set; }
+
+}
+
+public enum StatusEmprestimo
+{
+    pendente,
+    pago
 }

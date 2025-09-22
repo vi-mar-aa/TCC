@@ -62,7 +62,7 @@ public class RepoCliente
         {
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@email", cliente.Email);
-            cmd.Parameters.AddWithValue("@cpf", cliente.Cpf); //alterar cpf na model para string
+            cmd.Parameters.AddWithValue("@cpf", cliente.Cpf); 
             cmd.Parameters.AddWithValue("@nova_senha", cliente.Senha);
             
             await con.OpenAsync();

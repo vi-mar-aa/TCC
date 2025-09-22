@@ -54,5 +54,41 @@ public static class Remprestimo
                 
         });
 
+        app.MapPost("/DevolverMidia", async ([FromBody] RequestEmprestimo request, [FromServices] RepoEmprestimo repo) => //testada
+        {
+            try
+            {
+                var rows = await repo.ConcluirEmprestimo(request.Emprestimo.IdEmprestimo);
+                return rows
+                    ? Results.Ok("Devolução realizada com sucesso.")
+                    : Results.NotFound("Midia Inálida.");
+
+            }
+            catch(SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message); 
+
+            }
+        });
+
+        app.MapPost("/CriarEmprestimo", async ([FromBody] RequestEmprestimo request, [FromServices] RepoEmprestimo repo) => //testada
+        {
+
+            try
+            {
+                var rows = await repo.AdicionarEmprestimo(request);
+                return rows
+                    ? Results.Ok("Emprestimo adicionado com sucesso.")
+                    : Results.NotFound("Dados inválidos.");
+
+            }
+            catch(SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message); 
+
+            }
+            
+        });
+
     }
 }

@@ -1,4 +1,5 @@
 using LitteraAPI.DTOS;
+using LitteraAPI.Helpers;
 using LitteraAPI.Models;
 using Microsoft.Data.SqlClient;
 
@@ -88,7 +89,7 @@ public class RepoEmprestimo
             DataEmprestimo = (DateTime)reader["data_emprestimo"],
             DataDevolucao = (DateTime)reader["data_devolucao"],
             LimiteRenovacoes = (int)reader["limite_renovacoes"],
-            StatusEmprestimo = (string)reader["status_pagamento"]
+            Status = EnumHelper.GetEnumSafe<StatusEmprestimo>(reader["status_pagamento"])
           }
         });
 
@@ -116,7 +117,45 @@ public class RepoEmprestimo
       }
     }
   }
+
+  public async Task<bool> AdicionarEmprestimo(RequestEmprestimo request)
+  {
+    using var con = new SqlConnection(_connectionString);
+    using (var cmd = new SqlCommand("sp_EmprestimoAdicionar", con))
+    {
+      cmd.CommandType = System.Data.CommandType.StoredProcedure;
+      cmd.Parameters.AddWithValue("@id_midia", request.Midia.IdMidia);
+      cmd.Parameters.AddWithValue("@email_cliente", request.Cliente.Email);
+      cmd.Parameters.AddWithValue("@email_funcionario", request.funcionario.Email);
+      cmd.Parameters.AddWithValue("@data_emprestimo ", request.Emprestimo.DataEmprestimo);
+      cmd.Parameters.AddWithValue("@data_devolucao ", request.Emprestimo.DataDevolucao);
+
+      
+      await con.OpenAsync();
+      using (var reader = await cmd.ExecuteReaderAsync())
+      {
+        return reader.HasRows;
+      }
+    }
+  }
+
+  public async Task<bool> ConcluirEmprestimo(int id)
+  {
+    using var con = new SqlConnection(_connectionString);
+    using (var cmd = new SqlCommand("sp_DevolverMidia", con))
+    {
+      cmd.CommandType = System.Data.CommandType.StoredProcedure;
+      cmd.Parameters.AddWithValue("@id_emprestimo", id);
+      
+      await con.OpenAsync();
+      using (var reader = await cmd.ExecuteReaderAsync())
+      {
+        
+        return reader.HasRows;
+      }
+    }
+  }
+  
   
   
 }
-

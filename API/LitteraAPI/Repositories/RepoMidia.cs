@@ -392,13 +392,50 @@ public class RepoMidia
     {
         using var con = new SqlConnection(_connectionString);
         using (var cmd = new SqlCommand("sp_MidiaInativar", con))
-        {
+        {   //cade o comand type?
             cmd.Parameters.AddWithValue("@id_midia", id);
             await con.OpenAsync();
             using (var reader = await cmd.ExecuteReaderAsync())
             {
                 return reader.HasRows;
             }
+        }
+    }
+
+    public async Task<List<Mmidia>> PesquisaAcervo(string searchtext)
+    {
+        var midia = new List<Mmidia>();
+        
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand ("sp_AcervoBuscar", con))
+        { 
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@q", searchtext);
+            
+            await con.OpenAsync();
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                midia.Add(new Mmidia()
+                {
+                    
+                    IdMidia = (int)reader["id_midia"],
+                    Titulo = ReaderHelper.GetStringSafe(reader, "titulo"),
+                    Autor = ReaderHelper.GetStringSafe(reader, "autor"),
+                    Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
+                    NomeTipo = ReaderHelper.GetStringSafe(reader, "nome_tipo"),
+                    Dispo = EnumHelper.GetEnumSafe<StatusMidia>(reader["disponibilidade"]), 
+                    Isbn = ReaderHelper.GetStringSafe(reader, "isbn"),
+                    Estudio = ReaderHelper.GetStringSafe(reader, "estudio"),
+                    Roterista = ReaderHelper.GetStringSafe(reader, "roteirista"),
+                    //Imagem = Convert.ToBase64String((byte[])reader["imagem"])
+                    
+                });
+
+            }
+            
+            return midia;
         }
     }
 

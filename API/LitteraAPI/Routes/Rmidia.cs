@@ -212,49 +212,18 @@ public static class Rmidia
             }
             
         });
-        
-        /*app.MapPost("/CadastrarMidia", async ([FromBody] RequestMidia rmidia, [FromServices] RepoMidia repoMidia) =>
+
+        app.MapPost("/PesquisarAcervo", async ([FromBody] RequestPesquisa request, [FromServices] RepoMidia repo) => //testada
         {
             try
             {
-                await repoMidia.InserirMidia(rmidia);
-                return Results.Ok("Midia cadastrado com sucesso");
+                var midia = await repo.PesquisaAcervo(request.SearchText);
+                return Results.Ok(midia);
             }
-            catch (SqlException ex)
-            {
-                return Results.Problem("Erro no banco ou tipo de midia inválido: " + ex.Message);
-            }
-
-        } );
-
-        app.MapPost("/MainAndroidSimilares", async ([FromBody]RequestMidia rmidia, [FromServices]RepoMidia repoMidia) =>
-        {
-            try
-            {
-                var midias = await repoMidia.ListarMainAndroidGenerosSimilares(rmidia.Genero);
-                return Results.Ok(midias);
-            }
-            catch (SqlException ex)
+            catch(SqlException ex)
             {
                 return Results.Problem("Erro no banco: " + ex.Message);
             }
-
         });
-
-        app.MapPost("/MainAndroidPopulares", async ([FromServices]RepoMidia repoMidia) =>
-        {
-            try
-            {
-                var midias = await repoMidia.ListarMainAndroidPopulares();
-                return Results.Ok(midias);
-            }
-            catch (SqlException ex)
-            {
-                return Results.Problem("Erro no banco: " + ex.Message);
-            }
-
-
-        });*/
-
     }
 }

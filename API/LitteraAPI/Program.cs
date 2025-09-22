@@ -27,6 +27,11 @@ builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =
     options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
+builder.Services.ConfigureHttpJsonOptions(options =>
+{
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
+
 var app = builder.Build();
 
 
@@ -38,11 +43,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// eventos
+// Testar as coisas do emprestimo
 // o inativar midia, não possibilita inativar apenas um exemplar
-// indicações
 // listagem de emprestimos e reservas
-// enum n ta aparecendo no helper como string e ver a questao do default
+// enum n ta aparecendo no helper como string e ver a questao do DEFAULT!!!!!!!!!
 
 app.UseHttpsRedirection();
 app.Routescliente();
