@@ -15,6 +15,19 @@ public class RepoMidia
         _connectionString = configuration.GetConnectionString("SqlServer") ?? throw new InvalidOperationException("Connection string 'SqlServer' not found.");
     }
 
+    public async Task<byte[]> ObterImagem(int id)
+    {
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand("sp_SelecionarImagemMidiaPorID", con))
+        {
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id_midia", id); 
+            await con.OpenAsync();
+            var result = await cmd.ExecuteScalarAsync();
+            return result == DBNull.Value ? null : (byte[])result;
+        }
+    }
+    
     public async Task<List<Mmidia>> ListarMidias()
     {
         var midia = new List<Mmidia>();
@@ -41,7 +54,7 @@ public class RepoMidia
                    Localpublicacao = ReaderHelper.GetStringSafe(reader, "local_publicacao"),
                    Npaginas = ReaderHelper.GetIntSafe(reader, "numero_paginas"),
                    Isbn = ReaderHelper.GetStringSafe(reader, "isbn"),
-                   Imagem = Convert.ToBase64String((byte[])reader["imagem"]),
+                   Imagem = UrlMidiaHelper.GetImagemUrl((int)reader["id_midia"]),
                    NomeTipo = ReaderHelper.GetStringSafe(reader, "nome_tipo"),
                    ContExemplares = ReaderHelper.GetIntSafe(reader, "total_exemplares"),
                    Duracao = ReaderHelper.GetStringSafe(reader, "duracao"),
@@ -78,7 +91,7 @@ public class RepoMidia
                     Autor = ReaderHelper.GetStringSafe(reader, "autor"),
                     Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
                     Roterista = ReaderHelper.GetStringSafe(reader, "roteirista"),
-                    Imagem = Convert.ToBase64String((byte[])reader["imagem"])
+                    Imagem = UrlMidiaHelper.GetImagemUrl((int)reader["id_midia"])
                     
                 });
 
@@ -110,7 +123,7 @@ public class RepoMidia
                     Autor = ReaderHelper.GetStringSafe(reader, "autor"),
                     Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
                     //Roterista = ReaderHelper.GetStringSafe(reader, "roteirista"),
-                    Imagem = Convert.ToBase64String((byte[])reader["imagem"])
+                    Imagem = UrlMidiaHelper.GetImagemUrl((int)reader["id_midia"])
                     
                 });
 
@@ -142,7 +155,7 @@ public class RepoMidia
                     Autor = ReaderHelper.GetStringSafe(reader, "autor"),
                     Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
                     Genero = EnumHelper.GetEnumSafe<GeneroMidia>(reader["genero"]),
-                    Imagem = Convert.ToBase64String((byte[])reader["imagem"])
+                    Imagem = UrlMidiaHelper.GetImagemUrl((int)reader["id_midia"])
                     
                 });
 
@@ -173,7 +186,7 @@ public class RepoMidia
                     Autor = ReaderHelper.GetStringSafe(reader, "autor"),
                     Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
                     Genero = EnumHelper.GetEnumSafe<GeneroMidia>(reader["genero"]),
-                    Imagem = Convert.ToBase64String((byte[])reader["imagem"])
+                    Imagem = UrlMidiaHelper.GetImagemUrl((int)reader["id_midia"])
                     
                 });
 
@@ -223,7 +236,7 @@ public class RepoMidia
                     Genero = EnumHelper.GetEnumSafe<GeneroMidia>(reader["genero"]),
                     //Dispo = Enum.Parse<StatusMidia>(reader["disponibilidade"].ToString()), //tratar string que vem do banco ou mudar como esta escrito no banco
                     Dispo = EnumHelper.GetEnumSafe<StatusMidia>(reader["disponibilidade"]),
-                    Imagem = Convert.ToBase64String((byte[])reader["imagem"]),
+                    Imagem = UrlMidiaHelper.GetImagemUrl((int)reader["id_midia"])
                     
                 });
 
@@ -392,7 +405,8 @@ public class RepoMidia
     {
         using var con = new SqlConnection(_connectionString);
         using (var cmd = new SqlCommand("sp_MidiaInativar", con))
-        {   //cade o comand type?
+        {    
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id_midia", id);
             await con.OpenAsync();
             using (var reader = await cmd.ExecuteReaderAsync())

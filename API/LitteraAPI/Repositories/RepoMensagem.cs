@@ -22,6 +22,25 @@ public class RepoMensagem
             cmd.Parameters.AddWithValue("@titulo", post.mensagem.Titulo);
             cmd.Parameters.AddWithValue("@email_cliente", post.cliente.Email);
             cmd.Parameters.AddWithValue("@conteudo", post.mensagem.Conteudo);
+            //cmd.Parameters.AddWithValue("@id_pai", post.mensagem.IdPai);
+      
+            await con.OpenAsync();
+            using (var reader = await cmd.ExecuteReaderAsync())
+            {
+                return reader.HasRows;
+            }
+        }
+    }
+
+    public async Task<bool> AdicionarComentario(RequestForum post)
+    {
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand("sp_MensagemAdicionar", con))
+        {
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@titulo", post.mensagem.Titulo);
+            cmd.Parameters.AddWithValue("@email_cliente", post.cliente.Email);
+            cmd.Parameters.AddWithValue("@conteudo", post.mensagem.Conteudo);
             cmd.Parameters.AddWithValue("@id_pai", post.mensagem.IdPai);
       
             await con.OpenAsync();
@@ -31,6 +50,7 @@ public class RepoMensagem
             }
         }
     }
+    
 }
 
 /*CREATE PROCEDURE sp_MensagemAdicionar -- funcionando

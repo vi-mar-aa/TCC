@@ -12,6 +12,19 @@ public static class Rmidia
 {
     public static void Routesmidia(this WebApplication app)
     {
+        app.MapGet("/midia/{id}/imagem", async (int id, RepoMidia repo) =>
+        {
+            var imagem = await repo.ObterImagem(id);
+            if (imagem == null)
+            {
+                return Results.NotFound();
+            }
+            
+            return Results.File((byte[])imagem, "image/png");
+
+        });
+        
+        
         app.MapGet("/ListarMidias", async (RepoMidia repo) => //testada
         {
             try
@@ -196,7 +209,7 @@ public static class Rmidia
             
         });
         
-        app.MapDelete("/ExcluirMidia", async ([FromBody] RequestMidia request, [FromServices] RepoMidia repo) =>
+        app.MapDelete("/ExcluirMidia", async ([FromBody] RequestMidia request, [FromServices] RepoMidia repo) => //testada
         {
             try
             {
