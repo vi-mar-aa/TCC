@@ -83,5 +83,21 @@ public static class Rmensagem
             }
             
         });
+
+        app.MapPost("/InativarPost", async ([FromBody]RequestForum forum, [FromServices] RepoMensagem repo) =>
+        {
+            try
+            {
+                var rows = await repo.InativarPost(forum.mensagem.IdMensagem);
+
+                return rows 
+                    ? Results.Ok("Post inativado com sucesso.")
+                    : Results.NotFound("Referência a um post inválido.");
+            }
+            catch (SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message); 
+            }
+        });
     }
 }

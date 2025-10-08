@@ -31,7 +31,23 @@ public class RepoEvento
                 return reader.HasRows;
             }
         }
-    } 
+    }
+
+    public async Task<bool> InativarEvento(int id)
+    {
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand("sp_EventoInativar", con))
+        {
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id_evento", id);
+      
+            await con.OpenAsync();
+            using (var reader = await cmd.ExecuteReaderAsync())
+            {
+                return reader.HasRows;
+            }
+        }
+    }
     
     public async Task<List<RequestEvento>> ListarEventos()
     {

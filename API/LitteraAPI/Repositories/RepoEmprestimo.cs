@@ -35,7 +35,7 @@ public class RepoEmprestimo
             IdMidia = (int)reader["id_midia"],
             Titulo = (string)reader["titulo"],
             Autor = (string)reader["autor"],
-            Anopublicacao = (int)reader["ano_publicacao"],
+            Anopublicacao = (string)reader["ano_publicacao"],
             Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
 
           },
@@ -79,7 +79,7 @@ public class RepoEmprestimo
             IdMidia = (int)reader["id_midia"],
             Titulo = (string)reader["titulo"],
             Autor = (string)reader["autor"],
-            Anopublicacao = (int)reader["ano_publicacao"],
+            Anopublicacao = (string)reader["ano_publicacao"],
             Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
 
           },

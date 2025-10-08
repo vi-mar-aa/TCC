@@ -50,7 +50,7 @@ public class RepoMidia
                    Sinopse = ReaderHelper.GetStringSafe(reader, "sinopse"),
                    Autor = ReaderHelper.GetStringSafe(reader, "autor"),
                    Editora = ReaderHelper.GetStringSafe(reader, "editora"),
-                   Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
+                   Anopublicacao = ReaderHelper.GetStringSafe(reader, "ano_publicacao"),
                    Localpublicacao = ReaderHelper.GetStringSafe(reader, "local_publicacao"),
                    Npaginas = ReaderHelper.GetIntSafe(reader, "numero_paginas"),
                    Isbn = ReaderHelper.GetStringSafe(reader, "isbn"),
@@ -89,7 +89,7 @@ public class RepoMidia
                     IdMidia = (int)reader["id_midia"],
                     Titulo = ReaderHelper.GetStringSafe(reader, "titulo"),
                     Autor = ReaderHelper.GetStringSafe(reader, "autor"),
-                    Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
+                    Anopublicacao = ReaderHelper.GetStringSafe(reader, "ano_publicacao"),
                     Roterista = ReaderHelper.GetStringSafe(reader, "roteirista"),
                     Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
                     
@@ -121,9 +121,9 @@ public class RepoMidia
                     IdMidia = (int)reader["id_midia_exemplo"],
                     Titulo = ReaderHelper.GetStringSafe(reader, "titulo"),
                     Autor = ReaderHelper.GetStringSafe(reader, "autor"),
-                    Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
+                    Anopublicacao = ReaderHelper.GetStringSafe(reader, "ano_publicacao"),
                     //Roterista = ReaderHelper.GetStringSafe(reader, "roteirista"),
-                    Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
+                    Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia_exemplo"])
                     
                 });
 
@@ -153,7 +153,7 @@ public class RepoMidia
                     IdMidia = (int)reader["id_midia"],
                     Titulo = ReaderHelper.GetStringSafe(reader, "titulo"),
                     Autor = ReaderHelper.GetStringSafe(reader, "autor"),
-                    Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
+                    Anopublicacao = ReaderHelper.GetStringSafe(reader, "ano_publicacao"),
                     Genero = EnumHelper.GetEnumSafe<GeneroMidia>(reader["genero"]),
                     Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
                     
@@ -184,7 +184,7 @@ public class RepoMidia
                     IdMidia = (int)reader["id_midia_exemplo"],
                     Titulo = ReaderHelper.GetStringSafe(reader, "titulo"),
                     Autor = ReaderHelper.GetStringSafe(reader, "autor"),
-                    Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
+                    Anopublicacao = ReaderHelper.GetStringSafe(reader, "ano_publicacao"),
                     Genero = EnumHelper.GetEnumSafe<GeneroMidia>(reader["genero"]),
                     Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
                     
@@ -223,7 +223,7 @@ public class RepoMidia
                     Sinopse = ReaderHelper.GetStringSafe(reader, "sinopse"),
                     Autor = ReaderHelper.GetStringSafe(reader, "autor"),
                     Editora = ReaderHelper.GetStringSafe(reader, "editora"),
-                    Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
+                    Anopublicacao = ReaderHelper.GetStringSafe(reader, "ano_publicacao"),
                     Edicao = ReaderHelper.GetStringSafe(reader, "edicao"),
                     Localpublicacao = ReaderHelper.GetStringSafe(reader, "local_publicacao"),
                     Npaginas = ReaderHelper.GetIntSafe(reader, "numero_paginas"),
@@ -437,7 +437,7 @@ public class RepoMidia
                     IdMidia = (int)reader["id_midia"],
                     Titulo = ReaderHelper.GetStringSafe(reader, "titulo"),
                     Autor = ReaderHelper.GetStringSafe(reader, "autor"),
-                    Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
+                    Anopublicacao = ReaderHelper.GetStringSafe(reader, "ano_publicacao"),
                     NomeTipo = ReaderHelper.GetStringSafe(reader, "nome_tipo"),
                     Dispo = EnumHelper.GetEnumSafe<StatusMidia>(reader["disponibilidade"]), 
                     Isbn = ReaderHelper.GetStringSafe(reader, "isbn"),

@@ -33,10 +33,24 @@ public class RepoMensagem
         }
     }
 
-    /*public async Task<bool> InativarPost(int id)
+    public async Task<bool> InativarPost(int id)
     {
         
-    }*/
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand("sp_MensagemExcluir", con))
+        {
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id_mensagem", id);
+      
+            await con.OpenAsync();
+            using (var reader = await cmd.ExecuteReaderAsync())
+            {
+                return reader.HasRows;
+            }
+        }
+        
+    }
+    
 
     public async Task<bool> AdicionarComentario(RequestForum post)
     {
