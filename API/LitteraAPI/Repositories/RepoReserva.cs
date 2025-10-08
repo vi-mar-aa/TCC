@@ -47,7 +47,7 @@ public class RepoReserva
                         Titulo = (string)reader["titulo"],
                         Autor  = ReaderHelper.GetStringSafe(reader,"autor"),
                         Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
-                        Imagem = Convert.ToBase64String((byte[])reader["imagem"])
+                        Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
                     }
                     
                 });
@@ -166,6 +166,7 @@ public class RepoReserva
                         IdMidia = (int)reader["id_midia"],
                         CodigoExemplar = (int)reader["codigo_exemplar"],
                         Titulo = (string)reader["titulo"],
+                        
                     },
                     
                 });

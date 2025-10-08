@@ -54,7 +54,7 @@ public class RepoMidia
                    Localpublicacao = ReaderHelper.GetStringSafe(reader, "local_publicacao"),
                    Npaginas = ReaderHelper.GetIntSafe(reader, "numero_paginas"),
                    Isbn = ReaderHelper.GetStringSafe(reader, "isbn"),
-                   Imagem = UrlMidiaHelper.GetImagemUrl((int)reader["id_midia"]),
+                   Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"]),
                    NomeTipo = ReaderHelper.GetStringSafe(reader, "nome_tipo"),
                    ContExemplares = ReaderHelper.GetIntSafe(reader, "total_exemplares"),
                    Duracao = ReaderHelper.GetStringSafe(reader, "duracao"),
@@ -91,7 +91,7 @@ public class RepoMidia
                     Autor = ReaderHelper.GetStringSafe(reader, "autor"),
                     Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
                     Roterista = ReaderHelper.GetStringSafe(reader, "roteirista"),
-                    Imagem = UrlMidiaHelper.GetImagemUrl((int)reader["id_midia"])
+                    Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
                     
                 });
 
@@ -123,7 +123,7 @@ public class RepoMidia
                     Autor = ReaderHelper.GetStringSafe(reader, "autor"),
                     Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
                     //Roterista = ReaderHelper.GetStringSafe(reader, "roteirista"),
-                    Imagem = UrlMidiaHelper.GetImagemUrl((int)reader["id_midia"])
+                    Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
                     
                 });
 
@@ -155,7 +155,7 @@ public class RepoMidia
                     Autor = ReaderHelper.GetStringSafe(reader, "autor"),
                     Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
                     Genero = EnumHelper.GetEnumSafe<GeneroMidia>(reader["genero"]),
-                    Imagem = UrlMidiaHelper.GetImagemUrl((int)reader["id_midia"])
+                    Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
                     
                 });
 
@@ -186,7 +186,7 @@ public class RepoMidia
                     Autor = ReaderHelper.GetStringSafe(reader, "autor"),
                     Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
                     Genero = EnumHelper.GetEnumSafe<GeneroMidia>(reader["genero"]),
-                    Imagem = UrlMidiaHelper.GetImagemUrl((int)reader["id_midia"])
+                    Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
                     
                 });
 
@@ -236,7 +236,7 @@ public class RepoMidia
                     Genero = EnumHelper.GetEnumSafe<GeneroMidia>(reader["genero"]),
                     //Dispo = Enum.Parse<StatusMidia>(reader["disponibilidade"].ToString()), //tratar string que vem do banco ou mudar como esta escrito no banco
                     Dispo = EnumHelper.GetEnumSafe<StatusMidia>(reader["disponibilidade"]),
-                    Imagem = UrlMidiaHelper.GetImagemUrl((int)reader["id_midia"])
+                    Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
                     
                 });
 
@@ -443,7 +443,7 @@ public class RepoMidia
                     Isbn = ReaderHelper.GetStringSafe(reader, "isbn"),
                     Estudio = ReaderHelper.GetStringSafe(reader, "estudio"),
                     Roterista = ReaderHelper.GetStringSafe(reader, "roteirista"),
-                    //Imagem = Convert.ToBase64String((byte[])reader["imagem"])
+                    //Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
                     
                 });
 

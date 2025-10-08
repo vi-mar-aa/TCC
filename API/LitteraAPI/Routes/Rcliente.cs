@@ -10,7 +10,17 @@ public static class Rcliente
 {
     public static void Routescliente(this WebApplication app)
     {
-    
+        app.MapGet("/cliente/{id}/imagem", async (int id, RepoCliente repo) =>
+        {
+            var imagem = await repo.ObterImagem(id);
+            if (imagem == null)
+            {
+                return Results.NotFound();
+            }
+            
+            return Results.File((byte[])imagem, "image/png");
+        });
+        
         app.MapPost("/LoginCliente", async ([FromBody] Mcliente login, [FromServices] RepoCliente repoCliente) =>
         {
             try
@@ -52,19 +62,37 @@ public static class Rcliente
         });
 
         app.MapPost("/ResetarSenhaCliente", async ([FromBody] Mcliente resetSenha, [FromServices] RepoCliente repoCliente) =>
+        {
+            try
             {
-                try
-                {
-                    await repoCliente.ResetarSenha(resetSenha);
-                    return Results.Ok("Senha resetada com sucesso");
-                }
-                catch
-                {
-                    return Results.Problem("Erro ao resetar senha");
-                }  
-                
-            });
+                await repoCliente.ResetarSenha(resetSenha); 
+                return Results.Ok("Senha resetada com sucesso");
+            }
+            catch
+            {
+                return Results.Problem("Erro ao resetar senha");
+            }  
+        });
 
+
+        app.MapPost("/SuspenderCliente", async ([FromBody] Mcliente cliente, [FromServices] RepoCliente repo) =>
+        {
+            try
+            {
+                var status = await repo.SuspenderCliente(cliente.User);
+
+                return status
+                    ? Results.Ok("Login realizado com sucesso")
+                    : Results.NotFound("Usuário ou senha incorretos");
+            }
+            catch(SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message);
+ 
+            }
+        });
+        
+        
     }
 }
 

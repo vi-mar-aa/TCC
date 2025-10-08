@@ -21,6 +21,7 @@ builder.Services.AddScoped<RepoEvento>();
 builder.Services.AddScoped<RepoParametros>();
 builder.Services.AddScoped<RepoMensagem>();
 builder.Services.AddScoped<RepoIndicacao>();
+builder.Services.AddScoped<RepoDenuncia>();
 var connectionString = builder.Configuration.GetConnectionString("SqlServer");
 builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =>
 {
@@ -43,10 +44,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Testar as coisas do emprestimo
+// Inativar Post e ver quais rotas faltam!!!!!!!!!!!!
 // o inativar midia, não possibilita inativar apenas um exemplar
 // listagem de emprestimos e reservas
-// enum n ta aparecendo no helper como string e ver a questao do DEFAULT!!!!!!!!!
+// questao do DEFAULT!!!!!!!!!
 
 app.UseHttpsRedirection();
 app.Routescliente();
@@ -59,5 +60,6 @@ app.RoutesEvento();
 app.Routesparametros();
 app.RoutesMensagem();
 app.RoutesIndicacao();
+app.RoutesDenuncia();
 app.Run();
 

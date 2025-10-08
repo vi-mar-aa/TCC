@@ -1,5 +1,6 @@
 using LitteraAPI.Models;
 using LitteraAPI.DTOS;
+using LitteraAPI.Helpers;
 using LitteraAPI.Models;
 using Microsoft.Data.SqlClient;
 
@@ -37,7 +38,7 @@ public class RepoLista
             Titulo = (string)reader["titulo"],
             Autor = (string)reader["autor"],
             Anopublicacao = (int)reader["ano_publicacao"],
-            Imagem = Convert.ToBase64String((byte[])reader["imagem"])
+            Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
           }
         });
       }

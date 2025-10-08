@@ -8,6 +8,12 @@ public class Mdenuncia
     public int IdCliente { get; set; }
     public DateTime DataDenuncia { get; set; }
     public string Motivo { get; set; }
-    public string StatusDenuncia { get; set; }
-    public string Acao { get; set; }
+    public StatusDenuncia Status { get; set; }
+    public string? Acao { get; set; }
+}
+
+public enum StatusDenuncia
+{
+    resolvida,
+    pendente
 }

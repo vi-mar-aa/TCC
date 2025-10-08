@@ -40,7 +40,48 @@ public static class Rmensagem
                 return Results.Problem("Erro no banco: " + ex.Message); 
             }
         });
+
+        app.MapPost("/ListarPostCompleto", async ([FromBody]RequestForum forum, [FromServices] RepoMensagem repo) =>
+        {
+            try
+            {
+                var post = await repo.ListarPostCompleto(forum.mensagem.IdMensagem);
+                return Results.Ok(post);
+            }
+            catch(SqlException ex)
+            {
+                return Results.Problem("Erro no banco: "+ ex.Message);
+            }
+        });
         
-        
+        app.MapPost("/ListarTodosPosts", async ([FromBody]RequestForum forum, [FromServices] RepoMensagem repo) =>
+        {
+            try
+            {
+                var post = await repo.ListarTodosPosts(forum.Filtro.ToString());
+                return Results.Ok(post);
+            }
+            catch(SqlException ex)
+            {
+                Results.NotFound("Opção de filtro inválida");
+                return Results.Problem("Erro no banco: "+ ex.Message);
+                
+            }
+        });
+
+        app.MapPost("/ListarHistoricoPostsLeitor", async([FromBody]RequestForum forum, [FromServices] RepoMensagem repo)=>
+        {
+            try
+            {
+                var post = await repo.ListarHistoricoPostsLeitor(forum.cliente.Email);
+                return Results.Ok(post);
+            }
+            catch(SqlException ex)
+            {
+                return Results.Problem("Erro no banco: "+ ex.Message);
+                
+            }
+            
+        });
     }
 }

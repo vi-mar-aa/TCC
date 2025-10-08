@@ -36,7 +36,7 @@ public class RepoEmprestimo
             Titulo = (string)reader["titulo"],
             Autor = (string)reader["autor"],
             Anopublicacao = (int)reader["ano_publicacao"],
-            Imagem = Convert.ToBase64String((byte[])reader["imagem"])
+            Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
 
           },
           Emprestimo = new Memprestimo()
@@ -80,7 +80,7 @@ public class RepoEmprestimo
             Titulo = (string)reader["titulo"],
             Autor = (string)reader["autor"],
             Anopublicacao = (int)reader["ano_publicacao"],
-            Imagem = Convert.ToBase64String((byte[])reader["imagem"])
+            Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
 
           },
           Emprestimo = new Memprestimo()

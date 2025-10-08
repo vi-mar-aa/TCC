@@ -17,6 +17,20 @@ public class RepoCliente
     }
     
     
+    public async Task<byte[]> ObterImagem(int id)
+    {
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand("sp_SelecionarImagemClientePorID", con))
+        {
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id_cliente", id); 
+            await con.OpenAsync();
+            var result = await cmd.ExecuteScalarAsync();
+            return result == DBNull.Value ? null : (byte[])result;
+        }
+    }
+    
+    
     public async Task<bool> LoginCliente(Mcliente login)
     {
         using var con = new SqlConnection(_connectionString);
@@ -34,6 +48,7 @@ public class RepoCliente
             }
         }
     }
+    
 
     public async Task CadastrarCliente(Mcliente cliente)
     {
@@ -70,5 +85,21 @@ public class RepoCliente
         }
         
     }
-
+    
+    public async Task<bool> SuspenderCliente(string user)
+    {
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand("sp_LeitorSuspender", con))
+        { 
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@user", user); //parametro errado no banco, verificar
+            
+            await con.OpenAsync();
+            using (var reader = await cmd.ExecuteReaderAsync())
+            {
+                return reader.HasRows;
+            }
+        }
+    }
+    
 }
