@@ -2,6 +2,9 @@
 
 
 -- !!!MAIN!!!
+--use Littera
+--Drop Procedure sp_AcervoBuscar, sp_AcervoMidiasTodasInfosComExemplares, sp_AcervoPrincipal, sp_AcervoSearchTitulos, sp_CadastrarCliente, sp_CadastrarFuncionario, sp_ClienteAlterarImagemPorEmail, sp_ClienteResetarSenhaViaCpfEmail, sp_ConfigurarParametros, sp_CriarDenuncia, sp_DenunciasListar, sp_DenunciaVer, sp_DevolverMidia, sp_EmprestimoAdicionar, sp_EmprestimosClienteListar, sp_EventoCriar, sp_EventoEditar, sp_EventoInativar, sp_EventosAtivos, sp_EventosHistorico, sp_ExemplarInfoComLeitor, sp_FuncionarioAlterar, sp_GetFuncionarioID, sp_HistoricoEmprestimosCliente, sp_HistoricoEmprestimosPagosCliente, sp_IndicacoesResumo, sp_InfoFuncionario, sp_AtualizarPerfilCliente, sp_LeitorBuscarPorNome, sp_LeitorPostsHistorico, sp_LeitorSuspender, sp_LoginCliente, sp_LoginFuncionario, sp_ListaDesejosAdicionar, sp_ListaDesejosCliente, sp_ListaDesejosExcluir, sp_MainListar, sp_MidiaAddSinopse, sp_MidiaAdicionar, sp_MidiaAlterar, sp_MidiaAlterarImagem, sp_MidiaComExemplares, sp_MidiaDetalheComSimilares, sp_MidiaExcluir, sp_MidiasPopulares, sp_NaoDevolveuMidia, sp_NotificacaoMarcarLida, sp_QtdEmprestimosAtrasados, sp_QtdEmprestimosPorMes, sp_QtdReservasPorMes, sp_QtdTotalEmprestimos, sp_ReservasClienteListar, sp_ReservaTransformarEmEmprestimo, sp_TodosEmprestimosComAtraso, sp_TodosFuncionarios
+
 
 GO
 CREATE PROCEDURE sp_MidiaDetalheComSimilares
@@ -277,7 +280,7 @@ GO
 
 -- !!! ACERVO/MIDIA !!!
 
-CREATE PROCEDURE sp_AcervoPrincipal
+CREATE PROCEDURE sp_AcervoPrincipal --pag principal
 AS
 BEGIN
   SELECT 

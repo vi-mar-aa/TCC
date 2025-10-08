@@ -10,7 +10,7 @@ public static class Rfuncionario
 {
     public static void Routesfuncionario(this WebApplication app)
     {
-        app.MapPost("/LoginFuncionario", async ([FromBody] Mfuncionario login, [FromServices] RepoFuncionario repoFuncionario) =>
+        app.MapPost("/LoginFuncionario", async ([FromBody] Mfuncionario login, [FromServices] RepoFuncionario repoFuncionario) => //testada
         {
             try
             {
@@ -27,7 +27,7 @@ public static class Rfuncionario
             
         });
 
-        app.MapPost("/CadastrarAdm", async ([FromBody] Mfuncionario cadastro, [FromServices] RepoFuncionario repoFuncionario) => 
+        app.MapPost("/CadastrarAdm", async ([FromBody] Mfuncionario cadastro, [FromServices] RepoFuncionario repoFuncionario) => //testada
         {
                 try
                 {
@@ -41,7 +41,7 @@ public static class Rfuncionario
                 } 
         });
         
-        app.MapPost("/CadastrarBibliotecario", async ([FromBody] Mfuncionario cadastro, [FromServices] RepoFuncionario repoFuncionario) => 
+        app.MapPost("/CadastrarBibliotecario", async ([FromBody] Mfuncionario cadastro, [FromServices] RepoFuncionario repoFuncionario) => //testada
         {
             try
             {
@@ -52,6 +52,19 @@ public static class Rfuncionario
             {
                 return Results.Problem("Erro no banco: " + ex.Message);
             } 
+        });
+
+        app.MapGet("/ListarFuncionarios", async (RepoFuncionario repo) => //testada
+        {
+            try
+            {
+                var func = await repo.ListarFuncionarios();
+                return Results.Ok(func);
+            }
+            catch(SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message);
+            }
         });
     }
 }

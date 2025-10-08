@@ -1,5 +1,6 @@
 using LitteraAPI.Models;
 using LitteraAPI.DTOS;
+using LitteraAPI.Helpers;
 using LitteraAPI.Models;
 using Microsoft.Data.SqlClient;
 
@@ -37,7 +38,7 @@ public class RepoLista
             Titulo = (string)reader["titulo"],
             Autor = (string)reader["autor"],
             Anopublicacao = (int)reader["ano_publicacao"],
-            Imagem = Convert.ToBase64String((byte[])reader["imagem"])
+            Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
           }
         });
       }
@@ -51,7 +52,7 @@ public class RepoLista
     using (var cmd = new SqlCommand("sp_ListaDesejosExcluir", con))
     {
       cmd.CommandType = System.Data.CommandType.StoredProcedure;
-      cmd.Parameters.AddWithValue("@email", EmailCliente);
+      cmd.Parameters.AddWithValue("@email_cliente", EmailCliente);
       cmd.Parameters.AddWithValue("@id_midia", IdMidia);
       
       await con.OpenAsync();
@@ -68,7 +69,7 @@ public class RepoLista
     using (var cmd = new SqlCommand("sp_ListaDesejosAdicionar", con))
     {
       cmd.CommandType = System.Data.CommandType.StoredProcedure;
-      cmd.Parameters.AddWithValue("@email", EmailCliente);
+      cmd.Parameters.AddWithValue("@email_cliente", EmailCliente);
       cmd.Parameters.AddWithValue("@id_midia", IdMidia);
       
       await con.OpenAsync();
@@ -83,27 +84,3 @@ public class RepoLista
   
 }
 
-/*
- *
-	CREATE PROCEDURE sp_ListaDesejosAdicionar -- colocar email como parametro, depois procurar o id cliente desse email e ai sim usar o id para colocar p regi
-  @id_cliente INT,
-  @id_midia   INT
-AS
-BEGIN
-  IF EXISTS (
-    SELECT 1 FROM ListaDeDesejos
-    WHERE id_cliente = @id_cliente AND id_midia = @id_midia
-  )
-  BEGIN
-    SELECT 'Já existe na lista' AS msg;
-    RETURN;
-  END
-
-  INSERT INTO ListaDeDesejos (id_cliente, id_midia)
-  VALUES (@id_cliente, @id_midia);
-
-  SELECT 'OK' AS msg;
-END
-GO	
- * 
- */

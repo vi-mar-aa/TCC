@@ -12,14 +12,14 @@ public class RepoFuncionario
         _connectionString = configuration.GetConnectionString("SqlServer") ?? throw new InvalidOperationException("Connection string 'SqlServer' not found.");
     }
     
-    public async Task<bool> LoginFuncionario(Mfuncionario loginB)
+    public async Task<bool> LoginFuncionario(Mfuncionario login)
     {
         using var con = new SqlConnection(_connectionString);
         using (var cmd = new SqlCommand("sp_LoginFuncionario", con))
         { 
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@email", loginB.Email); 
-            cmd.Parameters.AddWithValue("@senha", loginB.Senha);
+            cmd.Parameters.AddWithValue("@email", login.Email); 
+            cmd.Parameters.AddWithValue("@senha", login.Senha);
 
             await con.OpenAsync();
             // Use ExecuteReaderAsync para ler o resultado da procedure
@@ -52,7 +52,7 @@ public class RepoFuncionario
     public async Task CadastrarAdm(Mfuncionario funcionario)
     {
         using var con = new SqlConnection(_connectionString);
-        using (var cmd = new SqlCommand("sp_CadastrarAdm", con))
+        using (var cmd = new SqlCommand("sp_CadastrarFuncionario", con))
         {
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id_cargo", 2);
@@ -67,7 +67,36 @@ public class RepoFuncionario
             await cmd.ExecuteNonQueryAsync();
         }
     }
+
+    public async Task<List<Mfuncionario>> ListarFuncionarios()
+    {
+        var func = new List<Mfuncionario>();
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand("sp_TodosFuncionarios", con))
+        {
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            await con.OpenAsync();
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                func.Add(new Mfuncionario()
+                {
+                    IdFuncionario = (int)reader["id_funcionario"],
+                    Idcargo = (int)reader["id_cargo"],
+                    Nome = (string)reader["nome"],
+                    Telefone = (string)reader["telefone"],
+                    Email = (string)reader["email"],
+                    Cpf = (string)reader["cpf"],
+                    Statusconta = (string)reader["status_conta"]
+                });
+            }
+            
+            return func;
+        }
+    }
     
     
     
 }
+
