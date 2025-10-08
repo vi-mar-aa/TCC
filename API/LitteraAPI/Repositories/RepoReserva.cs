@@ -46,7 +46,7 @@ public class RepoReserva
                         IdMidia = (int)reader["id_midia"],
                         Titulo = (string)reader["titulo"],
                         Autor  = ReaderHelper.GetStringSafe(reader,"autor"),
-                        Anopublicacao = ReaderHelper.GetIntSafe(reader, "ano_publicacao"),
+                        Anopublicacao = ReaderHelper.GetStringSafe(reader, "ano_publicacao"),
                         Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
                     }
                     

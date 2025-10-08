@@ -29,6 +29,11 @@ public static class Revento
             }
             
         });
+
+        app.MapPost("", async () =>
+        {
+            
+        });
         
         app.MapGet("/ListarEventos", async (RepoEvento repo) => //testada
         {

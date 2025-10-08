@@ -13,7 +13,7 @@ public class Mmidia
      public string? Sinopse { get; set; }
      
      public string? Editora { get; set; }
-     public int? Anopublicacao { get; set; }
+     public string? Anopublicacao { get; set; }
      public string? Edicao { get; set; }
      public string? Localpublicacao { get; set; } //pra que?
      public int? Npaginas { get; set; }
