@@ -4,6 +4,7 @@ public class Mmidia
 {
      public int IdMidia { get; set; }
      
+     public string ChaveIdentificadora { get; set; }
      public int CodigoExemplar { get; set; }
      public int Idfuncionario { get; set; } //Vai precisar de pegar o id do funcionario  no banco atraves do email por email
      public int Idtpmidia { get; set; }

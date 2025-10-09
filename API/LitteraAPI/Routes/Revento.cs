@@ -30,9 +30,21 @@ public static class Revento
             
         });
 
-        app.MapPost("", async () =>
+        app.MapDelete("/InativarEvento", async ([FromBody] RequestEvento evento, [FromServices] RepoEvento repo) =>
         {
-            
+            try
+            {
+                var rows = await repo.InativarEvento(evento.Evento.IdEvento);
+
+                return rows 
+                    ? Results.Ok("Evento inativado com sucesso.")
+                    : Results.NotFound("Referência a um evento inválido.");
+            }
+            catch (SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message); 
+            }
+        
         });
         
         app.MapGet("/ListarEventos", async (RepoEvento repo) => //testada
@@ -49,6 +61,19 @@ public static class Revento
             
         });
         
+        app.MapGet("/ListarEventosHistorico", async (RepoEvento repo) => 
+        {
+            try
+            {
+                var eventos = await repo.ListarEventosHistorico();
+                return Results.Ok(eventos);
+            }
+            catch (SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message);
+            }
+            
+        });
         
 
     }

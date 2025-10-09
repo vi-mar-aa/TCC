@@ -82,5 +82,39 @@ public class RepoEvento
             return eventos;
         }
     }
+    public async Task<List<RequestEvento>> ListarEventosHistorico()
+    {
+        var eventos = new List<RequestEvento>();
+        using var con = new SqlConnection(_connectionString);
+
+        using (var cmd = new SqlCommand("sp_EventosHistorico", con))
+        {
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            await con.OpenAsync();
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                eventos.Add(new RequestEvento()
+                {
+                    Evento = new Mevento()
+                    {
+                        IdEvento = (int)reader["id_evento"],
+                        Titulo = (string)reader["titulo"],
+                        DataInicio = (DateTime)reader["data_inicio"],
+                        DataFim = (DateTime)reader["data_fim"],
+                        LocalEvento = (string)reader["local_evento"],
+                    },
+                    Funcionario = new Mfuncionario()
+                    {
+                        IdFuncionario = (int)reader["id_funcionario"]
+                    
+                    },
+                });
+            }
+            return eventos;
+        }
+    }
+    
 }
 

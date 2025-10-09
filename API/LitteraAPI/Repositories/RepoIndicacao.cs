@@ -10,8 +10,7 @@ public class RepoIndicacao
 
     public RepoIndicacao(IConfiguration configuration)
     {
-        _connectionString = configuration.GetConnectionString("SqlServer") ??
-                            throw new InvalidOperationException("Connection string 'SqlServer' not found.");
+        _connectionString = configuration.GetConnectionString("SqlServer") ?? throw new InvalidOperationException("Connection string 'SqlServer' not found.");
     }
 
     public async Task<List<RequestIndicacoes>> ListarIndicacoes()

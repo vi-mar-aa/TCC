@@ -37,6 +37,21 @@ public static class Rcliente
             }
             
         });
+        
+        app.MapPost("/ResetarSenhaCliente", async ([FromBody] Mcliente resetSenha, [FromServices] RepoCliente repoCliente) =>
+        {
+            try
+            {
+                var reset = await repoCliente.ResetarSenha(resetSenha); 
+                return reset
+                    ?Results.Ok("Senha resetada com sucesso")
+                    :Results.NotFound("Senha não resetada");
+            }
+            catch
+            {
+                return Results.Problem("Erro ao resetar senha");
+            }  
+        });
 
         app.MapPost("/CadastrarCliente", async ([FromBody] Mcliente cadastro, [FromServices] RepoCliente repoCliente) =>
         {
@@ -51,27 +66,7 @@ public static class Rcliente
                 return Results.Problem("Erro no banco: " + ex.Message);
             }
             
-            /* map post cria o end point http post
-             * o cadastrar cliente é o caminho da url, como o cliente vai chamar a rota
-             * o segundo parametro é uma função que vai ser executada quando alguem fazer a requisição post
-             * o [from body] Mcliente cadastro le o body da requisição e tenta converter para o modelo cliente
-             * o [from services] RepoCliente repoCliente é uma forma do frame work criar automaticamente uma nova instancia do repocliente
-             * 
-             */
             
-        });
-
-        app.MapPost("/ResetarSenhaCliente", async ([FromBody] Mcliente resetSenha, [FromServices] RepoCliente repoCliente) =>
-        {
-            try
-            {
-                await repoCliente.ResetarSenha(resetSenha); 
-                return Results.Ok("Senha resetada com sucesso");
-            }
-            catch
-            {
-                return Results.Problem("Erro ao resetar senha");
-            }  
         });
 
 
@@ -91,8 +86,21 @@ public static class Rcliente
  
             }
         });
-        
-        
+
+        app.MapPost("BuscarLeitor", async ([FromBody] Mcliente cliente, [FromServices] RepoCliente repo) =>
+        {
+            try
+            {
+                var leitor = await repo.PesquisarLeitor(cliente.User);
+                return Results.Ok(leitor);
+            }
+            catch(SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message);
+            }
+            
+        });
+
     }
 }
 

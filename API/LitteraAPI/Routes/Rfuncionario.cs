@@ -66,5 +66,21 @@ public static class Rfuncionario
                 return Results.Problem("Erro no banco: " + ex.Message);
             }
         });
+
+        app.MapPost("/AlterarFuncionario", async ([FromBody] Mfuncionario funcionario, [FromServices] RepoFuncionario repo) =>
+        {
+            try
+            {
+                var rows = await repo.AlterarFuncionario(funcionario);
+
+                return rows 
+                    ? Results.Ok("Dados alterados com sucesso.")
+                    : Results.NotFound("Referência a um funcionário inválido.");
+                
+            }catch(SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message);
+            }
+        });
     }
 }
