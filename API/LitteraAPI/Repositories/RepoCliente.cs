@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using LitteraAPI.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using LitteraAPI.Models;
 using LitteraAPI.Repositories;
@@ -69,11 +70,11 @@ public class RepoCliente
         
     }
 
-    public async Task ResetarSenha(Mcliente cliente)
+    public async Task<bool> ResetarSenha(Mcliente cliente)
     {
         
         using var con = new SqlConnection(_connectionString);
-        using (var cmd = new SqlCommand("sp_ResetarSenha", con))
+        using (var cmd = new SqlCommand("sp_ClienteResetarSenhaViaCpfEmail", con))
         {
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@email", cliente.Email);
@@ -81,7 +82,10 @@ public class RepoCliente
             cmd.Parameters.AddWithValue("@nova_senha", cliente.Senha);
             
             await con.OpenAsync();
-            await cmd.ExecuteNonQueryAsync();
+            using (var reader = await cmd.ExecuteReaderAsync())
+            {
+                return reader.HasRows;
+            }
         }
         
     }
@@ -101,5 +105,37 @@ public class RepoCliente
             }
         }
     }
+
+    public async Task<List<Mcliente>> PesquisarLeitor(string username)
+    {
+        var cliente = new List<Mcliente>();
+        
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand("sp_LeitorBuscarPorUsername", con))
+        { 
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@username", username); 
+            await con.OpenAsync();
+            using var reader = await cmd.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                cliente.Add(new Mcliente()
+                {
+                    IdCliente = (int)reader["id_cliente"],
+                    Nome = (string)reader["nome"],
+                    User = (string)reader["username"],
+                    Email = (string)reader["email"],
+                    Telefone = (string)reader["telefone"],
+                    Status_conta = (string)reader["status_conta"],
+                    ImagemPerfil = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_cliente"])
+                });
+            }
+
+            return cliente;
+        }
+    }
+    
+    
     
 }
+

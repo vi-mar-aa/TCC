@@ -59,7 +59,7 @@ public class RepoEmprestimo
 
   }
 
-  public async Task<List<RequestEmprestimo>> ListarHistoriaEmprestimosCliente (string email)
+  public async Task<List<RequestEmprestimo>> ListarHistoricoEmprestimosCliente (string email)
   {
     var emprestimos = new List<RequestEmprestimo>();
     using var con = new SqlConnection(_connectionString);
@@ -155,7 +155,45 @@ public class RepoEmprestimo
       }
     }
   }
-  
-  
+
+  public async Task<List<RequestEmprestimo>> ListarEmprestimos()
+  {
+    var emprestimos = new List<RequestEmprestimo>();
+    using var con = new SqlConnection(_connectionString);
+    using (var cmd = new SqlCommand("sp_InfosEmprestimosTodos", con)) 
+    {
+      cmd.CommandType = System.Data.CommandType.StoredProcedure;
+      await con.OpenAsync();
+      using var reader = await cmd.ExecuteReaderAsync();
+
+      while (await reader.ReadAsync())
+      {
+        emprestimos.Add(new RequestEmprestimo()
+        {
+          Midia = new Mmidia
+          {
+            ChaveIdentificadora = (string)reader["chave_identificadora"],
+            Titulo = (string)reader["titulo"],
+            CodigoExemplar = (int)reader["codigo_exemplar"],
+          },
+          Emprestimo = new Memprestimo()
+          {
+            DataEmprestimo = (DateTime)reader["data_emprestimo"],
+            DataDevolucao = (DateTime)reader["data_devolucao"],
+            Status = EnumHelper.GetEnumSafe<StatusEmprestimo>(reader["status_emprestimo"])
+          },
+          Cliente = new Mcliente()
+          {
+            User = (string)reader["usuario"],
+          }
+        });
+
+
+      }
+
+      return emprestimos;
+
+    }
+  }
   
 }

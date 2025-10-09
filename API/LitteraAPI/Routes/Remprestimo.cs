@@ -28,7 +28,20 @@ public static class Remprestimo
         {
             try
             {
-                var emprestimos = await repo.ListarHistoriaEmprestimosCliente(cliente.Email);
+                var emprestimos = await repo.ListarHistoricoEmprestimosCliente(cliente.Email);
+                return Results.Ok(emprestimos);
+            }
+            catch (SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message);
+            }
+        });
+
+        app.MapGet("/ListarEmprestimos", async (RepoEmprestimo repo) =>
+        {
+            try
+            {
+                var emprestimos = await repo.ListarEmprestimos();
                 return Results.Ok(emprestimos);
             }
             catch (SqlException ex)

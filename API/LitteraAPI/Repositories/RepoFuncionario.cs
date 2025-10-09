@@ -95,7 +95,25 @@ public class RepoFuncionario
             return func;
         }
     }
-    
+
+    public async Task<bool> AlterarFuncionario(Mfuncionario funcionario)
+    {
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand("sp_FuncionarioAlterar", con))
+        {
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id_funcionario", funcionario.IdFuncionario);
+            cmd.Parameters.AddWithValue("@nome", funcionario.Nome);
+            cmd.Parameters.AddWithValue("@telefone", funcionario.Telefone);
+            cmd.Parameters.AddWithValue("@status_conta", funcionario.Statusconta);
+            
+            await con.OpenAsync();
+            using (var reader = await cmd.ExecuteReaderAsync())
+            {
+                return reader.HasRows;
+            }
+        }
+    }
     
     
 }

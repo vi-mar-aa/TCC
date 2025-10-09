@@ -234,7 +234,6 @@ public class RepoMidia
                     Estudio = ReaderHelper.GetStringSafe(reader, "estudio"),
                     Roterista = ReaderHelper.GetStringSafe(reader, "roteirista"),
                     Genero = EnumHelper.GetEnumSafe<GeneroMidia>(reader["genero"]),
-                    //Dispo = Enum.Parse<StatusMidia>(reader["disponibilidade"].ToString()), //tratar string que vem do banco ou mudar como esta escrito no banco
                     Dispo = EnumHelper.GetEnumSafe<StatusMidia>(reader["disponibilidade"]),
                     Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
                     
@@ -443,7 +442,7 @@ public class RepoMidia
                     Isbn = ReaderHelper.GetStringSafe(reader, "isbn"),
                     Estudio = ReaderHelper.GetStringSafe(reader, "estudio"),
                     Roterista = ReaderHelper.GetStringSafe(reader, "roteirista"),
-                    //Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
+                    Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
                     
                 });
 
