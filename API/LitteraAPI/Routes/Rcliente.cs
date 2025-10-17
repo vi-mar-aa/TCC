@@ -1,3 +1,4 @@
+using LitteraAPI.DTOS;
 using Microsoft.AspNetCore.Mvc;
 using LitteraAPI.Repositories;
 using LitteraAPI.Models;
@@ -57,9 +58,11 @@ public static class Rcliente
         {
             try
             {
-
-                await repoCliente.CadastrarCliente(cadastro);
-                return Results.Ok("Cliente cadastrado com sucesso");
+                var status = await repoCliente.CadastrarCliente(cadastro);
+                return status
+                    ? Results.Ok("Cadastro realizado com sucesso.")
+                    : Results.NotFound("Impossivel realizar cadastro.");
+                
             }
             catch (SqlException ex)
             {
@@ -74,11 +77,11 @@ public static class Rcliente
         {
             try
             {
-                var status = await repo.SuspenderCliente(cliente.User);
+                var status = await repo.SuspenderCliente(cliente.Email);
 
                 return status
-                    ? Results.Ok("Login realizado com sucesso")
-                    : Results.NotFound("Usuário ou senha incorretos");
+                    ? Results.Ok("Usuário suspenso.")
+                    : Results.NotFound("Usuário inválido");
             }
             catch(SqlException ex)
             {
@@ -87,11 +90,11 @@ public static class Rcliente
             }
         });
 
-        app.MapPost("BuscarLeitor", async ([FromBody] Mcliente cliente, [FromServices] RepoCliente repo) =>
+        app.MapPost("/BuscarLeitorPorUsername", async ([FromBody] RequestPesquisa request, [FromServices] RepoCliente repo) =>
         {
             try
             {
-                var leitor = await repo.PesquisarLeitor(cliente.User);
+                var leitor = await repo.PesquisarLeitor(request.SearchText);
                 return Results.Ok(leitor);
             }
             catch(SqlException ex)
@@ -99,6 +102,19 @@ public static class Rcliente
                 return Results.Problem("Erro no banco: " + ex.Message);
             }
             
+        });
+
+        app.MapPost("/BuscarLeitorPorEmail", async ([FromBody] RequestPesquisa request, [FromServices] RepoCliente repo) =>
+        {
+            try
+            {
+                var leitor = await repo.PesquisarLeitorPorEmail(request.SearchText);
+                return Results.Ok(leitor);
+            }
+            catch(SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message);
+            }
         });
 
     }

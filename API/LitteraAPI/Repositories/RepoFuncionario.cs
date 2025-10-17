@@ -30,7 +30,7 @@ public class RepoFuncionario
         }
     }
 
-    public async Task CadastrarBibliotecario(Mfuncionario funcionario)
+    public async Task<bool> CadastrarBibliotecario(Mfuncionario funcionario)
     {
         using var con = new SqlConnection(_connectionString);
         using (var cmd = new SqlCommand("sp_CadastrarFuncionario", con))
@@ -45,11 +45,14 @@ public class RepoFuncionario
             cmd.Parameters.AddWithValue("@status_conta", "ativo");
             
             await con.OpenAsync();
-            await cmd.ExecuteNonQueryAsync();
+            using (var reader = await cmd.ExecuteReaderAsync())
+            {
+                return reader.HasRows;
+            }
         }
     }
     
-    public async Task CadastrarAdm(Mfuncionario funcionario)
+    public async Task<bool> CadastrarAdm(Mfuncionario funcionario)
     {
         using var con = new SqlConnection(_connectionString);
         using (var cmd = new SqlCommand("sp_CadastrarFuncionario", con))
@@ -64,7 +67,10 @@ public class RepoFuncionario
             cmd.Parameters.AddWithValue("@status_conta", "ativo");
             
             await con.OpenAsync();
-            await cmd.ExecuteNonQueryAsync();
+            using (var reader = await cmd.ExecuteReaderAsync())
+            {
+                return reader.HasRows;
+            }
         }
     }
 
