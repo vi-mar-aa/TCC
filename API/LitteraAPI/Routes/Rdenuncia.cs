@@ -1,3 +1,4 @@
+using LitteraAPI.DTOS;
 using LitteraAPI.Models;
 using LitteraAPI.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,23 @@ public static class Rdenuncia
             {
                 return Results.Problem("Erro no banco: " + ex.Message);
             }
+        });
+
+        app.MapPost("/AnalisarDenuncia", async ([FromBody] RequestDenuncia request, [FromServices] RepoDenuncia repo) =>
+        {
+            try
+            {
+                var rows = await repo.AnalisarDenuncia(request);
+
+                return rows 
+                    ? Results.Ok("Usuário banido com sucesso.")
+                    : Results.NotFound("Referência inválida.");
+            }
+            catch (SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message);
+            }
+            
         });
     }
     

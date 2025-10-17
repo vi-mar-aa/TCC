@@ -27,13 +27,15 @@ public static class Rfuncionario
             
         });
 
-        app.MapPost("/CadastrarAdm", async ([FromBody] Mfuncionario cadastro, [FromServices] RepoFuncionario repoFuncionario) => //testada
+        app.MapPost("/CadastrarAdm", async ([FromBody] Mfuncionario func, [FromServices] RepoFuncionario repoFuncionario) => //testada
         {
                 try
                 {
+                    var cadastro = await repoFuncionario.CadastrarAdm(func);
 
-                    await repoFuncionario.CadastrarAdm(cadastro);
-                    return Results.Ok("Adm cadastrado com sucesso");
+                    return cadastro
+                        ? Results.Ok("Adm cadastrado com sucesso")
+                        : Results.NotFound("Dados inválidos.");
                 }
                 catch (SqlException ex)
                 {
@@ -41,17 +43,20 @@ public static class Rfuncionario
                 } 
         });
         
-        app.MapPost("/CadastrarBibliotecario", async ([FromBody] Mfuncionario cadastro, [FromServices] RepoFuncionario repoFuncionario) => //testada
+        app.MapPost("/CadastrarBibliotecario", async ([FromBody] Mfuncionario func, [FromServices] RepoFuncionario repoFuncionario) => //testada
         {
             try
             {
-                await repoFuncionario.CadastrarBibliotecario(cadastro);
-                return Results.Ok("Bibliotecario cadastrado com sucesso");
+                var cadastro = await repoFuncionario.CadastrarBibliotecario(func);
+
+                return cadastro
+                    ? Results.Ok("Bibliotecário cadastrado com sucesso")
+                    : Results.NotFound("Dados inválidos.");
             }
             catch (SqlException ex)
             {
                 return Results.Problem("Erro no banco: " + ex.Message);
-            } 
+            }
         });
 
         app.MapGet("/ListarFuncionarios", async (RepoFuncionario repo) => //testada

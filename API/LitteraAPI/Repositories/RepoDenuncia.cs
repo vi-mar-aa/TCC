@@ -112,5 +112,23 @@ public class RepoDenuncia
             return denuncias;
         }
     }
+
+    public async Task<bool> AnalisarDenuncia(RequestDenuncia denuncia)
+    {
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand("sp_DenunciaAnalisar", con))
+        {
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id_denuncia", denuncia.Denuncia.IdDenuncia);
+            cmd.Parameters.AddWithValue("@email_funcionario", denuncia.Funcionario.Email);
+            cmd.Parameters.AddWithValue("@motivo", denuncia.Denuncia.Motivo);
+
+            await con.OpenAsync();
+            using (var reader = await cmd.ExecuteReaderAsync())
+            {
+                return reader.HasRows;
+            }
+        }
+    }
     
 }
