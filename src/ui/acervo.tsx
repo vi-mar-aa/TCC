@@ -1,15 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './acervo.css';
 import Menu from './components/menu';
 import { Search, ChevronDown } from 'lucide-react';
 import BotaoMais from './components/botaoMais';
 import { useNavigate } from 'react-router-dom';
+import { listarMidias, Midia } from './ApiManager'; // importa função e tipo
+
 
 function Acervo() {
   const [tab, setTab] = useState<'livros' | 'audiovisual'>('livros');
   const [generoAberto, setGeneroAberto] = useState(true);
   const [anoAberto, setAnoAberto] = useState(true);
+  const [midias, setMidias] = useState<Midia[]>([]); // state para os dados
   const navigate = useNavigate();
+
+  // Buscar dados ao carregar
+  useEffect(() => {
+    listarMidias().then(setMidias).catch((err) => console.error(err));
+  }, []);
 
   return (
     <div className='conteinerAcervo'>
@@ -134,16 +142,20 @@ function Acervo() {
         </div>
 
         {/* Cards de livros */}
-        <div style={{
+        <div
+        style={{
           width: '100%',
           maxWidth: 1100,
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
           gap: '2vw',
           margin: '0 auto'
-        }}>
-          {[...Array(8)].map((_, i) => (
-            <div key={i} style={{
+        }}
+      >
+        {midias.map((m) => (
+          <div
+            key={m.idMidia}
+            style={{
               background: '#fff',
               borderRadius: '1vw',
               boxShadow: '0 2px 8px rgba(0,0,0,0.07)',
@@ -152,25 +164,43 @@ function Acervo() {
               alignItems: 'center',
               padding: '1vw',
               minWidth: 180
-            }}>
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Mar_Morto_-_Jorge_Amado.jpg"
-                alt="Mar Morto"
-                style={{ width: '100%', height: '180px', objectFit: 'cover', borderRadius: '0.7vw' }}
-              />
-              <div style={{ marginTop: '1vw', textAlign: 'center' }}>
-                <div style={{ fontWeight: 600, fontSize: '1vw' }}>Mar Morto, 2015</div>
-                <div style={{ fontSize: '0.9vw', color: '#888' }}>Jorge Amado</div>
-                <div
-                  style={{ fontSize: '0.9vw', color: '#0A4489', marginTop: '0.5vw', cursor: 'pointer' }}
-                  onClick={() => navigate('/infoAcervo')}
-                >
-                  + Informações
-                </div>
+            }}
+          >
+            <img
+              src={
+                m.imagem
+                  ? `data:image/jpeg;base64,${m.imagem}` // base64 da API
+                  : 'https://via.placeholder.com/180x180?text=Sem+Imagem' // fallback
+              }
+              alt={m.titulo}
+              style={{
+                width: '100%',
+                height: '180px',
+                objectFit: 'cover',
+                borderRadius: '0.7vw'
+              }}
+            />
+            <div style={{ marginTop: '1vw', textAlign: 'center' }}>
+              <div style={{ fontWeight: 600, fontSize: '1vw' }}>
+                {m.titulo}, {m.anopublicacao}
+              </div>
+              <div style={{ fontSize: '0.9vw', color: '#888' }}>{m.autor}</div>
+              <div
+                style={{
+                  fontSize: '0.9vw',
+                  color: '#0A4489',
+                  marginTop: '0.5vw',
+                  cursor: 'pointer'
+                }}
+                onClick={() => navigate(`/infoAcervo/${m.idMidia}`)} // pode passar id
+              >
+                + Informações
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
+      </div>
+            
       </div>
       <BotaoMais title="Adicionar" />
     </div>

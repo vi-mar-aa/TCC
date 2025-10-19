@@ -1,5 +1,5 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { use, useState } from 'react';
 import Cadastro from './Cadastro';
 import './AppLogIn.css'
 import logo from './assets/logoLazul.png'
@@ -16,6 +16,9 @@ import Eventos from './eventos';
 import Denuncias from './denuncias';
 import Configuracao from './configuracao';
 import InfoAcervo from './InfoAcervo';
+import ApiManager from './ApiManager';
+import { useEffect } from "react";
+import { listarFuncionarios, Funcionario } from "./ApiManager";
 
 
 
@@ -23,12 +26,69 @@ function Login() {
   const [selected, setSelected] = useState<'admin' | 'biblio'>('admin');
   const [showSenha, setShowSenha] = useState(false);
   const navigate = useNavigate();
+  const [texto, setTexto] = useState('aa aqui');
+  const [inputValor, setInputValor] = useState('');
+  const [funcionarios, setFuncionarios] = useState<Funcionario[]>([]);
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+
+
+  async function handleClick() {
+    try {
+      const api = ApiManager.getApiService();
+  
+      const payload = {
+        idFuncionario: 0,
+        idcargo: 0,
+        nome: "string",
+        cpf: "string",
+        email: email,
+        senha: senha,
+        telefone: "string",
+        statusconta: "string"
+      };
+  
+      const response = await api.post("/LoginFuncionario", payload);
+  
+      // Salva token
+      const token = response.data.token;
+      if (token) {
+        localStorage.setItem("token", token);
+      }
+  
+      // Salva dados do funcionário logado
+      if (response.data.funcionario) {
+        localStorage.setItem("funcionario", JSON.stringify(response.data.funcionario));
+        console.log(response.data)
+      }
+
+      try {
+        const FUNCIONARIO = listarFuncionarios()
+        const AQUELEFUNCIONARIO = (await FUNCIONARIO).find(f => f.email === email)
+        console.log(AQUELEFUNCIONARIO)
+        localStorage.setItem("funcionario", JSON.stringify(AQUELEFUNCIONARIO));
+        navigate("/dashboard");
+      }
+      catch
+      {
+        alert("deu merda quando foi pegar os funcionarios")
+      }
+      
+
+    } catch (error: any) {
+      console.error("Erro ao fazer login:", error);
+      alert("Email ou senha incorretos!");
+    }
+  }
+  
+
 
   return (
     <>
     <div className='conteiner'>
 
-  
+    
+    
 
       <img id='logo' src={logo} alt="Logo Littera" />
       <div id='cx1'>
@@ -54,8 +114,11 @@ function Login() {
         </div>
         <div id='cx4'>
           <div className='cx4-1'>
-            <p className='textinho'>Usuário</p>
-            <input className='txt1' type="email" />
+            <p className='textinho'>Email</p>
+            <input 
+              className='txt1' 
+              type="email" 
+              onChange={(e) => setEmail(e.target.value)}/>
           </div>
           <div className='cx4-1'>
             <p className='textinho'>Senha</p>
@@ -63,6 +126,7 @@ function Login() {
               <input
                 type={showSenha ? "text" : "password"}
                 className="cadastro-input"
+                onChange={(e) => setSenha(e.target.value)}
               />
               <button
                 type="button"
@@ -80,7 +144,7 @@ function Login() {
             </div>
           </div>
         </div>
-         <button className="btn-cadastrar">
+         <button className="btn-cadastrar" onClick={handleClick}>
           <LogIn className="btn-cadastrar-img" />
           <span className="btn-cadastrar-divider"></span>
           <span className="btn-cadastrar-text">Log in</span>

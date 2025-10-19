@@ -106,7 +106,6 @@
   justify-content: space-between;
   gap: 0.8vw;
   margin-bottom: 0;
-  width: 100%;
 }
 
 .catalogacao-form-col input,
@@ -195,4 +194,28 @@
 .catalogacao-salvar:hover {
   background: #0A4489;
   color: #fff;
+}
+
+
+.catalogacao-upload-btn {
+  background: #fff;
+  color: #0A4489;
+  border: 1.5px solid #0A4489;
+  border-radius: 35px;
+  font-size: 1.1vw;
+  font-weight: 600;
+  padding: 0.5vw 1.5vw;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5vw;
+  transition: background 0.2s, color 0.2s;
+}
+
+.catalogacao-upload-btn:hover {
+  background-color: #2563eb;
+}
+
+.catalogacao-upload-btn svg {
+  flex-shrink: 0;
 }
