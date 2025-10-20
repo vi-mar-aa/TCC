@@ -63,7 +63,7 @@ public class RepoEmprestimo
   {
     var emprestimos = new List<RequestEmprestimo>();
     using var con = new SqlConnection(_connectionString);
-    using (var cmd = new SqlCommand("sp_HistoricoEmprestimosPagosCliente", con)) 
+    using (var cmd = new SqlCommand("sp_HistoricoEmprestimosCliente", con)) 
     {
       cmd.CommandType = System.Data.CommandType.StoredProcedure;
       cmd.Parameters.AddWithValue("@email", email);
