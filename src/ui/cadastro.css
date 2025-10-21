@@ -6,10 +6,9 @@ body {
 }
 
 .conteiner-cadastro {
-  min-height: 100vh;
-  width: 100vw;
+  height: 100%;
   margin: 0;
-  padding: 2rem;
+  padding-top: 2rem;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -18,12 +17,16 @@ body {
   background-size: cover;
 }
 
+.conteiner-cadastro.dark {
+  background: url('src/ui/assets/fundoTemaEscuro.png') no-repeat center center fixed;
+  background-size: cover;
+}
+
 #cadastro-root {
-  width: 60%;
+  width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem 0;
   min-height: auto;
   background: var(--fundo);
   border-radius: 60px;
@@ -31,11 +34,10 @@ body {
 
 #logo-cadastro {
   width: 18%;
-  margin-bottom: 2rem;
 }
 
 #cadastro-titulo {
-  font-size: 3.5vw;
+  font-size: 1.5vw;
   color: var(--azul-escuro);
   margin-bottom: 1rem;
   font-family: 'Nunito Sans', 'Roboto', Arial, sans-serif;
@@ -48,7 +50,6 @@ body {
   border-radius: 20px;
   padding: 1vw;
   font-size: 1vw;
-  margin-bottom: 2vw;
   width: 40%;
   text-align: center;
 }
@@ -65,7 +66,6 @@ body {
   justify-content: center;
   gap: 3vw;
   width: 100%;
-  margin-bottom: 2vw;
 }
 
 .cadastro-col {
@@ -127,7 +127,7 @@ body {
 }
 
 #cadastro-btn {
-  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
   padding: 0.7vw 2vw;
   background: var(--fundo);
   color: var(--azul-escuro);

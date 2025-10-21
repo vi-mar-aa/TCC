@@ -16,14 +16,14 @@ body.dark{
     --texto: rgb(255, 255, 255);
     --texto-destacado: white;
     --texto-azul: var(--azul-escuro);
-    --textinho: #252521;
+    --textinho: #bbbbbb;
     --fundo: #000000;
     --fundo-destaque: #141414;
     --cinza: #1F1F1F;
     --azul-escuro: #6096BA;
-    --azul: #6096BA;
+    --azul: #002A5E;
     --azul-cinza: #4F6082;
-    --azul-claro: #A3CEF1;
+    --azul-claro: #013B84;
 }
 
 
@@ -70,13 +70,26 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: url('src/ui/assets/gradiente.png') no-repeat center center fixed;
+
+background: radial-gradient(
+  circle at 32% 21%,
+  var(--azul-claro) 0.8%,      
+  var(--azul) 91.6%,     
+  var(--azul-escuro) 100%      
+);
+
+
+  /*background: url('src/ui/assets/gradiente.png') no-repeat center center fixed;*/
   background-size: cover;
 }
 
 .conteiner.dark {
-  background: url('src/ui/assets/fundoTemaEscuro.png') no-repeat center center fixed;
-  background-size: cover;
+background: radial-gradient(
+  circle at 32% 21%,
+  var(--azul-claro) 0.8%,      
+  var(--azul) 91.6%,     
+  var(--azul-escuro) 100%      
+);
 }
 
 #cx1 {
@@ -157,7 +170,7 @@ body {
 
 #btn1:not(.btnA-selected),
 #btn2:not(.btnA-selected) {
-  background-color: var(--fundo);
+  background-color: var(--fundo-destaque);
   color: var(--azul-escuro);
   border: 2px solid var(--fundo);
 }
@@ -193,11 +206,16 @@ body {
   margin-bottom: 1%;
 }
 
+.cadastro-input{
+    background-color: var(--fundo);
+  color: var(--texto);
+}
+
 .btn-cadastrar {
   width: 19%;
   display: flex;
   align-items: center;
-  background: linear-gradient(to right, --fundo, #e4e4e4);
+  background-color: var(--fundo-destaque);
   color: var(--azul-escuro);  
   border: var(--azul-escuro) solid 0.1px;
   border-radius: 35px;

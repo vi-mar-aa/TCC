@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './cadastro.css';
 import logo from './assets/logoLazul.png';
 import { Eye, EyeOff } from 'lucide-react';
 import ApiManager from './ApiManager';
+import temaEscuro from './AppLogIn';
+import AppLogIn from './AppLogIn';
 
 function Cadastro() {
   const [showSenha1, setShowSenha1] = useState(false);
@@ -16,6 +18,13 @@ function Cadastro() {
   const [telefone, setTelefone] = useState('');
   const [erro, setErro] = useState('');
   const navigate = useNavigate();
+
+  
+    useEffect(() =>{
+      document.body.classList.toggle("dark",temaEscuro);
+      const conteiner = document.querySelector(".conteiner");
+       conteiner?.classList.toggle("dark", temaEscuro)
+    }, [temaEscuro])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,6 +81,8 @@ function Cadastro() {
       alert('Erro de conexão ou dados inválidos.');
     }
   };
+
+  
 
   return (
     <div className='conteiner-cadastro'>
