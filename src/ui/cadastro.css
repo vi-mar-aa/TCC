@@ -25,7 +25,7 @@ body {
   align-items: center;
   padding: 2rem 0;
   min-height: auto;
-  background: #fff;
+  background: var(--fundo);
   border-radius: 60px;
 }
 
@@ -36,15 +36,15 @@ body {
 
 #cadastro-titulo {
   font-size: 3.5vw;
-  color: #013B84;
+  color: var(--azul-escuro);
   margin-bottom: 1rem;
   font-family: 'Nunito Sans', 'Roboto', Arial, sans-serif;
   font-weight: 400;
 }
 
 #cadastro-desc {
-  background: #E7ECEF;
-  color: #0A4489;
+  background: var(--fundo);
+  color: var(--azul-escuro);
   border-radius: 20px;
   padding: 1vw;
   font-size: 1vw;
@@ -78,7 +78,7 @@ body {
 
 .textinho {
   font-size: 1vw;
-  color: #7c7c7c;
+  color: var(--cinza);
   margin: 1%;
 }
 
@@ -94,14 +94,14 @@ body {
 }
 
 .cadastro-col > .cadastro-input {
-  border: 1px solid #948c8c;
+  border: 1px solid var(--textinho);
 }
 
 .cadastro-input-group {
   display: flex;
   align-items: center;
   position: relative;
-  border: 1px solid #948c8c;
+  border: 1px solid var(--textinho);
   height: 2.5vw;
   margin-bottom: 0.7vw;
   width: 100%;
@@ -129,9 +129,9 @@ body {
 #cadastro-btn {
   margin-top: 1.5rem;
   padding: 0.7vw 2vw;
-  background: #fff;
-  color: #0A4489;
-  border: 1px solid #0A4489;
+  background: var(--fundo);
+  color: var(--azul-escuro);
+  border: 1px solid var(--azul-escuro);
   border-radius: 35px;
   font-size: 1vw;
   cursor: pointer;
@@ -139,15 +139,15 @@ body {
 }
 
 #cadastro-btn:hover {
-  background: #0A4489;
-  color: #fff;
+  background: var(--azul-escuro);
+  color: var(--fundo);
 }
 #cadastro-btn {
   margin-top: 2vw;
   padding: 0.7vw 2vw;
-  background: #fff;
-  color: #0A4489;
-  border: 1px solid #0A4489;
+  background: var(--fundo);
+  color: var(--azul-escuro);
+  border: 1px solid var(--azul-escuro);
   border-radius: 35px;
   font-size: 1.3vw;
   cursor: pointer;
@@ -155,6 +155,6 @@ body {
 }
 
 #cadastro-btn:hover {
-  background: #0A4489;
-  color: #fff;
+  background: var(--azul-escuro);
+  color: var(texto-destacado);
 }

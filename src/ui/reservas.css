@@ -3,7 +3,7 @@
     min-height: 100vh;
     display: flex;
     flex-direction: row;
-    background: #fafbfc;
+    background: var(--fundo);
 }
 
 .conteudoReservas {
@@ -18,7 +18,7 @@
 }
 
 .reservas-titulo {
-    color: #0A4489;
+    color: var(--azul-escuro);
     font-weight: 600;
     margin: 0 0 2vw 0;
     font-size: 2vw;
@@ -32,7 +32,7 @@
     margin: 0 auto 2vw auto;
     display: flex;
     align-items: center;
-    background: #fff;
+    background: var(--fundo);
     border-radius: 2vw;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     padding: 0 1vw;
@@ -47,14 +47,14 @@
     border-radius: 2vw;
 }
 .busca-reserva svg {
-    color: #0A4489;
+    color: var(--azul-escuro);
     cursor: pointer;
     margin-left: -2vw;
 }
 
 .tabela-reserva-container {
     width: 97%;
-    background: #fff;
+    background: var(--fundo);
     border-radius: 1vw;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
     margin: 1vw 0;
@@ -68,7 +68,7 @@
     font-size: 1vw;
 }
 .tabela-reserva th {
-    color: #0A4489;
+    color: var(--azul-escuro);
     font-weight: 600;
     text-align: left;
     padding: 0.5vw;
@@ -76,25 +76,25 @@
 }
 .tabela-reserva td {
     padding: 0.5vw;
-    border-bottom: 1px solid #e0e6ed;
+    border-bottom: 1px solid var(--cinza);
     vertical-align: middle;
 }
 .tabela-reserva tr:last-child td {
     border-bottom: none;
 }
 .tabela-reserva tr.faded td {
-    color: #bfc9d1;
+    color: var(--cinza);
 }
 .tabela-reserva td:last-child {
     text-align: center;
     font-size: 1.5vw;
-    color: #bfc9d1;
+    color: var(--cinza);
     cursor: pointer;
 }
 .expandir {
     width: 100%;
     text-align: center;
-    color: #0A4489;
+    color: var(--azul-escuro);
     font-weight: 600;
     font-size: 1vw;
     margin-top: 0.7vw;
@@ -102,14 +102,14 @@
     user-select: none;
 }
 .expandir-mais {
-    color: #0A4489;
+    color: var(--azul-escuro);
     font-size: 1.2vw;
     margin-left: 0.3vw;
 }
 
 .grafico-reserva-container {
     width: 94%;
-    background: #fff;
+    background: var(--fundo);
     border-radius: 1vw;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
     margin: 2vw 0 1vw 0;
@@ -120,11 +120,11 @@
     position: absolute;
     top: 1vw;
     right: 2vw;
-    background: #f3f6fa;
+    background: var(--fundo);
     border-radius: 1vw;
     padding: 0.2vw 1vw;
     font-size: 1vw;
-    color: #0A4489;
+    color: var(--azul-escuro);
     font-weight: 500;
     display: flex;
     align-items: center;
@@ -146,21 +146,21 @@
 .barra {
     width: 1.2vw;
     border-radius: 0.5vw 0.5vw 0 0;
-    background: #0A4489;
+    background: var(--azul-escuro);
     opacity: 0.7;
 }
-.barra1 { height: 2vw; background: #223e6a; }
-.barra2 { height: 3vw; background: #b7d3f7; }
-.barra3 { height: 4vw; background: #7bb3e3; }
-.barra4 { height: 2.8vw; background: #4e8fd6; }
-.barra5 { height: 3.5vw; background: #0A4489; }
-.barra6 { height: 1vw; background: #223e6a; }
-.barra7 { height: 2.8vw; background: #b7d3f7; }
-.barra8 { height: 4vw; background: #7bb3e3; }
-.barra9 { height: 2vw; background: #4e8fd6; }
-.barra10 { height: 3vw; background: #0A4489; }
-.barra11 { height: 1vw; background: #223e6a; }
-.barra12 { height: 2.8vw; background: #b7d3f7; }
+.barra1 { height: 2vw; background: var(--azul-escuro); }
+.barra2 { height: 3vw; background: var(--azul-claro); }
+.barra3 { height: 4vw; background: var(--azul-claro); }
+.barra4 { height: 2.8vw; background: var(--azul); }
+.barra5 { height: 3.5vw; background: var(--azul-escuro); }
+.barra6 { height: 1vw; background: var(--azul-escuro); }
+.barra7 { height: 2.8vw; background: var(--azul-claro); }
+.barra8 { height: 4vw; background: var(--azul-claro); }
+.barra9 { height: 2vw; background: var(--azul); }
+.barra10 { height: 3vw; background: var(--azul-escuro); }
+.barra11 { height: 1vw; background: var(--azul-escuro); }
+.barra12 { height: 2.8vw; background: var(--azul-claro); }
 .grafico-labels {
     position: absolute;
     bottom: -1.5vw;
@@ -169,7 +169,7 @@
     display: flex;
     justify-content: space-between;
     font-size: 0.9vw;
-    color: #7a7a7a;
+    color: var(--texto);
 }
 
 .relatorio-btn-wrap {
@@ -179,9 +179,9 @@
     margin-top: 2vw;
 }
 .relatorio-btn {
-    background: #fff;
-    color: #0A4489;
-    border: 2px solid #0A4489;
+    background: var(--fundo);
+    color: var(--azul-escuro);
+    border: 2px solid var(--azul-escuro);
     border-radius: 35px;
     font-size: 1.1vw;
     font-weight: 600;
@@ -193,6 +193,6 @@
     transition: background 0.2s, color 0.2s;
 }
 .relatorio-btn:hover {
-    background: #0A4489;
-    color: #fff;
+    background: var(--azul-escuro);
+    color: var(--fundo);
 }

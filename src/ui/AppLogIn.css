@@ -1,3 +1,42 @@
+body{
+    --texto: black;
+    --texto-destacado: white;
+    --texto-azul: var(--azul-escuro);
+    --textinho: #252521;
+    --fundo: #ffffff;
+    --fundo-destaque: #faf5f5;
+    --cinza: #E7ECEF;
+    --azul-escuro: #013B84;
+    --azul: #6096BA;
+    --azul-cinza: #4F6082;
+    --azul-claro: #A3CEF1;
+}
+
+body.dark{
+    --texto: rgb(255, 255, 255);
+    --texto-destacado: white;
+    --texto-azul: var(--azul-escuro);
+    --textinho: #252521;
+    --fundo: #000000;
+    --fundo-destaque: #141414;
+    --cinza: #1F1F1F;
+    --azul-escuro: #6096BA;
+    --azul: #6096BA;
+    --azul-cinza: #4F6082;
+    --azul-claro: #A3CEF1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 body, #root {
@@ -35,12 +74,17 @@ body {
   background-size: cover;
 }
 
+.conteiner.dark {
+  background: url('src/ui/assets/fundoTemaEscuro.png') no-repeat center center fixed;
+  background-size: cover;
+}
+
 #cx1 {
   top: 0;
   left: 0;
   width: 60%;
   height: auto;
-  background-color: white;
+  background-color: var(--fundo);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -55,7 +99,7 @@ body {
 
 #textao {
   font-size: 3.5vw;
-  color: #013B84;
+  color: var(--texto-azul);
   margin-bottom: 1rem;
   font-family: 'Nunito Sans';
   font-weight: 400;
@@ -64,7 +108,7 @@ body {
 #cx2{
   width: 55%;
   height: auto;
-  background-color: #E7ECEF;
+  background-color: var(--cinza);
   border-radius: 20px;
   padding-left: 3%;
   padding-right: 3%;
@@ -72,7 +116,7 @@ body {
 
 #p1 {
   font-size: 1vw;
-  color: #000000;
+  color: var(--texto);
 }
 
 #cx3 {
@@ -87,8 +131,8 @@ body {
   width:20%;
   height: auto;
   padding: 1%;
-  background-color: #0A4489;
-  color: white;
+  background-color: var(--azul-escuro);
+  color: var(--texto-destacado);
   border: none;
   border-radius: 15px;
   font-size: 1.1vw;
@@ -101,21 +145,21 @@ body {
 
 
 .btnA-selected {
-  background-color: #0A4489 !important;
-  color: #fff !important;
-  border: 2px solid #0A4489;
+  background-color: var(--azul-escuro) !important;
+  color: var(--texto-destacado) !important;
+  border: 2px solid var(--azul-escuro);
 }
 
 #btn1 {
-  background-color: #ffffff;
-  color: #000000;
+  background-color: var(--fundo);
+  color: var(--texto);
 }
 
 #btn1:not(.btnA-selected),
 #btn2:not(.btnA-selected) {
-  background-color: #fff;
-  color: #0A4489;
-  border: 2px solid #ffffff;
+  background-color: var(--fundo);
+  color: var(--azul-escuro);
+  border: 2px solid var(--fundo);
 }
 
 
@@ -123,13 +167,13 @@ body {
 .txt1{
   padding: 0.5rem;
   font-size: 1.0vw;
-  border: 1px solid #948c8c; 
-  background-color: #ffffff;
-  color: black;
+  border: 1px solid var(--texto); 
+  background-color: var(--fundo);
+  color: var(--texto);
 }
 .textinho{
   font-size: 1vw;
-  color: #7c7c7c;;
+  color: var(--textinho);
 }
 
 #cx4 {
@@ -153,9 +197,9 @@ body {
   width: 19%;
   display: flex;
   align-items: center;
-  background: linear-gradient(to right, #ffffff, #e4e4e4);
-  color: rgb(60, 68, 170);
-  border: rgb(60, 68, 170) solid 0.1px;
+  background: linear-gradient(to right, --fundo, #e4e4e4);
+  color: var(--azul-escuro);  
+  border: var(--azul-escuro) solid 0.1px;
   border-radius: 35px;
   font-size: 1vw;
   cursor: pointer;
@@ -163,8 +207,8 @@ body {
 }
 
 .btn-cadastrar:hover {
-  background: rgb(60, 68, 170);
-  color: white;
+  background: var(--azul-escuro);
+  color: var(--texto-destacado);
 }
 
 .btn-cadastrar-img {
@@ -177,7 +221,7 @@ body {
 .btn-cadastrar-divider {
   width: 0.1%;
   height: 2.5vw;
-  background: rgb(25, 33, 141);
+  background: var(--azul-escuro);
   margin-right: 1rem;
   margin-left: 1rem;
 }
@@ -199,11 +243,11 @@ body {
 
 #cx5 a{
   font-size: 1vw;
-  color: #0A4489;
-   border-bottom: 0.1px solid #0A4489;
+  color: var(--azul-escuro);
+   border-bottom: 0.1px solid var(--azul-escuro);
 }
 #cx5 a:hover {
-  color: #8b929b;
-    border-bottom: 0.1px solid #8b929b;
+  color: var(--cinza);
+    border-bottom: 0.1px solid var(--cinza);
   cursor: pointer;
 }

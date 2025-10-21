@@ -3,7 +3,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: row;
-  background: #fafbfc;
+  background: var(--fundo);
 }
 
 .conteudoForum {
@@ -23,7 +23,7 @@
   margin: 0 auto 2vw auto;
   display: flex;
   align-items: center;
-  background: #fff;
+  background: var(--fundo);
   border-radius: 2vw;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   padding: 0 1vw;
@@ -38,7 +38,7 @@
   border-radius: 2vw;
 }
 .forum-busca svg {
-  color: #0A4489;
+  color: var(--azul-escuro);
   cursor: pointer;
   margin-left: -2vw;
 }
@@ -54,8 +54,8 @@
   margin-right: auto;
 }
 .forum-tabs button {
-  background: #fff;
-  color: #0A4489;
+  background: var(--fundo);
+  color: var(--azul-escuro);
   border: none;
   border-radius: 2vw;
   padding: 0.7vw 2vw;
@@ -66,8 +66,8 @@
   transition: background 0.2s, color 0.2s;
 }
 .forum-tabs button.active {
-  background: #0A4489;
-  color: #fff;
+  background: var(--azul-escuro);
+  color: var(--fundo);
 }
 
 .forum-posts {
@@ -80,7 +80,7 @@
 }
 
 .forum-card {
-  background: #fff;
+  background: var(--fundo);
   border-radius: 1.2vw;
   box-shadow: 0 2px 8px rgba(0,0,0,0.09);
   padding: 1.5vw 2vw;
@@ -102,25 +102,25 @@
   display: flex;
   align-items: center;
   font-size: 1vw;
-  color: #0A4489;
+  color: var(--azul-escuro);
   font-weight: 600;
 }
 
 .forum-card-date {
   font-size: 0.95vw;
-  color: #888;
+  color: var(--texto);
 }
 
 .forum-card-title {
   font-size: 1.1vw;
   font-weight: 600;
-  color: #0A4489;
+  color: var(--azul-escuro);
   margin-bottom: 0.3vw;
 }
 
 .forum-card-text {
   font-size: 1vw;
-  color: #222;
+  color: var(--texto);
   margin-bottom: 0.7vw;
 }
 
@@ -138,16 +138,16 @@
 .forum-like, .forum-comment {
   display: flex;
   align-items: center;
-  background: #f5f7fa;
+  background: var(--fundo);
   border-radius: 0.7vw;
   padding: 0.2vw 1vw;
   font-size: 1vw;
-  color: #0A4489;
+  color: var(--azul-escuro);
   font-weight: 600;
   gap: 0.3vw;
 }
 
 .forum-card-more {
-  color: #bfc9d1;
+  color: var(--texto);
   cursor: pointer;
 }

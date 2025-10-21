@@ -3,7 +3,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: row;
-  background: #fafbfc;
+  background: var(--fundo);
 }
 
 .conteudoEventos {
@@ -19,7 +19,7 @@
 }
 
 .eventos-titulo {
-  color: #0A4489;
+  color: var(--azul-escuro);
   font-weight: 600;
   margin: 0 0 2vw 0;
   font-size: 2vw;
@@ -39,8 +39,8 @@
 }
 
 .eventos-tabs button {
-  background: #fff;
-  color: #0A4489;
+  background: var(--fundo);
+  color: var(--azul-escuro);
   border: none;
   border-radius: 2vw;
   padding: 0.7vw 2vw;
@@ -52,8 +52,8 @@
 }
 
 .eventos-tabs button.active {
-  background: #0A4489;
-  color: #fff;
+  background: var(--azul-escuro);
+  color: var(--fundo);
 }
 
 .eventos-lista {
@@ -66,7 +66,7 @@
 }
 
 .eventos-card {
-  background: #fff;
+  background: var(--fundo);
   border-radius: 1.2vw;
   box-shadow: 0 2px 8px rgba(0,0,0,0.09);
   padding: 1.5vw 2vw;
@@ -81,14 +81,14 @@
 
 .eventos-card-info {
   font-size: 1vw;
-  color: #222;
+  color: var(--texto);
   display: flex;
   flex-direction: column;
   gap: 0.5vw;
 }
 
 .eventos-card-actions {
-  color: #0A4489;
+  color: var(--azul-escuro);
   cursor: pointer;
   align-self: flex-end;
 }
@@ -100,8 +100,8 @@
   width: 4vw;
   height: 4vw;
   border-radius: 50%;
-  background: #0A4489;
-  color: #fff;
+  background: var(--azul-escuro);
+  color: var(--fundo);
   font-size: 2.5vw;
   border: none;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
@@ -114,5 +114,5 @@
 }
 
 .fab-btn:hover {
-  background: #1866c1;
+  background: var(--azul-escuro);
 }

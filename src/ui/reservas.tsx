@@ -75,6 +75,30 @@ function Reservas() {
             <div className="barra barra10"></div>
             <div className="barra barra11"></div>
             <div className="barra barra12"></div>
+             <div className="barra barra1"></div>
+            <div className="barra barra2"></div>
+            <div className="barra barra3"></div>
+            <div className="barra barra4"></div>
+            <div className="barra barra5"></div>
+            <div className="barra barra6"></div>
+            <div className="barra barra7"></div>
+            <div className="barra barra8"></div>
+            <div className="barra barra9"></div>
+            <div className="barra barra10"></div>
+            <div className="barra barra11"></div>
+            <div className="barra barra12"></div>
+             <div className="barra barra1"></div>
+            <div className="barra barra2"></div>
+            <div className="barra barra3"></div>
+            <div className="barra barra4"></div>
+            <div className="barra barra5"></div>
+            <div className="barra barra6"></div>
+            <div className="barra barra7"></div>
+            <div className="barra barra8"></div>
+            <div className="barra barra9"></div>
+            <div className="barra barra10"></div>
+            <div className="barra barra11"></div>
+            <div className="barra barra12"></div>
             <div className="grafico-labels">
               <span>jan</span><span>fev</span><span>mar</span><span>abr</span><span>mai</span><span>jun</span>
               <span>jul</span><span>ago</span><span>set</span><span>out</span><span>nov</span><span>dez</span>

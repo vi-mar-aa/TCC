@@ -1,8 +1,9 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { use, useState } from 'react';
+import {useState, useEffect, use } from 'react';
 import Cadastro from './Cadastro';
-import './AppLogIn.css'
-import logo from './assets/logoLazul.png'
+import './AppLogIn.css';
+import logo from './assets/logoLazul.png';
+import logoEscura from './assets/logoLazulTemaEscuro.png';
 import { LogIn, Eye, EyeOff } from 'lucide-react';
 import Dashboard from './dashboard';
 import Acervo from './acervo';
@@ -17,10 +18,8 @@ import Denuncias from './denuncias';
 import Configuracao from './configuracao';
 import InfoAcervo from './InfoAcervo';
 import ApiManager from './ApiManager';
-import { useEffect } from "react";
+import Catalogacao from './dashboard';
 import { listarFuncionarios, Funcionario } from "./ApiManager";
-
-
 
 function Login() {
   const [selected, setSelected] = useState<'admin' | 'biblio'>('admin');
@@ -31,6 +30,24 @@ function Login() {
   const [funcionarios, setFuncionarios] = useState<Funcionario[]>([]);
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [imgLogo, setLogo] = useState(logo)
+
+  //modo escuro
+    const [temaEscuro, setTemaEscuro] = useState(true)
+
+    useEffect(() =>{
+      document.body.classList.toggle("dark",temaEscuro);
+      const conteiner = document.querySelector(".conteiner");
+       conteiner?.classList.toggle("dark", temaEscuro)
+      
+       if (temaEscuro === true) {
+        setLogo(logoEscura)
+       }
+       else{
+        setLogo(logo)
+       }
+    }, [temaEscuro])
+
 
 
   async function handleClick() {
@@ -82,15 +99,16 @@ function Login() {
   }
   
 
-
   return (
     <>
+
+    
     <div className='conteiner'>
 
     
-    
+      <button onClick={() => setTemaEscuro(!temaEscuro)}>aaaa</button>
 
-      <img id='logo' src={logo} alt="Logo Littera" />
+      <img id='logo' src={imgLogo} alt="Logo Littera" />
       <div id='cx1'>
         <h1 id='textao'>Bem-Vindo de Volta!</h1>
         <div id='cx2'>
@@ -161,7 +179,7 @@ function Login() {
 }
 
 
-import Catalogacao from './dashboard';
+
 
 function AppLogIn() {
   return (

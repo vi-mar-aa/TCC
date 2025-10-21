@@ -15,7 +15,7 @@
 /* Título */
 .conteudoEmprestimos h2,
 .emprestimos-titulo {
-    color: #0A4489;
+    color: var(--azul-escuro);
     font-weight: 600;
     margin: 2vw 0 2vw 4vw;
     font-size: 2vw;
@@ -32,8 +32,8 @@
 }
 
 .filtros-emprestimo button {
-    background: #fff;
-    color: #0A4489;
+    background: var(--fundo);
+    color: var(--azul-escuro);
     border: none;
     border-radius: 2vw;
     padding: 0.7vw 2vw;
@@ -45,14 +45,14 @@
 }
 
 .filtros-emprestimo button.active {
-    background: #0A4489;
-    color: #fff;
+    background: var(--azul-escuro);
+    color: var(--fundo)    ;
 }
 
 /* Tabela */
 .tabela-emprestimo-container {
     width: 97%;
-    background: #fff;
+    background: var(--fundo);
     border-radius: 1vw;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
     margin: 1vw;
@@ -66,7 +66,7 @@
 }
 
 .tabela-emprestimo th {
-    color: #0A4489;
+    color: var(--azul-escuro);
     font-weight: 600;
     text-align: left;
     padding: 0.5vw;
@@ -75,7 +75,7 @@
 
 .tabela-emprestimo td {
     padding: 0.5vw;
-    border-bottom: 1px solid #e0e6ed;
+    border-bottom: 1px solid var(--cinza);
     vertical-align: middle;
 }
 
@@ -101,30 +101,10 @@
 .tabela-emprestimo td:last-child {
     text-align: center;
     font-size: 1.5vw;
-    color: #bfc9d1;
     cursor: pointer;
 }
 
-/* Botão flutuante */
-.fab-btn {
-    position: fixed;
-    right: 3vw;
-    bottom: 3vw;
-    width: 4vw;
-    height: 4vw;
-    border-radius: 50%;
-    background: #0A4489;
-    color: #fff;
-    font-size: 2.5vw;
-    border: none;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-    transition: background 0.2s;
-}
+
 
 .fab-btn:hover {
     background: #063366;

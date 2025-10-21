@@ -3,7 +3,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: row;
-  background: #fafbfc;
+  background: var(--fundo);
 }
 
 .conteudoIndicacoes {
@@ -18,7 +18,7 @@
 }
 
 .indicacoes-titulo {
-  color: #0A4489;
+  color: var(--azul-escuro);
   font-weight: 600;
   margin: 0 0 2vw 0;
   font-size: 2vw;
@@ -29,7 +29,7 @@
 .indicacoes-box {
   width: 100%;
   max-width: 700px;
-  background: #fff;
+  background: var(--fundo);
   border-radius: 1.2vw;
   box-shadow: 0 2px 8px rgba(0,0,0,0.09);
   padding: 1.5vw 2vw;
@@ -43,7 +43,7 @@
 }
 
 .indicacoes-tabela th {
-  color: #0A4489;
+  color: var(--azul-escuro);
   font-weight: 600;
   background: transparent;
   text-align: left;
@@ -60,17 +60,17 @@
   display: flex;
   align-items: center;
   font-size: 1vw;
-  color: #0A4489;
+  color: var(--azul-escuro);
   font-weight: 600;
 }
 
 .indicacoes-tabela tr.faded td {
-  color: #bfc9d1;
+  color: var(--texto);
 }
 
 .indicacoes-expandir {
   text-align: center;
-  color: #0A4489;
+  color: var(--azul-escuro);
   font-weight: 600;
   font-size: 1vw;
   cursor: pointer;
@@ -79,7 +79,7 @@
 }
 
 .indicacoes-mais {
-  color: #0A4489;
+  color: var(--azul-escuro);
   font-size: 1.2vw;
   margin-left: 0.3vw;
 }
@@ -87,7 +87,7 @@
 .indicacoes-livros-box {
   width: 100%;
   max-width: 700px;
-  background: #fff;
+  background: var(--fundo);
   border-radius: 1.2vw;
   box-shadow: 0 2px 8px rgba(0,0,0,0.09);
   padding: 1.5vw 2vw;
@@ -97,7 +97,7 @@
 .indicacoes-livros-titulo {
   font-size: 1.1vw;
   font-weight: 600;
-  color: #222;
+  color: var(--texto);
 }
 
 .indicacoes-livros-tabela {
@@ -108,7 +108,7 @@
 }
 
 .indicacoes-livros-tabela th {
-  color: #0A4489;
+  color: var(--azul-escuro);
   font-weight: 600;
   background: transparent;
   text-align: left;
@@ -118,7 +118,7 @@
 .indicacoes-livros-tabela td {
   padding: 0.5vw 0.2vw;
   vertical-align: middle;
-  border-bottom: 1px solid #e0e6ed;
+  border-bottom: 1px solid var(--fundo);
 }
 
 .indicacoes-livros-tabela tr:last-child td {
@@ -133,9 +133,9 @@
 }
 
 .indicacoes-relatorio-btn {
-  background: #fff;
-  color: #0A4489;
-  border: 2px solid #0A4489;
+  background: var(--fundo);
+  color: var(--azul-escuro);
+  border: 2px solid var(--azul-escuro);
   border-radius: 35px;
   font-size: 1.1vw;
   font-weight: 600;
@@ -148,6 +148,6 @@
 }
 
 .indicacoes-relatorio-btn:hover {
-  background: #0A4489;
-  color: #fff;
+  background: var(--azul-escuro);
+  color: var(--fundo);
 }

@@ -1,6 +1,6 @@
 .conteinerEmprestimos {
   min-height: 100vh;
-  background: #f8fafc;
+  background: var(--fundo);
   display: flex;
   flex-direction: row;
 }
@@ -18,11 +18,11 @@
   width: 90%;
   display: flex;
   align-items: center;
-  background: #fff;
+  background: var(--fundo);
   border-radius: 2vw;
   box-shadow: 0 2px 8px rgba(10, 68, 137, 0.07);
   padding: 0.0vw 1vw;
-  border: 1.5px solid #b7d3f7;
+  border: 1.5px solid var(--cinza);
   margin-bottom: 2vw;
 }
 
@@ -32,17 +32,17 @@
   outline: none;
   background: transparent;
   font-size: 1.1vw;
-  color: #0A4489;
+  color: var(--azul-escuro);
   padding: 0.7vw 0.5vw;
 }
 
 .busca-emprestimo svg {
-  color: #0A4489;
+  color: var(--azul-escuro);
   margin-left: 0.5vw;
 }
 
 .egrafico-titulo {
-  color: #0A4489;
+  color: var(--azul-escuro);
   font-weight: 600;
   margin-bottom: 1vw;
   font-size: 2vw;
@@ -51,7 +51,7 @@
 }
 
 .egrafico-card {
-  background: #fff;
+  background: var(--fundo);
   border-radius: 1.2vw;
   box-shadow: 0 2px 8px rgba(0,0,0,0.09);
   padding: 2vw 2vw 1vw 2vw;
@@ -73,7 +73,7 @@
 .egrafico-card-titulo {
   font-weight: 600;
   font-size: 1.1vw;
-  color: #0A4489;
+  color: var(--azul-escuro);
   margin-bottom: 1vw;
   align-self: flex-start;
 }
@@ -107,11 +107,11 @@
 }
 
 .egrafico-legenda-atraso {
-  background: #b7d3f7;
+  background: var(--azul-claro);
 }
 
 .egrafico-legenda-dia {
-  background: #0A4489;
+  background: var(--azul-escuro);
 }
 
 .egrafico-barra-header {
@@ -122,12 +122,12 @@
 }
 
 .egrafico-ano-btn {
-  background: #f3f6fa;
+  background: var(--cinza);
   border: none;
   border-radius: 1vw;
   padding: 0.2vw 1vw;
   font-size: 1vw;
-  color: #0A4489;
+  color: var(--azul-escuro);
   font-weight: 500;
   display: flex;
   align-items: center;
@@ -144,9 +144,9 @@
 }
 
 .egrafico-relatorio-btn {
-  background: #fff;
-  color: #0A4489;
-  border: 2px solid #0A4489;
+  background: var(--fundo);
+  color: var(--azul-escuro);
+  border: 2px solid var(--azul-escuro);
   border-radius: 35px;
   font-size: 1.1vw;
   font-weight: 600;

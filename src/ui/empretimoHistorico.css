@@ -2,7 +2,7 @@
   width: 100vw;
   display: flex;
   flex-direction: row;
-  background: #fafbfc;
+  background: var(--fundo);
 }
 
 .conteudoEmprestimoHistorico {
@@ -18,7 +18,7 @@
 }
 
 .emprestimoHistorico-titulo {
-  color: #0A4489;
+  color: var(--azul-escuro);
   font-weight: 600;
   margin: 0 0 2vw 0;
   font-size: 2vw;
@@ -30,7 +30,7 @@
   margin: 0 0 2vw 4vw;
   display: flex;
   align-items: center;
-  background: #fff;
+  background: var(--fundo);
   border-radius: 2vw;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   padding: 0 1vw;
@@ -46,14 +46,14 @@
   border-radius: 2vw;
 }
 .emprestimoHistorico-busca svg {
-  color: #0A4489;
+  color: var(--azul-escuro);
   cursor: pointer;
   margin-left: -2vw;
 }
 
 .emprestimoHistorico-tabela-container {
   width: 97%;
-  background: #fff;
+  background: var(--fundo);
   border-radius: 1vw;
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
   margin: 1vw 0 0 4vw;
@@ -69,7 +69,7 @@
 }
 
 .emprestimoHistorico-tabela th {
-  color: #0A4489;
+  color: var(--azul-escuro);
   font-weight: 600;
   text-align: left;
   padding: 0.5vw;
@@ -78,7 +78,7 @@
 
 .emprestimoHistorico-tabela td {
   padding: 0.5vw;
-  border-bottom: 1px solid #e0e6ed;
+  border-bottom: 1px solid var(--cinza);
   vertical-align: middle;
 }
 
