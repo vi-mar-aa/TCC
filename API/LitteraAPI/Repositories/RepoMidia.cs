@@ -186,7 +186,7 @@ public class RepoMidia
                     Autor = ReaderHelper.GetStringSafe(reader, "autor"),
                     Anopublicacao = ReaderHelper.GetStringSafe(reader, "ano_publicacao"),
                     Genero = EnumHelper.GetEnumSafe<GeneroMidia>(reader["genero"]),
-                    Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
+                    Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia_exemplo"])
                     
                 });
 
