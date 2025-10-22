@@ -32,7 +32,7 @@
     margin: 0 auto 2vw auto;
     display: flex;
     align-items: center;
-    background: var(--fundo);
+    background: var(--fundo-destaque);
     border-radius: 2vw;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     padding: 0 1vw;
@@ -54,13 +54,14 @@
 
 .tabela-reserva-container {
     width: 97%;
-    background: var(--fundo);
+    background: var(--fundo-destaque);
     border-radius: 1vw;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
     margin: 1vw 0;
     overflow-x: auto;
     padding-bottom: 1vw;
     position: relative;
+    color: var(--texto);
 }
 .tabela-reserva {
     width: 100%;
@@ -109,7 +110,7 @@
 
 .grafico-reserva-container {
     width: 94%;
-    background: var(--fundo);
+    background: var(--fundo-destaque);
     border-radius: 1vw;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
     margin: 2vw 0 1vw 0;

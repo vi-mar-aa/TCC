@@ -3,7 +3,11 @@
   min-height: 100vh;
   display: flex;
   flex-direction: row;
-  background: #fafbfc;
+  background: var(--fundo);
+}
+
+span {
+  color: var(--texto);
 }
 
 .conteudoDenuncias {
@@ -18,7 +22,7 @@
 }
 
 .denuncias-titulo {
-  color: #0A4489;
+  color: var(--azul-escuro);
   font-weight: 600;
   margin: 0 0 2vw 0;
   font-size: 2vw;
@@ -28,7 +32,7 @@
 .denuncias-box {
   width: 100%;
   max-width: 1100px;
-  background: #fff;
+  background: var(--fundo-destaque);
   border-radius: 1.2vw;
   box-shadow: 0 2px 8px rgba(0,0,0,0.09);
   padding: 1.5vw 2vw;
@@ -42,7 +46,7 @@
 }
 
 .denuncias-tabela th {
-  color: #0A4489;
+  color: var(--azul-escuro);
   font-weight: 600;
   background: transparent;
   text-align: left;
@@ -60,13 +64,13 @@
   display: flex;
   align-items: center;
   font-size: 1vw;
-  color: #0A4489;
+  color: var(--azul-escuro);
   font-weight: 600;
 }
 
 .denuncias-motivo {
   font-weight: 600;
-  color: #222;
+  color: var(--texto);
   font-size: 1vw;
 }
 
@@ -78,9 +82,9 @@
 }
 
 .denuncias-vermais {
-  background: #fff;
-  color: #0A4489;
-  border: 1px solid #bfc9d1;
+  background: var(--fundo);
+  color: var(--azul-escuro);
+  border: 1px solid var(--cinza);
   border-radius: 1vw;
   font-size: 0.95vw;
   font-weight: 600;
@@ -97,7 +101,7 @@
 }
 
 .denuncias-tabela th {
-  color: #0A4489;
+  color: var(--azul-escuro);
   font-weight: 600;
   background: transparent;
   text-align: left;
@@ -115,13 +119,13 @@
   display: flex;
   align-items: center;
   font-size: 1vw;
-  color: #0A4489;
+  color: var(--azul-escuro);
   font-weight: 600;
 }
 
 .denuncias-motivo {
   font-weight: 600;
-  color: #222;
+  color: var(--texto);
   font-size: 1vw;
 }
 
@@ -133,9 +137,9 @@
 }
 
 .denuncias-vermais {
-  background: #fff;
-  color: #0A4489;
-  border: 1px solid #bfc9d1;
+  background: var(--fundo-destaque);
+  color: var(--azul-escuro);
+  border: 1px solid var(--cinza);
   border-radius: 1vw;
   font-size: 0.95vw;
   font-weight: 600;
@@ -146,6 +150,6 @@
 }
 
 .denuncias-vermais:hover {
-  background: #e6f0ff;
-  color: #0A4489;
+  background: var(--cinza);
+  color: var(--azul-escuro);
 }

@@ -18,7 +18,7 @@
   width: 90%;
   display: flex;
   align-items: center;
-  background: var(--fundo);
+  background: var(--fundo-destaque);
   border-radius: 2vw;
   box-shadow: 0 2px 8px rgba(10, 68, 137, 0.07);
   padding: 0.0vw 1vw;
@@ -51,7 +51,7 @@
 }
 
 .egrafico-card {
-  background: var(--fundo);
+  background: var(--fundo-destaque);
   border-radius: 1.2vw;
   box-shadow: 0 2px 8px rgba(0,0,0,0.09);
   padding: 2vw 2vw 1vw 2vw;
@@ -60,6 +60,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: var(--texto);
 }
 
 .egrafico-pizza {
@@ -144,7 +145,7 @@
 }
 
 .egrafico-relatorio-btn {
-  background: var(--fundo);
+  background: var(--fundo-destaque);
   color: var(--azul-escuro);
   border: 2px solid var(--azul-escuro);
   border-radius: 35px;

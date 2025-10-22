@@ -23,7 +23,7 @@
   margin: 0 auto 2vw auto;
   display: flex;
   align-items: center;
-  background: var(--fundo);
+  background: var(--fundo-destaque);
   border-radius: 2vw;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   padding: 0 1vw;
@@ -54,7 +54,7 @@
   margin-right: auto;
 }
 .forum-tabs button {
-  background: var(--fundo);
+  background: var(--fundo-destaque);
   color: var(--azul-escuro);
   border: none;
   border-radius: 2vw;
@@ -67,7 +67,7 @@
 }
 .forum-tabs button.active {
   background: var(--azul-escuro);
-  color: var(--fundo);
+  color: var(--fundo-destaque);
 }
 
 .forum-posts {
@@ -80,7 +80,7 @@
 }
 
 .forum-card {
-  background: var(--fundo);
+  background: var(--fundo-destaque);
   border-radius: 1.2vw;
   box-shadow: 0 2px 8px rgba(0,0,0,0.09);
   padding: 1.5vw 2vw;
@@ -138,7 +138,7 @@
 .forum-like, .forum-comment {
   display: flex;
   align-items: center;
-  background: var(--fundo);
+  background: var(--fundo-destaque);
   border-radius: 0.7vw;
   padding: 0.2vw 1vw;
   font-size: 1vw;

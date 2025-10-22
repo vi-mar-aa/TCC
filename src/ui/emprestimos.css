@@ -32,7 +32,7 @@
 }
 
 .filtros-emprestimo button {
-    background: var(--fundo);
+    background: var(--fundo-destaque);
     color: var(--azul-escuro);
     border: none;
     border-radius: 2vw;
@@ -46,17 +46,18 @@
 
 .filtros-emprestimo button.active {
     background: var(--azul-escuro);
-    color: var(--fundo)    ;
+    color: var(--fundo-destaque)    ;
 }
 
 /* Tabela */
 .tabela-emprestimo-container {
     width: 97%;
-    background: var(--fundo);
+    background: var(--fundo-destaque);
     border-radius: 1vw;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
     margin: 1vw;
     overflow-x: auto;
+    color: var(--texto);
 }
 
 .tabela-emprestimo {

@@ -19,13 +19,6 @@ function Cadastro() {
   const [erro, setErro] = useState('');
   const navigate = useNavigate();
 
-  
-    useEffect(() =>{
-      document.body.classList.toggle("dark",temaEscuro);
-      const conteiner = document.querySelector(".conteiner");
-       conteiner?.classList.toggle("dark", temaEscuro)
-    }, [temaEscuro])
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErro('');
@@ -85,7 +78,7 @@ function Cadastro() {
   
 
   return (
-    <div className='conteiner-cadastro'>
+    <div className='conteiner'>
       <div id="cadastro-root">
         <img
           id="logo-cadastro"

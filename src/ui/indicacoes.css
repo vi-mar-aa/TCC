@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: row;
   background: var(--fundo);
+  color: var(--texto);
 }
 
 .conteudoIndicacoes {
@@ -29,7 +30,7 @@
 .indicacoes-box {
   width: 100%;
   max-width: 700px;
-  background: var(--fundo);
+  background: var(--fundo-destaque);
   border-radius: 1.2vw;
   box-shadow: 0 2px 8px rgba(0,0,0,0.09);
   padding: 1.5vw 2vw;
@@ -87,7 +88,7 @@
 .indicacoes-livros-box {
   width: 100%;
   max-width: 700px;
-  background: var(--fundo);
+  background: var(--fundo-destaque);
   border-radius: 1.2vw;
   box-shadow: 0 2px 8px rgba(0,0,0,0.09);
   padding: 1.5vw 2vw;
@@ -118,7 +119,7 @@
 .indicacoes-livros-tabela td {
   padding: 0.5vw 0.2vw;
   vertical-align: middle;
-  border-bottom: 1px solid var(--fundo);
+  border-bottom: 1px solid var(--fundo-destaque);
 }
 
 .indicacoes-livros-tabela tr:last-child td {
@@ -149,5 +150,5 @@
 
 .indicacoes-relatorio-btn:hover {
   background: var(--azul-escuro);
-  color: var(--fundo);
+  color: var(--fundo-destaque);
 }

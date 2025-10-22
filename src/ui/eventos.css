@@ -39,7 +39,7 @@
 }
 
 .eventos-tabs button {
-  background: var(--fundo);
+  background: var(--fundo-destaque);
   color: var(--azul-escuro);
   border: none;
   border-radius: 2vw;
@@ -53,7 +53,7 @@
 
 .eventos-tabs button.active {
   background: var(--azul-escuro);
-  color: var(--fundo);
+  color: var(--fundo-destaque);
 }
 
 .eventos-lista {
@@ -66,7 +66,7 @@
 }
 
 .eventos-card {
-  background: var(--fundo);
+  background: var(--fundo-destaque);
   border-radius: 1.2vw;
   box-shadow: 0 2px 8px rgba(0,0,0,0.09);
   padding: 1.5vw 2vw;
@@ -101,7 +101,7 @@
   height: 4vw;
   border-radius: 50%;
   background: var(--azul-escuro);
-  color: var(--fundo);
+  color: var(--fundo-destaque);
   font-size: 2.5vw;
   border: none;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
