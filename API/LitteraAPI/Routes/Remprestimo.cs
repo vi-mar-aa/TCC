@@ -49,6 +49,19 @@ public static class Remprestimo
                 return Results.Problem("Erro no banco: " + ex.Message);
             }
         });
+
+        app.MapPost("/PesquisarEmprestimo", async ([FromBody] RequestPesquisa request, [FromServices] RepoEmprestimo repo) =>
+        {
+            try
+            {
+                var emprestimos = await repo.PesquisarEmprestimo(request.SearchText);
+                return Results.Ok(emprestimos);
+            }
+            catch (SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message);
+            }
+        });
         
         app.MapPost("/RenovarEmprestimo", async ([FromBody] RequestEmprestimo request, [FromServices] RepoEmprestimo repo) => //testada
         {
