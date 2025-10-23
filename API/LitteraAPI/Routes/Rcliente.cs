@@ -39,18 +39,18 @@ public static class Rcliente
             
         });
         
-        app.MapPost("/ResetarSenhaCliente", async ([FromBody] Mcliente resetSenha, [FromServices] RepoCliente repoCliente) =>
+        app.MapPost("/AlterarDadosCliente", async ([FromBody] Mcliente resetSenha, [FromServices] RepoCliente repoCliente) =>
         {
             try
             {
-                var reset = await repoCliente.ResetarSenha(resetSenha); 
+                var reset = await repoCliente.AlterarDados(resetSenha); 
                 return reset
                     ?Results.Ok("Senha resetada com sucesso")
                     :Results.NotFound("Senha não resetada");
             }
-            catch
+            catch (SqlException ex)
             {
-                return Results.Problem("Erro ao resetar senha");
+                return Results.Problem("Erro no banco: " + ex.Message);
             }  
         });
 
@@ -89,6 +89,37 @@ public static class Rcliente
  
             }
         });
+        
+        app.MapPost("/InativarContaCliente", async ([FromBody] Mcliente cliente, [FromServices] RepoCliente repo) =>
+        {
+            try
+            {
+                var status = await repo.InativarConta(cliente.Email);
+
+                return status
+                    ? Results.Ok("Usuário suspenso.")
+                    : Results.NotFound("Usuário inválido.");
+            }
+            catch(SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message);
+ 
+            }
+        });
+
+        /*app.MapPost("/AlterarFotoPerfilCliente", async ([FromBody]Mcliente cliente, [FromServices] RepoCliente repo) =>
+        {
+            try
+            {
+                var status = await repo.AlterarFotoPerfil(cliente);
+                return status
+                    ? Results.Ok("Foto alterada.")
+                    : Results.NotFound("Foto não alterada.");
+                
+            }catch(SqlException ex){
+                return Results.Problem("Erro no banco: " + ex.Message);
+            }
+        });*/
 
         app.MapPost("/BuscarLeitorPorUsername", async ([FromBody] RequestPesquisa request, [FromServices] RepoCliente repo) =>
         {
@@ -104,7 +135,7 @@ public static class Rcliente
             
         });
 
-        app.MapPost("/BuscarLeitorPorEmail", async ([FromBody] RequestPesquisa request, [FromServices] RepoCliente repo) =>
+        app.MapPost("/BuscarLeitorPorEmail", async ([FromBody] RequestPesquisa request, [FromServices] RepoCliente repo) => //testada
         {
             try
             {
@@ -117,6 +148,7 @@ public static class Rcliente
             }
         });
 
+        
     }
 }
 

@@ -74,16 +74,19 @@ public class RepoCliente
         
     }
 
-    public async Task<bool> ResetarSenha(Mcliente cliente)
+    public async Task<bool> AlterarDados(Mcliente cliente)
     {
         
         using var con = new SqlConnection(_connectionString);
-        using (var cmd = new SqlCommand("sp_ClienteResetarSenhaViaCpfEmail", con))
+        using (var cmd = new SqlCommand("sp_AtualizarPerfilCliente", con))
         {
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@email", cliente.Email);
-            cmd.Parameters.AddWithValue("@cpf", cliente.Cpf); 
-            cmd.Parameters.AddWithValue("@nova_senha", cliente.Senha);
+            cmd.Parameters.AddWithValue("@nome", cliente.Nome); 
+            cmd.Parameters.AddWithValue("@username", cliente.User); 
+            cmd.Parameters.AddWithValue("@telefone", cliente.Telefone); 
+            cmd.Parameters.AddWithValue("@imagem_base64", cliente.ImagemPerfil);
+            cmd.Parameters.AddWithValue("@senha", cliente.Senha);
             
             await con.OpenAsync();
             using (var reader = await cmd.ExecuteReaderAsync())
@@ -93,8 +96,41 @@ public class RepoCliente
         }
         
     }
-    
+
+   /* public async Task<bool> AlterarFotoPerfil(Mcliente cliente)
+    {
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand("", con))
+        {
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@email", cliente.Email);
+            
+            
+            await con.OpenAsync();
+            using (var reader = await cmd.ExecuteReaderAsync())
+            {
+                return reader.HasRows;
+            }
+        }
+    }*/
+     
     public async Task<bool> SuspenderCliente(string email)
+    {
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand("sp_LeitorSuspender", con))
+        { 
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@email", email); 
+            
+            await con.OpenAsync();
+            using (var reader = await cmd.ExecuteReaderAsync())
+            {
+                return reader.HasRows;
+            }
+        }
+    }
+    
+    public async Task<bool> InativarConta(string email)
     {
         using var con = new SqlConnection(_connectionString);
         using (var cmd = new SqlCommand("sp_LeitorSuspender", con))
@@ -144,8 +180,9 @@ public class RepoCliente
         var cliente = new List<Mcliente>();
         
         using var con = new SqlConnection(_connectionString);
-        using (var cmd = new SqlCommand("SELECT id_cliente, nome, username, email, telefone, status_conta " + "FROM Cliente WHERE email LIKE @email", con))
+        using (var cmd = new SqlCommand("sp_InfosClientePorEmail", con))
         { 
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@email", searchText);
             await con.OpenAsync();
             using var reader = await cmd.ExecuteReaderAsync();
@@ -156,7 +193,6 @@ public class RepoCliente
                     IdCliente = (int)reader["id_cliente"],
                     Nome = (string)reader["nome"],
                     User = (string)reader["username"],
-                    Email = (string)reader["email"],
                     Telefone = (string)reader["telefone"],
                     Status_conta = (string)reader["status_conta"],
                     ImagemPerfil = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_cliente"])

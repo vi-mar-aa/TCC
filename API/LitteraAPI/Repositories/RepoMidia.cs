@@ -452,5 +452,78 @@ public class RepoMidia
         }
     }
 
+    public async Task<List<Mmidia>> FiltroAnoAcervo(string searchtext)
+    {
+        var midia = new List<Mmidia>();
+        
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand ("sp_AcervoBuscar", con))
+        { 
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ano", searchtext);
+            
+            await con.OpenAsync();
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                midia.Add(new Mmidia()
+                {
+                    
+                    IdMidia = (int)reader["id_midia"],
+                    Titulo = ReaderHelper.GetStringSafe(reader, "titulo"),
+                    Autor = ReaderHelper.GetStringSafe(reader, "autor"),
+                    Anopublicacao = ReaderHelper.GetStringSafe(reader, "ano_publicacao"),
+                    NomeTipo = ReaderHelper.GetStringSafe(reader, "nome_tipo"),
+                    Dispo = EnumHelper.GetEnumSafe<StatusMidia>(reader["disponibilidade"]), 
+                    Isbn = ReaderHelper.GetStringSafe(reader, "isbn"),
+                    Estudio = ReaderHelper.GetStringSafe(reader, "estudio"),
+                    Roterista = ReaderHelper.GetStringSafe(reader, "roteirista"),
+                    Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
+                    
+                });
+
+            }
+            
+            return midia;
+        }
+    }
+    
+    public async Task<List<Mmidia>> FiltroGeneroAcervo(string searchtext)
+    {
+        var midia = new List<Mmidia>();
+        
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand ("sp_AcervoBuscar", con))
+        { 
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@genero", searchtext);
+            
+            await con.OpenAsync();
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                midia.Add(new Mmidia()
+                {
+                    
+                    IdMidia = (int)reader["id_midia"],
+                    Titulo = ReaderHelper.GetStringSafe(reader, "titulo"),
+                    Autor = ReaderHelper.GetStringSafe(reader, "autor"),
+                    Anopublicacao = ReaderHelper.GetStringSafe(reader, "ano_publicacao"),
+                    NomeTipo = ReaderHelper.GetStringSafe(reader, "nome_tipo"),
+                    Dispo = EnumHelper.GetEnumSafe<StatusMidia>(reader["disponibilidade"]), 
+                    Isbn = ReaderHelper.GetStringSafe(reader, "isbn"),
+                    Estudio = ReaderHelper.GetStringSafe(reader, "estudio"),
+                    Roterista = ReaderHelper.GetStringSafe(reader, "roteirista"),
+                    Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
+                    
+                });
+
+            }
+            
+            return midia;
+        }
+    }
 }
 

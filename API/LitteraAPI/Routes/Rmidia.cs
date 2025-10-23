@@ -68,7 +68,7 @@ public static class Rmidia
         });
 
         app.MapPost("/ListarMidiasPorGenero", async ([FromBody] Mmidia midia, [FromServices] RepoMidia repo) => //testada
-        { //da pra usar para os filtros
+        { 
             try
             {
                 var livros = await repo.ListarMidiasPorGeneroMain(EnumHelper.ToStringValue(midia.Genero));
@@ -238,5 +238,32 @@ public static class Rmidia
                 return Results.Problem("Erro no banco: " + ex.Message);
             }
         });
+        
+        app.MapPost("/FiltroGenero", async ([FromBody] Mmidia midia, [FromServices] RepoMidia repo) => 
+        { 
+            try
+            {
+                var livros = await repo.FiltroGeneroAcervo(EnumHelper.ToStringValue(midia.Genero));
+                return Results.Ok(livros);
+            }
+            catch(SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message);
+            }
+        });
+        
+        app.MapPost("/FiltroAno", async ([FromBody] RequestPesquisa searchText, [FromServices] RepoMidia repo) => 
+        { 
+            try
+            {
+                var livros = await repo.FiltroAnoAcervo(searchText.SearchText);
+                return Results.Ok(livros);
+            }
+            catch(SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message);
+            }
+        });
+        
     }
 }
