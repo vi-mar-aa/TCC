@@ -14,13 +14,13 @@ const Catalogacao: React.FC<CatalogacaoProps> = ({ open, onClose }) => {
   // Estado do formulário
   const [formData, setFormData] = useState({
     titulo: "",
+    npaginas: "",
     autor: "",
     anopublicacao: "",
     editora: "",
     isbn: "",
-    genero: "",
     edicao: "",
-    contExemplares: 1,
+    local: "",
     sinopse: "",
     imagem: "",
   });
@@ -64,38 +64,45 @@ const Catalogacao: React.FC<CatalogacaoProps> = ({ open, onClose }) => {
       const funcionario = JSON.parse(funcionarioStr);
 
       const payload = {
-        funcionario: {
-
+        "funcionario": {
+          "idFuncionario": 0,
+          "idcargo": 0,
+          "nome": "string",
+          "cpf": "string",
+          "email": "maria.vitoria@email.com",
+          "senha": "string",
+          "telefone": "string",
+          "statusconta": "string"
         },
-        midia: {
-          idMidia: 0,
-          codigoExemplar: 0,
-          idfuncionario: funcionario.idFuncionario,
-          idtpmidia: 1, // 1 = livro
-          titulo: formData.titulo,
-          autor: formData.autor,
-          sinopse: formData.sinopse,
-          editora: formData.editora,
-          anopublicacao: parseInt(formData.anopublicacao) || 0,
-          edicao: formData.edicao,
-          localpublicacao: "",
-          npaginas: 0,
-          isbn: formData.isbn,
-          duracao: "",
-          estudio: "",
-          roterista: "",
-          dispo: 1,
-          genero: 0,
-          contExemplares: Number(formData.contExemplares),
-          nomeTipo: "Livro",
-          imagem: formData.imagem,
+        "midia": {
+          "idMidia": 0,
+          "codigoExemplar": 0,
+          "idfuncionario": funcionario.idFuncionario,
+          "idtpmidia": 0,
+          "titulo": formData.titulo,
+          "autor": formData.autor,
+          "sinopse": formData.sinopse,
+          "editora": formData.editora,
+          "anopublicacao": formData.anopublicacao || 0,
+          "edicao": formData.edicao,
+          "localpublicacao": formData.local,
+          "npaginas": formData.npaginas,
+          "isbn": formData.isbn,
+          "duracao": "",
+          "estudio": "",
+          "roterista": "",
+          "dispo": 0,
+          "genero": 0,
+          "contExemplares": 0,
+          "nomeTipo": "Livro",
+          "imagem": formData.imagem,
         },
 
         
 
       };
 
-      console.log(formData.imagem)
+      console.log(payload)
 
       await api.post("/AdicionarLivro", payload);
       alert("Livro adicionado com sucesso!");
@@ -121,6 +128,15 @@ const Catalogacao: React.FC<CatalogacaoProps> = ({ open, onClose }) => {
                 type="text"
                 name="titulo"
                 value={formData.titulo}
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              <span className="textosInput">Numero de paginas:</span>
+              <input
+                type="text"
+                name="npaginas"
+                value={formData.npaginas}
                 onChange={handleChange}
               />
             </label>
@@ -161,15 +177,6 @@ const Catalogacao: React.FC<CatalogacaoProps> = ({ open, onClose }) => {
               />
             </label>
             <label>
-              <span className="textosInput">Gênero:</span>
-              <input
-                type="text"
-                name="genero"
-                value={formData.genero}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
               <span className="textosInput">Edição:</span>
               <input
                 type="text"
@@ -179,12 +186,11 @@ const Catalogacao: React.FC<CatalogacaoProps> = ({ open, onClose }) => {
               />
             </label>
             <label>
-              <span className="textosInput">Quantidade de Exemplares:</span>
+              <span className="textosInput">Local de publicação:</span>
               <input
-                type="number"
-                name="contExemplares"
-                min={1}
-                value={formData.contExemplares}
+                type="text"
+                name="local"
+                value={formData.local}
                 onChange={handleChange}
               />
             </label>

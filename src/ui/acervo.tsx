@@ -156,14 +156,15 @@ function Acervo() {
           <div
             key={m.idMidia}
             style={{
-              background: '#fff',
+              background: 'var(--fundo-destaque)',
               borderRadius: '1vw',
               boxShadow: '0 2px 8px rgba(0,0,0,0.07)',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
               padding: '1vw',
-              minWidth: 180
+              minWidth: 180,
+              color: 'var(--texto)'
             }}
           >
             <img
@@ -188,7 +189,7 @@ function Acervo() {
               <div
                 style={{
                   fontSize: '0.9vw',
-                  color: '#0A4489',
+                  color: 'var(--azul-escuro)',
                   marginTop: '0.5vw',
                   cursor: 'pointer'
                 }}

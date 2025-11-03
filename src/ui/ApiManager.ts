@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
 // URL base da sua API
-const BASE_URL = "https://localhost:7008/"; 
+const BASE_URL = "http://localhost:5107/"; 
 
 
 class ApiManager {
