@@ -1,150 +1,108 @@
 import React, { useState, useEffect } from 'react';
 import './acervo.css';
 import Menu from './components/menu';
-import { Search, ChevronDown } from 'lucide-react';
+import { Search } from 'lucide-react';
 import BotaoMais from './components/botaoMais';
 import { useNavigate } from 'react-router-dom';
 import { listarMidias, Midia } from './ApiManager';
 
 function Acervo() {
   const [tab, setTab] = useState<'livros' | 'audiovisual'>('livros');
-  const [generoAberto, setGeneroAberto] = useState(true);
-  const [anoAberto, setAnoAberto] = useState(true);
   const [midias, setMidias] = useState<Midia[]>([]);
   const [busca, setBusca] = useState('');
+  const [imagemFallback, setImagemFallback] = useState<string>("https://via.placeholder.com/180x180?text=Sem+Imagem");
   const navigate = useNavigate();
 
-  // 🔹 Função que busca as mídias (inicial e filtrada)
+  // 🔹 Carregar mídias da API
   const carregarMidias = async (textoPesquisa: string = "") => {
     try {
       const dados = await listarMidias(textoPesquisa);
       setMidias(dados);
+
+      // 🔹 Encontrar a primeira imagem válida para usar como fallback
+      let primeiraImagemValida = "https://via.placeholder.com/180x180?text=Sem+Imagem";
+
+      for (const m of dados) {
+        if (m.imagem) {
+          if (m.imagem.startsWith("data:image")) {
+            primeiraImagemValida = m.imagem;
+            break;
+          } else if (m.imagem.startsWith("/midia")) {
+            primeiraImagemValida = `https://localhost:7008${m.imagem}`;
+            break;
+          } else {
+            primeiraImagemValida = `data:image/jpeg;base64,${m.imagem}`;
+            break;
+          }
+        }
+      }
+
+      setImagemFallback(primeiraImagemValida);
+
     } catch (err) {
       console.error("Erro ao listar mídias:", err);
     }
   };
 
-  // 🔹 Carrega tudo ao abrir a página
+  // 🔹 Carregar ao iniciar
   useEffect(() => {
     carregarMidias();
   }, []);
 
-  // 🔹 Executa pesquisa quando o usuário aperta Enter
+  // 🔹 Filtrar e ordenar mídias de acordo com busca
+  const termo = busca.toLowerCase();
+
+  const midiasFiltradas = midias
+    .filter((m) => {
+      const titulo = m.titulo?.toLowerCase() || "";
+      const autor = m.autor?.toLowerCase() || "";
+      const genero = m.genero?.toLowerCase() || "";
+      const ano = m.anopublicacao ? String(m.anopublicacao) : "";
+
+      return (
+        titulo.includes(termo) ||
+        autor.includes(termo) ||
+        genero.includes(termo) ||
+        ano.includes(termo)
+      );
+    })
+    .sort((a, b) => {
+      const getPrioridade = (m: Midia) => {
+        const titulo = m.titulo?.toLowerCase() || "";
+        const autor = m.autor?.toLowerCase() || "";
+        const genero = m.genero?.toLowerCase() || "";
+        const ano = m.anopublicacao ? String(m.anopublicacao) : "";
+
+        if (titulo.includes(termo)) return 4;
+        if (autor.includes(termo)) return 3;
+        if (genero.includes(termo)) return 2;
+        if (ano.includes(termo)) return 1;
+        return 0;
+      };
+
+      return getPrioridade(b) - getPrioridade(a);
+    });
+
+  // 🔹 Pesquisa (Enter)
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      carregarMidias(busca);
-    }
+    if (e.key === 'Enter') carregarMidias(busca);
   };
 
   return (
     <div className='conteinerAcervo'>
       <Menu />
+
       <div className='conteudoAcervo'>
         {/* Tabs */}
         <div style={{ display: 'flex', gap: '1vw', marginBottom: '2vw', justifyContent: 'center' }}>
-          <button
-            className={`menu-btn${tab === 'livros' ? ' active' : ''}`}
-            onClick={() => setTab('livros')}
-            type="button"
-          >
-            Livros
-          </button>
-          <button
-            className={`menu-btn${tab === 'audiovisual' ? ' active' : ''}`}
-            onClick={() => setTab('audiovisual')}
-            type="button"
-          >
-            Audiovisual
-          </button>
+          
         </div>
 
-        {/* Filtros */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1vw', width: '100%', maxWidth: 600, margin: '0 auto 2vw auto' }}>
-          {/* Filtro Gênero Textual */}
-          <div className="filtro-box">
-            <div className='filtro-titulo' style={{ display: 'flex', alignItems: 'center' }}>
-              <span style={{ fontWeight: 600, fontSize: '1.1vw' }}>Gênero Textual</span>
-              <span
-                style={{
-                  marginLeft: 'auto',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  transition: 'transform 0.2s',
-                  transform: generoAberto ? 'rotate(0deg)' : 'rotate(180deg)'
-                }}
-                onClick={() => setGeneroAberto((prev) => !prev)}
-              >
-                <ChevronDown size={20} />
-              </span>
-            </div>
-            {generoAberto && (
-              <div className="filtro-opcoes">
-                {tab === 'livros' ? (
-                  <>
-                    <label><input type="checkbox" /> Artigos</label>
-                    <label><input type="checkbox" /> Romance</label>
-                    <label><input type="checkbox" /> Biografia</label>
-                    <label><input type="checkbox" /> Manuais</label>
-                    <label><input type="checkbox" /> Crônicas</label>
-                    <label><input type="checkbox" /> Revistas</label>
-                    <label><input type="checkbox" /> Didáticos</label>
-                    <label><input type="checkbox" /> Poesia</label>
-                    <label><input type="checkbox" /> Outros</label>
-                  </>
-                ) : (
-                  <>
-                    <label><input type="checkbox" /> Documentário</label>
-                    <label><input type="checkbox" /> Filme</label>
-                    <label><input type="checkbox" /> Série</label>
-                    <label><input type="checkbox" /> Curta-metragem</label>
-                    <label><input type="checkbox" /> Animação</label>
-                    <label><input type="checkbox" /> Outros</label>
-                  </>
-                )}
-              </div>
-            )}
-          </div>
-
-          {/* Filtro Ano */}
-          <div className="filtro-box">
-            <div className='filtro-titulo' style={{ display: 'flex', alignItems: 'center' }}>
-              <span style={{ fontWeight: 600, fontSize: '1.1vw' }}>Ano</span>
-              <span
-                style={{
-                  marginLeft: 'auto',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  transition: 'transform 0.2s',
-                  transform: anoAberto ? 'rotate(0deg)' : 'rotate(180deg)'
-                }}
-                onClick={() => setAnoAberto((prev) => !prev)}
-              >
-                <ChevronDown size={20} />
-              </span>
-            </div>
-            {anoAberto && (
-              <div className="filtro-opcoes" style={{ display: 'flex', flexWrap: 'wrap', gap: '1vw', marginTop: '1vw' }}>
-                <label><input type="checkbox" /> 2024</label>
-                <label><input type="checkbox" /> 2023</label>
-                <label><input type="checkbox" /> 2022</label>
-                <label><input type="checkbox" /> 2021</label>
-                <label><input type="checkbox" /> 2020</label>
-                <label><input type="checkbox" /> 2019</label>
-                <label><input type="checkbox" /> 2018</label>
-                <label><input type="checkbox" /> 2017</label>
-                <label><input type="checkbox" /> Outros</label>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* 🔍 Barra de busca */}
+        {/* Barra de pesquisa */}
         <div style={{ width: '100%', maxWidth: 600, margin: '0 auto 2vw auto', display: 'flex', alignItems: 'center' }}>
           <input
             type="text"
-            placeholder="Pesquisar..."
+            placeholder="Pesquisar por título, autor, gênero ou ano..."
             value={busca}
             onChange={(e) => setBusca(e.target.value)}
             onKeyDown={handleKeyDown}
@@ -153,7 +111,8 @@ function Acervo() {
               padding: '0.7vw 2.5vw 0.7vw 1vw',
               borderRadius: '2vw',
               border: '1px solid #bfc9d1',
-              fontSize: '1vw'
+              fontSize: '1vw',
+              color: 'var(--texto)'
             }}
           />
           <Search
@@ -163,7 +122,7 @@ function Acervo() {
           />
         </div>
 
-        {/* 📚 Cards */}
+        {/* Cards */}
         <div
           style={{
             width: '100%',
@@ -174,16 +133,13 @@ function Acervo() {
             margin: '0 auto'
           }}
         >
-          {midias.map((m) => {
-            let imagemSrc = "https://via.placeholder.com/180x180?text=Sem+Imagem";
+          {midiasFiltradas.map((m) => {
+            // Seleciona imagem: própria da mídia ou fallback
+            let imagemSrc = imagemFallback;
             if (m.imagem) {
-              if (m.imagem.startsWith("data:image")) {
-                imagemSrc = m.imagem;
-              } else if (m.imagem.startsWith("/midia")) {
-                imagemSrc = `https://localhost:7008${m.imagem}`;
-              } else {
-                imagemSrc = `data:image/jpeg;base64,${m.imagem}`;
-              }
+              if (m.imagem.startsWith("data:image")) imagemSrc = m.imagem;
+              else if (m.imagem.startsWith("/midia")) imagemSrc = `https://localhost:7008${m.imagem}`;
+              else imagemSrc = `data:image/jpeg;base64,${m.imagem}`;
             }
 
             return (
@@ -211,12 +167,12 @@ function Acervo() {
                     borderRadius: '0.7vw'
                   }}
                   onError={(e) => {
-                    (e.target as HTMLImageElement).src = "https://via.placeholder.com/180x180?text=Erro+Imagem";
+                    (e.target as HTMLImageElement).src = imagemFallback;
                   }}
                 />
                 <div style={{ marginTop: '1vw', textAlign: 'center' }}>
                   <div style={{ fontWeight: 600, fontSize: '1vw' }}>
-                    {m.titulo}, {m.anopublicacao}
+                    {m.titulo}, {m.anopublicacao || "Outros"}
                   </div>
                   <div style={{ fontSize: '0.9vw', color: '#888' }}>{m.autor}</div>
                   <div
@@ -236,6 +192,7 @@ function Acervo() {
           })}
         </div>
       </div>
+
       <BotaoMais title="Adicionar" />
     </div>
   );

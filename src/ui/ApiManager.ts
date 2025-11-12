@@ -66,6 +66,7 @@ export interface Midia {
   autor: string;
   anopublicacao: number;
   imagem: string | null;
+  genero: string;
 }
 
 export async function listarMidias(searchText: string = ""): Promise<Midia[]> {
