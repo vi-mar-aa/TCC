@@ -1,44 +1,99 @@
 import React, { useState, useEffect } from 'react';
 import './acervo.css';
 import Menu from './components/menu';
-import { Search } from 'lucide-react';
+import { Search, Image as ImageIcon } from 'lucide-react';
 import BotaoMais from './components/botaoMais';
 import { useNavigate } from 'react-router-dom';
 import { listarMidias, Midia } from './ApiManager';
+
+// 🔹 Componente CardMídia
+const CardMidia: React.FC<{ midia: Midia }> = ({ midia }) => {
+  const navigate = useNavigate();
+  const [imagemValida, setImagemValida] = useState(
+    midia.imagem ? midia.imagem.startsWith("/midia") || midia.imagem.startsWith("data:image") : false
+  );
+
+  const imagemSrc = midia.imagem?.startsWith("/midia") ? `https://localhost:7008${midia.imagem}` : midia.imagem;
+
+  return (
+    <div
+      style={{
+        background: 'var(--fundo-destaque)',
+        borderRadius: '1vw',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.07)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: '1vw',
+        width: 180,
+        color: 'var(--texto)',
+        minHeight: '280px'
+      }}
+    >
+      {imagemValida ? (
+        <img
+          src={imagemSrc}
+          alt={midia.titulo}
+          style={{
+            width: '100%',
+            height: '180px',
+            objectFit: 'cover',
+            borderRadius: '0.7vw'
+          }}
+          onError={() => setImagemValida(false)}
+        />
+      ) : (
+        <div
+          style={{
+            width: '100%',
+            height: '180px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            color: '#888',
+            border: '1px solid #ccc',
+            borderRadius: '0.7vw'
+          }}
+        >
+          <ImageIcon size={48} />
+          <span style={{ marginTop: '0.5vw', fontSize: '0.9vw', textAlign: 'center' }}>
+            Imagem não encontrada
+          </span>
+        </div>
+      )}
+
+      <div style={{ marginTop: '1vw', textAlign: 'center' }}>
+        <div style={{ fontWeight: 600, fontSize: '1vw' }}>
+          {midia.titulo}, {midia.anopublicacao || "Outros"}
+        </div>
+        <div style={{ fontSize: '0.9vw', color: '#888' }}>{midia.autor}</div>
+        <div
+          style={{
+            fontSize: '0.9vw',
+            color: 'var(--azul-escuro)',
+            marginTop: '0.5vw',
+            cursor: 'pointer'
+          }}
+          onClick={() => navigate(`/infoAcervo/${midia.idMidia}`)}
+        >
+          + Informações
+        </div>
+      </div>
+    </div>
+  );
+};
 
 function Acervo() {
   const [tab, setTab] = useState<'livros' | 'audiovisual'>('livros');
   const [midias, setMidias] = useState<Midia[]>([]);
   const [busca, setBusca] = useState('');
-  const [imagemFallback, setImagemFallback] = useState<string>("https://via.placeholder.com/180x180?text=Sem+Imagem");
-  const navigate = useNavigate();
 
   // 🔹 Carregar mídias da API
   const carregarMidias = async (textoPesquisa: string = "") => {
     try {
       const dados = await listarMidias(textoPesquisa);
       setMidias(dados);
-
-      // 🔹 Encontrar a primeira imagem válida para usar como fallback
-      let primeiraImagemValida = "https://via.placeholder.com/180x180?text=Sem+Imagem";
-
-      for (const m of dados) {
-        if (m.imagem) {
-          if (m.imagem.startsWith("data:image")) {
-            primeiraImagemValida = m.imagem;
-            break;
-          } else if (m.imagem.startsWith("/midia")) {
-            primeiraImagemValida = `https://localhost:7008${m.imagem}`;
-            break;
-          } else {
-            primeiraImagemValida = `data:image/jpeg;base64,${m.imagem}`;
-            break;
-          }
-        }
-      }
-
-      setImagemFallback(primeiraImagemValida);
-
     } catch (err) {
       console.error("Erro ao listar mídias:", err);
     }
@@ -95,7 +150,18 @@ function Acervo() {
       <div className='conteudoAcervo'>
         {/* Tabs */}
         <div style={{ display: 'flex', gap: '1vw', marginBottom: '2vw', justifyContent: 'center' }}>
-          
+          <button
+            className={`menu-btn${tab === 'livros' ? ' active' : ''}`}
+            onClick={() => setTab('livros')}
+          >
+            Livros
+          </button>
+          <button
+            className={`menu-btn${tab === 'audiovisual' ? ' active' : ''}`}
+            onClick={() => setTab('audiovisual')}
+          >
+            Audiovisual
+          </button>
         </div>
 
         {/* Barra de pesquisa */}
@@ -133,63 +199,9 @@ function Acervo() {
             margin: '0 auto'
           }}
         >
-          {midiasFiltradas.map((m) => {
-            // Seleciona imagem: própria da mídia ou fallback
-            let imagemSrc = imagemFallback;
-            if (m.imagem) {
-              if (m.imagem.startsWith("data:image")) imagemSrc = m.imagem;
-              else if (m.imagem.startsWith("/midia")) imagemSrc = `https://localhost:7008${m.imagem}`;
-              else imagemSrc = `data:image/jpeg;base64,${m.imagem}`;
-            }
-
-            return (
-              <div
-                key={m.idMidia}
-                style={{
-                  background: 'var(--fundo-destaque)',
-                  borderRadius: '1vw',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.07)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  padding: '1vw',
-                  width: 180,
-                  color: 'var(--texto)'
-                }}
-              >
-                <img
-                  src={imagemSrc}
-                  alt={m.titulo}
-                  style={{
-                    width: '100%',
-                    height: '180px',
-                    objectFit: 'cover',
-                    borderRadius: '0.7vw'
-                  }}
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = imagemFallback;
-                  }}
-                />
-                <div style={{ marginTop: '1vw', textAlign: 'center' }}>
-                  <div style={{ fontWeight: 600, fontSize: '1vw' }}>
-                    {m.titulo}, {m.anopublicacao || "Outros"}
-                  </div>
-                  <div style={{ fontSize: '0.9vw', color: '#888' }}>{m.autor}</div>
-                  <div
-                    style={{
-                      fontSize: '0.9vw',
-                      color: 'var(--azul-escuro)',
-                      marginTop: '0.5vw',
-                      cursor: 'pointer'
-                    }}
-                    onClick={() => navigate(`/infoAcervo/${m.idMidia}`)}
-                  >
-                    + Informações
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+          {midiasFiltradas.map((m) => (
+            <CardMidia key={m.idMidia} midia={m} />
+          ))}
         </div>
       </div>
 
