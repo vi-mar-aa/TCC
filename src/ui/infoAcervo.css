@@ -36,20 +36,20 @@
   margin-bottom: 0.5vw;
   font-size: 1vw;
 }
-.info-acervo-edit-btn {
-  position: absolute;
-  bottom: 1.5vw;
-  right: 1.5vw;
-  background: #0A4489;
-  border: none;
-  border-radius: 50%;
-  width: 2.5vw;
-  height: 2.5vw;
+
+.info-acervo-etiqueta-btn {
+  background: var(--fundo);
+  color: #0A4489;
+  border: 1.5px solid #0A4489;
+  border-radius: 35px;
+  font-size: 1.1vw;
+  font-weight: 600;
+  padding: 0.5vw 1.5vw;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  gap: 0.5vw;
+  transition: background 0.2s, color 0.2s;
 }
 .info-acervo-status {
   background: #fff;
@@ -83,16 +83,16 @@
   font-size: 1.2vw;
   margin-bottom: 1vw;
 }
-.info-acervo-bottom table {
+
+.texto {
+  width: 200px;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
   width: 100%;
-  border-collapse: collapse;
-  font-size: 1vw;
 }
-.info-acervo-bottom th, .info-acervo-bottom td {
-  padding: 0.6vw 0.5vw;
-  text-align: left;
-  border-bottom: 1px solid #e0e6ed;
-}
+
+
 .status-emprestado { color: #e6b800; font-weight: 500; }
 .status-reservado { color: #0A4489; font-weight: 500; }
 .status-livre { color: #3bb273; font-weight: 500; }

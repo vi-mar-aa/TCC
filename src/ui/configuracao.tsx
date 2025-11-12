@@ -70,7 +70,6 @@ function Configuracao() {
               </div>
             </div>
             <div className="configuracao-botoes">
-              <button className="configuracao-btn-cancelar"><X size={20} />Cancelar</button>
               <button className="configuracao-btn-salvar"><File size={20} />Salvar</button>
             </div>
           </div>
@@ -125,7 +124,6 @@ function Configuracao() {
               </select>
             </div>
             <div className="configuracao-botoes">
-              <button className="configuracao-btn-cancelar"><X size={20} />Cancelar</button>
               <button className="configuracao-btn-salvar"><File size={20} />Salvar</button>
             </div>
           </div>

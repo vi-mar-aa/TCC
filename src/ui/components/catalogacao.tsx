@@ -240,11 +240,6 @@ const Catalogacao: React.FC<CatalogacaoProps> = ({ open, onClose }) => {
         </div>
 
         <div className="catalogacao-btns">
-          <button className="catalogacao-etiqueta">
-            <Tag size={18} />
-            <span className="catalogacao-btn-bar" />
-            Gerar etiqueta PDF
-          </button>
           <div className="catalogacao-btns-row">
             <button className="catalogacao-cancelar" onClick={onClose}>
               <X size={18} />
