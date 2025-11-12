@@ -11,17 +11,30 @@ function Acervo() {
   const [generoAberto, setGeneroAberto] = useState(true);
   const [anoAberto, setAnoAberto] = useState(true);
   const [midias, setMidias] = useState<Midia[]>([]);
+  const [busca, setBusca] = useState('');
   const navigate = useNavigate();
 
-  // Buscar dados ao carregar
+  // 🔹 Função que busca as mídias (inicial e filtrada)
+  const carregarMidias = async (textoPesquisa: string = "") => {
+    try {
+      const dados = await listarMidias(textoPesquisa);
+      setMidias(dados);
+    } catch (err) {
+      console.error("Erro ao listar mídias:", err);
+    }
+  };
+
+  // 🔹 Carrega tudo ao abrir a página
   useEffect(() => {
-    listarMidias()
-      .then((dados) => {
-        console.log("Midias recebidas:", dados);
-        setMidias(dados);
-      })
-      .catch((err) => console.error("Erro ao listar mídias:", err));
+    carregarMidias();
   }, []);
+
+  // 🔹 Executa pesquisa quando o usuário aperta Enter
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      carregarMidias(busca);
+    }
+  };
 
   return (
     <div className='conteinerAcervo'>
@@ -127,11 +140,14 @@ function Acervo() {
           </div>
         </div>
 
-        {/* Barra de busca */}
+        {/* 🔍 Barra de busca */}
         <div style={{ width: '100%', maxWidth: 600, margin: '0 auto 2vw auto', display: 'flex', alignItems: 'center' }}>
           <input
             type="text"
             placeholder="Pesquisar..."
+            value={busca}
+            onChange={(e) => setBusca(e.target.value)}
+            onKeyDown={handleKeyDown}
             style={{
               width: '100%',
               padding: '0.7vw 2.5vw 0.7vw 1vw',
@@ -143,10 +159,11 @@ function Acervo() {
           <Search
             size={20}
             style={{ position: 'relative', right: '2.2vw', color: '#0A4489', cursor: 'pointer' }}
+            onClick={() => carregarMidias(busca)}
           />
         </div>
 
-        {/* Cards de livros */}
+        {/* 📚 Cards */}
         <div
           style={{
             width: '100%',
@@ -158,7 +175,6 @@ function Acervo() {
           }}
         >
           {midias.map((m) => {
-            // Detecta tipo de imagem automaticamente
             let imagemSrc = "https://via.placeholder.com/180x180?text=Sem+Imagem";
             if (m.imagem) {
               if (m.imagem.startsWith("data:image")) {
@@ -181,7 +197,7 @@ function Acervo() {
                   flexDirection: 'column',
                   alignItems: 'center',
                   padding: '1vw',
-                  minWidth: 180,
+                  width: 180,
                   color: 'var(--texto)'
                 }}
               >

@@ -95,20 +95,7 @@ function Login() {
           <p id='p1'>Acesse sua conta e continue explorando as ferramentas que facilitam a gestão da sua biblioteca.</p>
         </div>
         <div id='cx3'>
-          <button
-            className={`btnA ${selected === 'admin' ? 'btnA-selected' : ''}`}
-            id='btn1'
-            onClick={() => setSelected('admin')}
-          >
-            Administrador
-          </button>
-          <button
-            className={`btnA ${selected === 'biblio' ? 'btnA-selected' : ''}`}
-            id='btn2'
-            onClick={() => setSelected('biblio')}
-          >
-            Bibliotecário(a)
-          </button>
+
         </div>
         <div id='cx4'>
           <div className='cx4-1'>

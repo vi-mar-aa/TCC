@@ -34,21 +34,33 @@ const Catalogacao: React.FC<CatalogacaoProps> = ({ open, onClose }) => {
   };
 
   // Upload de imagem (transforma em base64)
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+// Upload de imagem (gera preview e envia apenas o base64 limpo)
+const [preview, setPreview] = useState<string | null>(null);
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      if (reader.result) {
-        setFormData((prev) => ({
-          ...prev,
-          imagem: reader.result.toString(),
-        }));
-      }
-    };
-    reader.readAsDataURL(file);
+const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const file = e.target.files?.[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onloadend = () => {
+    if (reader.result) {
+      // 👇 Divide a string em duas partes: "data:image/...;base64," e o conteúdo real
+      const base64Data = reader.result.toString().split(",")[1];
+
+      // 🔹 Atualiza o preview com a imagem completa (para mostrar no React)
+      setPreview(reader.result.toString());
+
+      // 🔹 Atualiza o formData com o base64 puro (para enviar à API)
+      setFormData((prev) => ({
+        ...prev,
+        imagem: base64Data,
+      }));
+    }
   };
+
+  reader.readAsDataURL(file);
+};
+
 
   // Chamada API
 const handleSave = async () => {
@@ -202,9 +214,9 @@ const handleSave = async () => {
           <div className="catalogacao-form-col catalogacao-form-col-direita">
             <div className="catalogacao-capa-upload">
               <div className="catalogacao-capa-placeholder">
-                {formData.imagem ? (
+                {preview ? (
                   <img
-                    src={formData.imagem}
+                    src={preview}
                     alt="Preview"
                     style={{
                       width: "120px",
@@ -217,6 +229,7 @@ const handleSave = async () => {
                   <Image size={48} color="#bfc9d1" />
                 )}
               </div>
+
 
               {/* Botão estilizado para upload */}
               <label className="catalogacao-upload-btn">
