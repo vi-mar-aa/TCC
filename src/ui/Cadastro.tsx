@@ -4,8 +4,8 @@ import './cadastro.css';
 import logo from './assets/logoLazul.png';
 import { Eye, EyeOff } from 'lucide-react';
 import ApiManager from './ApiManager';
-import temaEscuro from './AppLogIn';
-import AppLogIn from './AppLogIn';
+import temaEscuro from './App';
+import AppLogIn from './App';
 
 function Cadastro() {
   const [showSenha1, setShowSenha1] = useState(false);

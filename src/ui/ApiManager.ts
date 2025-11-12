@@ -76,6 +76,66 @@ export async function listarMidias(): Promise<Midia[]> {
   return response.data;
 }
 
+export interface MidiaEspecifica {
+  "idMidia": number,
+  "chaveIdentificadora": "string",
+  "codigoExemplar": number,
+  "idfuncionario": number,
+  "idtpmidia": number,
+  "titulo": "string",
+  "autor": "string",
+  "sinopse": "string",
+  "editora": "string",
+  "anopublicacao": "string",
+  "edicao": "string",
+  "localpublicacao": "string",
+  "npaginas": number,
+  "isbn": "string",
+  "duracao": "string",
+  "estudio": "string",
+  "roterista": "string",
+  "dispo": number,
+  "genero": number,
+  "contExemplares": number,
+  "nomeTipo": "string",
+  "imagem": "string"
+}
+
+
+export async function listarMidiaEspecifica(idMidia: number): Promise<MidiaEspecifica[]> {
+  const api = ApiManager.getApiService();
+
+  const body = {
+    idMidia: idMidia,
+    chaveIdentificadora: "string",
+    codigoExemplar: 0,
+    idfuncionario: 0,
+    idtpmidia: 0,
+    titulo: "string",
+    autor: "string",
+    sinopse: "string",
+    editora: "string",
+    anopublicacao: "string",
+    edicao: "string",
+    localpublicacao: "string",
+    npaginas: 0,
+    isbn: "string",
+    duracao: "string",
+    estudio: "string",
+    roterista: "string",
+    dispo: 0,
+    genero: 0,
+    contExemplares: 0,
+    nomeTipo: "string",
+    imagem: "string"
+  };
+
+  const response = await api.post<MidiaEspecifica[]>("/ListaMidiaEspecifica", body);
+  return response.data;
+}
+
+
+
 
 
 

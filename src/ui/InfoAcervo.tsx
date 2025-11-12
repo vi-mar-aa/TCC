@@ -1,26 +1,59 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { listarMidiaEspecifica, MidiaEspecifica } from "./ApiManager";
 import './infoAcervo.css';
 
-export default function InfoAcervo() {
+const InfoAcervo: React.FC = () => {
+  const { idMidia } = useParams<{ idMidia: string }>(); // pega o id da URL
+  const [midia, setMidia] = useState<MidiaEspecifica | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [erro, setErro] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!idMidia) return;
+
+    const carregarMidia = async () => {
+      try {
+        const data = await listarMidiaEspecifica(Number(idMidia));
+        if (data.length > 0) {
+          setMidia(data[0]);
+        } else {
+          setErro("Nenhum resultado encontrado para este ID.");
+        }
+      } catch (error) {
+        setErro("Erro ao buscar dados da mídia.");
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    carregarMidia();
+  }, [idMidia]);
+
+  if (loading) return <p>Carregando informações...</p>;
+  if (erro) return <p>{erro}</p>;
+  if (!midia) return <p>Nenhuma mídia encontrada.</p>;
+
   return (
-    <div className="info-acervo-container">
+   <div className="info-acervo-container">
       <div className="info-acervo-top">
         <img
           className="info-acervo-cover"
-          src="https://images-na.ssl-images-amazon.com/images/I/81QZVt6lQwL.jpg"
-          alt="The Dragon Republic"
+          src={midia.imagem}
+          alt={midia.imagem}
         />
         <div className="info-acervo-geral">
           <h2>Informações gerais</h2>
           <div className="info-acervo-list">
-            <div><b>Título:</b> The Dragon Republic</div>
-            <div><b>Autor:</b> R.F. Kuang</div>
-            <div><b>Ano de lançamento:</b> 2022</div>
-            <div><b>Editora:</b> Intrínseca</div>
-            <div><b>ISBN:</b> 978-3-16-148410-0</div>
-            <div><b>Gênero:</b> Fantasia</div>
-            <div><b>Edição:</b> 3°</div>
-            <div><b>Sinopse:</b> Lorem ipsum dolor...</div>
+            <div><b>Título:</b> {midia.titulo}</div>
+            <div><b>Autor:</b> {midia.autor} </div>
+            <div><b>Ano de lançamento:</b> {midia.anopublicacao}</div>
+            <div><b>Editora:</b> {midia.editora}</div>
+            <div><b>ISBN:</b> {midia.isbn}</div>
+            <div><b>Gênero:</b> {midia.genero}</div>
+            <div><b>Edição:</b> {midia.edicao}</div>
+            <div><b>Sinopse:</b> {midia.sinopse} </div>
           </div>
           <button className="info-acervo-edit-btn">
             <svg width="24" height="24" fill="#0A4489"><circle cx="12" cy="12" r="12"/><path d="M7 17h2l7-7-2-2-7 7v2zm9.7-9.3a1 1 0 0 0 0-1.4l-2-2a1 1 0 0 0-1.4 0l-1.1 1.1 3.4 3.4 1.1-1.1z" fill="#fff"/></svg>
@@ -98,4 +131,6 @@ export default function InfoAcervo() {
       </div>
     </div>
   );
-}
+};
+
+export default InfoAcervo;

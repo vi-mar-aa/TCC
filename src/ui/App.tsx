@@ -36,7 +36,7 @@ function AppLogIn() {
           <Route path="/eventos" element={<Eventos />} />
           <Route path="/forum/denuncias" element={<Denuncias />} />
           <Route path="/configuracao" element={<Configuracao />} />
-          <Route path="/infoAcervo" element={<InfoAcervo />} />
+          <Route path="/infoAcervo/:idMidia" element={<InfoAcervo />} />
         </Routes>
       </div>
     </TemaProvider>

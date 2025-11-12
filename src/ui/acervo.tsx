@@ -4,19 +4,23 @@ import Menu from './components/menu';
 import { Search, ChevronDown } from 'lucide-react';
 import BotaoMais from './components/botaoMais';
 import { useNavigate } from 'react-router-dom';
-import { listarMidias, Midia } from './ApiManager'; // importa função e tipo
-
+import { listarMidias, Midia } from './ApiManager';
 
 function Acervo() {
   const [tab, setTab] = useState<'livros' | 'audiovisual'>('livros');
   const [generoAberto, setGeneroAberto] = useState(true);
   const [anoAberto, setAnoAberto] = useState(true);
-  const [midias, setMidias] = useState<Midia[]>([]); // state para os dados
+  const [midias, setMidias] = useState<Midia[]>([]);
   const navigate = useNavigate();
 
   // Buscar dados ao carregar
   useEffect(() => {
-    listarMidias().then(setMidias).catch((err) => console.error(err));
+    listarMidias()
+      .then((dados) => {
+        console.log("Midias recebidas:", dados);
+        setMidias(dados);
+      })
+      .catch((err) => console.error("Erro ao listar mídias:", err));
   }, []);
 
   return (
@@ -88,6 +92,7 @@ function Acervo() {
               </div>
             )}
           </div>
+
           {/* Filtro Ano */}
           <div className="filtro-box">
             <div className='filtro-titulo' style={{ display: 'flex', alignItems: 'center' }}>
@@ -143,65 +148,77 @@ function Acervo() {
 
         {/* Cards de livros */}
         <div
-        style={{
-          width: '100%',
-          maxWidth: 1100,
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-          gap: '2vw',
-          margin: '0 auto'
-        }}
-      >
-        {midias.map((m) => (
-          <div
-            key={m.idMidia}
-            style={{
-              background: 'var(--fundo-destaque)',
-              borderRadius: '1vw',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.07)',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              padding: '1vw',
-              minWidth: 180,
-              color: 'var(--texto)'
-            }}
-          >
-            <img
-              src={
-                m.imagem
-                  ? `data:image/jpeg;base64,${m.imagem}` // base64 da API
-                  : 'https://via.placeholder.com/180x180?text=Sem+Imagem' // fallback
+          style={{
+            width: '100%',
+            maxWidth: 1100,
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+            gap: '2vw',
+            margin: '0 auto'
+          }}
+        >
+          {midias.map((m) => {
+            // Detecta tipo de imagem automaticamente
+            let imagemSrc = "https://via.placeholder.com/180x180?text=Sem+Imagem";
+            if (m.imagem) {
+              if (m.imagem.startsWith("data:image")) {
+                imagemSrc = m.imagem;
+              } else if (m.imagem.startsWith("/midia")) {
+                imagemSrc = `https://localhost:7008${m.imagem}`;
+              } else {
+                imagemSrc = `data:image/jpeg;base64,${m.imagem}`;
               }
-              alt={m.titulo}
-              style={{
-                width: '100%',
-                height: '180px',
-                objectFit: 'cover',
-                borderRadius: '0.7vw'
-              }}
-            />
-            <div style={{ marginTop: '1vw', textAlign: 'center' }}>
-              <div style={{ fontWeight: 600, fontSize: '1vw' }}>
-                {m.titulo}, {m.anopublicacao}
-              </div>
-              <div style={{ fontSize: '0.9vw', color: '#888' }}>{m.autor}</div>
+            }
+
+            return (
               <div
+                key={m.idMidia}
                 style={{
-                  fontSize: '0.9vw',
-                  color: 'var(--azul-escuro)',
-                  marginTop: '0.5vw',
-                  cursor: 'pointer'
+                  background: 'var(--fundo-destaque)',
+                  borderRadius: '1vw',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.07)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  padding: '1vw',
+                  minWidth: 180,
+                  color: 'var(--texto)'
                 }}
-                onClick={() => navigate(`/infoAcervo/${m.idMidia}`)} // pode passar id
               >
-                + Informações
+                <img
+                  src={imagemSrc}
+                  alt={m.titulo}
+                  style={{
+                    width: '100%',
+                    height: '180px',
+                    objectFit: 'cover',
+                    borderRadius: '0.7vw'
+                  }}
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = "https://via.placeholder.com/180x180?text=Erro+Imagem";
+                  }}
+                />
+                <div style={{ marginTop: '1vw', textAlign: 'center' }}>
+                  <div style={{ fontWeight: 600, fontSize: '1vw' }}>
+                    {m.titulo}, {m.anopublicacao}
+                  </div>
+                  <div style={{ fontSize: '0.9vw', color: '#888' }}>{m.autor}</div>
+                  <div
+                    style={{
+                      fontSize: '0.9vw',
+                      color: 'var(--azul-escuro)',
+                      marginTop: '0.5vw',
+                      cursor: 'pointer'
+                    }}
+                    onClick={() => navigate(`/infoAcervo/${m.idMidia}`)}
+                  >
+                    + Informações
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        ))}
-      </div>
-            
+            );
+          })}
+        </div>
       </div>
       <BotaoMais title="Adicionar" />
     </div>
