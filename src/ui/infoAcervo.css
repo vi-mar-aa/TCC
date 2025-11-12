@@ -37,7 +37,7 @@
   font-size: 1vw;
 }
 
-.info-acervo-etiqueta-btn {
+button {
   background: var(--fundo);
   color: #0A4489;
   border: 1.5px solid #0A4489;

@@ -51,67 +51,69 @@ const Catalogacao: React.FC<CatalogacaoProps> = ({ open, onClose }) => {
   };
 
   // Chamada API
-  const handleSave = async () => {
-    try {
-      const api = ApiManager.getApiService();
+const handleSave = async () => {
+  try {
+    const api = ApiManager.getApiService();
 
-      // Recupera funcionario logado do localStorage
-      const funcionarioStr = localStorage.getItem("funcionario");
-      if (!funcionarioStr) {
-        alert("Nenhum funcionário logado.");
-        return;
-      }
-      const funcionario = JSON.parse(funcionarioStr);
-
-      const payload = {
-        "funcionario": {
-          "idFuncionario": 0,
-          "idcargo": 0,
-          "nome": "string",
-          "cpf": "string",
-          "email": "maria.vitoria@email.com",
-          "senha": "string",
-          "telefone": "string",
-          "statusconta": "string"
-        },
-        "midia": {
-          "idMidia": 0,
-          "codigoExemplar": 0,
-          "idfuncionario": funcionario.idFuncionario,
-          "idtpmidia": 0,
-          "titulo": formData.titulo,
-          "autor": formData.autor,
-          "sinopse": formData.sinopse,
-          "editora": formData.editora,
-          "anopublicacao": formData.anopublicacao || 0,
-          "edicao": formData.edicao,
-          "localpublicacao": formData.local,
-          "npaginas": formData.npaginas,
-          "isbn": formData.isbn,
-          "duracao": "",
-          "estudio": "",
-          "roterista": "",
-          "dispo": 0,
-          "genero": 0,
-          "contExemplares": 0,
-          "nomeTipo": "Livro",
-          "imagem": formData.imagem,
-        },
-
-        
-
-      };
-
-      console.log(payload)
-
-      await api.post("/AdicionarLivro", payload);
-      alert("Livro adicionado com sucesso!");
-      onClose();
-    } catch (error) {
-      console.error("Erro ao salvar:", error);
-      alert("Erro ao salvar o livro.");
+    const funcionarioStr = localStorage.getItem("funcionario");
+    if (!funcionarioStr) {
+      alert("Nenhum funcionário logado.");
+      return;
     }
-  };
+    const funcionario = JSON.parse(funcionarioStr);
+
+    const payload = {
+      funcionario: {
+        idFuncionario: 0,
+        idcargo: 0,
+        nome: "string",
+        cpf: "string",
+        email: "maria.vitoria@email.com",
+        senha: "string",
+        telefone: "string",
+        statusconta: "string",
+      },
+      midia: {
+        idMidia: 0,
+        codigoExemplar: 0,
+        idfuncionario: funcionario.idFuncionario,
+        idtpmidia: 0,
+        titulo: formData.titulo,
+        autor: formData.autor,
+        sinopse: formData.sinopse,
+        editora: formData.editora,
+        anopublicacao: formData.anopublicacao || 0,
+        edicao: formData.edicao,
+        localpublicacao: formData.local,
+        npaginas: formData.npaginas,
+        isbn: formData.isbn,
+        duracao: "",
+        estudio: "",
+        roterista: "",
+        dispo: 0,
+        genero: 0,
+        contExemplares: 0,
+        nomeTipo: "Livro",
+        imagem: formData.imagem,
+      },
+    };
+
+    console.log(payload);
+
+    await api.post("/AdicionarLivro", payload);
+
+    alert("Livro adicionado com sucesso!");
+    onClose();
+
+    // 👇 Adicione esta linha:
+    window.location.reload();
+
+  } catch (error) {
+    console.error("Erro ao salvar:", error);
+    alert("Erro ao salvar o livro.");
+  }
+};
+
 
   return (
     <div className="catalogacao-modal-overlay">
