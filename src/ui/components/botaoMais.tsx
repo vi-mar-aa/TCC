@@ -51,18 +51,6 @@ const BotaoMais: React.FC<BotaoMaisProps> = ({
             <div className="fab-menu-arrow" />
             <div className="fab-menu-list">
 
-              {/* NOVO: Adicionar Funcionário */}
-              <div
-                className="fab-menu-item"
-                onClick={() => {
-                  if (onAdicionarFuncionario) onAdicionarFuncionario();
-                  setOpen(false);
-                }}
-              >
-                <UserPlus size={20} style={{ marginRight: 8, color: '#0A4489' }} />
-                Adicionar Funcionário
-              </div>
-
               {/* Já existentes */}
               <div
                 className="fab-menu-item"

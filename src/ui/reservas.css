@@ -1,5 +1,4 @@
 .conteinerReservas {
-
     min-height: 100vh;
     display: flex;
     flex-direction: row;
@@ -45,6 +44,7 @@
     background: transparent;
     font-size: 1vw;
     border-radius: 2vw;
+    color: var(--texto);
 }
 .busca-reserva svg {
     color: var(--azul-escuro);
@@ -84,7 +84,7 @@
     border-bottom: none;
 }
 .tabela-reserva tr.faded td {
-    color: var(--cinza);
+    color: var(--texto);
 }
 .tabela-reserva td:last-child {
     text-align: center;
@@ -115,62 +115,94 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
     margin: 2vw 0 1vw 0;
     position: relative;
-    padding: 1vw;
+    padding: 2vw 1vw 1vw 1vw;
 }
 .grafico-header {
     position: absolute;
     top: 1vw;
     right: 2vw;
-    background: var(--fundo);
-    border-radius: 1vw;
-    padding: 0.2vw 1vw;
-    font-size: 1vw;
-    color: var(--azul-escuro);
-    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+}
+.egrafico-ano-btn {
     display: flex;
     align-items: center;
     gap: 0.5vw;
+    font-size: 1vw;
+    background: var(--fundo);
+    border: 1px solid var(--azul-escuro);
+    border-radius: 0.5vw;
+    padding: 0.2vw 0.8vw;
+    cursor: pointer;
 }
-.grafico-header .chevron {
-    font-size: 1.2vw;
-    margin-left: 0.5vw;
+.egrafico-dropdown {
+    margin-top: 0.3vw;
+    background: var(--fundo-destaque);
+    border-radius: 0.5vw;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
+.egrafico-ano-opcao {
+    padding: 0.5vw 1vw;
+    cursor: pointer;
+}
+.egrafico-ano-opcao:hover {
+    background: var(--azul-claro);
+}
+
 .grafico-reserva {
     display: flex;
     align-items: flex-end;
-    height: 10vw;
-    gap: 0.5vw;
+    height: 15vw; /* mais alto */
+    gap: 0.8vw;
     margin-bottom: 1vw;
     margin-top: 2vw;
     position: relative;
+    justify-content: space-between; /* alinha com labels */
 }
+
 .barra {
-    width: 1.2vw;
+    width: 2vw;
     border-radius: 0.5vw 0.5vw 0 0;
     background: var(--azul-escuro);
     opacity: 0.7;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s, opacity 0.2s;
 }
-.barra1 { height: 2vw; background: var(--azul-escuro); }
-.barra2 { height: 3vw; background: var(--azul-claro); }
-.barra3 { height: 4vw; background: var(--azul-claro); }
-.barra4 { height: 2.8vw; background: var(--azul); }
-.barra5 { height: 3.5vw; background: var(--azul-escuro); }
-.barra6 { height: 1vw; background: var(--azul-escuro); }
-.barra7 { height: 2.8vw; background: var(--azul-claro); }
-.barra8 { height: 4vw; background: var(--azul-claro); }
-.barra9 { height: 2vw; background: var(--azul); }
-.barra10 { height: 3vw; background: var(--azul-escuro); }
-.barra11 { height: 1vw; background: var(--azul-escuro); }
-.barra12 { height: 2.8vw; background: var(--azul-claro); }
-.grafico-labels {
+.barra:hover {
+    opacity: 1;
+}
+
+/* tooltip */
+.barra::after {
+    content: attr(data-tooltip);
     position: absolute;
-    bottom: -1.5vw;
-    left: 0;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--azul-escuro);
+    color: var(--fundo);
+    padding: 0.3vw 0.6vw;
+    border-radius: 0.5vw;
+    font-size: 0.8vw;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, bottom 0.2s;
+}
+.barra:hover::after {
+    opacity: 1;
+    bottom: 100%;
+}
+
+.grafico-labels {
     width: 100%;
     display: flex;
     justify-content: space-between;
     font-size: 0.9vw;
     color: var(--texto);
+    position: absolute;
+    bottom: -1.5vw;
 }
 
 .relatorio-btn-wrap {

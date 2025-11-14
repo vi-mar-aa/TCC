@@ -6,12 +6,12 @@
 }
 
 .conteudoEmprestimos {
-  flex: 1;
   display: flex;
   flex-direction: column;
   padding: 2vw 0 0 0;
-  min-height: 100vh;
   box-sizing: border-box;
+  width: 70%;
+  align-items: center;
 }
 
 .busca-emprestimo {
@@ -50,13 +50,20 @@
   margin-left: 4vw;
 }
 
+#Diva{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
 .egrafico-card {
   background: var(--fundo-destaque);
   border-radius: 1.2vw;
   box-shadow: 0 2px 8px rgba(0,0,0,0.09);
   padding: 2vw 2vw 1vw 2vw;
   margin-bottom: 2vw;
-  width: 100%;
+  width: 70%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -75,7 +82,7 @@
 
 .egrafico-card-titulo {
   font-weight: 600;
-  font-size: 2vw;
+  font-size: 1.4vw;
   color: var(--azul-escuro);
   margin-bottom: 1vw;
   align-self: flex-start;
@@ -96,7 +103,9 @@
   display: flex;
   flex-direction: column;
   gap: 1vw;
-  font-size: 2.1vw;
+  font-size: 1vw;
+  margin-top: auto;
+  margin-bottom: auto ;
 }
 
 .egrafico-legenda-item {

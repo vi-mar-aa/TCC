@@ -1,7 +1,3 @@
-
-
-
-
 .conteinerDashboard {
     min-height: 100vh;
     display: flex;
@@ -14,8 +10,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 2vw;
-    width: 100%;
-    max-width: 1100px;
+    width: 85%;
     margin: 0 auto;
 }
 
@@ -43,8 +38,9 @@
     width: 100%;
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center;
     padding: 2vw;
 }
 
@@ -257,4 +253,49 @@
     .dashboard-table-card {
         grid-column: 1;
     }
+}
+
+/* Tooltip para barras (igual reservas) */
+.grafico-reserva {
+
+}
+
+.grafico-reserva .barra {
+  width: 1.2vw;
+  background: var(--azul-escuro);
+  border-radius: 0.5vw 0.5vw 0 0;
+  position: relative;
+  cursor: pointer;
+}
+
+.grafico-reserva .barra::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-0.5vw);
+  padding: 0.3vw 0.5vw;
+  background: var(--azul-escuro);
+  color: #fff;
+  font-size: 0.8vw;
+  border-radius: 0.5vw;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+  z-index: 10;
+}
+
+.grafico-reserva .barra:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-1vw);
+}
+
+/* Labels dos meses abaixo da barra */
+.grafico-reserva .grafico-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5vw;
+  font-size: 0.9vw;
+  color: var(--texto);
 }

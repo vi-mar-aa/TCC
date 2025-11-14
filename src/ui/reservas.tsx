@@ -1,19 +1,74 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './reservas.css';
 import Menu from './components/menu';
-import { Search } from 'lucide-react';
+import { Search, ChevronDown } from 'lucide-react';
+import ApiManager from './ApiManager';
 
-const reservasData = [
-  { codigo: '978-3-16-148410-0/1', titulo: 'As Sombras de Veridian', tempo: '23 horas', usuario: 'larissamendes' },
-  { codigo: '978-3-16-148410-0/2', titulo: 'As Sombras de Veridian', tempo: '23 horas', usuario: 'joaopedrosa_07' },
-  { codigo: '978-3-16-148410-0/3', titulo: 'As Sombras de Veridian', tempo: '23 horas', usuario: 'camila.ribeiro' },
-  { codigo: '978-3-16-148410-0/4', titulo: 'As Sombras de Veridian', tempo: '23 horas', usuario: 'leo_fer' },
-  { codigo: '978-3-16-148410-0/5', titulo: 'As Sombras de Veridian', tempo: '23 horas', usuario: 'nathsilva23' },
-  { codigo: '978-3-16-148410-0/6', titulo: 'As Sombras de Veridian', tempo: '23 horas', usuario: 'gustavogmoura' },
-  { codigo: '978-3-16-148410-0/7', titulo: 'As Sombras de Veridian', tempo: '23 horas', usuario: 'vivi.martins', faded: true },
-];
+export interface Reserva {
+  reserva: {
+    idReserva: number;
+    idCliente: number;
+    idMidia: number;
+    dataReserva: string;
+    dataLimite: string;
+    statusReserva: string | null;
+  };
+  midia: {
+    titulo: string;
+    chaveIdentificadora: string;
+    imagem: string | null;
+    dispo: string | null;
+  };
+  cliente: {
+    user: string;
+    imagemPerfil: string | null;
+  };
+  tempoRestante: string;
+}
 
 function Reservas() {
+  const [reservas, setReservas] = useState<Reserva[]>([]);
+  const [searchText, setSearchText] = useState('');
+  const [anoSelecionado, setAnoSelecionado] = useState<number>(new Date().getFullYear());
+  const [dropdownAberto, setDropdownAberto] = useState(false);
+  const [anosDisponiveis, setAnosDisponiveis] = useState<number[]>([]);
+
+  useEffect(() => {
+    async function carregarReservas() {
+      try {
+        const api = ApiManager.getApiService();
+        const response = await api.get<Reserva[]>('/ListarReservas');
+        setReservas(response.data);
+
+        // Extrai os anos únicos das reservas
+        const anos = Array.from(new Set(response.data.map(r => new Date(r.reserva.dataReserva).getFullYear())));
+        anos.sort((a, b) => b - a);
+        setAnosDisponiveis(anos);
+        if (anos.length) setAnoSelecionado(anos[0]);
+      } catch (error) {
+        console.error('Erro ao carregar reservas:', error);
+      }
+    }
+    carregarReservas();
+  }, []);
+
+  const reservasFiltradas = reservas.filter(r =>
+    r.midia.titulo?.toLowerCase().includes(searchText.toLowerCase()) ||
+    r.cliente.user.toLowerCase().includes(searchText.toLowerCase()) ||
+    r.midia.chaveIdentificadora?.toLowerCase().includes(searchText.toLowerCase())
+  );
+
+  const reservasDoAno = reservas.filter(r => {
+    const anoReserva = new Date(r.reserva.dataReserva).getFullYear();
+    return anoReserva === anoSelecionado;
+  });
+
+  const reservasPorMes = Array(12).fill(0);
+  reservasDoAno.forEach(r => {
+    const mes = new Date(r.reserva.dataReserva).getMonth();
+    reservasPorMes[mes]++;
+  });
+
   return (
     <div className='conteinerReservas'>
       <Menu />
@@ -22,7 +77,12 @@ function Reservas() {
 
         {/* Barra de busca */}
         <div className="busca-reserva">
-          <input type="text" placeholder="Pesquisar..." />
+          <input
+            type="text"
+            placeholder="Pesquisar..."
+            value={searchText}
+            onChange={e => setSearchText(e.target.value)}
+          />
           <Search size={20} />
         </div>
 
@@ -39,78 +99,55 @@ function Reservas() {
               </tr>
             </thead>
             <tbody>
-              {reservasData.map((r, i) => (
-                <tr key={i} className={r.faded ? 'faded' : ''}>
-                  <td>{r.codigo}</td>
-                  <td>{r.titulo}</td>
-                  <td>{r.tempo}</td>
-                  <td>{r.usuario}</td>
-                  <td>...</td>
+              {reservasFiltradas.map((r, i) => (
+                <tr key={i} className={r.tempoRestante?.startsWith('-') ? 'faded' : ''}>
+                  <td>{r.midia.chaveIdentificadora}</td>
+                  <td>{r.midia.titulo}</td>
+                  <td>{r.tempoRestante}</td>
+                  <td>
+                    <div className="usuario-reserva">
+                      {r.cliente.user}
+                    </div>
+                  </td>
+                  <td></td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <div className="expandir">
-            <span>Expandir</span> <span className="expandir-mais">+</span>
-          </div>
         </div>
 
-        {/* Gráfico de barras fake */}
+        {/* Gráfico de reservas */}
         <div className="grafico-reserva-container">
           <div className="grafico-header">
-            <span>2024</span>
-            <span className="chevron">&#9660;</span>
+            <button className="egrafico-ano-btn" onClick={() => setDropdownAberto(!dropdownAberto)}>
+              {anoSelecionado} <ChevronDown size={18} />
+            </button>
+            {dropdownAberto && (
+              <div className="egrafico-dropdown">
+                {anosDisponiveis.map(ano => (
+                  <div key={ano} className="egrafico-ano-opcao" onClick={() => { setAnoSelecionado(ano); setDropdownAberto(false); }}>
+                    {ano}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
+
           <div className="grafico-reserva">
-            {/* Barras fake */}
-            <div className="barra barra1"></div>
-            <div className="barra barra2"></div>
-            <div className="barra barra3"></div>
-            <div className="barra barra4"></div>
-            <div className="barra barra5"></div>
-            <div className="barra barra6"></div>
-            <div className="barra barra7"></div>
-            <div className="barra barra8"></div>
-            <div className="barra barra9"></div>
-            <div className="barra barra10"></div>
-            <div className="barra barra11"></div>
-            <div className="barra barra12"></div>
-             <div className="barra barra1"></div>
-            <div className="barra barra2"></div>
-            <div className="barra barra3"></div>
-            <div className="barra barra4"></div>
-            <div className="barra barra5"></div>
-            <div className="barra barra6"></div>
-            <div className="barra barra7"></div>
-            <div className="barra barra8"></div>
-            <div className="barra barra9"></div>
-            <div className="barra barra10"></div>
-            <div className="barra barra11"></div>
-            <div className="barra barra12"></div>
-             <div className="barra barra1"></div>
-            <div className="barra barra2"></div>
-            <div className="barra barra3"></div>
-            <div className="barra barra4"></div>
-            <div className="barra barra5"></div>
-            <div className="barra barra6"></div>
-            <div className="barra barra7"></div>
-            <div className="barra barra8"></div>
-            <div className="barra barra9"></div>
-            <div className="barra barra10"></div>
-            <div className="barra barra11"></div>
-            <div className="barra barra12"></div>
+            {reservasPorMes.map((qtd, i) => (
+              <div
+                key={i}
+                className="barra"
+                style={{ height: `${qtd * 3 + 2}vw` }}
+                data-tooltip={`${qtd} reserva${qtd !== 1 ? 's' : ''}`}
+              />
+            ))}
             <div className="grafico-labels">
-              <span>jan</span><span>fev</span><span>mar</span><span>abr</span><span>mai</span><span>jun</span>
-              <span>jul</span><span>ago</span><span>set</span><span>out</span><span>nov</span><span>dez</span>
+              <span>jan</span><span>fev</span><span>mar</span><span>abr</span>
+              <span>mai</span><span>jun</span><span>jul</span><span>ago</span>
+              <span>set</span><span>out</span><span>nov</span><span>dez</span>
             </div>
           </div>
-        </div>
-
-        {/* Botão Gerar Relatório */}
-        <div className="relatorio-btn-wrap">
-          <button className="relatorio-btn">
-            <span role="img" aria-label="relatório">📊</span> Gerar Relatório
-          </button>
         </div>
       </div>
     </div>
