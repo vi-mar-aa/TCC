@@ -185,6 +185,29 @@ export async function listarIndicacoes() {
   return response.data;
 }
 
+const API_URL = "https://localhost:7008";
+
+export async function listarEmprestimos() {
+  try {
+    const response = await fetch(`${API_URL}/ListarEmprestimos`, {
+      method: "GET",
+      headers: {
+        Accept: "*/*",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Erro ao buscar empréstimos");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Erro na API listarEmprestimos:", error);
+    return [];
+  }
+}
+
+
 
 
 export default ApiManager;

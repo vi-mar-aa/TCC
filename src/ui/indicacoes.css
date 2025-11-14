@@ -27,8 +27,7 @@
 }
 
 .indicacoes-box {
-  width: 100%;
-  max-width: 700px;
+  width: 70%;
   background: var(--fundo-destaque);
   border-radius: 1.2vw;
   box-shadow: 0 2px 8px rgba(0,0,0,0.09);
@@ -85,8 +84,7 @@
 }
 
 .indicacoes-livros-box {
-  width: 100%;
-  max-width: 700px;
+  width: 70%;
   background: var(--fundo-destaque);
   border-radius: 1.2vw;
   box-shadow: 0 2px 8px rgba(0,0,0,0.09);
@@ -125,29 +123,3 @@
   border-bottom: none;
 }
 
-.indicacoes-relatorio-btn-wrap {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 2vw;
-}
-
-.indicacoes-relatorio-btn {
-  background: var(--fundo);
-  color: var(--azul-escuro);
-  border: 2px solid var(--azul-escuro);
-  border-radius: 35px;
-  font-size: 1.1vw;
-  font-weight: 600;
-  padding: 0.7vw 2vw;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.7vw;
-  transition: background 0.2s, color 0.2s;
-}
-
-.indicacoes-relatorio-btn:hover {
-  background: var(--azul-escuro);
-  color: var(--fundo-destaque);
-}

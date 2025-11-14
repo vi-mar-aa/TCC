@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Menu from "./components/menu";
 import { User, FileBarChart2 } from "lucide-react";
 import { listarIndicacoes } from "./ApiManager";
-import'./indicacoes.css'
+import "./indicacoes.css";
 
 interface Cliente {
   idCliente: number;
@@ -11,9 +11,23 @@ interface Cliente {
   imagemPerfil: string | null;
 }
 
+interface IndicacaoApi {
+  cliente: Cliente;
+  indicacao: {
+    idIndicacao: number;
+    idCliente: number;
+    textoIndicacao: string;
+    autorIndicado: string;
+    dataIndicacao: string;
+  };
+  contagem: number;
+}
+
 interface Indicacao {
   cliente: Cliente;
-  texto: string; // texto da indicação, usado também como título do livro aqui
+  texto: string;
+  autor: string;
+  data: string;
 }
 
 interface LivroMaisIndicado {
@@ -28,20 +42,27 @@ function Indicacoes() {
   useEffect(() => {
     async function carregarIndicacoes() {
       try {
-        const dados = await listarIndicacoes();
-        setIndicacoes(dados);
+        const dados: IndicacaoApi[] = await listarIndicacoes();
 
-        // gerar ranking de livros mais indicados
+        const adaptado: Indicacao[] = dados.map((item) => ({
+          cliente: item.cliente,
+          texto: item.indicacao.textoIndicacao,
+          autor: item.indicacao.autorIndicado,
+          data: item.indicacao.dataIndicacao,
+        }));
+
+        setIndicacoes(adaptado);
+
         const contagem: { [key: string]: number } = {};
-        dados.forEach((ind) => {
-          const titulo = ind.texto; // aqui você pode substituir por ind.livro se tiver
-          contagem[titulo] = (contagem[titulo] || 0) + 1;
+        adaptado.forEach((ind) => {
+          contagem[ind.texto] = (contagem[ind.texto] || 0) + 1;
         });
 
         const ranking = Object.entries(contagem)
           .map(([nome, qtd]) => ({ nome, qtd }))
           .sort((a, b) => b.qtd - a.qtd)
-          .slice(0, 5); // top 5 livros
+          .slice(0, 5);
+
         setLivrosMaisIndicados(ranking);
       } catch (error) {
         console.error("Erro ao carregar indicações:", error);
@@ -52,18 +73,43 @@ function Indicacoes() {
   }, []);
 
   return (
+    
     <div className="conteinerIndicacoes">
       <Menu />
       <div className="conteudoIndicacoes">
+        
         <h2 className="indicacoes-titulo">Indicações</h2>
 
-        {/* Lista de indicações */}
+        <div className="indicacoes-livros-box">
+          <span className="indicacoes-livros-titulo">Livros mais indicados:</span>
+          <table className="indicacoes-livros-tabela">
+            <thead>
+              <tr>
+                <th>Posição</th>
+                <th>Nome</th>
+                <th>Quantidade</th>
+              </tr>
+            </thead>
+            <tbody>
+              {livrosMaisIndicados.map((livro, i) => (
+                <tr key={i}>
+                  <td>{i + 1}°</td>
+                  <td>{livro.nome}</td>
+                  <td>{livro.qtd}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
         <div className="indicacoes-box">
           <table className="indicacoes-tabela">
             <thead>
               <tr>
                 <th>Usuário</th>
-                <th>Indicação</th>
+                <th>Livro</th>
+                <th>Autor</th>
+                <th>Data</th>
               </tr>
             </thead>
             <tbody>
@@ -90,42 +136,15 @@ function Indicacoes() {
                     </div>
                   </td>
                   <td>{ind.texto}</td>
+                  <td>{ind.autor}</td>
+                  <td>{new Date(ind.data).toLocaleDateString()}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
 
-        {/* Livros mais indicados */}
-        <div className="indicacoes-livros-box">
-          <span className="indicacoes-livros-titulo">Livros mais indicados:</span>
-          <table className="indicacoes-livros-tabela">
-            <thead>
-              <tr>
-                <th>Posição</th>
-                <th>Nome</th>
-                <th>Quantidade</th>
-              </tr>
-            </thead>
-            <tbody>
-              {livrosMaisIndicados.map((livro, i) => (
-                <tr key={i}>
-                  <td>{i + 1}°</td>
-                  <td>{livro.nome}</td>
-                  <td>{livro.qtd}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Botão Gerar Relatório */}
-        <div className="indicacoes-relatorio-btn-wrap">
-          <button className="indicacoes-relatorio-btn">
-            <FileBarChart2 size={22} style={{ marginRight: 8 }} />
-            Gerar Relatório
-          </button>
-        </div>
+        
       </div>
     </div>
   );

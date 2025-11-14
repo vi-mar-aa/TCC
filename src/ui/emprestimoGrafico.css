@@ -64,19 +64,22 @@
 }
 
 .egrafico-pizza {
-  max-width: 700px;
+  width: 80%;
+  display: flex;
+  text-align: center;
 }
 
 .egrafico-barra {
-  max-width: 900px;
+  width: 80%;
 }
 
 .egrafico-card-titulo {
   font-weight: 600;
-  font-size: 1.1vw;
+  font-size: 2vw;
   color: var(--azul-escuro);
   margin-bottom: 1vw;
   align-self: flex-start;
+  width: 100%;
 }
 
 .egrafico-pizza-area {
@@ -84,14 +87,16 @@
   align-items: center;
   width: 100%;
   justify-content: center;
-  gap: 3vw;
+  gap: 12vw;
+  margin-bottom: 2.5vw;
+  margin-top: 1.5vw;
 }
 
 .egrafico-legenda {
   display: flex;
   flex-direction: column;
   gap: 1vw;
-  font-size: 1vw;
+  font-size: 2.1vw;
 }
 
 .egrafico-legenda-item {
@@ -101,8 +106,8 @@
 }
 
 .egrafico-legenda-cor {
-  width: 18px;
-  height: 18px;
+  width: 2vw;
+  height: 2vw;
   border-radius: 4px;
   display: inline-block;
 }
@@ -144,19 +149,7 @@
   margin-top: 2vw;
 }
 
-.egrafico-relatorio-btn {
-  background: var(--fundo-destaque);
-  color: var(--azul-escuro);
-  border: 2px solid var(--azul-escuro);
-  border-radius: 35px;
-  font-size: 1.1vw;
-  font-weight: 600;
-  padding: 0.7vw 2vw;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.7vw;
-}
+  
 
 @media (max-width: 900px) {
   .conteudoEmprestimos h2 {

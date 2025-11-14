@@ -1,72 +1,81 @@
-import React, { useState } from 'react';
-import './emprestimos.css';
-import Menu from './components/menu';
-import { Search } from 'lucide-react';
-import BotaoMais from './components/botaoMais';
+import React, { useEffect, useState } from "react";
+import Menu from "./components/menu";
+import { Search } from "lucide-react";
+import BotaoMais from "./components/botaoMais";
+import { listarEmprestimos } from "./ApiManager";
+import "./emprestimos.css";
 
-const emprestimosData = [
-  { codigo: '978-3-16-148410-0/1', titulo: 'As Sombras de Veridian', status: 'Renovado', usuario: 'larissamendes', dataEmprestimo: '12/05/25', dataDevolucao: '12/05/25' },
-  { codigo: '978-3-16-148410-0/2', titulo: 'As Sombras de Veridian', status: 'Emprestado', usuario: 'joaopedrosa_07', dataEmprestimo: '12/05/25', dataDevolucao: '12/05/25' },
-  { codigo: '978-3-16-148410-0/3', titulo: 'As Sombras de Veridian', status: 'Atrasado', usuario: 'camila.ribeiro', dataEmprestimo: '12/05/25', dataDevolucao: '12/05/25' },
-  { codigo: '978-3-16-148410-0/4', titulo: 'As Sombras de Veridian', status: 'Renovado', usuario: 'leo_fer', dataEmprestimo: '12/05/25', dataDevolucao: '12/05/25' },
-  { codigo: '978-3-16-148410-0/5', titulo: 'As Sombras de Veridian', status: 'Emprestado', usuario: 'nathsilva23', dataEmprestimo: '12/05/25', dataDevolucao: '12/05/25' },
-  { codigo: '978-3-16-148410-0/6', titulo: 'As Sombras de Veridian', status: 'Atrasado', usuario: 'gustavogmoura', dataEmprestimo: '12/05/25', dataDevolucao: '12/05/25' },
-  { codigo: '978-3-16-148410-0/7', titulo: 'As Sombras de Veridian', status: 'Renovado', usuario: 'vivi.martins', dataEmprestimo: '12/05/25', dataDevolucao: '12/05/25' },
-];
+interface Midia {
+  isbn: string | null;
+  titulo: string;
+  chaveIdentificadora: string;
+}
+
+interface Cliente {
+  user: string;
+}
+
+interface EmprestimoInfo {
+  midia: Midia;
+  cliente: Cliente;
+  emprestimo: {
+    dataEmprestimo: string;
+    dataDevolucao: string;
+    status: string;
+  };
+}
 
 function Emprestimos() {
-  const [filtro, setFiltro] = useState<'Todos' | 'Atrasado' | 'Renovado'>('Todos');
+  const [emprestimos, setEmprestimos] = useState<EmprestimoInfo[]>([]);
+  const [busca, setBusca] = useState("");
 
-  const emprestimosFiltrados = emprestimosData.filter(e => {
-    if (filtro === 'Todos') return true;
-    if (filtro === 'Atrasado') return e.status === 'Atrasado';
-    if (filtro === 'Renovado') return e.status === 'Renovado';
-    return true;
+  useEffect(() => {
+    async function carregar() {
+      try {
+        const dados = await listarEmprestimos();
+        setEmprestimos(dados);
+      } catch (err) {
+        console.error("Erro ao buscar empréstimos:", err);
+      }
+    }
+    carregar();
+  }, []);
+
+  const handleBuscaChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setBusca(event.target.value);
+  };
+
+  const filtrados = emprestimos.filter((e) => {
+    const termo = busca.toLowerCase();
+    return (
+      (e.midia.titulo?.toLowerCase().includes(termo) ?? false) ||
+      (e.cliente.user?.toLowerCase().includes(termo) ?? false) ||
+      (e.midia.isbn?.toLowerCase().includes(termo) ?? false)
+    );
   });
 
   return (
-    <div className='conteinerEmprestimos'>
+    <div className="conteinerEmprestimos">
       <Menu />
-      <div className='conteudoEmprestimos'>
-        <h2 className="emprestimos-titulo">Empréstimos - atuais</h2>
-        {/* Barra de busca */}
+      <div className="conteudoEmprestimos">
+        <h2 className="emprestimos-titulo">Empréstimos</h2>
+
         <div className="busca-emprestimo">
           <input
             type="text"
-            placeholder="Pesquisar..."
+            placeholder="Pesquisar por ISBN, título ou usuário..."
             className="busca-emprestimo-input"
+            value={busca}
+            onChange={handleBuscaChange}
           />
           <Search size={20} className="busca-emprestimo-icon" />
         </div>
 
-        {/* Filtros */}
-        <div className="filtros-emprestimo">
-          <button
-            className={filtro === 'Todos' ? 'active' : ''}
-            onClick={() => setFiltro('Todos')}
-          >
-            Todos
-          </button>
-          <button
-            className={filtro === 'Atrasado' ? 'active' : ''}
-            onClick={() => setFiltro('Atrasado')}
-          >
-            Em atraso
-          </button>
-          <button
-            className={filtro === 'Renovado' ? 'active' : ''}
-            onClick={() => setFiltro('Renovado')}
-          >
-            Renovados
-          </button>
-        </div>
-
-        {/* Tabela */}
         <div className="tabela-emprestimo-container">
           <table className="tabela-emprestimo">
             <thead>
               <tr>
-                <th>Código</th>
+                <th>ISBN</th>
                 <th>Título</th>
                 <th>Status</th>
                 <th>Usuário</th>
@@ -76,32 +85,21 @@ function Emprestimos() {
               </tr>
             </thead>
             <tbody>
-              {emprestimosFiltrados.map((e, i) => (
+              {filtrados.map((e, i) => (
                 <tr key={i}>
-                  <td>{e.codigo}</td>
-                  <td>{e.titulo}</td>
-                  <td
-                    className={
-                      e.status === 'Atrasado'
-                        ? 'status-atrasado'
-                        : e.status === 'Renovado'
-                          ? 'status-renovado'
-                          : 'status-emprestado'
-                    }
-                  >
-                    {e.status}
-                  </td>
-                  <td>{e.usuario}</td>
-                  <td>{e.dataEmprestimo}</td>
-                  <td>{e.dataDevolucao}</td>
-                  <td>...</td>
+                  <td>{e.midia.isbn ?? "N/A"}</td>
+                  <td>{e.midia.titulo}</td>
+                  <td className={e.emprestimo.status === 'pendente' ? 'status-emprestado' : ''}>{e.emprestimo.status}</td>
+                  <td>{e.cliente.user}</td>
+                  <td>{new Date(e.emprestimo.dataEmprestimo).toLocaleDateString()}</td>
+                  <td>{new Date(e.emprestimo.dataDevolucao).toLocaleDateString()}</td>
+                  <td></td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       </div>
-      {/* Botão flutuante de adicionar */}
       <BotaoMais title="Adicionar empréstimo" />
     </div>
   );
