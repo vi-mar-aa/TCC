@@ -1,12 +1,11 @@
 import axios, { AxiosInstance } from "axios";
 
-// URL base da sua API — porta corrigida
-const BASE_URL = "https://localhost:7008/"; 
+// URL base da sua API
+const BASE_URL = "https://localhost:7008/";
 
 class ApiManager {
   private static instance: AxiosInstance | null = null;
 
-  // Retorna a instância do Axios configurada
   public static getApiService(): AxiosInstance {
     if (!this.instance) {
       this.instance = axios.create({
@@ -41,7 +40,9 @@ class ApiManager {
   }
 }
 
-// ------------------ FUNÇÕES DE API ------------------
+// -------------------------------------------------------
+// MODELOS
+// -------------------------------------------------------
 
 export interface Funcionario {
   idFuncionario: number;
@@ -54,12 +55,6 @@ export interface Funcionario {
   statusconta: string;
 }
 
-export async function listarFuncionarios(): Promise<Funcionario[]> {
-  const api = ApiManager.getApiService();
-  const response = await api.get<Funcionario[]>("/ListarFuncionarios");
-  return response.data;
-}
-
 export interface Midia {
   idMidia: number;
   titulo: string;
@@ -68,42 +63,6 @@ export interface Midia {
   imagem: string | null;
   genero: string;
 }
-
-export async function listarMidias(searchText: string = ""): Promise<Midia[]> {
-  const api = ApiManager.getApiService();
-
-  const body = {
-    midia: {
-      idMidia: 0,
-      chaveIdentificadora: "string",
-      codigoExemplar: 0,
-      idfuncionario: 0,
-      idtpmidia: 0,
-      titulo: "string",
-      autor: "string",
-      sinopse: "string",
-      editora: "string",
-      anopublicacao: "string",
-      edicao: "string",
-      localpublicacao: "string",
-      npaginas: 0,
-      isbn: "string",
-      duracao: "string",
-      estudio: "string",
-      roterista: "string",
-      dispo: 0,
-      genero: 0,
-      contExemplares: 0,
-      nomeTipo: "string",
-      imagem: "string"
-    },
-    searchText: searchText
-  };
-
-  const response = await api.post<Midia[]>("/PesquisarAcervo", body);
-  return response.data;
-}
-
 
 export interface MidiaEspecifica {
   idMidia: number;
@@ -130,90 +89,102 @@ export interface MidiaEspecifica {
   imagem: string;
 }
 
-export async function listarMidiaEspecifica(idMidia: number): Promise<MidiaEspecifica[]> {
+// -------------------------------------------------------
+// FUNCIONÁRIOS
+// -------------------------------------------------------
+
+export async function listarFuncionarios(): Promise<Funcionario[]> {
+  const api = ApiManager.getApiService();
+  const response = await api.get<Funcionario[]>("/ListarFuncionarios");
+  return response.data;
+}
+
+export async function cadastrarAdm(funcionario: Funcionario) {
+  const api = ApiManager.getApiService();
+  const response = await api.post("/CadastrarAdm", funcionario);
+  return response.data;
+}
+
+// -------------------------------------------------------
+// MÍDIAS
+// -------------------------------------------------------
+
+export async function listarMidias(searchText: string = ""): Promise<Midia[]> {
   const api = ApiManager.getApiService();
 
   const body = {
-    idMidia,
-    chaveIdentificadora: "string",
-    codigoExemplar: 0,
-    idfuncionario: 0,
-    idtpmidia: 0,
-    titulo: "string",
-    autor: "string",
-    sinopse: "string",
-    editora: "string",
-    anopublicacao: "string",
-    edicao: "string",
-    localpublicacao: "string",
-    npaginas: 0,
-    isbn: "string",
-    duracao: "string",
-    estudio: "string",
-    roterista: "string",
-    dispo: 0,
-    genero: 0,
-    contExemplares: 0,
-    nomeTipo: "string",
-    imagem: "string"
+    searchText,
   };
 
-  const response = await api.post<MidiaEspecifica[]>("/ListaMidiaEspecifica", body);
+  const response = await api.post<Midia[]>("/PesquisarAcervo", body);
+  return response.data;
+}
+
+export async function listarMidiaEspecifica(idMidia: number): Promise<MidiaEspecifica[]> {
+  const api = ApiManager.getApiService();
+
+  const response = await api.post<MidiaEspecifica[]>("/ListaMidiaEspecifica", { idMidia });
   return response.data;
 }
 
 export async function excluirMidia(idMidia: number): Promise<string> {
-  try {
-    const response = await fetch("https://localhost:7008/ExcluirMidia", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
+  const response = await fetch("https://localhost:7008/ExcluirMidia", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      funcionario: {
+        idFuncionario: 0,
+        idcargo: 0,
+        nome: "string",
+        cpf: "string",
+        email: "string",
+        senha: "string",
+        telefone: "string",
+        statusconta: "string"
       },
-      body: JSON.stringify({
-        funcionario: {
-          idFuncionario: 0,
-          idcargo: 0,
-          nome: "string",
-          cpf: "string",
-          email: "string",
-          senha: "string",
-          telefone: "string",
-          statusconta: "string"
-        },
-        midia: {
-          idMidia,
-          chaveIdentificadora: "string",
-          codigoExemplar: 0,
-          idfuncionario: 0,
-          idtpmidia: 0,
-          titulo: "string",
-          autor: "string",
-          sinopse: "string",
-          editora: "string",
-          anopublicacao: "string",
-          edicao: "string",
-          localpublicacao: "string",
-          npaginas: 0,
-          isbn: "string",
-          duracao: "string",
-          estudio: "string",
-          roterista: "string",
-          dispo: 0,
-          genero: 0,
-          contExemplares: 0,
-          nomeTipo: "string",
-          imagem: "string"
-        }
-      }),
-    });
+      midia: {
+        idMidia,
+      }
+    }),
+  });
 
-    if (!response.ok) throw new Error("Erro ao excluir mídia");
-    const result = await response.json();
-    return result;
-  } catch (error) {
-    console.error(error);
-    throw new Error("Erro ao excluir a mídia.");
-  }
+  if (!response.ok) throw new Error("Erro ao excluir mídia");
+
+  return response.json();
 }
+
+export async function configurarParametros(
+  idParametros: number,
+  multaDias: number,
+  prazoDevolucao: number,
+  limiteEmprestimos: number
+) {
+  const response = await fetch("https://localhost:7008/ConfigurarParametros", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      idParametros,
+      multaDias,
+      prazoDevolucao,
+      limiteEmpretismos: limiteEmprestimos
+    })
+  });
+
+  if (!response.ok) throw new Error("Erro ao configurar parâmetros");
+
+  return response.json();
+}
+
+export async function listarIndicacoes() {
+  const api = ApiManager.getApiService();
+  const response = await api.get("/ListarIndicacoes");
+  return response.data;
+}
+
+
 
 export default ApiManager;

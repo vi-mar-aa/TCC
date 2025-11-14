@@ -1,81 +1,108 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './configuracao.css';
 import Menu from './components/menu';
-import { User, MoreVertical, File, X, Save } from 'lucide-react';
-import BotaoMais from './components/botaoMais';
-
-const funcionarios = [
-  {
-    email: 'Vitoria@gmail.com',
-    telefone: '11 96459000',
-    nome: 'Vitória Tavares',
-    usuario: 'Vitória Tavares',
-    turno: 'Manhã',
-  },
-  {
-    email: 'Vitoria@gmail.com',
-    telefone: '11 96459000',
-    nome: 'Vitória Tavares',
-    usuario: 'Vitória1',
-    turno: 'Manhã',
-  },
-];
+import { User, MoreVertical, File } from 'lucide-react';
+import { listarFuncionarios, Funcionario, configurarParametros } from './ApiManager';
+import AdicionarFuncionario from './components/AdicionarFuncionarios';
+import ModalInativarFuncionario from './components/ModalInativarFuncionario';
 
 function Configuracao() {
-  const [tab, setTab] = useState<'geral' | 'funcionarios' | 'preferencias'>('geral');
-  const [multa, setMulta] = useState('R$ 2,00');
+  const [abaAtiva, setAbaAtiva] = useState<'funcionarios' | 'preferencias'>('funcionarios');
+
+  const [funcionarios, setFuncionarios] = useState<Funcionario[]>([]);
+  const [showModalAdd, setShowModalAdd] = useState(false);
+
+  // NOVOS ESTADOS
+  const [funcionarioSelecionado, setFuncionarioSelecionado] = useState<Funcionario | null>(null);
+  const [showModalInativar, setShowModalInativar] = useState(false);
+
+  // Valores numéricos agora são livres
+  const [multa, setMulta] = useState('2.00');
   const [prazo, setPrazo] = useState('14');
   const [qtdEmprestimos, setQtdEmprestimos] = useState('3');
+
+  useEffect(() => {
+    carregarFuncionarios();
+  }, []);
+
+  function carregarFuncionarios() {
+    listarFuncionarios()
+      .then(setFuncionarios)
+      .catch(console.error);
+  }
+
+  async function salvarPreferencias() {
+    try {
+      const multaConvertida = parseFloat(multa) || 0;
+      const prazoConvertido = parseInt(prazo) || 0;
+      const emprestimosConvertido = parseInt(qtdEmprestimos) || 0;
+
+      const idParametros = 1;
+
+      await configurarParametros(idParametros, multaConvertida, prazoConvertido, emprestimosConvertido);
+
+      alert('Parâmetros salvos com sucesso!');
+    } catch (error) {
+      console.error(error);
+      alert('Erro ao salvar parâmetros.');
+    }
+  }
+
+  // Botão flutuante restaurado
+  const FabButton = () => (
+    <button
+      onClick={() => setShowModalAdd(true)}
+      style={{
+        position: 'fixed',
+        right: '3vw',
+        bottom: '3vw',
+        width: '4vw',
+        height: '4vw',
+        borderRadius: '50%',
+        background: '#0A4489',
+        color: 'white',
+        fontSize: '3vw',
+        border: 'none',
+        cursor: 'pointer',
+        zIndex: 9999,
+        boxShadow: '0 2px 12px rgba(10,68,137,0.3)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        transition: '0.2s'
+      }}
+      onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.08)')}
+      onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+      aria-label="Adicionar funcionário"
+      title="Adicionar funcionário"
+    >
+      +
+    </button>
+  );
 
   return (
     <div className="conteinerConfiguracao">
       <Menu />
       <div className="conteudoConfiguracao">
+
+        {/* Abas */}
         <div className="configuracao-tabs">
-          <button className={tab === 'geral' ? 'active' : ''} onClick={() => setTab('geral')}>Informações Gerais</button>
-          <button className={tab === 'funcionarios' ? 'active' : ''} onClick={() => setTab('funcionarios')}>Funcionários Cadastrados</button>
-          <button className={tab === 'preferencias' ? 'active' : ''} onClick={() => setTab('preferencias')}>Preferências</button>
+          <button
+            className={abaAtiva === 'funcionarios' ? 'active' : ''}
+            onClick={() => setAbaAtiva('funcionarios')}
+          >
+            Funcionários Cadastrados
+          </button>
+          <button
+            className={abaAtiva === 'preferencias' ? 'active' : ''}
+            onClick={() => setAbaAtiva('preferencias')}
+          >
+            Preferências
+          </button>
         </div>
 
-        {tab === 'geral' && (
-          <div className="configuracao-geral">
-            <div className="configuracao-geral-colunas">
-              <div>
-                <span className="configuracao-geral-titulo">Dados Biblioteca</span>
-                <input placeholder="Email" />
-                <input placeholder="Usuário" />
-                <input placeholder="Email" />
-                <input placeholder="Usuário" />
-              </div>
-              <div>
-                <input placeholder="Senha anterior" />
-                <input placeholder="Nova senha" />
-                <input placeholder="Senha anterior" />
-                <input placeholder="Nova senha" />
-              </div>
-            </div>
-            <div className="configuracao-geral-colunas">
-              <div>
-                <span className="configuracao-geral-titulo">Dados Proprietário</span>
-                <input placeholder="Email" />
-                <input placeholder="Usuário" />
-                <input placeholder="Email" />
-                <input placeholder="Usuário" />
-              </div>
-              <div>
-                <input placeholder="Senha anterior" />
-                <input placeholder="Nova senha" />
-                <input placeholder="Senha anterior" />
-                <input placeholder="Nova senha" />
-              </div>
-            </div>
-            <div className="configuracao-botoes">
-              <button className="configuracao-btn-salvar"><File size={20} />Salvar</button>
-            </div>
-          </div>
-        )}
-
-        {tab === 'funcionarios' && (
+        {/* FUNCIONÁRIOS */}
+        {abaAtiva === 'funcionarios' && (
           <div className="configuracao-funcionarios">
             {funcionarios.map((f, i) => (
               <div className="configuracao-funcionario-card" key={i}>
@@ -86,49 +113,96 @@ function Configuracao() {
                     <div>Telefone: {f.telefone}</div>
                   </div>
                 </div>
+
                 <div className="configuracao-funcionario-info">
-                  <div>Nome: {f.nome}<br />Turno: {f.turno}</div>
-                  <div>Usuário: {f.usuario}</div>
+                  <div>Nome: {f.nome}</div>
                 </div>
-                <button className="configuracao-funcionario-mais"><MoreVertical size={22} /></button>
+
+                {/* BOTÃO MAIS */}
+                <button
+                  className="configuracao-funcionario-mais"
+                  onClick={() => {
+                    setFuncionarioSelecionado(f);
+                    setShowModalInativar(true);
+                  }}
+                >
+                  <MoreVertical size={22} />
+                </button>
               </div>
             ))}
-            <BotaoMais title="Adicionar funcionário" />
           </div>
         )}
 
-        {tab === 'preferencias' && (
+        {/* PREFERÊNCIAS */}
+        {abaAtiva === 'preferencias' && (
           <div className="configuracao-preferencias">
+
             <div className="configuracao-preferencias-campo">
-              <label>Multa, valor cobrado por dia de atraso</label>
-              <select value={multa} onChange={e => setMulta(e.target.value)}>
-                <option>R$ 2,00</option>
-                <option>R$ 1,00</option>
-                <option>R$ 0,50</option>
-              </select>
+              <label>Multa por dia de atraso (R$)</label>
+              <input
+                type="number"
+                step="0.01"
+                min="0"
+                value={multa}
+                onChange={(e) => setMulta(e.target.value)}
+                placeholder="Ex: 2.00"
+              />
             </div>
+
             <div className="configuracao-preferencias-campo">
-              <label>Prazo de devolução, em dias</label>
-              <select value={prazo} onChange={e => setPrazo(e.target.value)}>
-                <option>14</option>
-                <option>7</option>
-                <option>21</option>
-              </select>
+              <label>Prazo de devolução (dias)</label>
+              <input
+                type="number"
+                min="1"
+                value={prazo}
+                onChange={(e) => setPrazo(e.target.value)}
+                placeholder="Ex: 14"
+              />
             </div>
+
             <div className="configuracao-preferencias-campo">
               <label>Quantidade de empréstimos por leitor</label>
-              <select value={qtdEmprestimos} onChange={e => setQtdEmprestimos(e.target.value)}>
-                <option>3</option>
-                <option>2</option>
-                <option>5</option>
-              </select>
+              <input
+                type="number"
+                min="1"
+                value={qtdEmprestimos}
+                onChange={(e) => setQtdEmprestimos(e.target.value)}
+                placeholder="Ex: 3"
+              />
             </div>
+
             <div className="configuracao-botoes">
-              <button className="configuracao-btn-salvar"><File size={20} />Salvar</button>
+              <button className="configuracao-btn-salvar" onClick={salvarPreferencias}>
+                <File size={20} />
+                Salvar
+              </button>
             </div>
           </div>
         )}
       </div>
+
+      {/* Botão flutuante */}
+      <FabButton />
+
+      {/* MODAL: Adicionar Funcionário */}
+      <AdicionarFuncionario
+        open={showModalAdd}
+        onClose={() => setShowModalAdd(false)}
+        onSuccess={carregarFuncionarios}
+      />
+
+      {/* MODAL: Inativar Funcionário */}
+      <ModalInativarFuncionario
+        open={showModalInativar}
+        funcionario={funcionarioSelecionado}
+        onClose={() => setShowModalInativar(false)}
+        onConfirm={() => {
+          console.log("Inativando:", funcionarioSelecionado?.idFuncionario);
+          setShowModalInativar(false);
+          carregarFuncionarios();
+        }}
+      />
+
     </div>
   );
 }

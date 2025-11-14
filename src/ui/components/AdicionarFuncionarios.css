@@ -1,0 +1,71 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fade 0.2s ease;
+  z-index: 2000;
+}
+
+.modal {
+  background: var(--fundo-destaque);
+  padding: 20px;
+  width: 420px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  animation: scalein 0.2s ease;
+  color: var(--texto);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-body input {
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  padding: 10px;
+  color: var(--texto);
+}
+
+.close-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.salvar-btn {
+  background: var(--azul);
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.salvar-btn:disabled {
+  background: #7da9ff;
+}
+
+@keyframes fade {
+  from { opacity: 0; } to { opacity: 1; }
+}
+
+@keyframes scalein {
+  from { transform: scale(0.9); } to { transform: scale(1); }
+}

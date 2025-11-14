@@ -67,11 +67,13 @@ const InfoAcervo: React.FC = () => {
 
   return (
     <div className="info-acervo-container">
+      <button className="voltar" onClick={() => navigate("/acervo")}>
+            <CornerDownLeft />
+      </button>
+
       <div className="info-acervo-top">
         <div>
-          <button className="voltar" onClick={() => navigate("/acervo")}>
-            <CornerDownLeft />
-          </button>
+          
         </div>
 
         <img

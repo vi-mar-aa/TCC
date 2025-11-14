@@ -1,35 +1,56 @@
-import React from 'react';
-import './indicacoes.css';
-import Menu from './components/menu';
-import { User, FileBarChart2 } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import Menu from "./components/menu";
+import { User, FileBarChart2 } from "lucide-react";
+import { listarIndicacoes } from "./ApiManager";
+import'./indicacoes.css'
 
-const indicacoes = [
-  {
-    usuario: 'Vitória',
-    texto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Si tincidunt sapien, eget volutpat sapien lacus id justo.',
-    faded: false,
-  },
-  {
-    usuario: 'Vitória',
-    texto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Si tincidunt sapien, eget volutpat sapien lacus id justo.',
-    faded: false,
-  },
-  {
-    usuario: 'Vitória',
-    texto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Si tincidunt sapien, eget volutpat sapien lacus id justo.',
-    faded: true,
-  },
-];
+interface Cliente {
+  idCliente: number;
+  nome: string | null;
+  user: string;
+  imagemPerfil: string | null;
+}
 
-const livrosMaisIndicados = [
-  { pos: '1°', nome: 'As Vozes do Vento', autor: 'Helena Costa', qtd: 34 },
-  { pos: '2°', nome: 'O Guardião das Estações', autor: 'Rafael M. Tavares', qtd: 21 },
-  { pos: '3°', nome: 'Entre Linhas e Silêncios', autor: 'Clara Antunes', qtd: 13 },
-  { pos: '4°', nome: 'Fragmentos da Neblina', autor: 'Diego Lins', qtd: 5 },
-  { pos: '5°', nome: 'A Cidade que Nunca Dorme', autor: 'Bianca Soares', qtd: 2 },
-];
+interface Indicacao {
+  cliente: Cliente;
+  texto: string; // texto da indicação, usado também como título do livro aqui
+}
+
+interface LivroMaisIndicado {
+  nome: string;
+  qtd: number;
+}
 
 function Indicacoes() {
+  const [indicacoes, setIndicacoes] = useState<Indicacao[]>([]);
+  const [livrosMaisIndicados, setLivrosMaisIndicados] = useState<LivroMaisIndicado[]>([]);
+
+  useEffect(() => {
+    async function carregarIndicacoes() {
+      try {
+        const dados = await listarIndicacoes();
+        setIndicacoes(dados);
+
+        // gerar ranking de livros mais indicados
+        const contagem: { [key: string]: number } = {};
+        dados.forEach((ind) => {
+          const titulo = ind.texto; // aqui você pode substituir por ind.livro se tiver
+          contagem[titulo] = (contagem[titulo] || 0) + 1;
+        });
+
+        const ranking = Object.entries(contagem)
+          .map(([nome, qtd]) => ({ nome, qtd }))
+          .sort((a, b) => b.qtd - a.qtd)
+          .slice(0, 5); // top 5 livros
+        setLivrosMaisIndicados(ranking);
+      } catch (error) {
+        console.error("Erro ao carregar indicações:", error);
+      }
+    }
+
+    carregarIndicacoes();
+  }, []);
+
   return (
     <div className="conteinerIndicacoes">
       <Menu />
@@ -47,21 +68,30 @@ function Indicacoes() {
             </thead>
             <tbody>
               {indicacoes.map((ind, i) => (
-                <tr key={i} className={ind.faded ? 'faded' : ''}>
+                <tr key={i}>
                   <td>
                     <div className="indicacoes-user">
-                      <User size={22} style={{ marginRight: 8 }} />
-                      {ind.usuario}
+                      {ind.cliente.imagemPerfil ? (
+                        <img
+                          src={`data:image/jpeg;base64,${ind.cliente.imagemPerfil}`}
+                          alt={ind.cliente.user}
+                          style={{
+                            width: 28,
+                            height: 28,
+                            borderRadius: "50%",
+                            marginRight: 8,
+                            objectFit: "cover",
+                          }}
+                        />
+                      ) : (
+                        <User size={22} style={{ marginRight: 8 }} />
+                      )}
+                      {ind.cliente.user}
                     </div>
                   </td>
                   <td>{ind.texto}</td>
                 </tr>
               ))}
-              <tr>
-                <td colSpan={2} className="indicacoes-expandir">
-                  <span>Expandir</span> <span className="indicacoes-mais">+</span>
-                </td>
-              </tr>
             </tbody>
           </table>
         </div>
@@ -72,18 +102,16 @@ function Indicacoes() {
           <table className="indicacoes-livros-tabela">
             <thead>
               <tr>
-                <th></th>
+                <th>Posição</th>
                 <th>Nome</th>
-                <th>Autor</th>
                 <th>Quantidade</th>
               </tr>
             </thead>
             <tbody>
               {livrosMaisIndicados.map((livro, i) => (
                 <tr key={i}>
-                  <td>{livro.pos}</td>
+                  <td>{i + 1}°</td>
                   <td>{livro.nome}</td>
-                  <td>{livro.autor}</td>
                   <td>{livro.qtd}</td>
                 </tr>
               ))}

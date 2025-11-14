@@ -1,7 +1,12 @@
+#root {
+ background-color: var(--fundo);
+}
+
+
 .info-acervo-container {
-  padding: 2vw;
+  padding: 3vw;
   font-family: 'Roboto', Arial, sans-serif;
-  background: #f8fafc;
+  background: var(--fundo);
   min-height: 100vh;
 }
 .info-acervo-top {
@@ -16,10 +21,10 @@
   object-fit: cover;
   border-radius: 1vw;
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-  background: #fff;
+  background: var(--fundo-destaque);
 }
 .info-acervo-geral {
-  background: #fff;
+  background: var(--fundo-destaque);
   border-radius: 1vw;
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
   padding: 2vw 2vw 2vw 2vw;
@@ -29,19 +34,20 @@
   display: flex;
 }
 .info-acervo-geral h2 {
-  color: #0A4489;
+  color: var(--azul);
   font-size: 1.3vw;
   margin-bottom: 1vw;
 }
 .info-acervo-list > div {
   margin-bottom: 0.5vw;
   font-size: 1vw;
+  color: var(--texto);
 }
 
 .voltar {
   background: var(--fundo);
-  color: #0A4489;
-  border: 1.5px solid #0A4489;
+  color: var(--azul);
+  border: 1.5px solid var(--azul);
   border-radius: 35px;
   font-size: 1.1vw;
   font-weight: 600;
@@ -51,6 +57,7 @@
   align-items: center;
   gap: 0.5vw;
   transition: background 0.2s, color 0.2s;
+  margin-bottom: 2vw;
 }
 
 .lixo{
@@ -59,7 +66,7 @@
 }
 
 .lixo button {
-  background: #fff;
+  background: var(--fundo-destaque);
   border: 2px solid #e53935;
   color: #e53935;
   border-radius: 50%;
@@ -77,7 +84,7 @@
 
 .lixo button:hover {
   background: #e53935;
-  color: #fff;
+  color: var(--fundo-destaque);
   transform: scale(1.05);
   margin-left: auto;
 }
@@ -96,7 +103,7 @@
 
 
 .info-acervo-status {
-  background: #fff;
+  background: var(--fundo-destaque);
   border-radius: 1vw;
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
   min-width: 180px;
@@ -106,24 +113,25 @@
   align-items: center;
   justify-content: center;
   font-size: 1vw;
-  color: #0A4489;
+  color: var(--azul);
   font-weight: 500;
 }
 .info-acervo-status-num {
   font-size: 2.5vw;
   font-weight: 700;
-  color: #0A4489;
+  color: var(--azul);
   margin-bottom: 0.2vw;
 }
 .info-acervo-bottom {
-  background: #fff;
+  background: var(--fundo-destaque);
   border-radius: 1vw;
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
   padding: 2vw;
   margin-top: 2vw;
+  color: var(--texto);
 }
 .info-acervo-bottom h3 {
-  color: #0A4489;
+  color: var(--azul);
   font-size: 1.2vw;
   margin-bottom: 1vw;
 }
@@ -144,7 +152,7 @@
 
 
 .status-emprestado { color: #e6b800; font-weight: 500; }
-.status-reservado { color: #0A4489; font-weight: 500; }
+.status-reservado { color: var(--azul); font-weight: 500; }
 .status-livre { color: #3bb273; font-weight: 500; }
 .status-atrasado { color: #e53935; font-weight: 500; }
 .status-renovado { color: #f57c00; font-weight: 500; }
