@@ -1,3 +1,4 @@
+/* ====== OVERLAY & MODAL (base que você enviou) ====== */
 .novoEmprestimo-modal-overlay {
   position: fixed;
   z-index: 20000;
@@ -6,6 +7,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--texto);
 }
 
 .novoEmprestimo-modal {
@@ -41,6 +43,7 @@
   cursor: pointer;
 }
 
+/* ====== FORM LAYOUT (base) ====== */
 .novoEmprestimo-form-wrap {
   display: flex;
   gap: 4vw;
@@ -57,6 +60,7 @@
   min-width: 260px;
   max-width: 350px;
   flex: 1 1 50%;
+  position: relative; /* << important: suggestions will be absolute inside this */
 }
 
 .novoEmprestimo-label-grande {
@@ -82,24 +86,33 @@
   gap: 0.7vw;
 }
 
+/* Inputs: expand to container width so suggestions align */
 .novoEmprestimo-col input {
-  width: 220px;
-  height: 2vw;
+  width: 100%;
+  max-width: 100%;
+  height: 2.4vw;
   border: 1.5px solid #bfc9d1;
-  border-radius: 0.3vw;
-  padding: 0 0.6vw;
-  font-size: 1.1vw;
+  border-radius: 0.4vw;
+  padding: 0 0.8vw;
+  font-size: 1.05vw;
   background: var(--fundo);
   color: var(--texto);
   outline: none;
-  transition: border 0.2s;
+  transition: border 0.18s, box-shadow 0.18s;
+  box-sizing: border-box;
+}
+
+.novoEmprestimo-col input::placeholder {
+  color: #9aa6b2;
 }
 
 .novoEmprestimo-col input:focus {
   border: 1.5px solid #0A4489;
   background: var(--fundo-destaque);
+  box-shadow: 0 2px 8px rgba(10,68,137,0.06);
 }
 
+/* Status display */
 .novoEmprestimo-status-wrap {
   display: flex;
   align-items: center;
@@ -108,14 +121,28 @@
   border-radius: 0.3vw;
   background: var(--fundo);
   padding: 0 0.6vw;
-  height: 2vw;
-  width: 220px;
+  height: 2.4vw;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .novoEmprestimo-status-livre {
   color: #3cae5a;
   font-weight: 600;
-  font-size: 1.1vw;
+  font-size: 1.05vw;
+  flex: 1;
+}
+
+.novoEmprestimo-status-ocupado {
+  color: #d9534f;
+  font-weight: 600;
+  font-size: 1.05vw;
+  flex: 1;
+}
+
+.novoEmprestimo-status-vazio {
+  color: #7a7a7a;
+  font-size: 1.05vw;
   flex: 1;
 }
 
@@ -124,28 +151,32 @@
   cursor: pointer;
 }
 
+/* Info rows */
 .novoEmprestimo-info {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 0.5vw;
-  font-size: 1.1vw;
+  font-size: 1.05vw;
 }
 
+/* link */
 .novoEmprestimo-link {
   color: #0A4489;
-  font-size: 1.1vw;
+  font-size: 1.05vw;
   text-decoration: underline;
   margin-top: 0.5vw;
   cursor: pointer;
 }
 
+/* buttons */
 .novoEmprestimo-btns {
   display: flex;
   flex-direction: row;
   gap: 2vw;
   justify-content: center;
   margin-top: 1vw;
+  width: 100%;
 }
 
 .novoEmprestimo-cancelar,
@@ -154,20 +185,21 @@
   color: #0A4489;
   border: 1.5px solid #0A4489;
   border-radius: 35px;
-  font-size: 1.1vw;
+  font-size: 1.05vw;
   font-weight: 600;
   padding: 0.5vw 2vw;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 0.5vw;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.2s, color 0.2s, transform 0.08s;
 }
 
 .novoEmprestimo-cancelar:hover,
 .novoEmprestimo-emprestar:hover {
   background: #0A4489;
   color: var(--texto);
+  transform: translateY(-1px);
 }
 
 .novoEmprestimo-btn-bar {
@@ -177,4 +209,215 @@
   background: #bfc9d1;
   margin: 0 0.6vw 0 0.6vw;
   vertical-align: middle;
+}
+
+/* ===== SUGGESTIONS (Google-like look) ===== */
+/* Support both class variants used in examples */
+.novoEmprestimo-sugestoes,
+.autocomplete-box {
+  position: absolute;
+  top: calc(2.4vw + 0.6vw); /* input height + small gap */
+  left: 0;
+  width: calc(100% - 0px); /* same width as column (input full width) */
+  max-width: 100%;
+  background: #ffffff;
+  border: 1px solid rgba(11,49,89,0.08);
+  border-radius: 0.5vw;
+  box-shadow: 0 6px 18px rgba(6,30,70,0.12);
+  z-index: 21000;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Scrolling region */
+.novoEmprestimo-sugestoes .novoEmprestimo-sugestao-item,
+.autocomplete-box .autocomplete-item {
+  padding: 0.7vw 0.9vw;
+  font-size: 1.0vw;
+  color: #0b3359;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.6vw;
+  border-bottom: 1px solid rgba(11,49,89,0.03);
+}
+
+/* last item no border */
+.novoEmprestimo-sugestoes .novoEmprestao-item:last-child,
+.novoEmprestimo-sugestoes .novoEmprestimo-sugestao-item:last-child,
+.autocomplete-box .autocomplete-item:last-child {
+  border-bottom: none;
+}
+
+/* hover */
+.novoEmprestimo-sugestoes .novoEmprestimo-sugestao-item:hover,
+.autocomplete-box .autocomplete-item:hover {
+  background: #0A4489;
+  color: #fff;
+}
+
+/* smaller caption / meta */
+.novoEmprestimo-sugestoes .sugestao-meta,
+.autocomplete-box .item-meta {
+  font-size: 0.9vw;
+  color: rgba(255,255,255,0.8);
+  margin-left: 0.4vw;
+}
+
+/* max height and custom scrollbar */
+.novoEmprestimo-sugestoes,
+.autocomplete-box {
+  max-height: 12vw; /* controls visible height */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* custom scrollbar (Webkit) */
+.novoEmprestimo-sugestoes::-webkit-scrollbar,
+.autocomplete-box::-webkit-scrollbar {
+  width: 10px;
+}
+
+.novoEmprestimo-sugestoes::-webkit-scrollbar-thumb,
+.autocomplete-box::-webkit-scrollbar-thumb {
+  background: rgba(10,68,137,0.12);
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.novoEmprestimo-sugestoes::-webkit-scrollbar-track,
+.autocomplete-box::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ========== small responsive adjustments =========== */
+@media (max-width: 1000px) {
+  .novoEmprestimo-modal {
+    width: 80vw;
+    min-width: unset;
+    padding: 1.2vw;
+  }
+
+  .novoEmprestimo-titulo {
+    font-size: 4.2vw;
+  }
+
+  .novoEmprestimo-col input,
+  .novoEmprestimo-sugestoes .novoEmprestimo-sugestao-item,
+  .autocomplete-box .autocomplete-item {
+    font-size: 3.4vw;
+    height: 5.8vw;
+    padding: 1.2vw;
+  }
+
+  .novoEmprestimo-sugestoes,
+  .autocomplete-box {
+    top: calc(5.8vw + 0.8vw);
+  }
+}
+
+/* utility: subtle empty state */
+.novoEmprestimo-empty {
+  color: #7a7a7a;
+  font-size: 1.0vw;
+  padding: 0.7vw;
+}
+
+
+/* ===== CAIXA DE SUGESTÕES ===== */
+.novoEmprestimo-sugestoes {
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  width: 100%;
+  max-height: 180px;
+  overflow-y: auto;
+  z-index: 9999;
+  border-radius: 4px;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Cada item */
+.novoEmprestimo-sugestao-item {
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.novoEmprestimo-sugestao-item:hover {
+  background: #f0f0f0;
+}
+
+
+/* --- CONTAINER PRINCIPAL DO CAMPO COM AUTOCOMPLETE --- */
+.campo-autocomplete {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* --- ESTILO DO INPUT --- */
+.campo-autocomplete input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 15px;
+    transition: border 0.2s;
+}
+
+.campo-autocomplete input:focus {
+    border: 1px solid #6c63ff; /* cor quando focado */
+}
+
+/* --- LISTA DE SUGESTÕES --- */
+.lista-sugestoes {
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #d0d0d0;
+    border-radius: 8px;
+    max-height: 220px;
+    overflow-y: auto;
+    z-index: 50;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.08);
+}
+
+/* --- CADA ITEM DA LISTA --- */
+.item-sugestao {
+    padding: 10px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.item-sugestao:hover {
+    background-color: #f3f3f3;
+}
+
+/* --- CASO NENHUM RESULTADO --- */
+.sugestao-vazio {
+    padding: 10px;
+    color: #777;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* --- SCROLLBONITO --- */
+.lista-sugestoes::-webkit-scrollbar {
+    width: 6px;
+}
+
+.lista-sugestoes::-webkit-scrollbar-thumb {
+    background-color: #b5b5b5;
+    border-radius: 10px;
+}
+
+.lista-sugestoes::-webkit-scrollbar-thumb:hover {
+    background-color: #9b9b9b;
 }
