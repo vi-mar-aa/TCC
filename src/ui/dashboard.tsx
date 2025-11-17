@@ -19,12 +19,22 @@ interface LivroMaisIndicado {
   qtd: number;
 }
 
+interface Evento {
+  evento: {
+    titulo: string;
+    dataInicio: string;
+    dataFim: string;
+    localEvento: string;
+  };
+}
+
 function Dashboard() {
   const [anoEmprestimos, setAnoEmprestimos] = useState<number>(new Date().getFullYear());
   const [anoReservas, setAnoReservas] = useState<number>(new Date().getFullYear());
   const [emprestimos, setEmprestimos] = useState<Emprestimo[]>([]);
   const [reservas, setReservas] = useState<Reserva[]>([]);
   const [livrosMaisIndicados, setLivrosMaisIndicados] = useState<LivroMaisIndicado[]>([]);
+  const [eventos, setEventos] = useState<Evento[]>([]);
 
   // Tooltip gráfico circular
   const [tooltip, setTooltip] = useState<{ x: number; y: number; text: string } | null>(null);
@@ -83,6 +93,27 @@ function Dashboard() {
     carregarIndicacoes();
   }, []);
 
+  // ------------------- LOAD EVENTOS -------------------
+  useEffect(() => {
+    async function carregarEventos() {
+      try {
+        const resp = await fetch("https://localhost:7008/ListarEventos");
+        const dados: Evento[] = await resp.json();
+
+        // Filtra apenas eventos futuros
+        const agora = new Date();
+        const futuros = dados
+          .filter(e => new Date(e.evento.dataInicio) >= agora)
+          .sort((a, b) => new Date(a.evento.dataInicio).getTime() - new Date(b.evento.dataInicio).getTime());
+
+        setEventos(futuros);
+      } catch (err) {
+        console.error("Erro ao carregar eventos:", err);
+      }
+    }
+    carregarEventos();
+  }, []);
+
   // ------------------- GRAFICO DE BARRAS -------------------
   const meses = ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
   const getBarData = (dados: any[], ano: number, key: string) => {
@@ -110,6 +141,15 @@ function Dashboard() {
   const circumference = 2 * Math.PI * radius;
   const emDiaStroke = (emDia / total) * circumference;
   const emAtrasoStroke = (emAtraso / total) * circumference;
+
+  const formatarData = (dataISO: string) => {
+    const d = new Date(dataISO);
+    return d.toLocaleDateString("pt-BR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "2-digit"
+    });
+  };
 
   return (
     <div className="conteinerDashboard">
@@ -167,7 +207,7 @@ function Dashboard() {
           {/* COLUNA DIREITA */}
           <div className="dashboard-col">
 
-            {/* Gráfico Circular (CORRIGIDO) */}
+            {/* Gráfico Circular */}
             <div className="dashboard-card">
               <div className="dashboard-card-header">
                 <span>Relação empréstimos x atrasos</span>
@@ -249,23 +289,28 @@ function Dashboard() {
               </div>
             </div>
 
-            {/* Eventos */}
+            {/* Eventos Próximos */}
             <div className="dashboard-card">
               <div className="dashboard-card-header">
                 <span>Eventos próximos</span>
                 <span className="dashboard-link">→</span>
               </div>
               <div className="dashboard-events">
-                <div className="event">
-                  <div className="event-date">15/04/25</div>
-                  <div className="event-desc">Sessão de RPG de Mesa - "Mistérios de Eldoria"</div>
-                </div>
-                <div className="event">
-                  <div className="event-date">19/04/25</div>
-                  <div className="event-desc">Debate Literário – "A Literatura e as Transformações Sociais"</div>
-                </div>
+                {eventos.length === 0 ? (
+                  <div className="event">
+                    <div className="event-desc">Nenhum evento encontrado</div>
+                  </div>
+                ) : (
+                  eventos.slice(0, 3).map((e, i) => (
+                    <div className="event" key={i}>
+                      <div className="event-date">{formatarData(e.evento.dataInicio)}</div>
+                      <div className="event-desc">{e.evento.titulo}</div>
+                    </div>
+                  ))
+                )}
               </div>
             </div>
+
           </div>
         </div>
 

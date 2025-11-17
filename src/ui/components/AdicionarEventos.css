@@ -1,0 +1,82 @@
+.evento-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.evento-modal {
+  width: 450px;
+  background: var(--fundo);
+  padding: 25px;
+  border-radius: 14px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  color: var(--texto);
+}
+
+.evento-fechar {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.evento-titulo {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+
+.evento-modal label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.evento-modal input {
+  padding: 8px;
+  border: 1px solid #cfd3d6;
+  border-radius: 6px;
+  font-size: 15px;
+  color: var(--texto);
+}
+
+.evento-salvar {
+  margin-top: 10px;
+  background: #0A4489;
+  color: white;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  font-size: 16px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.evento-add-btn {
+  position: fixed;
+  right: 3vw;
+  bottom: 3vw;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #0A4489;
+  color: white;
+  font-size: 40px;
+  border: none;
+  cursor: pointer;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

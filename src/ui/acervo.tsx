@@ -150,18 +150,6 @@ function Acervo() {
       <div className='conteudoAcervo'>
         {/* Tabs */}
         <div style={{ display: 'flex', gap: '1vw', marginBottom: '2vw', justifyContent: 'center' }}>
-          <button
-            className={`menu-btn${tab === 'livros' ? ' active' : ''}`}
-            onClick={() => setTab('livros')}
-          >
-            Livros
-          </button>
-          <button
-            className={`menu-btn${tab === 'audiovisual' ? ' active' : ''}`}
-            onClick={() => setTab('audiovisual')}
-          >
-            Audiovisual
-          </button>
         </div>
 
         {/* Barra de pesquisa */}

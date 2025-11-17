@@ -29,18 +29,14 @@ const menuItems = [
   {
     label: 'Acervo',
     icon: <Book size={28} />,
-    chevron: false, // alterado para botão normal
-    path: '/acervo' // leva para a página principal de acervo
+    chevron: false,
+    path: '/acervo'
   },
   {
     label: 'Empréstimos',
     icon: <ArrowRightLeft size={40} />,
-    chevron: true,
-    submenu: [
-      { label: 'Atuais', path: '/emprestimo' },
-      { label: 'Histórico', path: '/emprestimo/historico' },
-      { label: 'Gráficos', path: '/emprestimo/graficos' }
-    ]
+    chevron: false, 
+    path: '/emprestimo'
   },
   {
     label: 'Reservas',
@@ -68,8 +64,16 @@ const menuItems = [
     icon: <Calendar size={28} />,
     chevron: false,
     path: '/eventos'
+  },
+  {
+    label: 'Configurações',
+    icon: <Settings size={56} />,
+    chevron: false,
+    path: '/configuracao'
   }
 ];
+
+
 
 function Menu() {
   const navigate = useNavigate();
@@ -164,14 +168,7 @@ const handleSubmenuClick = (sub: any) => {
           
         </div>
         
-        <button
-          className={`menu-btn${isActive('/configuracao') ? ' active' : ''}`}
-          onClick={() => navigate('/configuracao')}
-          style={{ marginTop: 'auto', marginBottom: '1vw', width: '90%'}}
-        >
-          <Settings size={28} />
-          <p>Configurações</p>
-        </button>
+      
 
         <button onClick={alternarTema} className='tema-btn'>
     
