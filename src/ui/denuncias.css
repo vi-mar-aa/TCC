@@ -1,5 +1,4 @@
 .conteinerDenuncias {
-  width: 100vw;
   min-height: 100vh;
   display: flex;
   flex-direction: row;
@@ -153,3 +152,51 @@ span {
   background: var(--cinza);
   color: var(--azul-escuro);
 }
+
+
+/* MENU SUSPENSO DO BOTÃO ... */
+.denuncias-menu-options {
+  position: absolute;
+  margin-top: 2.2vw;
+  right: 0;
+  background: var(--fundo-destaque);
+  border: 1px solid var(--cinza);
+  border-radius: 0.8vw;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5vw 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 50;
+  width: 12vw;
+  animation: fadeIn 0.15s ease-out;
+}
+
+.denuncias-menu-options button {
+  background: transparent;
+  border: none;
+  padding: 0.7vw 1vw;
+  text-align: left;
+  font-size: 0.95vw;
+  font-weight: 600;
+  color: var(--texto);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.denuncias-menu-options button:hover {
+  background: var(--cinza);
+  color: var(--azul-escuro);
+}
+
+/* Animação */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
