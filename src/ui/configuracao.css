@@ -242,3 +242,9 @@ input {
   border-color: var(--azul-escuro);
   box-shadow: 0 0 0.5vw rgba(10, 68, 137, 0.4);
 }
+
+.funcionario-inativo {
+  color: red;
+  font-weight: bold;
+}
+

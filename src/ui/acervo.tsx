@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './acervo.css';
 import Menu from './components/menu';
 import { Search, Image as ImageIcon } from 'lucide-react';
@@ -6,7 +6,7 @@ import BotaoMais from './components/botaoMais';
 import { useNavigate } from 'react-router-dom';
 import { listarMidias, Midia } from './ApiManager';
 
-// 🔹 Componente CardMídia
+// 🔹 Card mídia
 const CardMidia: React.FC<{ midia: Midia }> = ({ midia }) => {
   const navigate = useNavigate();
   const [imagemValida, setImagemValida] = useState(
@@ -68,6 +68,7 @@ const CardMidia: React.FC<{ midia: Midia }> = ({ midia }) => {
           {midia.titulo}, {midia.anopublicacao || "Outros"}
         </div>
         <div style={{ fontSize: '0.9vw', color: '#888' }}>{midia.autor}</div>
+
         <div
           style={{
             fontSize: '0.9vw',
@@ -84,82 +85,93 @@ const CardMidia: React.FC<{ midia: Midia }> = ({ midia }) => {
   );
 };
 
+// -------------------------------------------------------
+// 🔹 Página principal com infinite scroll
+// -------------------------------------------------------
+
 function Acervo() {
-  const [tab, setTab] = useState<'livros' | 'audiovisual'>('livros');
   const [midias, setMidias] = useState<Midia[]>([]);
   const [busca, setBusca] = useState('');
+  const [todasMidias, setTodasMidias] = useState<Midia[]>([]);
+  const [page, setPage] = useState(1);
+
+  const ITEMS_PER_PAGE = 40;
+
+  const loaderRef = useRef<HTMLDivElement | null>(null);
 
   // 🔹 Carregar mídias da API
-  const carregarMidias = async (textoPesquisa: string = "") => {
+  const carregarMidias = async (texto: string = "") => {
     try {
-      const dados = await listarMidias(textoPesquisa);
-      setMidias(dados);
+      const dados = await listarMidias(texto);
+      setTodasMidias(dados);
+      setMidias(dados.slice(0, ITEMS_PER_PAGE));
+      setPage(1);
     } catch (err) {
       console.error("Erro ao listar mídias:", err);
     }
   };
 
-  // 🔹 Carregar ao iniciar
+  // 🔹 Ao iniciar
   useEffect(() => {
     carregarMidias();
   }, []);
 
-  // 🔹 Filtrar e ordenar mídias de acordo com busca
-  const termo = busca.toLowerCase();
+  // 🔹 Filtrar pela busca (mas ainda com paginação)
+  const midiasFiltradas = todasMidias.filter((m) => {
+    const termo = busca.toLowerCase();
+    return (
+      m.titulo?.toLowerCase().includes(termo) ||
+      m.autor?.toLowerCase().includes(termo) ||
+      m.genero?.toLowerCase().includes(termo) ||
+      String(m.anopublicacao).includes(termo)
+    );
+  });
 
-  const midiasFiltradas = midias
-    .filter((m) => {
-      const titulo = m.titulo?.toLowerCase() || "";
-      const autor = m.autor?.toLowerCase() || "";
-      const genero = m.genero?.toLowerCase() || "";
-      const ano = m.anopublicacao ? String(m.anopublicacao) : "";
+  // 🔹 Carregar mais (scroll)
+  const loadMore = useCallback(() => {
+    const nextPage = page + 1;
+    const start = (nextPage - 1) * ITEMS_PER_PAGE;
+    const end = nextPage * ITEMS_PER_PAGE;
 
-      return (
-        titulo.includes(termo) ||
-        autor.includes(termo) ||
-        genero.includes(termo) ||
-        ano.includes(termo)
-      );
-    })
-    .sort((a, b) => {
-      const getPrioridade = (m: Midia) => {
-        const titulo = m.titulo?.toLowerCase() || "";
-        const autor = m.autor?.toLowerCase() || "";
-        const genero = m.genero?.toLowerCase() || "";
-        const ano = m.anopublicacao ? String(m.anopublicacao) : "";
+    const novos = midiasFiltradas.slice(start, end);
 
-        if (titulo.includes(termo)) return 4;
-        if (autor.includes(termo)) return 3;
-        if (genero.includes(termo)) return 2;
-        if (ano.includes(termo)) return 1;
-        return 0;
-      };
+    if (novos.length > 0) {
+      setMidias((prev) => [...prev, ...novos]);
+      setPage(nextPage);
+    }
+  }, [page, midiasFiltradas]);
 
-      return getPrioridade(b) - getPrioridade(a);
-    });
+  // 🔹 Observer para scroll infinito
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          loadMore();
+        }
+      },
+      { threshold: 1 }
+    );
 
-  // 🔹 Pesquisa (Enter)
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') carregarMidias(busca);
-  };
+    if (loaderRef.current) observer.observe(loaderRef.current);
+    return () => observer.disconnect();
+  }, [loadMore]);
 
   return (
     <div className='conteinerAcervo'>
       <Menu />
 
       <div className='conteudoAcervo'>
-        {/* Tabs */}
-        <div style={{ display: 'flex', gap: '1vw', marginBottom: '2vw', justifyContent: 'center' }}>
-        </div>
-
+        
         {/* Barra de pesquisa */}
         <div style={{ width: '100%', maxWidth: 600, margin: '0 auto 2vw auto', display: 'flex', alignItems: 'center' }}>
           <input
             type="text"
             placeholder="Pesquisar por título, autor, gênero ou ano..."
             value={busca}
-            onChange={(e) => setBusca(e.target.value)}
-            onKeyDown={handleKeyDown}
+            onChange={(e) => {
+              setBusca(e.target.value);
+              carregarMidias(e.target.value);
+            }}
             style={{
               width: '100%',
               padding: '0.7vw 2.5vw 0.7vw 1vw',
@@ -187,10 +199,14 @@ function Acervo() {
             margin: '0 auto'
           }}
         >
-          {midiasFiltradas.map((m) => (
+          {midias.map((m) => (
             <CardMidia key={m.idMidia} midia={m} />
           ))}
         </div>
+
+        {/* Loader invisível para scroll */}
+        <div ref={loaderRef} style={{ height: 50 }}></div>
+
       </div>
 
       <BotaoMais title="Adicionar" />

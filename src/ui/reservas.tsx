@@ -41,7 +41,9 @@ function Reservas() {
         setReservas(response.data);
 
         // Extrai os anos únicos das reservas
-        const anos = Array.from(new Set(response.data.map(r => new Date(r.reserva.dataReserva).getFullYear())));
+        const anos = Array.from(
+          new Set(response.data.map(r => new Date(r.reserva.dataReserva).getFullYear()))
+        );
         anos.sort((a, b) => b - a);
         setAnosDisponiveis(anos);
         if (anos.length) setAnoSelecionado(anos[0]);
@@ -52,22 +54,29 @@ function Reservas() {
     carregarReservas();
   }, []);
 
+  // Filtro na busca
   const reservasFiltradas = reservas.filter(r =>
     r.midia.titulo?.toLowerCase().includes(searchText.toLowerCase()) ||
     r.cliente.user.toLowerCase().includes(searchText.toLowerCase()) ||
     r.midia.chaveIdentificadora?.toLowerCase().includes(searchText.toLowerCase())
   );
 
+  // Filtra reservas do ano selecionado
   const reservasDoAno = reservas.filter(r => {
     const anoReserva = new Date(r.reserva.dataReserva).getFullYear();
     return anoReserva === anoSelecionado;
   });
 
+  // Contagem de reservas por mês
   const reservasPorMes = Array(12).fill(0);
   reservasDoAno.forEach(r => {
     const mes = new Date(r.reserva.dataReserva).getMonth();
     reservasPorMes[mes]++;
   });
+
+  // NORMALIZAÇÃO DO GRÁFICO — impede barras gigantes
+  const maxReservas = Math.max(...reservasPorMes);
+  const ALTURA_MAX = 10; // altura máxima da maior barra (vw)
 
   return (
     <div className='conteinerReservas'>
@@ -125,7 +134,11 @@ function Reservas() {
             {dropdownAberto && (
               <div className="egrafico-dropdown">
                 {anosDisponiveis.map(ano => (
-                  <div key={ano} className="egrafico-ano-opcao" onClick={() => { setAnoSelecionado(ano); setDropdownAberto(false); }}>
+                  <div
+                    key={ano}
+                    className="egrafico-ano-opcao"
+                    onClick={() => { setAnoSelecionado(ano); setDropdownAberto(false); }}
+                  >
                     {ano}
                   </div>
                 ))}
@@ -134,20 +147,28 @@ function Reservas() {
           </div>
 
           <div className="grafico-reserva">
-            {reservasPorMes.map((qtd, i) => (
-              <div
-                key={i}
-                className="barra"
-                style={{ height: `${qtd * 3 + 2}vw` }}
-                data-tooltip={`${qtd} reserva${qtd !== 1 ? 's' : ''}`}
-              />
-            ))}
+            {reservasPorMes.map((qtd, i) => {
+              const altura = maxReservas > 0
+                ? (qtd / maxReservas) * ALTURA_MAX
+                : 0;
+
+              return (
+                <div
+                  key={i}
+                  className="barra"
+                  style={{ height: `${altura}vw` }}
+                  data-tooltip={`${qtd} reserva${qtd !== 1 ? 's' : ''}`}
+                />
+              );
+            })}
+
             <div className="grafico-labels">
               <span>jan</span><span>fev</span><span>mar</span><span>abr</span>
               <span>mai</span><span>jun</span><span>jul</span><span>ago</span>
               <span>set</span><span>out</span><span>nov</span><span>dez</span>
             </div>
           </div>
+
         </div>
       </div>
     </div>

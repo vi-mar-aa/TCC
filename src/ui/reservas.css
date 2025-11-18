@@ -53,7 +53,7 @@
 }
 
 .tabela-reserva-container {
-    width: 97%;
+    width: 64%;
     background: var(--fundo-destaque);
     border-radius: 1vw;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
@@ -109,7 +109,7 @@
 }
 
 .grafico-reserva-container {
-    width: 94%;
+    width: 64%;
     background: var(--fundo-destaque);
     border-radius: 1vw;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);

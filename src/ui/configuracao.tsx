@@ -114,9 +114,12 @@ function Configuracao() {
                   </div>
                 </div>
 
-                <div className="configuracao-funcionario-info">
-                  <div>Nome: {f.nome}</div>
-                </div>
+                  <div className="configuracao-funcionario-info">
+                    <div className={f.statusconta !== "ativo" ? "funcionario-inativo" : ""}>
+                      Nome: {f.nome}
+                    </div>
+                  </div>
+
 
                 {/* BOTÃO MAIS */}
                 <button

@@ -8,7 +8,7 @@ interface TemaContextType {
 const TemaContext = createContext<TemaContextType | undefined>(undefined);
 
 export function TemaProvider({ children }: { children: React.ReactNode }) {
-  const [temaEscuro, setTemaEscuro] = useState(true);
+  const [temaEscuro, setTemaEscuro] = useState(false);
 
   // Quando o tema mudar, aplica a classe no <body>
   useEffect(() => {

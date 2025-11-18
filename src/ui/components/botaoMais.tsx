@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ArrowRightLeft, UserPlus } from 'lucide-react';
+import { ArrowRightLeft } from 'lucide-react';
 import Catalogacao from './catalogacao';
 import NovoEmprestimo from './novoEmprestimo';
 import './botaoMais.css';
 
 interface BotaoMaisProps {
   onAdicionarFuncionario?: () => void;
+  onEmprestimoCriado?: () => void;   // << NOVO
   title?: string;
   style?: React.CSSProperties;
   className?: string;
@@ -13,6 +14,7 @@ interface BotaoMaisProps {
 
 const BotaoMais: React.FC<BotaoMaisProps> = ({
   onAdicionarFuncionario,
+  onEmprestimoCriado,       // << NOVO
   title = "Adicionar",
   style,
   className
@@ -29,9 +31,7 @@ const BotaoMais: React.FC<BotaoMaisProps> = ({
         setOpen(false);
       }
     }
-    if (open) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
+    if (open) document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [open]);
 
@@ -51,7 +51,6 @@ const BotaoMais: React.FC<BotaoMaisProps> = ({
             <div className="fab-menu-arrow" />
             <div className="fab-menu-list">
 
-              {/* Já existentes */}
               <div
                 className="fab-menu-item"
                 onClick={() => {
@@ -87,8 +86,19 @@ const BotaoMais: React.FC<BotaoMaisProps> = ({
         </button>
       </div>
 
+      {/* QUANDO O MODAL FECHA, AVISA O PAI */}
       <Catalogacao open={catalogacaoOpen} onClose={() => setCatalogacaoOpen(false)} />
-      <NovoEmprestimo open={novoEmprestimoOpen} onClose={() => setNovoEmprestimoOpen(false)} />
+
+      <NovoEmprestimo
+        open={novoEmprestimoOpen}
+        onClose={(created?: boolean) => {
+          setNovoEmprestimoOpen(false);
+
+          if (created && onEmprestimoCriado) {
+            onEmprestimoCriado();  // << AQUI ATUALIZA A TABELA
+          }
+        }}
+      />
     </>
   );
 };
