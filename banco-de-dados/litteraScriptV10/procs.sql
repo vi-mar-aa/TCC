@@ -1,9 +1,9 @@
 -- !!!!!!!!!!!!!!!! ANDROID !!!!!!!!!!!!!!!!!!!!!!!
-
+--select*from Cliente where id_cliente=3
 -- !!!MAIN!!!
 USE Littera
 GO
-
+--select*from TipoMidia
 IF OBJECT_ID('dbo.fn_DecodeBase64','FN') IS NOT NULL
   DROP FUNCTION dbo.fn_DecodeBase64;
 GO
@@ -16,8 +16,9 @@ BEGIN
 END
 GO
 
--- !!! RESERVAS/EMPRESTIMO!!!
 
+-- !!! RESERVAS/EMPRESTIMO!!!
+--exec sp_EmprestimoRenovar @id_emprestimo=17, @novadata='2025-11-30T00:00:00'
 CREATE PROCEDURE sp_EmprestimoRenovar -- funcionando
   @id_emprestimo INT,
   @novadata DATE
@@ -48,39 +49,8 @@ BEGIN
 END
 GO
 
- -- atuais e atrasados
-CREATE PROCEDURE sp_EmprestimosClienteListar -- funcionando
-  @email VARCHAR(100)
-AS
-BEGIN
-  IF NOT EXISTS (SELECT 1 FROM Cliente WHERE email=@email)
-    RETURN;
 
-  DECLARE @hoje DATE = CAST(GETDATE() AS DATE);
-  DECLARE @multa_dia DECIMAL(10,2);
 
-  -- pega valor da tabela Parametros (assumindo que só tem 1 linha configurada)
-  SELECT TOP 1 @multa_dia = multa_dia FROM Parametros ORDER BY id_parametros DESC;
-
-  SELECT 
-	m.imagem,
-    e.id_emprestimo,
-    e.data_emprestimo,
-    e.data_devolucao,
-    e.limite_renovacoes,
-    m.id_midia, m.titulo, m.autor, m.ano_publicacao,
-    CASE WHEN @hoje > e.data_devolucao 
-         THEN DATEDIFF(DAY, e.data_devolucao, @hoje) ELSE 0 END AS dias_atraso,
-    CASE WHEN @hoje > e.data_devolucao 
-         THEN DATEDIFF(DAY, e.data_devolucao, @hoje) * @multa_dia ELSE 0 END AS multa,
-    CASE WHEN @hoje <= e.data_devolucao AND e.limite_renovacoes > 0 
-         THEN 1 ELSE 0 END AS pode_renovar
-  FROM Emprestimo e
-  JOIN Midia m   ON m.id_midia = e.id_midia
-  JOIN Cliente c ON c.id_cliente = e.id_cliente
-  WHERE c.email = @email
-  ORDER BY e.data_devolucao ASC;
-END
 GO
 
 CREATE PROCEDURE sp_ReservasClienteListar -- funcionando	
@@ -117,7 +87,7 @@ BEGIN
   ORDER BY r.data_limite DESC;  -- mais recente primeiro
 END
 GO
-
+--exec sp_HistoricoEmprestimosCliente 'pedro.dias@email.com'
 CREATE PROCEDURE sp_HistoricoEmprestimosCliente -- funcionando
   @email VARCHAR(100)
 AS
@@ -404,7 +374,6 @@ BEGIN
   ORDER BY m.titulo;
 END
 GO
-
 CREATE PROCEDURE sp_AcervoMidiasTodasInfosComExemplares -- funcionando
 AS
 BEGIN
@@ -420,7 +389,7 @@ BEGIN
   ORDER BY m.titulo;
 END
 GO
-
+--exec sp_MidiaDetalhes @id_midia=10
 CREATE PROCEDURE sp_MidiaDetalhes -- funcionando
     @id_midia INT
 AS
@@ -463,7 +432,6 @@ BEGIN
     WHERE email = @email AND senha = @senha AND status_conta = 'ativo';
 END
 GO
-
 CREATE PROCEDURE sp_CadastrarCliente -- funcionando
   @nome VARCHAR(100),
   @username VARCHAR(40),
@@ -489,7 +457,6 @@ BEGIN
   SELECT 'OK' AS msg;
 END
 GO
-
 CREATE PROCEDURE sp_ClienteResetarSenhaViaCpfEmail -- funcionando
     @email      VARCHAR(100) = NULL,
     @cpf        VARCHAR(14)  = NULL,
@@ -535,9 +502,8 @@ BEGIN
     SELECT 'OK' AS msg;
 END
 GO
-
 CREATE PROCEDURE sp_AtualizarPerfilCliente -- funcionando
-  @nome VARCHAR(50),
+
   @username VARCHAR(40),
   @email VARCHAR(100),
   @senha VARCHAR(255),
@@ -550,7 +516,6 @@ BEGIN
 
   UPDATE Cliente
   SET senha=@senha,
-	  nome=@nome,
 	  username=@username,
       telefone=@telefone,
 	  imagem_perfil = dbo.fn_DecodeBase64(@imagem_base64)
@@ -559,7 +524,6 @@ BEGIN
   SELECT 'OK' AS msg;
 END
 GO
-
 CREATE PROCEDURE sp_AtualizarImagemCliente -- funcionando
   @email VARCHAR(100),
   @imagem_base64 NVARCHAR(MAX)
@@ -570,6 +534,7 @@ BEGIN
   SELECT 'OK' AS msg;
 END
 GO
+
 
 -- !!!!!!!!!!!!!!! DESKTOP !!!!!!!!!!!!!!!!!!!!!!!
 
@@ -727,7 +692,6 @@ BEGIN
   ORDER BY username;
 END
 GO
-
 -- Mídias não devolvidas pelo cliente (em atraso)
 CREATE PROCEDURE sp_MidiasNaoDevolvidasCliente  -- funcionando
   @email VARCHAR(100)
@@ -1262,9 +1226,45 @@ BEGIN
 
   SELECT 'OK' AS msg;
 END
+
 GO
 
-CREATE PROCEDURE sp_ReservaCriar -- funcionando
+ -- atuais e atrasados
+CREATE PROCEDURE sp_EmprestimosClienteListar -- funcionando
+  @email VARCHAR(100)
+AS
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM Cliente WHERE email=@email)
+    RETURN;
+
+  DECLARE @hoje DATE = CAST(GETDATE() AS DATE);
+  DECLARE @multa_dia DECIMAL(10,2);
+
+  -- pega valor da tabela Parametros (assumindo que só tem 1 linha configurada)
+  SELECT TOP 1 @multa_dia = multa_dia FROM Parametros ORDER BY id_parametros DESC;
+
+  SELECT 
+	m.imagem,
+    e.id_emprestimo,
+    e.data_emprestimo,
+    e.data_devolucao,
+    e.limite_renovacoes,
+    m.id_midia, m.titulo, m.autor, m.ano_publicacao,
+    CASE WHEN @hoje > e.data_devolucao 
+         THEN DATEDIFF(DAY, e.data_devolucao, @hoje) ELSE 0 END AS dias_atraso,
+    CASE WHEN @hoje > e.data_devolucao 
+         THEN DATEDIFF(DAY, e.data_devolucao, @hoje) * @multa_dia ELSE 0 END AS multa,
+    CASE WHEN @hoje <= e.data_devolucao AND e.limite_renovacoes > 0 
+         THEN 1 ELSE 0 END AS pode_renovar
+  FROM Emprestimo e
+  JOIN Midia m   ON m.id_midia = e.id_midia
+  JOIN Cliente c ON c.id_cliente = e.id_cliente
+  WHERE c.email = @email
+  ORDER BY e.data_devolucao ASC;
+END
+
+GO
+/*CREATE PROCEDURE sp_ReservaCriar -- funcionando
   @email       VARCHAR(100),
   @id_midia    INT        = NULL
 AS
@@ -1294,6 +1294,57 @@ BEGIN
     JOIN Midia  m2 ON m2.id_midia = @id_midia_escolhida
     WHERE r.id_cliente = @id_cliente
       AND r.status_reserva = 'ativa')
+
+  -- cria reserva
+  INSERT INTO Reserva (id_cliente, id_midia, data_reserva, data_limite, status_reserva)
+  VALUES (@id_cliente, @id_midia_escolhida, @hoje, DATEADD(DAY, @dias_reserva, @hoje), 'ativa');
+
+  SELECT 'OK' AS msg;
+END*/
+--criada por mim //////////////////////////////////////////////	tem que testar
+CREATE PROCEDURE sp_ReservaCriar
+  @email       VARCHAR(100),
+  @id_midia    INT = NULL
+AS
+BEGIN
+  SET NOCOUNT ON;
+
+  DECLARE @id_cliente INT, @hoje DATE = CAST(GETDATE() AS DATE), @dias_reserva INT = 1;
+  DECLARE @id_midia_escolhida INT;
+
+  -- cliente
+  SELECT @id_cliente = id_cliente 
+  FROM Cliente 
+  WHERE email = @email AND status_conta = 'ativo';
+
+  IF @id_cliente IS NULL RETURN;
+
+  -- checar mídia
+  IF @id_midia IS NOT NULL
+  BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM Midia 
+        WHERE id_midia = @id_midia 
+          AND disponibilidade = 'disponível'
+          AND status_midia = 'publica'
+    )
+      RETURN;
+
+    SET @id_midia_escolhida = @id_midia;
+  END
+
+  -- EVITAR reserva duplicada da MESMA MÍDIA
+  IF EXISTS (
+        SELECT 1
+        FROM Reserva
+        WHERE id_cliente = @id_cliente
+          AND id_midia = @id_midia_escolhida
+          AND status_reserva = 'ativa'
+  )
+  BEGIN
+      SELECT 'JA_EXISTE' AS msg;
+      RETURN;
+  END
 
   -- cria reserva
   INSERT INTO Reserva (id_cliente, id_midia, data_reserva, data_limite, status_reserva)
@@ -1679,6 +1730,44 @@ BEGIN
 END
 GO
 -- !!!!!!!!!!!!!!!!!COMUM!!!!!!!!!!!!!!!!!!!!!!!!!
+--exec sp_AcervoBuscar @ano='1981' , @genero='Crônica'
+--select distinct genero from Midia
+--select*from cliente 
+--select * from Reserva where id_cliente = 3
+--select * from Midia where genero='Crônica' and ano_publicacao=1981
+--select distinct genero from Midia
+--EXEC sp_Top15LivrosPorGenero @genero = 'Ficção Científica';
+
+
+--SELECT DISTINCT genero FROM Midia;
+CREATE PROCEDURE sp_Top15LivrosPorGenero -- funcionando
+  @genero VARCHAR(100)
+AS
+BEGIN
+  SET NOCOUNT ON;
+  IF @genero IS NULL OR LTRIM(RTRIM(@genero)) = '' RETURN;
+
+  ;WITH ObrasDoGenero AS (
+    SELECT
+      CASE WHEN m.isbn IS NOT NULL AND m.isbn<>'' THEN m.isbn ELSE m.titulo END AS chave,
+      MIN(m.id_midia)       AS id_midia_exemplo,
+      MIN(m.titulo)         AS titulo,
+      MIN(m.autor)          AS autor,
+      MAX(m.ano_publicacao) AS ano_recente,
+      MAX(m.imagem)         AS imagem
+    FROM Midia m
+    JOIN TipoMidia tm ON tm.id_tpmidia = m.id_tpmidia
+    WHERE tm.nome_tipo   = 'livros'
+      AND m.status_midia = 'publica'
+      AND m.genero       = @genero
+    GROUP BY CASE WHEN m.isbn IS NOT NULL AND m.isbn<>'' THEN m.isbn ELSE m.titulo END
+  )
+  SELECT TOP (15)
+         id_midia_exemplo, chave, titulo, autor, ano_recente AS ano_publicacao, imagem
+  FROM ObrasDoGenero
+  ORDER BY ano_recente DESC, titulo;
+END
+GO
 
 CREATE PROCEDURE sp_AcervoBuscar -- funcionando
   @q            VARCHAR(255) = NULL,
@@ -1728,6 +1817,7 @@ BEGIN
   ORDER BY m.titulo;
 END
 GO
+
 
 --------------------------------------
 -- EVENTOS (FÓRUM) / POSTS / DENÚNCIA
@@ -1812,7 +1902,7 @@ BEGIN
   GROUP BY CASE WHEN m.isbn IS NOT NULL AND m.isbn<>'' THEN m.isbn ELSE m.titulo END
   ORDER BY qtde_emprestimos DESC, titulo;
 END
-GO
+go
 
 CREATE PROCEDURE sp_Top15LivrosPorGenero -- funcionando
   @genero VARCHAR(100)
@@ -2080,3 +2170,74 @@ CASE
 END;
 GO
 */
+
+--Procedures a mais(joana)
+
+CREATE PROCEDURE sp_AtualizarPerfilClienteTeste
+  @username VARCHAR(40) = NULL,
+  @email VARCHAR(100),
+  @senha VARCHAR(255) = NULL,
+  @telefone VARCHAR(20) = NULL,
+  @imagem_base64 NVARCHAR(MAX) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Verifica se existe cliente com este email
+    IF NOT EXISTS (SELECT 1 FROM Cliente WHERE email = @email)
+        RETURN;
+
+    -- Atualiza username, se enviado
+    IF (@username IS NOT NULL AND @username <> '')
+        UPDATE Cliente
+        SET username = @username
+        WHERE email = @email;
+
+    -- Atualiza senha, se enviada
+    IF (@senha IS NOT NULL AND @senha <> '')
+        UPDATE Cliente
+        SET senha = @senha
+        WHERE email = @email;
+
+    -- Atualiza telefone, se enviado
+    IF (@telefone IS NOT NULL AND @telefone <> '')
+        UPDATE Cliente
+        SET telefone = @telefone
+        WHERE email = @email;
+
+    -- Atualiza imagem, se enviada
+    IF (@imagem_base64 IS NOT NULL AND @imagem_base64 <> '')
+        UPDATE Cliente
+        SET imagem_perfil = dbo.fn_DecodeBase64(@imagem_base64)
+        WHERE email = @email;
+
+    SELECT 'OK' AS msg;
+END;
+GO
+
+CREATE PROCEDURE sp_BuscarClientePorEmail
+    @email VARCHAR(100)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Verifica se o e-mail existe
+    IF NOT EXISTS (SELECT 1 FROM Cliente WHERE email = @email)
+    BEGIN
+        SELECT 'Cliente não encontrado' AS msg;
+        RETURN;
+    END
+
+    -- Retorna os dados do cliente
+    SELECT 
+        id_cliente,
+        nome,
+        username,
+        cpf,
+        email,
+        telefone,
+        imagem_perfil,
+        status_conta
+    FROM Cliente
+    WHERE email = @email;
+END
