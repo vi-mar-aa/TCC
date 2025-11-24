@@ -3,6 +3,7 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">192.168.0.19</domain>
         <domain includeSubdomains="true">192.168.23.84</domain>
+        <domain includeSubdomains="true">192.168.182.81</domain>
         <trust-anchors>
             <certificates src="system" />
             <certificates src="user" />

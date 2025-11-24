@@ -1,5 +1,5 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
-        <dimen name="item_espaco">24dp</dimen>
+        <dimen name="item_espaco">15dp</dimen>
 
 </resources>

@@ -5,8 +5,10 @@ import com.google.gson.annotations.SerializedName;
 public class CadastroRequest {
     @SerializedName("nome")
     private String nome;
+    @SerializedName("user")
+    private String user;
     @SerializedName("cpf")
-    private long cpf; // igual à API
+    private String cpf; // igual à API
     @SerializedName("email")
     private String email;
     @SerializedName("senha")
@@ -15,15 +17,19 @@ public class CadastroRequest {
     private String telefone;
     @SerializedName("status_conta")
     private String status_conta;
+    @SerializedName("imagem_perfil")
+    private String imagem_perfil;//no cadastro é null
 
-    /*public CadastroRequest(String nome, int cpf, String email, String senha, String telefone, String status_conta) {
+    public CadastroRequest(String nome,String user, String cpf, String email, String senha, String telefone, String status_conta) {
         this.nome = nome;
+        this.user = user;
         this.cpf = cpf;
         this.email = email;
         this.senha = senha;
         this.telefone = telefone;
         this.status_conta = status_conta;
-    }*/
+    }
+
 
     public String getNome() {
         return nome;
@@ -32,10 +38,10 @@ public class CadastroRequest {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    public long getCpf() {
+    public String getCpf() {
         return cpf;
     }
-    public void setCpf(long cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
     public String getEmail() {
@@ -62,5 +68,15 @@ public class CadastroRequest {
     public void setStatusConta(String status_conta) {
         this.status_conta = status_conta;
     }
+    public String getUser() {
+        return user;
+    }
+    public void setUser(String user) {
+        this.user = user;
+    }
+    public String getImagemPerfil() {
+        return imagem_perfil;
+    }
+
 }
 

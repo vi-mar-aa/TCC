@@ -42,11 +42,12 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="30dp"
             android:layout_toStartOf="@id/ivSearch"
-            android:background="@color/zxing_transparent"
+            android:background="@color/transparente"
             android:hint="@string/hint_cx_pesquisa"
             android:importantForAutofill="no"
             android:inputType="text"
             android:padding="10dp"
+            android:imeOptions="actionSearch"
             android:textColor="?attr/colorOnSurfaceVariant"
             android:textColorHint="?attr/colorOnSurfaceVariant"
             tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
@@ -58,33 +59,34 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="17dp"
-            android:background="@color/zxing_transparent"
+            android:background="@color/transparente"
             android:contentDescription="@string/icon_pesquisa"
             android:scaleType="centerInside"
             android:src="@drawable/icon_pesquisa"
             tools:ignore="ImageContrastCheck,TouchTargetSizeCheck" />
     </RelativeLayout>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:backgroundTint="?attr/backgroundColor"
         android:background="@drawable/borda_arredondada_topo"
         android:orientation="vertical"
-        android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@id/menu_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_view">
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginVertical="10dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -128,12 +130,28 @@
                     android:textSize="15sp" />
             </LinearLayout>
 
-            <include layout="@layout/layout_filtro_livro_acervo" />
-
+            <include android:id="@+id/llFiltro" layout="@layout/layout_filtro_acervo" />
 
         </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAcervo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:overScrollMode="never"
+            android:paddingHorizontal="45dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_horizontal"
+            android:scrollbars="none"
+            app:flow_horizontalAlign="center"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            android:gravity="center">
 
-    </ScrollView>
+        </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
 
     <include
         android:id="@+id/menu_layout"

@@ -7,4 +7,5 @@
     <attr name="item_photo_back" format="color" />//branco_tom_terciario
     <attr name="text_color" format="color"/>
     <attr name="fundo_popmenu" format="reference|color"/>
+    <attr name="molduraQR_cor" format="color"/>
 </resources>

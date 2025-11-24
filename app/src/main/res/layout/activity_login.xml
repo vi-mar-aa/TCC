@@ -131,7 +131,7 @@
                             android:background="@drawable/edittext_layout"
                             android:hint=""
                             android:importantForAccessibility="yes"
-                            android:inputType="textEmailAddress"
+                            android:inputType="textPassword"
                             tools:ignore="Autofill,LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
 
                         <ImageView
@@ -141,7 +141,7 @@
                             android:padding="5dp"
                             android:layout_marginEnd="10dp"
                             android:layout_gravity="end|center_vertical"
-                            android:src="@drawable/icon_open_eye"
+                            android:src="@drawable/icon_closed_eye"
                             android:contentDescription="@string/icon_visual_senha" />
                     </FrameLayout>
                 <LinearLayout

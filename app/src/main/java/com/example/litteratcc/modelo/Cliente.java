@@ -3,12 +3,14 @@ package com.example.litteratcc.modelo;
 import com.google.gson.annotations.SerializedName;
 
 public class Cliente {
-    @SerializedName("id")
+    @SerializedName("idCliente")
     private int idCliente;
     @SerializedName("nome")
     private String nome;
+    @SerializedName("user")
+    private String username;
     @SerializedName("cpf")
-    private int cpf;
+    private String cpf;
     @SerializedName("email")
     private String email;
     @SerializedName("telefone")
@@ -17,8 +19,9 @@ public class Cliente {
     private String senha;
     @SerializedName("status_conta")
     private String statusConta;
-    @SerializedName("fotoPerfil")
+    @SerializedName("imagemPerfil")
     private String fotoPerfil;
+
 
   /*  public Cliente(String idCliente, String fotoPerfil, String nome, String email, String senha){
         this.idCliente = idCliente;
@@ -39,10 +42,10 @@ public class Cliente {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
     public String getEmail() {
@@ -74,6 +77,12 @@ public class Cliente {
     }
     public void setFotoPerfil(String fotoPerfil) {
         this.fotoPerfil = fotoPerfil;
+    }
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 

@@ -20,7 +20,7 @@
         android:padding="30dp"
         android:text="@string/tit_cadastro"
         android:textAlignment="center"
-        android:textColor="?attr/colorOnBackground"
+        android:textColor="?attr/colorOnSurfaceVariant"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,18 +48,20 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingBottom="30dp"
+            android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp">
+                android:layout_marginHorizontal="50dp">
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/tvEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -71,7 +73,8 @@
                 <EditText
                     android:id="@+id/edtEmail"
                     android:layout_width="match_parent"
-                    android:layout_height="51dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="15dp"
                     android:padding="10dp"
                     android:textColor="?attr/text_color"
                     android:layout_gravity="center_horizontal"
@@ -82,53 +85,57 @@
                     tools:ignore="Autofill,LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
 
                 <TextView
-                    android:id="@+id/textView32"
+                    android:id="@+id/tvCPF"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:layout_weight="0"
-                    android:text="CPF"
+                    android:text="@string/cpf"
                     android:textColor="?attr/colorOnBackground"
                     android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/edtCPF"
                     android:layout_width="match_parent"
-                    android:layout_height="51dp"
+                    android:layout_height="50dp"
                     android:padding="10dp"
                     android:textColor="?attr/text_color"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/edittext_layout"
                     android:hint=""
+                    android:layout_marginBottom="15dp"
+                    android:maxLength="14"
                     android:importantForAccessibility="yes"
                     android:inputType="textEmailAddress"
                     tools:ignore="Autofill,LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
 
                 <TextView
-                    android:id="@+id/textView23"
+                    android:id="@+id/tvTelefone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:layout_weight="0"
-                    android:text="Telefone"
+                    android:text="@string/telefone"
                     android:textColor="?attr/colorOnBackground"
                     android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/edtTelefone"
                     android:layout_width="match_parent"
-                    android:layout_height="51dp"
+                    android:layout_height="50dp"
                     android:padding="10dp"
                     android:textColor="?attr/text_color"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/edittext_layout"
                     android:hint=""
+                    android:layout_marginBottom="15dp"
+                    android:maxLength="15"
                     android:importantForAccessibility="yes"
                     android:inputType="textEmailAddress"
                     tools:ignore="Autofill,LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
 
                 <TextView
-                    android:id="@+id/tvv"
+                    android:id="@+id/tvUsuario"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -140,12 +147,36 @@
                 <EditText
                     android:id="@+id/edtUser"
                     android:layout_width="match_parent"
-                    android:layout_height="51dp"
+                    android:layout_height="50dp"
                     android:padding="10dp"
                     android:textColor="?attr/text_color"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/edittext_layout"
                     android:hint=""
+                    android:layout_marginBottom="15dp"
+                    android:inputType="textPersonName"
+                    android:importantForAccessibility="yes"
+                    tools:ignore="Autofill,LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+                <TextView
+                    android:id="@+id/tvNome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/nome"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/edtNome"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:textColor="?attr/text_color"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/edittext_layout"
+                    android:hint=""
+                    android:layout_marginBottom="15dp"
                     android:inputType="textPersonName"
                     android:importantForAccessibility="yes"
                     tools:ignore="Autofill,LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
@@ -162,12 +193,13 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp">
 
                     <EditText
                         android:id="@+id/edtSenha"
                         android:layout_width="match_parent"
-                        android:layout_height="51dp"
+                        android:layout_height="50dp"
                         android:padding="10dp"
                         android:textColor="?attr/text_color"
                         android:layout_gravity="center_horizontal"
@@ -184,7 +216,7 @@
                         android:padding="5dp"
                         android:layout_marginEnd="10dp"
                         android:layout_gravity="end|center_vertical"
-                        android:src="@drawable/icon_open_eye"
+                        android:src="@drawable/icon_closed_eye"
                         android:contentDescription="@string/icon_visual_senha" />
                 </FrameLayout>
 
@@ -200,12 +232,13 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp">
 
                     <EditText
                         android:id="@+id/edtConfirmaSenha"
                         android:layout_width="match_parent"
-                        android:layout_height="51dp"
+                        android:layout_height="50dp"
                         android:layout_gravity="center_horizontal"
                         android:padding="10dp"
                         android:textColor="?attr/text_color"
@@ -231,10 +264,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginVertical="20dp"
                     android:background="@drawable/botao_gradiente_forma"
-                    android:paddingStart="30dp"
-                    android:paddingEnd="30dp"
+                    android:paddingHorizontal="30dp"
+                    android:paddingVertical="10dp"
+                    android:textSize="18sp"
                     android:text="@string/btnCadastro"
                     android:textAllCaps="false"
                     android:textColor="?attr/colorOnPrimary" />

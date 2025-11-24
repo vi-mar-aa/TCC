@@ -1,112 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="180dp"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:background="?attr/backgroundColor">
+    android:elevation="5dp"
+    android:layout_marginHorizontal="5dp"
+    android:layout_marginVertical="10dp"
+    android:background="@drawable/item_design"
+    android:backgroundTint="?attr/colorSurface">
+
+    <FrameLayout
+        android:id="@+id/cxImgItem"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:backgroundTint="?attr/item_photo_back"
+        android:background="@drawable/img_item_livro"
+        android:paddingVertical="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/llInfoItem">
+        <View
+            android:id="@+id/background_cinza"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/fundo_popmenu"
+            android:visibility="gone" />
+        <ImageView
+            android:id="@+id/imgItem"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:contentDescription="@string/imagem_item"
+            android:src="@drawable/img_livro_teste"/>
+
+
+
+        <ImageButton
+            android:id="@+id/btnReservar"
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="5dp"
+            android:layout_gravity="bottom|end"
+            android:background="@drawable/layout_textview"
+            android:backgroundTint="?attr/colorSurface"
+            android:clickable="true"
+            android:layout_marginBottom="48dp"
+            android:visibility="visible"
+            android:contentDescription="@string/icone_reserva"
+            android:focusable="true"
+            android:padding="0dp"
+            android:src="@drawable/icon_reservar"
+            app:tint="?attr/colorOnPrimary"
+            tools:ignore="TouchTargetSizeCheck" />
+        <ImageButton
+            android:id="@+id/btnDelete"
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/layout_textview"
+            android:backgroundTint="?attr/colorSurface"
+            android:clickable="true"
+            android:paddingHorizontal="5dp"
+            android:layout_marginBottom="5dp"
+            android:visibility="visible"
+            android:contentDescription="@string/icone_delete"
+            android:focusable="true"
+            android:padding="5dp"
+            android:src="@drawable/icon_delete"
+            app:tint="?attr/colorOnPrimary"
+            tools:ignore="TouchTargetSizeCheck"
+            android:layout_gravity="bottom|end"/>
+    </FrameLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/llInfoItem"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:backgroundTint="?attr/item_tit_back"
-        android:elevation="10dp"
-        android:background="@drawable/item_design"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="6dp"
+
+        app:layout_constraintTop_toBottomOf="@id/cxImgItem"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <FrameLayout
-            android:layout_width="match_parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/tvTitulo"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="?attr/item_photo_back"
-            android:paddingTop="10dp"
-            android:background="@drawable/img_item_livro"
-            android:paddingHorizontal="15dp">
-            <ImageView
-                android:id="@+id/imgItem"
-                android:layout_width="wrap_content"
-                android:focusable="true"
-                android:clickable="true"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/imagem_item"
-                android:src="@drawable/img_livro_teste"/>
-        </FrameLayout>
+            android:layout_gravity="center_horizontal"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/titulo_item"
+            android:textColor="?attr/colorOnBackground"
+            android:textSize="10sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvAutor"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:backgroundTint="#F3F3F3"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
-            <TextView
-                android:id="@+id/tvTitulo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/titulo_item"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:paddingTop="10dp"
-                android:textColor="?attr/colorOnBackground"
-                android:textAllCaps="false"
-                android:layout_gravity="center_horizontal"
-                android:textSize="16sp"/>
+            android:layout_gravity="center_horizontal"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/autor_item"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="10sp" />
 
-            <TextView
-                android:id="@+id/tvAutor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:layout_gravity="center_horizontal"
-                android:textAllCaps="false"
-                android:textColor="?attr/colorOnPrimary"
-                android:text="@string/autor_item"/>
-
-            <TextView
-                android:id="@+id/btnInformacao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:clickable="true"
-                android:focusable="true"
-                android:padding="5dp"
-                android:text="@string/btnInformacao"
-                android:textAllCaps="false"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="13sp"
-                tools:ignore="TouchTargetSizeCheck" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/btnInformacao"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <View
-                android:layout_width="136dp"
-                android:layout_height="0dp" />
-
-            <ImageButton
-                android:id="@+id/btnDelete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_gravity="end|bottom"
-                android:background="@color/zxing_transparent"
-                android:clickable="true"
-                app:tint="?attr/colorOnPrimary"
-                android:contentDescription="@string/icone_delete"
-                android:focusable="true"
-                android:src="@drawable/icon_delete"
-                tools:ignore="TouchTargetSizeCheck" />
-        </LinearLayout>
+            android:layout_gravity="center_horizontal"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="4dp"
+            android:text="@string/btnInformacao"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="10sp"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

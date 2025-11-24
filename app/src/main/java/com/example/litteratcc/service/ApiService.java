@@ -1,103 +1,89 @@
 package com.example.litteratcc.service;
 import com.example.litteratcc.modelo.CadastroRequest;
 import com.example.litteratcc.modelo.Cliente;
-import com.example.litteratcc.modelo.ListaDeDesejos;
+import com.example.litteratcc.modelo.ListaDesejos;
 import com.example.litteratcc.modelo.LoginRequest;
 import com.example.litteratcc.modelo.MessageResponse;
 import com.example.litteratcc.modelo.Midia;
+import com.example.litteratcc.request.EmailRequest;
+import com.example.litteratcc.request.EmprestimoRequest;
+import com.example.litteratcc.request.FavoritoRequest;
+import com.example.litteratcc.request.FiltroAcervoRequest;
+import com.example.litteratcc.request.GeneroRequest;
+import com.example.litteratcc.request.MidiaRequest;
+import com.example.litteratcc.request.RenovacaoRequest;
+import com.example.litteratcc.request.RequestPesquisaAcervo;
+import com.example.litteratcc.request.ReservaRequest;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.GET;
-import retrofit2.http.PATCH;
+import retrofit2.http.HTTP;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 
 public interface ApiService {
 
-    //LOGIN
+    //ROTAS DE CLIENTE
     @POST("LoginCliente")
-    Call<String> loginCliente(@Body LoginRequest login);
-    //CADASTRO
-
+    Call<String> loginCliente(@Body LoginRequest request);
     @POST("CadastrarCliente")
     Call<String> cadastrarCliente(@Body CadastroRequest cadastro);
+    @POST("BuscarLeitorPorEmail")
+    Call<Cliente> getClienteByEmail(@Body EmailRequest email);
+    @GET("cliente/{id}/imagem")
+    Call<ResponseBody> getImagemCliente(@Path("id") int id);
 
     //TESTE DE CONEXÃO
     @GET("Joana")
     Call<MessageResponse> getMensagem();
 
-    //PERFIL
-    @PATCH("AlterarSenha")
-    Call<Cliente> alteraSenha(@Path("id") int id, @Body Cliente cliente);
+    //ROTAS DE PERFIL
+    @POST("/AlterarTodosDadosCliente")//nn precisa preencher tudo pra mudar, no banco senha nn fica vazia
+    Call<String> alterarInfosClienteTeste(@Body Cliente novasInfos);
+    @POST("InativarContaCliente")
+    Call<String> inativarConta(@Body Cliente cliente);
 
-    //RESERVA
-    @GET("Reservas")
-    Call<List<Midia>> getReservas();
+    //ROTAS DA MAIN
+    @GET("ListarPopulares")
+    Call<List<Midia>> getMidiasPop();
+    @POST("ListarMidiasPorGenero")
+    Call<List<Midia>> listarMidiasPorGenero(@Body GeneroRequest genero);
+    @POST("ListaMidiaEspecifica")
+    Call<List<Midia>> getMidiaById(@Body MidiaRequest idMidia);
+    @POST("ListarMidiasSimilares")
+    Call<List<Midia>> getMidiasSimilares(@Body MidiaRequest idMidia);
+    @POST("AdicionarDesejosCliente")
+    Call<Boolean> favoritarMidia(@Body FavoritoRequest favoritoRequest);
 
-    @POST("Reservas")
-    Call<Midia> reservarMidia(@Body Midia midia);
+    //ROTAS DO LISTA DE DESEJOS
+    @POST("ListarDesejosCliente")
+    Call<List<ListaDesejos>> listarDesejosCliente(@Body Cliente cliente);
+    @HTTP(method = "DELETE", path = "DeletarDesejosCliente", hasBody = true)
+    Call<ResponseBody> deletarDesejoCliente(@Body FavoritoRequest request);
 
-    //FAVORITAR
-    @POST("ListaDesejo")
-    Call<Midia> favoritarMidia(@Body Midia midia);// @Body é o objeto que será enviado no corpo da requisição
+    //ROTAS DO ACERVO
+    @POST("PesquisarAcervo")
+    Call<List<Midia>> pesquisarAcervo(@Body RequestPesquisaAcervo pesquisa);
+    @POST("FiltroAcervo")
+    Call<List<Midia>> filtrarAcervo(@Body FiltroAcervoRequest filtro);
 
-    @POST("ListaDesejo")
-    Call<ListaDeDesejos> getFavoritado(@Path("id") int idMidia);
-    @GET("ListaDesejo")
-    Call<List<Midia>> getFavoritos();
+    //ROTAS DE RESERVAS
+    @POST("/ListarReservasCliente")
+    Call<List<ReservaRequest>> listarReservasCliente(@Body Cliente cliente);
+    @POST("AdicionarReserva")
+    Call<Boolean> reservarMidia(@Body ReservaRequest reservaRequest);
 
-    //EXCLUIR DA LISTA DE FAVORITOS
-    @DELETE("ListaDesejo/{id}")
-    Call<Void> deleteFavorito(@Path("id") int idMidia);
-
-
-    //PAGINA SÓ COM LIVROS ESPECÍFICOS & MIDIAS CARROSSEL
-    @GET("Midia")
-    Call<List<Midia>> getMidiaCarrossel(
-            @Query("genero") String genero
-    );
-
-    //CARROSSEL COM OS LIVROS POPULARES
-
-
-    //CLICK NA MÍDIA
-    @POST("Midia")
-    Call<Midia> clickMidia(
-            @Query("idTpMidia") int idTpMidia,
-            @Query("idMidia") int idMidia,
-            @Body Midia midia
-    );
-    //RESERVAR
-
-    //RESERVAR
-    @GET("Midia")
-    Call<List<Midia>> getMidiaById(@Query("id") int idMidia);
-
-
-    //HISTÓRICO DE RESERVAS
-
-    //RENOVAÇÃO
-
-    //TITULOS SIMILARES
-
-    //ATRASO
-
-    //HISTÓRICO DE EMPRÉSTIMOS
-
-    //ACERVO
-
-    //MAIN
-
-
-
-
-
-
+    //ROTAS DE EMPRÉSTIMO
+    @POST("RenovarEmprestimo")
+    Call<String> renovarEmprestimo(@Body RenovacaoRequest request);
+    @POST("ListarEmprestimosCliente")
+    Call<List<EmprestimoRequest>> listarEmprestimosCliente(@Body Cliente cliente);
+    @POST("ListarHistoricoEmprestimosCLiente")
+    Call<List<EmprestimoRequest>> listarHistoricoEmprestimosCliente(@Body Cliente cliente);
 
 }

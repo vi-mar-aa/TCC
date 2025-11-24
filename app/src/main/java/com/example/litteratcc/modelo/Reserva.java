@@ -1,37 +1,34 @@
 package com.example.litteratcc.modelo;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Reserva {
-    private String titulo;
-    private String autor;
-    private String prazoDevolucao;
+@SerializedName("idReserva")
+    private int idReserva;
+    @SerializedName("dataReserva")
+    private String dtReserva;
+    @SerializedName("dataLimite")
+    private String dtLimite;
+    @SerializedName("statusReserva")
+    private String statusReserva;
 
-    public Reserva(String titulo, String autor, String prazoDevolucao) {
-        this.titulo = titulo;
-        this.autor = autor;
-        this.prazoDevolucao = prazoDevolucao;
+    private Midia midia;
+
+
+    public Midia getMidia() {
+        return midia;
+    }
+    public int getIdReserva() {
+        return idReserva;
+    }
+    public String getDtReserva() {
+        return dtReserva;
+    }
+    public String getDtLimite() {
+        return dtLimite;
+    }
+    public String getStatusReserva() {
+        return statusReserva;
     }
 
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getAutor() {
-        return autor;
-    }
-
-    public void setAutor(String autor) {
-        this.autor = autor;
-    }
-
-    public String getPrazoDevolucao() {
-        return prazoDevolucao;
-    }
-
-    public void setPrazoDevolucao(String prazoDevolucao) {
-        this.prazoDevolucao = prazoDevolucao;
-    }
 }

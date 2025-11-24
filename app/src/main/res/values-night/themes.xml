@@ -14,6 +14,7 @@
         <item name="item_photo_back">@color/cinza</item>
         <item name="text_color">@color/preto_tom_secundario </item>
         <item name="fundo_popmenu">@color/fundo_popmenu_dark</item>
+        <item name="molduraQR_cor">@color/laranja_jambo</item>
 
         <!-- Barras -->
         <item name="android:statusBarColor">@android:color/transparent</item>

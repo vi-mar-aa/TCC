@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/clFiltroLivro"
+    xmlns:tools="http://schemas.android.com/tools">
+
+        <LinearLayout
+            android:id="@+id/llTitFiltroGenero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/layout_filtro_genero"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvGeneroFiltro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:text="@string/tit_genero_livro_filtro"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="19sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+
+            <ImageButton
+                android:id="@+id/btnGeneroFiltro"
+                tools:ignore="TouchTargetSizeCheck"
+                app:tint="?attr/colorOnPrimary"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center"
+                android:background="@color/transparente"
+                android:contentDescription="@string/icone_dropdown_genero"
+                android:padding="10dp"
+                android:tag="open"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/icon_combobox_down" />
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llFiltroGenero"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingVertical="15dp"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llTitFiltroGenero"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="match_parent" />
+
+        <!-- COLUNA 1 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
+            <CheckBox
+                android:id="@+id/cbAventura"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbAventura"
+                android:tag="aventura"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="15sp"
+                android:buttonTint="?attr/colorOnPrimary" />
+
+            <CheckBox
+                android:id="@+id/cbBiografia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbBiografia"
+                android:tag="biografia"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="15sp"
+                android:buttonTint="?attr/colorOnPrimary" />
+
+            <CheckBox
+                android:id="@+id/cbCiencia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbCiencia"
+                android:tag="ciencia"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="15sp"
+                android:buttonTint="?attr/colorOnPrimary" />
+
+            <CheckBox
+                android:id="@+id/cbComedia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbComedia"
+                android:tag="comedia"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="15sp"
+                android:buttonTint="?attr/colorOnPrimary" />
+
+
+
+            <CheckBox
+                android:id="@+id/cbDiario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbDiario"
+                android:tag="diario"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="15sp"
+                android:buttonTint="?attr/colorOnPrimary" />
+
+            <CheckBox
+                android:id="@+id/cbDistopia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbDistopia"
+                android:tag="distopia"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="15sp"
+                android:buttonTint="?attr/colorOnPrimary" />
+
+            <CheckBox
+                android:id="@+id/cbDrama"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbDrama"
+                android:tag="drama"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="15sp"
+                android:buttonTint="?attr/colorOnPrimary" />
+
+            <CheckBox
+                android:id="@+id/cbEnsaio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbEnsaio"
+                android:tag="ensaio"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="15sp"
+                android:buttonTint="?attr/colorOnPrimary" />
+
+            <CheckBox
+                android:id="@+id/cbFabula"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbFabula"
+                android:tag="fabula"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="15sp"
+                android:buttonTint="?attr/colorOnPrimary" />
+
+            <CheckBox
+                android:id="@+id/cbFantasia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbFantasia"
+                android:tag="fantasia"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="15sp"
+                android:buttonTint="?attr/colorOnPrimary" />
+            <CheckBox
+                android:id="@+id/cbConto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbConto"
+                android:tag="conto"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="15sp"
+                android:buttonTint="?attr/colorOnPrimary" />
+
+            <CheckBox
+                android:id="@+id/cbCronica"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbCronica"
+                android:tag="cronica"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="15sp"
+                android:buttonTint="?attr/colorOnPrimary" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="match_parent" />
+
+        <!-- COLUNA 2 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/cbFiccaoCientifica"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbFiccao"
+                android:tag="ficcaocientifica"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="15sp"
+                android:buttonTint="?attr/colorOnPrimary" />
+
+            <CheckBox
+                android:id="@+id/cbNovela"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbNovela"
+                android:tag="novela"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="15sp"
+                android:buttonTint="?attr/colorOnPrimary" />
+
+            <CheckBox
+                android:id="@+id/cbOutros"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbOutros"
+                android:tag="outros"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="15sp"
+                android:buttonTint="?attr/colorOnPrimary" />
+
+            <CheckBox
+                android:id="@+id/cbPeriodico"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbPeriodico"
+                android:tag="periodico"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="15sp"
+                android:buttonTint="?attr/colorOnPrimary" />
+
+            <CheckBox
+                android:id="@+id/cbPoesia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbPoesia"
+                android:tag="poesia"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="15sp"
+                android:buttonTint="?attr/colorOnPrimary" />
+
+            <CheckBox
+                android:id="@+id/cbPolicial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbPolicial"
+                android:tag="policial"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="15sp"
+                android:buttonTint="?attr/colorOnPrimary" />
+
+            <CheckBox
+                android:id="@+id/cbReportagem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbReportagem"
+                android:tag="reportagem"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="15sp"
+                android:buttonTint="?attr/colorOnPrimary" />
+
+            <CheckBox
+                android:id="@+id/cbRevista"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbRevista"
+                android:tag="revista"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="15sp"
+                android:buttonTint="?attr/colorOnPrimary" />
+
+            <CheckBox
+                android:id="@+id/cbRomance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbRomance"
+                android:tag="romance"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="15sp"
+                android:buttonTint="?attr/colorOnPrimary" />
+
+            <CheckBox
+                android:id="@+id/cbSuspense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbSuspense"
+                android:tag="suspense"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="15sp"
+                android:buttonTint="?attr/colorOnPrimary" />
+
+            <CheckBox
+                android:id="@+id/cbTerror"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbTerror"
+                android:tag="terror"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="15sp"
+                android:buttonTint="?attr/colorOnPrimary" />
+
+            <CheckBox
+                android:id="@+id/cbUtopia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbUtopia"
+                android:tag="Utopia"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="15sp"
+                android:buttonTint="?attr/colorOnPrimary" />
+            <CheckBox
+                android:id="@+id/cbArtigo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cbArtigo"
+                android:tag="artigo"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="15sp"
+                android:buttonTint="?attr/colorOnPrimary" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/llTitFiltroAno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/layout_filtro_ano"
+            android:minHeight="35dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llFiltroGenero"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="20dp"
+                android:text="@string/tit_ano_filtro"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="19sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="0.3"
+                android:layout_height="match_parent" />
+
+            <Spinner
+                android:id="@+id/spinAno"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/icon_combobox_down"
+                android:spinnerMode="dropdown"/>
+
+
+        </LinearLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
