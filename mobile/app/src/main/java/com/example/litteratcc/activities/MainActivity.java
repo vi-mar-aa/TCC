@@ -107,8 +107,8 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onItemLongClick(Midia midia) {
-                Toast.makeText(MainActivity.this, "Favoritos"+listaFavoritos.size(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(MainActivity.this, "RESERVAS"+listaReservas.size(), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(MainActivity.this, "Favoritos"+listaFavoritos.size(), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(MainActivity.this, "Reservas"+listaReservas.size(), Toast.LENGTH_SHORT).show();
 
             }
         },listaFavoritos, listaReservas);        rvMain.setAdapter(mainAdapter);

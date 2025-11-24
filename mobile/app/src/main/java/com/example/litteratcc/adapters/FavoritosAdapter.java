@@ -101,20 +101,21 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Favo
         holder.btnReservar.setAlpha(0f);
         holder.btnReservar.setScaleX(0.6f);
         holder.btnReservar.setScaleY(0.6f);
-        holder.itemView.setTag(false); // menu fechado inicialmente
+        holder.itemView.setTag(false);
 
 
-        // Click longo
+
         holder.itemView.setOnLongClickListener(v -> {
             listener.onItemLongClick(desejo.getMidia());
-            // Fundo escuro fade-in
+            holder.btnReservar.setImageResource(listaReservados.contains(midia.getIdMidia()) ? R.drawable.icon_reservado : R.drawable.icon_reservar);
+
             holder.background_cinza.setVisibility(View.VISIBLE);
             holder.background_cinza.animate()
                     .alpha(0.7f)
                     .setDuration(200)
                     .start();
 
-            // Botão Favoritar fade + scale
+
             holder.btnDelete.setVisibility(View.VISIBLE);
 
             holder.btnDelete.animate()
@@ -160,9 +161,8 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Favo
             }
         });
 
-        // Reservar
         holder.btnReservar.setOnClickListener(v -> {
-            Toast.makeText(context, "voltou nulo", Toast.LENGTH_SHORT).show();
+
             if (listener != null) {
                 if(listaReservados.contains(midia.getIdMidia())){
                     Toast.makeText(context, "ATENÇÃO: Esta mídia já foi reservada!", Toast.LENGTH_SHORT).show();
@@ -233,12 +233,6 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Favo
         menusAbertos.remove(holder);
     }
 
-    private void fecharTodosMenus() {
-        for (FavoritosAdapter.FavoritosViewHolder holder : new ArrayList<>(menusAbertos)) {
-            fecharMenu(holder);
-        }
-        menusAbertos.clear();
-    }
     public void setReservasIds(List<Integer> lista) {
         this.listaReservados = (lista != null) ? lista : new ArrayList<>();
         notifyDataSetChanged();
