@@ -243,6 +243,8 @@ public static class Rmidia
         { 
             try
             {
+                Console.WriteLine("Midia genero:"+midia.Genero);
+                Console.WriteLine("Midia genero enum:"+EnumHelper.ToStringValue(midia.Genero));
                 var livros = await repo.FiltroGeneroAcervo(EnumHelper.ToStringValue(midia.Genero));
                 return Results.Ok(livros);
             }
@@ -252,18 +254,36 @@ public static class Rmidia
             }
         });
         
-        app.MapPost("/FiltroAno", async ([FromBody] RequestPesquisa searchText, [FromServices] RepoMidia repo) => 
-        { 
+        app.MapPost("/FiltroAno", async ([FromBody] Mmidia midia, [FromServices] RepoMidia repo) => 
+        {
             try
             {
-                var livros = await repo.FiltroAnoAcervo(searchText.SearchText);
+                var livros = await repo.FiltroAnoAcervo(midia.Anopublicacao);
                 return Results.Ok(livros);
             }
-            catch(SqlException ex)
+            catch (SqlException ex)
             {
                 return Results.Problem("Erro no banco: " + ex.Message);
             }
         });
+
+      
+        app.MapPost("/FiltroAcervo", async ([FromBody] RequestFiltroAcervo filtro, [FromServices] RepoMidia repo) =>
+        {
+            try
+            {
+                var resultado = await repo.FiltroAcervoCompleto(filtro);
+                return Results.Ok(resultado);
+            }
+            catch (SqlException ex)
+            {
+                return Results.Problem("Erro no banco: " + ex.Message);
+            }
+        });
+
+
+
+
         
     }
 }

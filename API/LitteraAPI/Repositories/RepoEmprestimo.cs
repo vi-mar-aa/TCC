@@ -32,31 +32,27 @@ public class RepoEmprestimo
         {
           Midia = new Mmidia
           {
-            IdMidia = (int)reader["id_midia"],
-            Titulo = (string)reader["titulo"],
-            Autor = (string)reader["autor"],
-            Anopublicacao = (string)reader["ano_publicacao"],
-            Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
-
+            IdMidia = reader.GetInt32(reader.GetOrdinal("id_midia")),
+            Titulo = reader["titulo"] == DBNull.Value ? null : reader["titulo"].ToString(),
+            Autor = reader["autor"] == DBNull.Value ? null : reader["autor"].ToString(),
+            Anopublicacao = reader["ano_publicacao"] == DBNull.Value ? null : reader["ano_publicacao"].ToString(),
+            Imagem = UrlMidiaHelper.GetImagemMidiaUrl(reader.GetInt32(reader.GetOrdinal("id_midia")))
           },
           Emprestimo = new Memprestimo()
           {
-            IdEmprestimo = (int)reader["id_emprestimo"],
-            DataEmprestimo = (DateTime)reader["data_emprestimo"],
-            DataDevolucao = (DateTime)reader["data_devolucao"],
-            LimiteRenovacoes = (int)reader["limite_renovacoes"]
+            IdEmprestimo = reader.GetInt32(reader.GetOrdinal("id_emprestimo")),
+            DataEmprestimo = reader.GetDateTime(reader.GetOrdinal("data_emprestimo")),
+            DataDevolucao = reader.GetDateTime(reader.GetOrdinal("data_devolucao")),
+            LimiteRenovacoes = reader.GetInt32(reader.GetOrdinal("limite_renovacoes"))
           },
-          DiasAtraso = (int)reader["dias_atraso"],
-          ValorMulta = (decimal)reader["multa"],
-          StatusRenovacao = (int)reader["pode_renovar"]
+          DiasAtraso = reader["dias_atraso"] == DBNull.Value ? 0 : Convert.ToInt32(reader["dias_atraso"]),
+          ValorMulta = reader["multa"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["multa"]),
+          StatusRenovacao = reader["pode_renovar"] == DBNull.Value ? 0 : Convert.ToInt32(reader["pode_renovar"])
         });
-
       }
 
       return emprestimos;
-
     }
-
   }
 
   public async Task<List<RequestEmprestimo>> ListarHistoricoEmprestimosCliente (string email)

@@ -5,11 +5,25 @@ using LitteraAPI.Routes;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("PermitirTudo", policy =>
+    {
+        policy
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddSwaggerGen();
+
+
 builder.Services.AddScoped<RepoCliente>();
 builder.Services.AddScoped<RepoFuncionario>();
 builder.Services.AddScoped<RepoMidia>();
@@ -22,6 +36,9 @@ builder.Services.AddScoped<RepoParametros>();
 builder.Services.AddScoped<RepoMensagem>();
 builder.Services.AddScoped<RepoIndicacao>();
 builder.Services.AddScoped<RepoDenuncia>();
+
+
+
 var connectionString = builder.Configuration.GetConnectionString("SqlServer");
 builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =>
 {
@@ -36,20 +53,20 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 var app = builder.Build();
 
 
-
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-// Inativar Post e ver quais rotas faltam!!!!!!!!!!!!
-// o inativar midia, não possibilita inativar apenas um exemplar
-// listagem de emprestimos e reservas
-// questao do DEFAULT!!!!!!!!!
+
+app.UseCors("PermitirTudo");
 
 app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+
 app.Routescliente();
 app.Routesfuncionario();
 app.Routesmidia();
@@ -61,5 +78,6 @@ app.Routesparametros();
 app.RoutesMensagem();
 app.RoutesIndicacao();
 app.RoutesDenuncia();
-app.Run();
 
+
+app.Run();

@@ -14,5 +14,5 @@ public class RequestReserva
     
     public string ChaveIdentificadora { get; set; }
     
-    public string TempoRestante { get; set; }
+    public int TempoRestante { get; set; }
 }

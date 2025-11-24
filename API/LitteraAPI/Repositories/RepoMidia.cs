@@ -1,8 +1,11 @@
 using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Diagnostics;
 using LitteraAPI.DTOS;
 using LitteraAPI.Helpers;
 using LitteraAPI.Models;
 using Microsoft.Data.SqlClient;
+using System.Linq;
 
 namespace LitteraAPI.Repositories;
 
@@ -228,7 +231,6 @@ public class RepoMidia
                     Localpublicacao = ReaderHelper.GetStringSafe(reader, "local_publicacao"),
                     Npaginas = ReaderHelper.GetIntSafe(reader, "numero_paginas"),
                     Isbn = ReaderHelper.GetStringSafe(reader, "isbn"),
-                    //NomeTipo = ReaderHelper.GetStringSafe(reader, "nome_tipo"),
                     ContExemplares = ReaderHelper.GetIntSafe(reader, "quantidade_exemplares"),
                     Duracao = ReaderHelper.GetStringSafe(reader, "duracao"),
                     Estudio = ReaderHelper.GetStringSafe(reader, "estudio"),
@@ -457,6 +459,8 @@ public class RepoMidia
         var midia = new List<Mmidia>();
         
         using var con = new SqlConnection(_connectionString);
+      
+     
         using (var cmd = new SqlCommand ("sp_AcervoBuscar", con))
         { 
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -497,13 +501,18 @@ public class RepoMidia
         using (var cmd = new SqlCommand ("sp_AcervoBuscar", con))
         { 
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@genero", searchtext);
-            
+            cmd.Parameters.Add(new SqlParameter("@genero", SqlDbType.NVarChar, 100) { Value = searchtext });
+            Console.WriteLine($"Chamando sp_AcervoBuscar com @genero='{searchtext}'");
+
+            Debug.WriteLine("Valor II para @genero: " + searchtext);
             await con.OpenAsync();
+            
             using var reader = await cmd.ExecuteReaderAsync();
 
             while (await reader.ReadAsync())
             {
+                var g = ReaderHelper.GetStringSafe(reader, "genero");
+                Console.WriteLine($"Registro lido: {g}");
                 midia.Add(new Mmidia()
                 {
                     
@@ -516,8 +525,8 @@ public class RepoMidia
                     Isbn = ReaderHelper.GetStringSafe(reader, "isbn"),
                     Estudio = ReaderHelper.GetStringSafe(reader, "estudio"),
                     Roterista = ReaderHelper.GetStringSafe(reader, "roteirista"),
-                    Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
-                    
+                    Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"]),
+                    Genero = EnumHelper.GetEnumSafe<GeneroMidia>(reader["genero"])
                 });
 
             }
@@ -525,5 +534,53 @@ public class RepoMidia
             return midia;
         }
     }
+public async Task<List<Mmidia>> FiltroAcervoCompleto(RequestFiltroAcervo filtro)
+{
+    var midia = new List<Mmidia>();
+
+    // validação: tipo de mídia é obrigatório
+    if (string.IsNullOrWhiteSpace(filtro.Tipo))
+        throw new ArgumentException("O tipo de mídia deve ser selecionado.");
+
+    using var con = new SqlConnection(_connectionString);
+    using var cmd = new SqlCommand("sp_AcervoBuscar", con)
+    {
+        CommandType = System.Data.CommandType.StoredProcedure
+    };
+    // transforma listas em CSV, mas só se houver algum valor
+    string generosCsv = (filtro.Generos != null && filtro.Generos.Any()) ? string.Join(",", filtro.Generos) : null;
+    string anosCsv = (filtro.Anos != null && filtro.Anos.Any()) ? string.Join(",", filtro.Anos) : null;
+
+    cmd.Parameters.Add(new SqlParameter("@tipo", SqlDbType.VarChar, 50) { Value = filtro.Tipo }); // obrigatório
+    cmd.Parameters.Add(new SqlParameter("@genero", SqlDbType.VarChar, 100) { Value = (object)generosCsv ?? DBNull.Value });
+    cmd.Parameters.Add(new SqlParameter("@ano", SqlDbType.VarChar, 100) { Value = (object)anosCsv ?? DBNull.Value });
+
+    await con.OpenAsync();
+
+    using var reader = await cmd.ExecuteReaderAsync();
+
+    while (await reader.ReadAsync())
+    {
+        midia.Add(new Mmidia()
+        {
+            IdMidia = (int)reader["id_midia"],
+            Titulo = ReaderHelper.GetStringSafe(reader, "titulo"),
+            Autor = ReaderHelper.GetStringSafe(reader, "autor"),
+            Anopublicacao = ReaderHelper.GetStringSafe(reader, "ano_publicacao"),
+            NomeTipo = ReaderHelper.GetStringSafe(reader, "nome_tipo"),
+            Dispo = EnumHelper.GetEnumSafe<StatusMidia>(reader["disponibilidade"]),
+            Isbn = ReaderHelper.GetStringSafe(reader, "isbn"),
+            Estudio = ReaderHelper.GetStringSafe(reader, "estudio"),
+            Roterista = ReaderHelper.GetStringSafe(reader, "roteirista"),
+            Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"]),
+            Genero = EnumHelper.GetEnumSafe<GeneroMidia>(reader["genero"])
+        });
+    }
+
+    return midia;
+}
+
+
+
 }
 

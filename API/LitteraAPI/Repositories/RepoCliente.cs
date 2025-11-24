@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using LitteraAPI.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using LitteraAPI.Models;
@@ -82,7 +83,28 @@ public class RepoCliente
         {
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@email", cliente.Email);
-            cmd.Parameters.AddWithValue("@nome", cliente.Nome); 
+            cmd.Parameters.AddWithValue("@username", cliente.User); 
+            cmd.Parameters.AddWithValue("@telefone", cliente.Telefone); 
+            cmd.Parameters.AddWithValue("@imagem_base64", cliente.ImagemPerfil);
+            cmd.Parameters.AddWithValue("@senha", cliente.Senha);
+            
+            await con.OpenAsync();
+            using (var reader = await cmd.ExecuteReaderAsync())
+            {
+                return reader.HasRows;
+            }
+        }
+        
+    }
+    //2° pra nn precisar mudar tudo, nenhum campo em branco
+    public async Task<bool> AlterarDadosTeste(Mcliente cliente)
+    {
+        
+        using var con = new SqlConnection(_connectionString);
+        using (var cmd = new SqlCommand("sp_AtualizarPerfilClienteTeste", con))
+        {
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@email", cliente.Email);
             cmd.Parameters.AddWithValue("@username", cliente.User); 
             cmd.Parameters.AddWithValue("@telefone", cliente.Telefone); 
             cmd.Parameters.AddWithValue("@imagem_base64", cliente.ImagemPerfil);
@@ -97,10 +119,11 @@ public class RepoCliente
         
     }
 
-   /* public async Task<bool> AlterarFotoPerfil(Mcliente cliente)
+
+  /*  public async Task<bool> AlterarFotoPerfil(Mcliente cliente)
     {
         using var con = new SqlConnection(_connectionString);
-        using (var cmd = new SqlCommand("", con))
+        using (var cmd = new SqlCommand("sp_AtualizarImagemCliente", con))
         {
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@email", cliente.Email);
@@ -114,13 +137,30 @@ public class RepoCliente
         }
     }*/
      
-    public async Task<bool> SuspenderCliente(string email)
+  public async Task<bool> AlterarFotoPerfil(Mcliente cliente)
+  {
+      using var con = new SqlConnection(_connectionString);
+      using var cmd = new SqlCommand("sp_AtualizarImagemCliente", con)
+      {
+          CommandType = System.Data.CommandType.StoredProcedure
+      };
+    
+      cmd.Parameters.AddWithValue("@email", cliente.Email);
+      cmd.Parameters.AddWithValue("@imagem_base64", cliente.ImagemPerfil);
+    
+      await con.OpenAsync();
+    
+      int linhasAfetadas = await cmd.ExecuteNonQueryAsync();
+      return linhasAfetadas > 0;
+  }
+
+    public async Task<bool> SuspenderCliente(string user)
     {
         using var con = new SqlConnection(_connectionString);
         using (var cmd = new SqlCommand("sp_LeitorSuspender", con))
         { 
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@email", email); 
+            cmd.Parameters.AddWithValue("@username", user); 
             
             await con.OpenAsync();
             using (var reader = await cmd.ExecuteReaderAsync())
@@ -130,13 +170,13 @@ public class RepoCliente
         }
     }
     
-    public async Task<bool> InativarConta(string email)
+    public async Task<bool> InativarConta(string user)
     {
         using var con = new SqlConnection(_connectionString);
         using (var cmd = new SqlCommand("sp_LeitorSuspender", con))
         { 
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@email", email); 
+            cmd.Parameters.AddWithValue("@username", user); 
             
             await con.OpenAsync();
             using (var reader = await cmd.ExecuteReaderAsync())
@@ -167,7 +207,7 @@ public class RepoCliente
                     Email = (string)reader["email"],
                     Telefone = (string)reader["telefone"],
                     Status_conta = (string)reader["status_conta"],
-                    ImagemPerfil = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_cliente"])
+                    ImagemPerfil = UrlMidiaHelper.GetImagemClienteUrl((int)reader["id_cliente"])
                 });
             }
 
@@ -175,33 +215,39 @@ public class RepoCliente
         }
     }
     
-    public async Task<List<Mcliente>> PesquisarLeitorPorEmail(string searchText)
+    public async Task<Mcliente?> PesquisarLeitorPorEmail(string email)
     {
-        var cliente = new List<Mcliente>();
-        
         using var con = new SqlConnection(_connectionString);
-        using (var cmd = new SqlCommand("sp_InfosClientePorEmail", con))
-        { 
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@email", searchText);
-            await con.OpenAsync();
-            using var reader = await cmd.ExecuteReaderAsync();
-            while (await reader.ReadAsync())
-            {
-                cliente.Add(new Mcliente()
-                {
-                    IdCliente = (int)reader["id_cliente"],
-                    Nome = (string)reader["nome"],
-                    User = (string)reader["username"],
-                    Telefone = (string)reader["telefone"],
-                    Status_conta = (string)reader["status_conta"],
-                    ImagemPerfil = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_cliente"])
-                });
-            }
+        using var cmd = new SqlCommand("sp_BuscarClientePorEmail", con)
+        {
+            CommandType = CommandType.StoredProcedure
+        };
 
-            return cliente;
+        cmd.Parameters.AddWithValue("@email", email);
+
+        await con.OpenAsync();
+
+        using var reader = await cmd.ExecuteReaderAsync();
+
+        if (await reader.ReadAsync())
+        {
+            return new Mcliente
+            {
+                IdCliente = (int)reader["id_cliente"],
+                Nome = (string)reader["nome"],
+                Cpf = (string)reader["cpf"],
+                User = (string)reader["username"],
+                Email = (string)reader["email"],
+                Telefone = (string)reader["telefone"],
+                Status_conta = (string)reader["status_conta"],
+                ImagemPerfil = UrlMidiaHelper.GetImagemClienteUrl((int)reader["id_cliente"])
+            };
         }
+
+        return null; 
     }
+
+ 
     
     
 }

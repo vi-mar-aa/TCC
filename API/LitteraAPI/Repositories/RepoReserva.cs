@@ -1,3 +1,4 @@
+using System.Data;
 using LitteraAPI.Models;
 using LitteraAPI.DTOS;
 using LitteraAPI.Helpers;
@@ -48,7 +49,10 @@ public class RepoReserva
                         Autor  = ReaderHelper.GetStringSafe(reader,"autor"),
                         Anopublicacao = ReaderHelper.GetStringSafe(reader, "ano_publicacao"),
                         Imagem = UrlMidiaHelper.GetImagemMidiaUrl((int)reader["id_midia"])
-                    }
+                    },
+                    TempoRestante =  (int)reader["dias_restantes"]
+
+
                     
                 });
 
@@ -79,7 +83,7 @@ public class RepoReserva
                         IdReserva = (int)reader["id_reserva"],
                     },
                     ChaveIdentificadora = (string)reader["chave_identificadora"],
-                    TempoRestante = (string)reader["tempo_restante"],
+                    TempoRestante =  (int)reader["dias_restantes"],
                     Cliente = new Mcliente()
                     {
                         User = (string)reader["usuario"],
@@ -156,7 +160,7 @@ public class RepoReserva
                         IdReserva = (int)reader["id_reserva"],
                     },
                     ChaveIdentificadora = (string)reader["chave_identificadora"],
-                    TempoRestante = (string)reader["tempo_restante"],
+                    TempoRestante =  (int)reader["dias_restantes"],
                     Cliente = new Mcliente()
                     {
                         User = (string)reader["usuario"],

@@ -39,20 +39,35 @@ public static class Rcliente
             
         });
         
-        app.MapPost("/AlterarDadosCliente", async ([FromBody] Mcliente resetSenha, [FromServices] RepoCliente repoCliente) =>
+        app.MapPost("/AlterarDadosCliente", async ([FromBody] Mcliente editarCliente, [FromServices] RepoCliente repoCliente) =>
         {
             try
             {
-                var reset = await repoCliente.AlterarDados(resetSenha); 
+                var reset = await repoCliente.AlterarDados(editarCliente); 
                 return reset
-                    ?Results.Ok("Senha resetada com sucesso")
-                    :Results.NotFound("Senha não resetada");
+                    ?Results.Ok("Informações resetadas com sucesso")
+                    :Results.NotFound("Informações não resetadas");
             }
             catch (SqlException ex)
             {
                 return Results.Problem("Erro no banco: " + ex.Message);
             }  
         });
+        app.MapPost("/AlterarTodosDadosCliente",
+            async ([FromBody] Mcliente editarCliente, [FromServices] RepoCliente repoCliente) =>
+            {
+                try
+                {
+                    var reset = await repoCliente.AlterarDadosTeste(editarCliente);
+                    return reset
+                        ? Results.Ok("Informações resetadas com sucesso")
+                        : Results.NotFound("Informações não resetadas");
+                }
+                catch (SqlException ex)
+                {
+                    return Results.Problem("Erro no banco: " + ex.Message);
+                }
+            });
 
         app.MapPost("/CadastrarCliente", async ([FromBody] Mcliente cadastro, [FromServices] RepoCliente repoCliente) =>
         {
@@ -77,7 +92,7 @@ public static class Rcliente
         {
             try
             {
-                var status = await repo.SuspenderCliente(cliente.Email);
+                var status = await repo.SuspenderCliente(cliente.User);
 
                 return status
                     ? Results.Ok("Usuário suspenso.")
@@ -94,7 +109,7 @@ public static class Rcliente
         {
             try
             {
-                var status = await repo.InativarConta(cliente.Email);
+                var status = await repo.InativarConta(cliente.User);
 
                 return status
                     ? Results.Ok("Usuário suspenso.")
@@ -107,7 +122,7 @@ public static class Rcliente
             }
         });
 
-        /*app.MapPost("/AlterarFotoPerfilCliente", async ([FromBody]Mcliente cliente, [FromServices] RepoCliente repo) =>
+        app.MapPost("/AlterarFotoPerfilCliente", async ([FromBody]Mcliente cliente, [FromServices] RepoCliente repo) =>
         {
             try
             {
@@ -119,7 +134,7 @@ public static class Rcliente
             }catch(SqlException ex){
                 return Results.Problem("Erro no banco: " + ex.Message);
             }
-        });*/
+        });
 
         app.MapPost("/BuscarLeitorPorUsername", async ([FromBody] RequestPesquisa request, [FromServices] RepoCliente repo) =>
         {
@@ -135,17 +150,18 @@ public static class Rcliente
             
         });
 
-        app.MapPost("/BuscarLeitorPorEmail", async ([FromBody] RequestPesquisa request, [FromServices] RepoCliente repo) => //testada
+        app.MapPost("BuscarLeitorPorEmail", async ([FromBody] Mcliente cliente, [FromServices] RepoCliente repo) =>
         {
             try
             {
-                var leitor = await repo.PesquisarLeitorPorEmail(request.SearchText);
+                var leitor = await repo.PesquisarLeitorPorEmail(cliente.Email);
                 return Results.Ok(leitor);
             }
             catch(SqlException ex)
             {
                 return Results.Problem("Erro no banco: " + ex.Message);
             }
+            
         });
 
         

@@ -1,3 +1,5 @@
+using System.Runtime.Serialization;
+
 namespace LitteraAPI.Models;
 
 public class Mmidia
@@ -35,31 +37,32 @@ public class Mmidia
 
 public enum GeneroMidia
 {
-     romance,
-     novela,
-     conto,
-     fabula,
-     fantasia,
-     ficcaocientifica,
-     distopia,
-     utopia,
-     terror,
-     suspense,
-     policial,
-     aventura,
-     biografia,
-     diario,
-     ensaio,
-     artigo,
-     cronica,
-     reportagem,
-     revista,
-     periodico,
-     poesia,
-     comedia,
-     ciencia,
-     drama,
-     outros
+     Romance,
+     Novela,
+     Conto,
+     Fábula, 
+     Fantasia,
+     [EnumMember(Value = "Ficção Científica")]
+     FicçãoCientífica,
+     Distopia,
+     Utopia,
+     Terror,
+     Suspense,
+     Policial,
+     Aventura,
+     Biografia,
+     Diário,
+     Ensaio,
+     Artigo,
+     Crônica,
+     Reportagem,
+     Revista,
+     Periódico,
+     Poesia,
+     Comédia,
+     Ciência,
+     Drama,
+     Outros
      
 }
 public enum StatusMidia
