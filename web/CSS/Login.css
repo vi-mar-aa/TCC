@@ -1,0 +1,339 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+}
+
+#boasVindas {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+#mensagem {
+    background: linear-gradient(to bottom, #e9d5ff, #c4b5fd);
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2.5vw;
+}
+
+#tituloMensagem #WelcomeCadastro1 {
+    max-width: 510px;
+}
+
+#tituloMensagem #WelcomeCadastro2 {
+    max-width: 800px;
+}
+
+
+#mensagem h1 {
+    font-size: 4.5vw;
+    font-family: "Nunito Sans", sans-serif;
+    text-align: center;
+    color: #4c1d95;
+    margin-bottom: 0.75vw;
+}
+
+#textoMensagem {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 0.75vw 1.5vw;
+    margin-top: 1vw;
+    text-align: center;
+}
+
+#textoMensagem p {
+    color: #000000;
+    font-family: "Roboto", sans-serif;
+}
+
+#informacoes {
+    width: 50%;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5vw 4vw;
+}
+
+#dados {
+    width: 60%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3vw;
+}
+
+#logo img {
+    width: 12vw;
+}
+
+#loginForm,
+#cadastroForm {
+    width: 100%;
+}
+
+#loginForm {
+    height: 31vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.formulario label {
+    display: block;
+    margin-bottom: 0.88vh;
+    color: #6b7280;
+}
+
+.inputText {
+    margin-bottom: 1.5vw;
+}
+
+#esqueceu,
+#confirmarSenha {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5vw;
+}
+
+#esqueceuSenha {
+    color: #9ca3af;
+}
+
+#esqueceuSenha:hover {
+    color: #8b5cf6;
+}
+
+#loginForm .button {
+    color: #573280;
+    border-color: #573280;
+    background: #FEFEFF;
+    background: linear-gradient(0deg, rgba(254, 254, 255, 0.5) 17%, rgba(155, 140, 219, 0.2) 100%);
+}
+
+#loginForm .button .separator {
+    background-color: #573280;
+
+}
+
+input {
+    width: 100%;
+    padding: 0.5vw 1vw;
+    border: 1px solid #d1d5db;
+    border-radius: 0.3vw;
+}
+
+input:focus {
+    outline: none;
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 1px #8b5cf6;
+}
+
+#colocarSenha,
+#colocarSenha1 {
+    position: relative;
+}
+
+.senhaa,
+.senhaa senhaa1 {
+    position: absolute;
+    top: 0.4vw;
+    right: 0.75vw;
+    transform: translate(-30%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #6b7280;
+}
+
+.senhaa:hover {
+    color: #8b5cf6;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+div.mainContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+#acaoForm {
+    padding-top: 1vw;
+    display: flex;
+    justify-content: center;
+
+}
+
+#botaoCad {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    background: linear-gradient(to top, #ffffff, #ebe7ff);
+    color: #7e22ce;
+    border: 1px solid #c4b5fd;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#botaoCad {
+    padding: 0.8vw;
+    font-size: 0.8em;
+}
+
+.icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75vw;
+}
+
+.textoLog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    padding: 0.75vw 1.5vw;
+}
+
+
+#cadastrar {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: center;
+    margin-top: auto;
+    padding-top: 2vh;
+}
+
+#cadastrar p {
+    color: #6b7280;
+    margin-bottom: 0.25vw;
+}
+
+#cadastrar a {
+    color: #a78bfa;
+    text-decoration: none;
+}
+
+#cadastrar a:hover {
+    color: #7c3aed;
+}
+
+@media (max-width: 600px) {
+    #boasVindas {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        background: linear-gradient(to bottom, #e9d5ff, #c4b5fd);
+    }
+
+    #mensagem {
+        background: none;
+        width: 100%;
+        height: 20vh;
+    }
+
+    #informacoes {
+        width: 100%;
+        padding: 1.5vw 15vw;
+        background-color: #FFF;
+        border-radius: 15px 15px 0 0;
+    }
+
+    #loginForm {
+        height: 47%;
+        justify-content: space-evenly;
+    }
+
+    #mensagem h1 {
+        font-size: 12vw;
+        text-align: center;
+        padding: 5vw;
+    }
+
+    #textoMensagem {
+        display: none;
+    }
+
+    .formulario label {
+        font-size: 4.5vw;
+    }
+
+    .inputText {
+        margin-bottom: 5vw;
+    }
+
+    #esqueceuSenha {
+        font-size: 1em;
+    }
+
+    #cadastrar {
+        margin-bottom: 8vw;
+    }
+
+    #cadastrar p,
+    #cadastrar a {
+        font-size: 4vw;
+        margin: 0;
+    }
+
+    #dados {
+        width: 90%;
+        height: 78.8vh;
+        position: relative;
+    }
+
+    #logo {
+        margin: 0;
+    }
+
+    #logo img {
+        width: 36vw;
+    }
+
+    input {
+        width: 100%;
+        font-size: 5.5vw;
+    }
+
+    .senhaa,
+    .senhaa senhaa1 {
+        top: 1.5vw;
+    }
+
+    #botaoCad {
+        padding: 2vw;
+        margin-top: 5vw;
+    }
+}

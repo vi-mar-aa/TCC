@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/Login.css">
+    <title>Cadastro</title>
+</head>
+
+<body>
+    <div id="boasVindas">
+        <div id="mensagem">
+            <div id="tituloMensagem">
+                <h1 id="WelcomeCadastro2">Seja Bem-Vindo!</h1>
+                <div id="textoMensagem">
+                    <p>Cadastre-se agora e descubra um universo de conhecimento, leitura e aprendizado</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="informacoes">
+            <div id="dados">
+                <div id="logo">
+                    <img src="../paginas/imagens/logoLittera.png" alt="">
+                </div>
+
+                <form id="cadastroForm">
+                    <div class="formulario">
+                        <label for="email">Email</label>
+                        <input id="email" type="email" required class="inputText">
+                    </div>
+
+                    <div class="formulario">
+                        <label for="user">Usuário</label>
+                        <input id="user" type="user" required class="inputText">
+                    </div>
+
+                    <div class="formulario">
+                        <div id="esqueceu">
+                            <label for="password">Senha</label>
+                        </div>
+
+                        <div id="colocarSenha">
+                            <input id="senha" type="password" required class="inputText">
+                            <button type="button" class="senhaa">
+                                <!--para fazer a bolinha do olho!-->
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"> </circle>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="formulario">
+                        <div id="confirmarSenha">
+                            <label for="password">Confirmar Senha</label>
+                        </div>
+
+                        <div id="colocarSenha1">
+                            <input id="senha1" type="password" required class="inputText" style="margin-bottom: 2vw;">
+                            <button type="button" class="senhaa senhaa1">
+                                <!--para fazer a bolinha do olho!-->
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"> </circle>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="acaoForm">
+                        <button type="submit" id="botaoCad">
+                            Cadastre-se
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const toggleBtn = document.querySelector('.senhaa');
+            const colocarSenha = document.getElementById('senha');
+            const toggleBtn1 = document.querySelector('.senhaa1');
+            const colocarSenha1 = document.getElementById('senha1');
+            if (toggleBtn && colocarSenha) {
+                toggleBtn.addEventListener('click', function () {
+                    const type = colocarSenha.getAttribute('type') === 'password' ? 'text' : 'password';
+                    colocarSenha.setAttribute('type', type);
+                });
+            }
+            if (toggleBtn1 && colocarSenha1) {
+                toggleBtn1.addEventListener('click', function () {
+                    const type = colocarSenha1.getAttribute('type') === 'password' ? 'text' : 'password';
+                    colocarSenha1.setAttribute('type', type);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

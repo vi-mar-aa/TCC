@@ -1,0 +1,38 @@
+## Ignore arquivos de build
+bin/
+obj/
+
+## Arquivos de configuração do Rider
+.idea/
+*.sln.iml
+
+## VS Code (caso você abra por lá)
+.vscode/
+
+## Ignorar arquivos do Visual Studio (se já tiver aberto por ele)
+.vs/
+
+## Ignorar configurações de usuário
+*.user
+*.suo
+
+## Arquivos de log e temporários
+*.log
+*.tmp
+
+## Arquivos de publish locais
+publish/
+*.db
+*.sqlite
+
+## Configurações locais e sensíveis
+appsettings.Development.json
+secrets.json
+
+## Ignorar dependências resolvidas
+*.nupkg
+*.snupkg
+
+## Sistema
+.DS_Store
+Thumbs.db

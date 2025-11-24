@@ -1,0 +1,354 @@
+body {
+    margin: 0, auto;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #faf8ff;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 300px;
+    padding: 24px 12px 24px 12px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo {
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.logo img {
+    width: 190px;
+    margin-bottom: 8px;
+}
+
+.logomobile {
+    display: none;
+}
+
+.logo-text {
+    font-family: 'Georgia', serif;
+    font-size: 2.5rem;
+    color: #7d4bb1;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.logo-sub {
+    font-family: 'Georgia', serif;
+    font-size: 1.3rem;
+    color: #b39ddb;
+    letter-spacing: 4px;
+    margin-top: -10px;
+}
+
+#sumario h1,
+#sumario2 h1 {
+    text-decoration: none;
+    color: #4b2e83;
+    font-size: 2vw;
+    font-family: "bit";
+    padding: 2%;
+    cursor: pointer;
+}
+
+#sumario,
+#sumario2 {
+    background: linear-gradient(90deg, #b39ddb 0%, #d1c4e9 50%);
+    border-radius: 2%;
+    font-size: 3vw;
+    width: 55%;
+    margin: 2%;
+    margin-left: 25%;
+    height: 2.1vw;
+}
+
+
+#sumario,
+#sumario2 {
+    display: none;
+}
+
+.fltro-grupo {
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.fltro-titulo {
+    background: linear-gradient(90deg, #b39ddb 0%, #d1c4e9 100%);
+    color: #4b2e83;
+    font-weight: bold;
+    padding: 8px 0 8px 16px;
+    border-radius: 8px 8px 0 0;
+    font-size: 1.1rem;
+    margin-bottom: 0;
+}
+
+.fltro-opcoes {
+    background: #f7f6fa;
+    border-radius: 0 0 8px 8px;
+    padding: 8px 0 8px 16px;
+    box-shadow: 0 1px 2px #e0e0e0;
+}
+
+.fltro-opcoes label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 1rem;
+    color: #4b2e83;
+    cursor: pointer;
+}
+
+.fltro-opcoes input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.conteudo-principal {
+    flex: 1;
+    padding: 32px 32px 32px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.barra-pesquisa-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 24px;
+
+}
+
+.barra-pesquisa {
+    width: 100%;
+    height: 36px;
+    border: 2px solid #b39ddb;
+    border-radius: 18px;
+    padding: 0 40px 0 16px;
+    font-size: 1.1rem;
+    outline: none;
+    background: #fff;
+    color: #4b2e83;
+    display: flex;
+}
+
+.icon-pesquisa {
+    position: relative;
+    right: 36px;
+    color: #7d4bb1;
+    font-size: 1.3rem;
+    pointer-events: none;
+}
+
+.tabs {
+    display: flex;
+    margin-bottom: 0;
+}
+
+.tab {
+    padding: 10px 36px;
+    background: #f7f6fa;
+    border: 2px solid #b39ddb;
+    border-bottom: none;
+    border-radius: 12px 12px 0 0;
+    color: #4b2e83;
+    font-weight: 500;
+    cursor: pointer;
+    margin-right: 4px;
+    font-size: 1.1rem;
+    transition: background 0.2s;
+}
+
+.tab.active {
+    background: #fff;
+    color: #7d4bb1;
+    border-bottom: 2px solid #fff;
+}
+
+.acervo-content {
+    background: #f7f6fa;
+    border: 2px solid #b39ddb;
+    border-radius: 0 16px 16px 16px;
+    padding: 24px;
+    margin-top: -2px;
+    overflow-y: auto;
+    height: 100vh;
+}
+
+.coluna-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.acervo-card {
+    background: #fff;
+    border: 2px solid #b39ddb;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 8px 16px 8px;
+    box-shadow: 0 2px 6px #e0e0e0;
+}
+
+.acervo-card img {
+    width: 120px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 12px;
+}
+
+.acervo-card .titulo {
+    font-weight: bold;
+    color: #4b2e83;
+    font-size: 1.05rem;
+    margin-bottom: 2px;
+}
+
+.acervo-card .autor {
+    font-size: 0.95rem;
+    color: #7d4bb1;
+    font-style: italic;
+    margin-bottom: 6px;
+}
+
+.acervo-card .info-link {
+    color: #7d4bb1;
+    font-size: 0.95rem;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 4px;
+}
+
+.acervo-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.acervo-content::-webkit-scrollbar-thumb {
+    background: #d1c4e9;
+    border-radius: 8px;
+}
+
+@media (max-width: 1200px) {
+    .coluna-cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .div_chekBoxs,.div_chekBoxs1{
+        display: flex;
+    }
+ 
+    .sidebar {
+        display: none;
+    }
+    
+
+    .logomobile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40vw;
+        margin-left: 31%;
+        margin-bottom: 8px;
+    }
+    #sumario{
+        border-top-left-radius:15px ;
+        border-top-right-radius:15px ;
+        border-bottom-left-radius:0px ;
+        border-bottom-right-radius:0px ;
+    } 
+
+    #sumario h1 {
+     border-bottom: solid 2px #7d4bb1;
+     margin-bottom: 0;
+    }
+    #sumario2 h1{
+        border-bottom: solid 2px #7d4bb1;
+        margin-bottom: 0;
+    }
+
+    #sumario,
+    #sumario2 {
+        display: block;
+        height: 250px;
+        margin: 0 auto;
+        border: solid 2px #7d4bb1;
+    }
+    #sumario2{
+        border-top: none;
+    }
+
+
+    #sumario label,
+    input {
+        display: none;
+    }
+
+    #sumario2 label,
+    input {
+        display: none;
+    }
+
+    .tabs {
+        align-items: center;
+        margin: 5%;
+    }
+
+    .tab.active {
+        margin-right: 20%;
+        margin-left: 25%;
+        border-radius: 12px;
+        border: 2px solid #b39ddb;
+
+    }
+
+    .tab {
+        border-radius: 12px;
+        border: 2px solid #b39ddb;
+    }
+
+    .barra-pesquisa {
+        width: 84%;
+    }
+
+    .acervo-content {
+        width: 85%;
+        height: auto;
+        margin-left: 7%;
+        border: none;
+        background: none;
+    }
+
+    .acervo-card {
+        width: 22vw;
+    }
+}
+
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 12px;
+    }
+
+    .conteudo-principal {
+        padding: 16px;
+    }
+
+    .coluna-cards {
+        grid-template-columns: 1fr;
+    }
+}
